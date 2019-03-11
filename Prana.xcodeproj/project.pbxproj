@@ -1,0 +1,520 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		90218A1D06D09F772C7F8DB2 /* Pods_Prana.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C6652367A132E9EB12D69F8 /* Pods_Prana.framework */; };
+		AA17201B222670420080BD71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA17201A222670420080BD71 /* AppDelegate.swift */; };
+		AA172022222670420080BD71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA172020222670420080BD71 /* Main.storyboard */; };
+		AA172024222670450080BD71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA172023222670450080BD71 /* Assets.xcassets */; };
+		AA172027222670450080BD71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA172025222670450080BD71 /* LaunchScreen.storyboard */; };
+		AA7FE2D4222720EB0092E8A6 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7FE2D3222720EB0092E8A6 /* WelcomeViewController.swift */; };
+		AA7FE2D6222721130092E8A6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7FE2D5222721130092E8A6 /* LoginViewController.swift */; };
+		AA7FE2D82227213F0092E8A6 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7FE2D72227213F0092E8A6 /* SignupViewController.swift */; };
+		CA97DB0F22296163002C5592 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA97DB0E22296163002C5592 /* Session.swift */; };
+		CA97DB112229893F002C5592 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA97DB102229893F002C5592 /* Constants.swift */; };
+		CA97DB1322298BF1002C5592 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA97DB1222298BF1002C5592 /* HistoryViewController.swift */; };
+		CA97DB152229A546002C5592 /* SesseionRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA97DB142229A546002C5592 /* SesseionRecordCell.swift */; };
+		CACC9C87223356D0008C54B7 /* BreathingGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC9C86223356D0008C54B7 /* BreathingGraph.swift */; };
+		CAD502F52231BCF500F97B31 /* PranaDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502F42231BCF500F97B31 /* PranaDeviceManager.swift */; };
+		CAD502F72231BEB900F97B31 /* PranaDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502F62231BEB900F97B31 /* PranaDevice.swift */; };
+		CAD502F92231C04F00F97B31 /* DevicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502F82231C04F00F97B31 /* DevicesViewController.swift */; };
+		CAD502FB2231C0B200F97B31 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502FA2231C0B200F97B31 /* Log.swift */; };
+		CAD502FD2231C48E00F97B31 /* LiveGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502FC2231C48E00F97B31 /* LiveGraphViewController.swift */; };
+		CAD7D34E2229364D00F3C805 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD7D34D2229364D00F3C805 /* FirstViewController.swift */; };
+		D70C2FE7223452EF00EE6A22 /* PostureIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70C2FE6223452EF00EE6A22 /* PostureIndicator.swift */; };
+		D79A36D32227C6DD0085D3FA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79A36D22227C6DC0085D3FA /* MainViewController.swift */; };
+		D79A36D6222827E50085D3FA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79A36D5222827E50085D3FA /* Utils.swift */; };
+		D79A36D9222838820085D3FA /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79A36D8222838820085D3FA /* APIClient.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8C6652367A132E9EB12D69F8 /* Pods_Prana.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Prana.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A59A087C0077029F20DCF11B /* Pods-Prana.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Prana.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Prana/Pods-Prana.debug.xcconfig"; sourceTree = "<group>"; };
+		AA172017222670420080BD71 /* Prana.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Prana.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA17201A222670420080BD71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		AA172021222670420080BD71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		AA172023222670450080BD71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AA172026222670450080BD71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		AA172028222670450080BD71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA7FE2D3222720EB0092E8A6 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		AA7FE2D5222721130092E8A6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		AA7FE2D72227213F0092E8A6 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		AF7503FA2C2D971486D6AB1B /* Pods-Prana.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Prana.release.xcconfig"; path = "Pods/Target Support Files/Pods-Prana/Pods-Prana.release.xcconfig"; sourceTree = "<group>"; };
+		CA97DB0E22296163002C5592 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		CA97DB102229893F002C5592 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		CA97DB1222298BF1002C5592 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		CA97DB142229A546002C5592 /* SesseionRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SesseionRecordCell.swift; sourceTree = "<group>"; };
+		CACC9C86223356D0008C54B7 /* BreathingGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingGraph.swift; sourceTree = "<group>"; };
+		CAD502F42231BCF500F97B31 /* PranaDeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranaDeviceManager.swift; sourceTree = "<group>"; };
+		CAD502F62231BEB900F97B31 /* PranaDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranaDevice.swift; sourceTree = "<group>"; };
+		CAD502F82231C04F00F97B31 /* DevicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesViewController.swift; sourceTree = "<group>"; };
+		CAD502FA2231C0B200F97B31 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		CAD502FC2231C48E00F97B31 /* LiveGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveGraphViewController.swift; sourceTree = "<group>"; };
+		CAD7D34D2229364D00F3C805 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		D70C2FE6223452EF00EE6A22 /* PostureIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureIndicator.swift; sourceTree = "<group>"; };
+		D79A36D22227C6DC0085D3FA /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		D79A36D5222827E50085D3FA /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		D79A36D8222838820085D3FA /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA172014222670420080BD71 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90218A1D06D09F772C7F8DB2 /* Pods_Prana.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3042688EC43AD4A541F10BF7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8C6652367A132E9EB12D69F8 /* Pods_Prana.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AA17200E222670420080BD71 = {
+			isa = PBXGroup;
+			children = (
+				AA172019222670420080BD71 /* Prana */,
+				AA172018222670420080BD71 /* Products */,
+				DB3A19F4F75F25E2C7A80F47 /* Pods */,
+				3042688EC43AD4A541F10BF7 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		AA172018222670420080BD71 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AA172017222670420080BD71 /* Prana.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AA172019222670420080BD71 /* Prana */ = {
+			isa = PBXGroup;
+			children = (
+				CAD502F32231BC9800F97B31 /* Device */,
+				D79A36D7222838580085D3FA /* RestAPI */,
+				D79A36D42228279C0085D3FA /* Utils */,
+				AA17201A222670420080BD71 /* AppDelegate.swift */,
+				AA7FE2D3222720EB0092E8A6 /* WelcomeViewController.swift */,
+				AA7FE2D5222721130092E8A6 /* LoginViewController.swift */,
+				AA7FE2D72227213F0092E8A6 /* SignupViewController.swift */,
+				AA172020222670420080BD71 /* Main.storyboard */,
+				AA172023222670450080BD71 /* Assets.xcassets */,
+				AA172025222670450080BD71 /* LaunchScreen.storyboard */,
+				AA172028222670450080BD71 /* Info.plist */,
+				D79A36D22227C6DC0085D3FA /* MainViewController.swift */,
+				CAD7D34D2229364D00F3C805 /* FirstViewController.swift */,
+				CA97DB0E22296163002C5592 /* Session.swift */,
+				CA97DB102229893F002C5592 /* Constants.swift */,
+				CA97DB1222298BF1002C5592 /* HistoryViewController.swift */,
+				CA97DB142229A546002C5592 /* SesseionRecordCell.swift */,
+				CAD502F82231C04F00F97B31 /* DevicesViewController.swift */,
+				CAD502FC2231C48E00F97B31 /* LiveGraphViewController.swift */,
+				CACC9C86223356D0008C54B7 /* BreathingGraph.swift */,
+				D70C2FE6223452EF00EE6A22 /* PostureIndicator.swift */,
+			);
+			path = Prana;
+			sourceTree = "<group>";
+		};
+		CAD502F32231BC9800F97B31 /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				CAD502F42231BCF500F97B31 /* PranaDeviceManager.swift */,
+				CAD502F62231BEB900F97B31 /* PranaDevice.swift */,
+			);
+			path = Device;
+			sourceTree = "<group>";
+		};
+		D79A36D42228279C0085D3FA /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				D79A36D5222827E50085D3FA /* Utils.swift */,
+				CAD502FA2231C0B200F97B31 /* Log.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		D79A36D7222838580085D3FA /* RestAPI */ = {
+			isa = PBXGroup;
+			children = (
+				D79A36D8222838820085D3FA /* APIClient.swift */,
+			);
+			path = RestAPI;
+			sourceTree = "<group>";
+		};
+		DB3A19F4F75F25E2C7A80F47 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A59A087C0077029F20DCF11B /* Pods-Prana.debug.xcconfig */,
+				AF7503FA2C2D971486D6AB1B /* Pods-Prana.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AA172016222670420080BD71 /* Prana */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA17202B222670450080BD71 /* Build configuration list for PBXNativeTarget "Prana" */;
+			buildPhases = (
+				ED730F460B63841C53224EB5 /* [CP] Check Pods Manifest.lock */,
+				AA172013222670420080BD71 /* Sources */,
+				AA172014222670420080BD71 /* Frameworks */,
+				AA172015222670420080BD71 /* Resources */,
+				122A92EE06BB0A3BB8FAC308 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Prana;
+			productName = Prana;
+			productReference = AA172017222670420080BD71 /* Prana.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AA17200F222670420080BD71 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = Prana;
+				TargetAttributes = {
+					AA172016222670420080BD71 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+				};
+			};
+			buildConfigurationList = AA172012222670420080BD71 /* Build configuration list for PBXProject "Prana" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AA17200E222670420080BD71;
+			productRefGroup = AA172018222670420080BD71 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AA172016222670420080BD71 /* Prana */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA172015222670420080BD71 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA172027222670450080BD71 /* LaunchScreen.storyboard in Resources */,
+				AA172024222670450080BD71 /* Assets.xcassets in Resources */,
+				AA172022222670420080BD71 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		122A92EE06BB0A3BB8FAC308 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Prana/Pods-Prana-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Prana/Pods-Prana-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ED730F460B63841C53224EB5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Prana-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA172013222670420080BD71 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA7FE2D82227213F0092E8A6 /* SignupViewController.swift in Sources */,
+				CAD502F92231C04F00F97B31 /* DevicesViewController.swift in Sources */,
+				CAD502FD2231C48E00F97B31 /* LiveGraphViewController.swift in Sources */,
+				D79A36D9222838820085D3FA /* APIClient.swift in Sources */,
+				CACC9C87223356D0008C54B7 /* BreathingGraph.swift in Sources */,
+				D79A36D6222827E50085D3FA /* Utils.swift in Sources */,
+				CA97DB152229A546002C5592 /* SesseionRecordCell.swift in Sources */,
+				CAD7D34E2229364D00F3C805 /* FirstViewController.swift in Sources */,
+				CAD502FB2231C0B200F97B31 /* Log.swift in Sources */,
+				AA7FE2D4222720EB0092E8A6 /* WelcomeViewController.swift in Sources */,
+				CAD502F72231BEB900F97B31 /* PranaDevice.swift in Sources */,
+				CA97DB1322298BF1002C5592 /* HistoryViewController.swift in Sources */,
+				CA97DB112229893F002C5592 /* Constants.swift in Sources */,
+				CAD502F52231BCF500F97B31 /* PranaDeviceManager.swift in Sources */,
+				AA17201B222670420080BD71 /* AppDelegate.swift in Sources */,
+				AA7FE2D6222721130092E8A6 /* LoginViewController.swift in Sources */,
+				D79A36D32227C6DD0085D3FA /* MainViewController.swift in Sources */,
+				D70C2FE7223452EF00EE6A22 /* PostureIndicator.swift in Sources */,
+				CA97DB0F22296163002C5592 /* Session.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		AA172020222670420080BD71 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AA172021222670420080BD71 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		AA172025222670450080BD71 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AA172026222670450080BD71 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AA172029222670450080BD71 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AA17202A222670450080BD71 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AA17202C222670450080BD71 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A59A087C0077029F20DCF11B /* Pods-Prana.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U37J473DVK;
+				INFOPLIST_FILE = Prana/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.prana.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		AA17202D222670450080BD71 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AF7503FA2C2D971486D6AB1B /* Pods-Prana.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U37J473DVK;
+				INFOPLIST_FILE = Prana/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.prana.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AA172012222670420080BD71 /* Build configuration list for PBXProject "Prana" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA172029222670450080BD71 /* Debug */,
+				AA17202A222670450080BD71 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA17202B222670450080BD71 /* Build configuration list for PBXNativeTarget "Prana" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA17202C222670450080BD71 /* Debug */,
+				AA17202D222670450080BD71 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AA17200F222670420080BD71 /* Project object */;
+}
