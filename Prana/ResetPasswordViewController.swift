@@ -2,7 +2,7 @@
 //  ResetPasswordViewController.swift
 //  Prana
 //
-//  Created by Dev on 3/11/19.
+//  Created by Luccas on 3/11/19.
 //  Copyright © 2019 Prana. All rights reserved.
 //
 
