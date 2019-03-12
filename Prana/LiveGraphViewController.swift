@@ -19,6 +19,8 @@ class LiveGraphViewController: UIViewController {
     @IBOutlet weak var lblBreathResponsiveness: UILabel!
     @IBOutlet weak var slidPostureResponsiveness: UISlider!
     @IBOutlet weak var lblPostureResponsiveness: UILabel!
+    @IBOutlet weak var lblRespirationRate: UILabel!
+    @IBOutlet weak var lblBreathCount: UILabel!
     
     var isLive = false
     
@@ -63,7 +65,7 @@ class LiveGraphViewController: UIViewController {
     func startLive() {
         isLive = true
         breathingGraphView.initGraph()
-        breathingGraphView.setPostureIndicatorView(view: postureIndicatorView)
+        breathingGraphView.setViews(lgview: self, piview: postureIndicatorView)
         self.btStartStop.setTitle("Stop", for: .normal)
         PranaDeviceManager.shared.startGettingLiveData()
     }
@@ -130,6 +132,14 @@ class LiveGraphViewController: UIViewController {
             print("is going device view controller")
             stopLive()
         }
+    }
+    
+    func displayRespirationRate(val: Double) {
+        lblRespirationRate.text = String(val)
+    }
+    
+    func displayBreathCount(val: Int) {
+        lblBreathCount.text = String(val)
     }
 
 }

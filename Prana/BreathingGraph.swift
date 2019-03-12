@@ -29,6 +29,9 @@ class BreathingGraph: UIView {
     
     open func initGraph() {
         
+        liveGraphView?.displayRespirationRate(val: 0.0)
+        liveGraphView?.displayBreathCount(val: 0)
+        
         totalPoints = Int((width-60) / Constants.xStep)
         yStartPos = Double(height) - 20.0
         fullBreathGraphHeight = Double(height) - 50.0
@@ -45,7 +48,8 @@ class BreathingGraph: UIView {
         rotationSensor = [Double](repeating: 0.0, count: totalPoints)
         currentPostureAngle = [Double](repeating: 0.0, count: totalPoints)
         guidedPath = [Double](repeating: 0.0, count: totalPoints)
-        whenBreathsEnd = [Double](repeating: 0.0, count: totalPoints)
+        whenBreathsEnd = [Double]()
+        whenBreathsEnd.append(0)
 
         relativeInhaleLevelSG = 0.0
         relativeInhaleLevelRS = 0.0
@@ -93,7 +97,7 @@ class BreathingGraph: UIView {
         strainGaugeMinRange = 0.0005
         birdDeltaY = 0
         birdVelocity = 0
-        timeElapsed = 0
+        timeElapsed = Date().timeIntervalSince1970
         respRate = 0
         breathCount = 0
         stuckBreathsThreshold = 1
@@ -108,9 +112,10 @@ class BreathingGraph: UIView {
         isReady = true
     }
     
-    open func setPostureIndicatorView(view: PostureIndicator) {
-        postureIndicatorView = view
+    open func setViews(lgview: LiveGraphViewController, piview: PostureIndicator) {
+        liveGraphView = lgview
         
+        postureIndicatorView = piview
         postureIndicatorView?.setBreathingGraphView(view: self)
     }
     
@@ -183,6 +188,7 @@ class BreathingGraph: UIView {
     //MARK: Graph Module
 
     var postureIndicatorView: PostureIndicator? = nil
+    var liveGraphView: LiveGraphViewController? = nil
 
     // int again later
     var totalPoints: Int = 600
@@ -461,7 +467,7 @@ class BreathingGraph: UIView {
         let value = smoothBreathingCoef*graphY + (1.0 - smoothBreathingCoef)*beforeValue
         graphYSeries[count] = value
         
-        print("y \(value)")
+//        print("y \(value)")
         
         setNeedsDisplay()
     }
@@ -649,6 +655,32 @@ class BreathingGraph: UIView {
         }
     }
     
+    func roundNumber(num:Double, dec:Double) -> Double {
+        var d:Double = round(num*dec)
+        return round(num*dec)/dec
+    }
+    
+    func calculateRespRate() {
+        let now = Date().timeIntervalSince1970
+        
+        let elapsed = now - timeElapsed
+        
+        whenBreathsEnd.append(elapsed)
+        
+        if (breathCount > 2 && breathCount < 5) {
+            respRate = 2 * (60.0 / (whenBreathsEnd[breathCount] - whenBreathsEnd[breathCount-2]))
+        } else if (breathCount >= 5) {
+            respRate = 4 * (60.0 / (whenBreathsEnd[breathCount] - whenBreathsEnd[breathCount-4]))
+            avgRespRate = 60*(Double(breathCount)/elapsed)
+        }
+        
+        respRate = roundNumber(num:respRate, dec:10.0)
+        avgRespRate = roundNumber(num:avgRespRate, dec:10.0)
+        
+        liveGraphView!.displayRespirationRate(val: respRate)
+        liveGraphView!.displayBreathCount(val: Int(breathCount))
+    }
+    
     func processBreathingPosture(sensorData: [Double]) {
         
         if !isReady {
@@ -674,7 +706,7 @@ class BreathingGraph: UIView {
                 stuckBreaths = 0
                 breathEnding = 0
                 breathCount += 1
-                //                calculateRespRange()
+                calculateRespRate()
                 //                setNewStrainGaugeRange()
                 
                 noisyMovements = 0
