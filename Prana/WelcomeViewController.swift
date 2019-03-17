@@ -12,6 +12,10 @@ import Alamofire
 import SwiftyJSON
 import MBProgressHUD
 
+extension Notification.Name {
+    static let connectViewControllerDidNext = Notification.Name("connectViewControllerDidNext")
+}
+
 class WelcomeViewController: UIViewController {
 
     @IBOutlet weak var signupButton: UIButton!
@@ -22,11 +26,23 @@ class WelcomeViewController: UIViewController {
         shouldLogin()
 
         // Do any additional setup after loading the view.
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onConnectViewControllerNext), name: .connectViewControllerDidNext, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
         super.viewWillAppear(animated)
+    }
+    
+    @objc func onConnectViewControllerNext() {
+        self.dismiss(animated: false) {
+            let firstVC = Utils.getStoryboardWithIdentifier(identifier: "TutorialStartViewController")
+            //        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "FirstViewController")
+            let navVC = UINavigationController(rootViewController: firstVC)
+            self.present(navVC, animated: true, completion: nil)
+
+        }
     }
     
 
@@ -91,7 +107,9 @@ class WelcomeViewController: UIViewController {
                 }
                 MBProgressHUD.hide(for: self.view, animated: true)
                 if (isValidToken) {
-                    let firstVC = self.getStoryboardWithIdentifier(identifier: "FirstViewController")
+                    self.navigationController?.popToRootViewController(animated: false)
+                    // let firstVC = self.getStoryboardWithIdentifier(identifier: "FirstViewController")
+                    let firstVC = self.getStoryboardWithIdentifier(identifier: "ChargingGuideViewController")
                     let navVC = UINavigationController(rootViewController: firstVC)
                     self.present(navVC, animated: true, completion: nil)
                 }

@@ -184,4 +184,12 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func PranaDeviceManagerDidReceiveData(_ parameter: CBCharacteristic) {
     }
+    
+    func PranaDeviceManagerDidReceiveLiveData(_ data: String!) {
+        
+    }
+    
+    func PranaDeviceManagerDidOpenChannel() {
+        
+    }
 }

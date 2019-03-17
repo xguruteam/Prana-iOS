@@ -115,7 +115,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                     let alertController = UIAlertController(title: "Success", message:
                         "Sign up success", preferredStyle: UIAlertController.Style.alert)
                     alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (_) in
-                        self.navigationController?.popViewController(animated: true)
+                        self.login()
                     }))
                     self.present(alertController, animated: false, completion: nil)
                     break
@@ -148,6 +148,65 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                 }
                 MBProgressHUD.hide(for: self.view, animated: true)
             }
+    }
+    
+    func login() {
+        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        hud.mode = .indeterminate
+        hud.label.text = "Loading..."
+        
+        let param: Parameters = [
+            "email": tf_email.text!,
+            "password": tf_password.text!
+        ]
+        
+        APIClient.sessionManager.request(APIClient.BaseURL + "login", method: .post, parameters: param, encoding: JSONEncoding.default, headers: nil)
+            .validate(statusCode: 200..<300)
+            .responseJSON {(response) in
+                switch response.result {
+                case .success:
+                    if let data = response.value as? [String: Any] {
+                        let token = data["access_token"] as! String
+                        let expires_at = data["expires_at"] as! String
+                        UserDefaults.standard.set(token, forKey: KEY_TOKEN)
+                        UserDefaults.standard.set(expires_at, forKey: KEY_EXPIREAT)
+                        UserDefaults.standard.set(false, forKey: KEY_REMEMBERME)
+                        UserDefaults.standard.synchronize()
+                        // let firstVC = Utils.getStoryboardWithIdentifier(identifier: "FirstViewController")
+                        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ChargingGuideViewController")
+                        let navVC = UINavigationController(rootViewController: firstVC)
+                        self.present(navVC, animated: true, completion: nil)
+                    }
+                    break
+                case .failure:
+                    if response.response == nil {
+                        let alertController = UIAlertController(title: "Error", message:
+                            "Network error", preferredStyle: UIAlertController.Style.alert)
+                        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default,handler: nil))
+                        self.present(alertController, animated: false, completion: nil)
+                        break
+                    } else if response.response!.statusCode == 500 {
+                        let alertController = UIAlertController(title: "Error", message:
+                            "Server Error!", preferredStyle: UIAlertController.Style.alert)
+                        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default,handler: nil))
+                        self.present(alertController, animated: false, completion: nil)
+                        break
+                    } else if response.response!.statusCode == 422 {
+                        let alertController = UIAlertController(title: "Error", message:
+                            "Invalid Data", preferredStyle: UIAlertController.Style.alert)
+                        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default,handler: nil))
+                        self.present(alertController, animated: false, completion: nil)
+                        break
+                    } else {
+                        let alertController = UIAlertController(title: "Error", message:
+                            "error", preferredStyle: UIAlertController.Style.alert)
+                        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default,handler: nil))
+                        self.present(alertController, animated: false, completion: nil)
+                        break
+                    }
+                }
+                MBProgressHUD.hide(for: self.view, animated: true)
+        }
     }
     
     @IBAction func onTouchScreen(_ sender: Any) {

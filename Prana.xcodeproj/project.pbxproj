@@ -19,6 +19,7 @@
 		CA97DB112229893F002C5592 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA97DB102229893F002C5592 /* Constants.swift */; };
 		CA97DB1322298BF1002C5592 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA97DB1222298BF1002C5592 /* HistoryViewController.swift */; };
 		CA97DB152229A546002C5592 /* SesseionRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA97DB142229A546002C5592 /* SesseionRecordCell.swift */; };
+		CAC46CCD223A8E95004691F4 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */; };
 		CACC9C87223356D0008C54B7 /* BreathingGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC9C86223356D0008C54B7 /* BreathingGraph.swift */; };
 		CAD502F52231BCF500F97B31 /* PranaDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502F42231BCF500F97B31 /* PranaDeviceManager.swift */; };
 		CAD502F72231BEB900F97B31 /* PranaDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502F62231BEB900F97B31 /* PranaDevice.swift */; };
@@ -26,8 +27,13 @@
 		CAD502FB2231C0B200F97B31 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502FA2231C0B200F97B31 /* Log.swift */; };
 		CAD502FD2231C48E00F97B31 /* LiveGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502FC2231C48E00F97B31 /* LiveGraphViewController.swift */; };
 		CAD7D34E2229364D00F3C805 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD7D34D2229364D00F3C805 /* FirstViewController.swift */; };
+		CAE21B00223E818D00CC7A4D /* ChargingGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE21AFF223E818D00CC7A4D /* ChargingGuideViewController.swift */; };
+		D701F4DE223B998800D19574 /* TutorialUpperchestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D701F4DD223B998800D19574 /* TutorialUpperchestViewController.swift */; };
 		D70C2FE7223452EF00EE6A22 /* PostureIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70C2FE6223452EF00EE6A22 /* PostureIndicator.swift */; };
 		D71129382236932700145C4B /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71129372236932700145C4B /* ForgotPasswordViewController.swift */; };
+		D73610002239C70700CCAD48 /* TutorialStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7360FFF2239C70700CCAD48 /* TutorialStartViewController.swift */; };
+		D76F20FC223AF63E006B15E7 /* TutorialLowerbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76F20FB223AF63E006B15E7 /* TutorialLowerbackViewController.swift */; };
+		D77D3BF1223AA17E0022E86C /* TutorialEndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77D3BF0223AA17E0022E86C /* TutorialEndViewController.swift */; };
 		D79A36D32227C6DD0085D3FA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79A36D22227C6DC0085D3FA /* MainViewController.swift */; };
 		D79A36D6222827E50085D3FA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79A36D5222827E50085D3FA /* Utils.swift */; };
 		D79A36D9222838820085D3FA /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79A36D8222838820085D3FA /* APIClient.swift */; };
@@ -51,6 +57,7 @@
 		CA97DB102229893F002C5592 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CA97DB1222298BF1002C5592 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		CA97DB142229A546002C5592 /* SesseionRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SesseionRecordCell.swift; sourceTree = "<group>"; };
+		CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
 		CACC9C86223356D0008C54B7 /* BreathingGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingGraph.swift; sourceTree = "<group>"; };
 		CAD502F42231BCF500F97B31 /* PranaDeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranaDeviceManager.swift; sourceTree = "<group>"; };
 		CAD502F62231BEB900F97B31 /* PranaDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranaDevice.swift; sourceTree = "<group>"; };
@@ -58,8 +65,13 @@
 		CAD502FA2231C0B200F97B31 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		CAD502FC2231C48E00F97B31 /* LiveGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveGraphViewController.swift; sourceTree = "<group>"; };
 		CAD7D34D2229364D00F3C805 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		CAE21AFF223E818D00CC7A4D /* ChargingGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingGuideViewController.swift; sourceTree = "<group>"; };
+		D701F4DD223B998800D19574 /* TutorialUpperchestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialUpperchestViewController.swift; sourceTree = "<group>"; };
 		D70C2FE6223452EF00EE6A22 /* PostureIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureIndicator.swift; sourceTree = "<group>"; };
 		D71129372236932700145C4B /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		D7360FFF2239C70700CCAD48 /* TutorialStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialStartViewController.swift; sourceTree = "<group>"; };
+		D76F20FB223AF63E006B15E7 /* TutorialLowerbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialLowerbackViewController.swift; sourceTree = "<group>"; };
+		D77D3BF0223AA17E0022E86C /* TutorialEndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialEndViewController.swift; sourceTree = "<group>"; };
 		D79A36D22227C6DC0085D3FA /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D79A36D5222827E50085D3FA /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		D79A36D8222838820085D3FA /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
@@ -130,6 +142,12 @@
 				D70C2FE6223452EF00EE6A22 /* PostureIndicator.swift */,
 				D71129372236932700145C4B /* ForgotPasswordViewController.swift */,
 				D7E145AC2236F50100991D34 /* ResetPasswordViewController.swift */,
+				D7360FFF2239C70700CCAD48 /* TutorialStartViewController.swift */,
+				D76F20FB223AF63E006B15E7 /* TutorialLowerbackViewController.swift */,
+				D701F4DD223B998800D19574 /* TutorialUpperchestViewController.swift */,
+				D77D3BF0223AA17E0022E86C /* TutorialEndViewController.swift */,
+				CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */,
+				CAE21AFF223E818D00CC7A4D /* ChargingGuideViewController.swift */,
 			);
 			path = Prana;
 			sourceTree = "<group>";
@@ -204,6 +222,9 @@
 					AA172016222670420080BD71 = {
 						CreatedOnToolsVersion = 10.1;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.SafariKeychain = {
 								enabled = 0;
 							};
@@ -304,17 +325,23 @@
 				CAD502F92231C04F00F97B31 /* DevicesViewController.swift in Sources */,
 				CAD502FD2231C48E00F97B31 /* LiveGraphViewController.swift in Sources */,
 				D79A36D9222838820085D3FA /* APIClient.swift in Sources */,
+				D77D3BF1223AA17E0022E86C /* TutorialEndViewController.swift in Sources */,
+				CAC46CCD223A8E95004691F4 /* ConnectViewController.swift in Sources */,
 				CACC9C87223356D0008C54B7 /* BreathingGraph.swift in Sources */,
 				D79A36D6222827E50085D3FA /* Utils.swift in Sources */,
 				D7E145AD2236F50100991D34 /* ResetPasswordViewController.swift in Sources */,
+				D701F4DE223B998800D19574 /* TutorialUpperchestViewController.swift in Sources */,
+				D73610002239C70700CCAD48 /* TutorialStartViewController.swift in Sources */,
 				CA97DB152229A546002C5592 /* SesseionRecordCell.swift in Sources */,
 				CAD7D34E2229364D00F3C805 /* FirstViewController.swift in Sources */,
+				D76F20FC223AF63E006B15E7 /* TutorialLowerbackViewController.swift in Sources */,
 				CAD502FB2231C0B200F97B31 /* Log.swift in Sources */,
 				AA7FE2D4222720EB0092E8A6 /* WelcomeViewController.swift in Sources */,
 				CAD502F72231BEB900F97B31 /* PranaDevice.swift in Sources */,
 				CA97DB1322298BF1002C5592 /* HistoryViewController.swift in Sources */,
 				CA97DB112229893F002C5592 /* Constants.swift in Sources */,
 				CAD502F52231BCF500F97B31 /* PranaDeviceManager.swift in Sources */,
+				CAE21B00223E818D00CC7A4D /* ChargingGuideViewController.swift in Sources */,
 				AA17201B222670420080BD71 /* AppDelegate.swift in Sources */,
 				AA7FE2D6222721130092E8A6 /* LoginViewController.swift in Sources */,
 				D71129382236932700145C4B /* ForgotPasswordViewController.swift in Sources */,

@@ -98,7 +98,9 @@ class LoginViewController: UIViewController {
                         UserDefaults.standard.set(expires_at, forKey: KEY_EXPIREAT)
                         UserDefaults.standard.set(remember_me, forKey: KEY_REMEMBERME)
                         UserDefaults.standard.synchronize()
-                        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "FirstViewController")
+                        // let firstVC = Utils.getStoryboardWithIdentifier(identifier: "FirstViewController")
+                        self.navigationController?.popToRootViewController(animated: false)
+                        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ChargingGuideViewController")
                         let navVC = UINavigationController(rootViewController: firstVC)
                         self.present(navVC, animated: true, completion: nil)
                     }

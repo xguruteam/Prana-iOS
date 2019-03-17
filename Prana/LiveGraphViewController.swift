@@ -21,6 +21,10 @@ class LiveGraphViewController: UIViewController {
     @IBOutlet weak var lblPostureResponsiveness: UILabel!
     @IBOutlet weak var lblRespirationRate: UILabel!
     @IBOutlet weak var lblBreathCount: UILabel!
+    @IBOutlet weak var lblDebugLine1: UILabel!
+    @IBOutlet weak var lblDebugLine2: UILabel!
+    @IBOutlet weak var lblDebugLine3: UILabel!
+    @IBOutlet weak var lblDebugLine4: UILabel!
     
     var isLive = false
     
@@ -109,15 +113,13 @@ class LiveGraphViewController: UIViewController {
     
     @IBAction func onSliderBreathResponsivenessChanged(_ sender: UISlider) {
 //        lblBreathResponsiveness.text = String.
-        let value = Int(sender.value)
-        sender.value = Float(value)
+        let value = Int(round(sender.value))
         lblBreathResponsiveness.text = "\(value)"
         breathingGraphView.setBreathingResponsiveness(val: value)
     }
     
     @IBAction func onSliderPostureResponsivenessChanged(_ sender: UISlider) {
         let value = Int(sender.value)
-        sender.value = Float(value)
         lblPostureResponsiveness.text = "\(value)"
         breathingGraphView.setPostureResponsiveness(val: value)
     }
@@ -141,11 +143,26 @@ class LiveGraphViewController: UIViewController {
     func displayBreathCount(val: Int) {
         lblBreathCount.text = String(val)
     }
+    
+    func displayDebugStats(ln1: String, ln2: String, ln3: String, ln4: String) {
+        lblDebugLine1.text = ln1
+        lblDebugLine2.text = ln2
+        lblDebugLine3.text = ln3
+        lblDebugLine4.text = ln4
+    }
 
 }
 
 
 extension LiveGraphViewController: PranaDeviceManagerDelegate {
+    func PranaDeviceManagerDidOpenChannel() {
+        
+    }
+    
+    func PranaDeviceManagerDidReceiveLiveData(_ data: String!) {
+        
+    }
+    
     func PranaDeviceManagerDidStartScan() {
         
     }

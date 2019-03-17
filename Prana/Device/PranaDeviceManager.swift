@@ -15,7 +15,9 @@ protocol PranaDeviceManagerDelegate {
     func PranaDeviceManagerDidDiscover(_ device: PranaDevice)
     func PranaDeviceManagerDidConnect(_ deviceName: String)
     func PranaDeviceManagerFailConnect()
+    func PranaDeviceManagerDidOpenChannel()
     func PranaDeviceManagerDidReceiveData(_ parameter: CBCharacteristic)
+    func PranaDeviceManagerDidReceiveLiveData(_ data: String!)
 }
 
 class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
@@ -44,6 +46,10 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
         self.centralManager = CBCentralManager(delegate: nil, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true])
         super.init()
         self.centralManager.delegate = self
+    }
+    
+    open func prepare() {
+        
     }
     
     open func startScan() {
@@ -152,6 +158,34 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     func didReceiveData(_ parameter: CBCharacteristic) {
         for item in self.delegates {
             item.PranaDeviceManagerDidReceiveData(parameter)
+        }
+        
+        processLiveData(parameter)
+    }
+    
+    var buff: String?
+    
+    func processLiveData(_ parameter: CBCharacteristic) {
+        guard let data  = String(data: parameter.value!, encoding: .utf8) else {
+            return
+        }
+        
+        if data.starts(with: "20hz,") || data.starts(with: "Upright,") {
+            if let raw = buff {
+                for item in self.delegates {
+                    item.PranaDeviceManagerDidReceiveLiveData(raw)
+                }
+            }
+            
+            buff = data
+        }
+        else {
+            if let _ = buff {
+                buff = buff! + data
+            }
+            else {
+                buff = data
+            }
         }
     }
     
@@ -268,6 +302,9 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
         
         if characteristic.isNotifying {
             Log.d("start subscribing from - \(characteristic.uuid.uuidString)")
+            for item in self.delegates {
+                item.PranaDeviceManagerDidOpenChannel()
+            }
         }
         else {
             Log.d("end subscribing from - \(characteristic.uuid.uuidString)")

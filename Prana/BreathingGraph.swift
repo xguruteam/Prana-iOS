@@ -29,8 +29,10 @@ class BreathingGraph: UIView {
     
     open func initGraph() {
         
-        liveGraphView?.displayRespirationRate(val: 0.0)
-        liveGraphView?.displayBreathCount(val: 0)
+        if nTrainingTutorial == 0 {
+            liveGraphView?.displayRespirationRate(val: 0.0)
+            liveGraphView?.displayBreathCount(val: 0)
+        }
         
         totalPoints = Int((width-60) / Constants.xStep)
         yStartPos = Double(height) - 20.0
@@ -62,7 +64,6 @@ class BreathingGraph: UIView {
         topReversalY = 0
         isDrawTop = false
         isDrawBottom = false
-        isDrawEnd = false
         stuckBreaths = 0
         endBreathY = 0
         bottomReversalFound = 0
@@ -113,10 +114,22 @@ class BreathingGraph: UIView {
     }
     
     open func setViews(lgview: LiveGraphViewController, piview: PostureIndicator) {
+        nTrainingTutorial = 0
+        
         liveGraphView = lgview
         
         postureIndicatorView = piview
         postureIndicatorView?.setBreathingGraphView(view: self)
+    }
+    
+    open func setTutorialLBView(view: TutorialLowerbackViewController) {
+        nTrainingTutorial = 1
+        tutorialLowerbackView = view
+    }
+    
+    open func setTutorialUCView(view: TutorialUpperchestViewController) {
+        nTrainingTutorial = 2
+        tutorialUpperchestView = view
     }
     
     @IBInspectable var lineColor: UIColor = UIColor.black
@@ -144,7 +157,7 @@ class BreathingGraph: UIView {
             
         let path = UIBezierPath()
         lineColor.setStroke()
-        
+        path.lineWidth = Constants.lineWith
         //set up the width and height variables
         //for the horizontal stroke
         
@@ -173,7 +186,7 @@ class BreathingGraph: UIView {
             bottomPath.stroke()
         }
         
-        if (isDrawEnd) {
+        if (breathEnding == 1) {
             let endPath = UIBezierPath()
             endLineColor.setStroke()
             
@@ -189,6 +202,10 @@ class BreathingGraph: UIView {
 
     var postureIndicatorView: PostureIndicator? = nil
     var liveGraphView: LiveGraphViewController? = nil
+    var tutorialLowerbackView: TutorialLowerbackViewController? = nil
+     var tutorialUpperchestView: TutorialUpperchestViewController? = nil
+    
+    var nTrainingTutorial: Int = 0 // 0: live graph, 1: tutorial for lower back, 2: tutorial for upper chest
 
     // int again later
     var totalPoints: Int = 600
@@ -234,7 +251,6 @@ class BreathingGraph: UIView {
     var topReversalY: Double = 0
     var isDrawTop: Bool = false
     var isDrawBottom: Bool = false
-    var isDrawEnd: Bool = false
     var stuckBreaths: Int = 0
     var endBreathY: Double = 0
     var bottomReversalFound: Int = 0
@@ -585,7 +601,6 @@ class BreathingGraph: UIView {
                     }
                     
 //                    endBreathLine.y = endBreathY
-                    isDrawEnd = true
                 }
             }
         }
@@ -644,8 +659,13 @@ class BreathingGraph: UIView {
                 xPos = 3
             }
             
-            postureIndicatorView!.displayPostureIndicator(x: xPos)
-            
+            if nTrainingTutorial == 0 {
+                postureIndicatorView!.displayPostureIndicator(x: xPos)
+            } else if nTrainingTutorial == 1 {
+                tutorialLowerbackView!.displayPostureStatusValue(x: xPos)
+            } else {
+                tutorialUpperchestView!.displayPostureStatusValue(x: xPos)
+            }
         } else {
             if (xSensor[count] == 0 && ySensor[count] == 0) {
                 relativePosturePositionFiltered[count] = 2*(sin(zSensor[count])/Double.pi)
@@ -655,8 +675,15 @@ class BreathingGraph: UIView {
         }
     }
     
+    func displayDebugStats() {
+        let strln1: String = "strainGauge = " + String(roundNumber(num: strainGauge, dec: 100000)) + "  magneticAngle = " + String(roundNumber(num: rotationSensor[count], dec: 1000)) + " " + String(useRotationSensor)
+        let strln2: String = "Z = " + String(roundNumber(num: zSensor[count], dec: 1000)) + "  Y = " + String(roundNumber(num: ySensor[count], dec: 1000)) + "  X = " + String(roundNumber(num: xSensor[count], dec: 1000)) + "  " + String(roundNumber(num: currentPostureAngle[count], dec: 1000))
+        let strln3: String = String(roundNumber(num: currentStrainGaugeHighest, dec: 100000)) + "  " + String(roundNumber(num: currentStrainGaugeLowest, dec: 100000)) + "  " + String(roundNumber(num: currentStrainGaugeHighest - currentStrainGaugeLowest, dec: 100000)) + "  " + String(breathTopExceeded) + " noisy " + String(dampingLevel) + " stuck " + String(stuckBreaths)
+        let strln4: String = ""
+        liveGraphView?.displayDebugStats(ln1: strln1, ln2: strln2, ln3: strln3, ln4: strln4)
+    }
+    
     func roundNumber(num:Double, dec:Double) -> Double {
-        var d:Double = round(num*dec)
         return round(num*dec)/dec
     }
     
@@ -677,8 +704,10 @@ class BreathingGraph: UIView {
         respRate = roundNumber(num:respRate, dec:10.0)
         avgRespRate = roundNumber(num:avgRespRate, dec:10.0)
         
-        liveGraphView!.displayRespirationRate(val: respRate)
-        liveGraphView!.displayBreathCount(val: Int(breathCount))
+        if nTrainingTutorial == 0 {
+            liveGraphView!.displayRespirationRate(val: respRate)
+            liveGraphView!.displayBreathCount(val: Int(breathCount))
+        }
     }
     
     func processBreathingPosture(sensorData: [Double]) {
@@ -698,7 +727,9 @@ class BreathingGraph: UIView {
         displayPostureIndicator()
         displayBreathingGraph()
         reversalDetector()
-        //        displayDebugStats()
+        if nTrainingTutorial == 0 {
+            displayDebugStats()
+        }
         
         if (breathEnding == 1) {
             if (graphYSeries[count] > endBreathY) {
