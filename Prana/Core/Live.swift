@@ -1,42 +1,153 @@
 //
-//  LiveGraph.swift
+//  Live.swift
 //  Prana
 //
-//  Created by Luccas on 3/8/19.
+//  Created by Luccas on 3/19/19.
 //  Copyright © 2019 Prana. All rights reserved.
 //
 
-import UIKit
+import Foundation
+import CoreBluetooth
 
-@IBDesignable
-class BreathingGraph: UIView {
 
-    private struct Constants {
-        static let lineWith: CGFloat = 2.0
-        static let xStep: CGFloat = 3.0
+protocol LiveDelegate {
+    func liveNewBreathingCalculated()
+    func liveNewPostureCalculated()
+    func liveNewRespRateCaclculated()
+    func liveDidUprightSet()
+}
+
+class Live: NSObject {
+    
+    public struct Constants {
+        static let numberOfBeathingSamples: Int = 100
+        static let maxYOfBreathing: Float = 100
+        static let maxXOfPosture: Float = 100
     }
     
+    var delegates: [LiveDelegate] = []
     
-    private var width: CGFloat {
-        return bounds.width
+    open func addDelegate(_ delegate: LiveDelegate) {
+        self.delegates.append(delegate)
     }
     
-    private var height: CGFloat {
-        return bounds.height
-    }
-    
-    private var isReady: Bool = false
-    
-    open func initGraph() {
-        
-        if nTrainingTutorial == 0 {
-            liveGraphView?.displayRespirationRate(val: 0.0)
-            liveGraphView?.displayBreathCount(val: 0)
+    open func removeDelegate(_ delegate: LiveDelegate) {
+        var i: Int = 0
+        for item in self.delegates {
+            let obj1 = delegate as! NSObject
+            let obj2 = item as! NSObject
+            if obj2.isEqual(obj1) {
+                break
+            }
+            i = i + 1
         }
-        
-        totalPoints = Int((width-60) / Constants.xStep)
-        yStartPos = Double(height) - 20.0
-        fullBreathGraphHeight = Double(height) - 50.0
+        self.delegates.remove(at: i)
+    }
+    
+    // init again later
+    var totalPoints: Int = 600
+    let initialPrepareCount: Int = 5
+    var fullBreathGraphHeight: Double = 400.0
+    var yStartPos: Double = 500
+    var count: Int = -1
+    
+    
+    var appMode: Int = 3 // DC.appMode
+    var isBuzzing: Int = 0// DC.objBuzzerTraining.isBuzzing
+    
+    var xCoord: Int = 0
+    var dataArray: [Double] = []
+    
+    
+    var graphY: Double = 0
+    var graphYSeries: [Double] = []
+    var breathSensor: [Double] = []
+    var relativePosturePositionFiltered: [Double] = []
+    var zSensor: [Double] = []
+    var xSensor: [Double] = []
+    var ySensor: [Double] = []
+    var dampHistory: [Double] = []
+    var rotationSensor: [Double] = []
+    var relativeInhaleLevelSG: Double = 0.0
+    var relativeInhaleLevelRS: Double = 0.0
+    var bellyBreathHasStarted: Int = 0
+    /*var bottomReversalLine:StartInhale = new StartInhale(); //blue line deoxygenated
+     var topReversalLine:StartExhale = new StartExhale(); //red line oxygenated
+     var endBreathLine:EndBreathThreshold = new EndBreathThreshold(); //yellow line
+     var zeroLine:ZeroLine = new ZeroLine(); //green line
+     var showDebugUI:ControlArrowUp = new ControlArrowUp();
+     var testUI:TestUI = new TestUI();
+     var postureUI:PostureUI = new PostureUI();*/
+    var upStreak: Int = 0
+    var downStreak: Int = 0
+    var upStreakStart: Int = 0
+    var downStreakStart: Int = 0
+    var bottomReversalY: Double = 500
+    var topReversalY: Double = 0
+    var isDrawTop: Bool = false
+    var isDrawBottom: Bool = false
+    var stuckBreaths: Int = 0
+    var endBreathY: Double = 0
+    var bottomReversalFound: Int = 0
+    var topReversalFound: Int = 0
+    var scrollX: Int = 0
+    var currentStrainGaugeLowest: Double = 0
+    var currentStrainGaugeHighest: Double = 0
+    var breathEnding: Int = 0
+    var strainGauge: Double = 1
+    var uprightPostureAngle: Double = 0
+    var uprightSet: Int = 0 {
+        didSet {
+            for item in self.delegates {
+                item.liveDidUprightSet()
+            }
+        }
+    }
+    var currentPostureAngle: [Double] = []
+    var xPos: Int = 0
+    var whichPostureFrame: Int = 1
+    var useRotationSensor: Int = 0
+    var postureRange: Double = 0.18
+    var postureAttenuator: Double = 0.15
+    var smoothBreathingCoef: Double = 1
+    var lightBreathsInARow: Int = 0
+    var deepBreathsInARow: Int = 0
+    var damp: Double = 0
+    var dampX: Double = 0
+    var dampY: Double = 0
+    var dampZ: Double = 0
+    var noisyMovements: Int = 0
+    var dampingLevel: Int = 0
+    var postureAttenuatorLevel: Int = 0
+    var currentStrainGaugeLowestNew: Double = 0
+    var currentStrainGaugeHighestNew: Double = 0
+    var newStrainGaugeRange: Double = 0
+    var currentStrainGaugeHighestPrev: Double = 0
+    var breathTopExceeded: Int = 0
+    var guidedPath: [Double] = []
+    var strainGaugeMinRange: Double = 0.0005
+    var birdDeltaY: Double = 0
+    var birdVelocity: Double = 0
+    //var RRtimer:Timer = new Timer(100)
+    var timeElapsed: Double = 0
+    var whenBreathsEnd: [Double] = []
+    var respRate: Double = 0
+    var breathCount: Int = 0
+    var stuckBreathsThreshold: Int = 1
+    var breathTopExceededThreshold: Int = 1
+    var smoothBreathingCoefBaseLevel: Double = 0.15
+    var postureIsGood: Int = 1
+    var minBreathRange: Double = 10
+    var reversalThreshold: Int = 6
+    var birdIncrements: Int = 24
+    var avgRespRate: Double = 0
+    
+    
+    override init() {
+        super.init()
+        totalPoints = Constants.numberOfBeathingSamples
+        yStartPos = Double(Constants.maxYOfBreathing) - 2
+        fullBreathGraphHeight = yStartPos * 0.9
         count = -1
         
         
@@ -52,7 +163,7 @@ class BreathingGraph: UIView {
         guidedPath = [Double](repeating: 0.0, count: totalPoints)
         whenBreathsEnd = [Double]()
         whenBreathsEnd.append(0)
-
+        
         relativeInhaleLevelSG = 0.0
         relativeInhaleLevelRS = 0.0
         bellyBreathHasStarted = 0
@@ -119,197 +230,21 @@ class BreathingGraph: UIView {
         stuckBreathsThreshold = 1
         breathTopExceededThreshold = 1
         minBreathRange = fullBreathGraphHeight/16.0
-
-        isReady = true
+        
+        PranaDeviceManager.shared.addDelegate(self)
     }
     
-    open func setViews(lgview: LiveGraphViewController, piview: PostureIndicator) {
-        nTrainingTutorial = 0
-        
-        liveGraphView = lgview
-        
-        postureIndicatorView = piview
-        postureIndicatorView?.setBreathingGraphView(view: self)
+    deinit {
+        PranaDeviceManager.shared.removeDelegate(self)
     }
     
-    open func setTutorialLBView(view: TutorialLowerbackViewController) {
-        nTrainingTutorial = 1
-        tutorialLowerbackView = view
+    func displayDebugStats() {
+        let strln1: String = "strainGauge = " + String(roundNumber(num: strainGauge, dec: 100000)) + "  magneticAngle = " + String(roundNumber(num: rotationSensor[count], dec: 1000)) + " " + String(useRotationSensor)
+        let strln2: String = "Z = " + String(roundNumber(num: zSensor[count], dec: 1000)) + "  Y = " + String(roundNumber(num: ySensor[count], dec: 1000)) + "  X = " + String(roundNumber(num: xSensor[count], dec: 1000)) + "  " + String(roundNumber(num: currentPostureAngle[count], dec: 1000))
+        let strln3: String = String(roundNumber(num: currentStrainGaugeHighest, dec: 100000)) + "  " + String(roundNumber(num: currentStrainGaugeLowest, dec: 100000)) + "  " + String(roundNumber(num: currentStrainGaugeHighest - currentStrainGaugeLowest, dec: 100000)) + "  " + String(breathTopExceeded) + " noisy " + String(dampingLevel) + " stuck " + String(stuckBreaths)
+        let strln4: String = ""
+        
     }
-    
-    open func setTutorialUCView(view: TutorialUpperchestViewController) {
-        nTrainingTutorial = 2
-        tutorialUpperchestView = view
-    }
-    
-    @IBInspectable var lineColor: UIColor = UIColor.black
-    @IBInspectable var topLineColor: UIColor = UIColor.red
-    @IBInspectable var bottomLineColor: UIColor = UIColor.blue
-    @IBInspectable var endLineColor: UIColor = UIColor.yellow
-    @IBInspectable var isGuide: Bool = true
-    
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-    
-    override func draw(_ rect: CGRect) {
-        if !isReady {
-            return
-        }
-        
-        if count <= 1 {
-            return
-        }
-            
-        let path = UIBezierPath()
-        lineColor.setStroke()
-        path.lineWidth = Constants.lineWith
-        //set up the width and height variables
-        //for the horizontal stroke
-        
-        path.move(to: CGPoint(x: 0, y: graphYSeries[0]))
-        for i: Int in 1 ... count {
-            path.addLine(to: CGPoint(x: CGFloat(i) * Constants.xStep, y: CGFloat(graphYSeries[i])))
-        }
-        
-        path.stroke()
-        
-        if (isDrawTop) {
-            let topPath = UIBezierPath()
-            topLineColor.setStroke()
-            
-            topPath.move(to: CGPoint(x: 0, y: topReversalY))
-            topPath.addLine(to: CGPoint(x: width, y: CGFloat(topReversalY)))
-            topPath.stroke()
-        }
-        
-        if (isDrawBottom) {
-            let bottomPath = UIBezierPath()
-            bottomLineColor.setStroke()
-            
-            bottomPath.move(to: CGPoint(x: 0, y: bottomReversalY))
-            bottomPath.addLine(to: CGPoint(x: width, y: CGFloat(bottomReversalY)))
-            bottomPath.stroke()
-        }
-        
-        if (breathEnding == 1) {
-            let endPath = UIBezierPath()
-            endLineColor.setStroke()
-            
-            endPath.move(to: CGPoint(x: 0, y: endBreathY))
-            endPath.addLine(to: CGPoint(x: width, y: CGFloat(endBreathY)))
-            endPath.stroke()
-        }
-    }
-    
-    
-    
-    //MARK: Graph Module
-
-    var postureIndicatorView: PostureIndicator? = nil
-    var liveGraphView: LiveGraphViewController? = nil
-    var tutorialLowerbackView: TutorialLowerbackViewController? = nil
-     var tutorialUpperchestView: TutorialUpperchestViewController? = nil
-    
-    var nTrainingTutorial: Int = 0 // 0: live graph, 1: tutorial for lower back, 2: tutorial for upper chest
-
-    // int again later
-    var totalPoints: Int = 600
-    let initialPrepareCount: Int = 5
-    var fullBreathGraphHeight: Double = 400.0
-    var yStartPos: Double = 500
-    var count: Int = -1
-
-    
-    
-
-    var appMode: Int = 3 // DC.appMode
-    var buzzerTraining_isBuzzing: Int = 0// DC.objBuzzerTraining.isBuzzing
-    
-    var xCoord: Int = 0
-    var dataArray: [Double] = []
-
-
-    var graphY: Double = 0
-    var graphYSeries: [Double] = []
-    var breathSensor: [Double] = []
-    var relativePosturePositionFiltered: [Double] = []
-    var zSensor: [Double] = []
-    var xSensor: [Double] = []
-    var ySensor: [Double] = []
-    var dampHistory: [Double] = []
-    var rotationSensor: [Double] = []
-    var relativeInhaleLevelSG: Double = 0.0
-    var relativeInhaleLevelRS: Double = 0.0
-    var bellyBreathHasStarted: Int = 0
-    /*var bottomReversalLine:StartInhale = new StartInhale(); //blue line deoxygenated
-     var topReversalLine:StartExhale = new StartExhale(); //red line oxygenated
-     var endBreathLine:EndBreathThreshold = new EndBreathThreshold(); //yellow line
-     var zeroLine:ZeroLine = new ZeroLine(); //green line
-     var showDebugUI:ControlArrowUp = new ControlArrowUp();
-     var testUI:TestUI = new TestUI();
-     var postureUI:PostureUI = new PostureUI();*/
-    var upStreak: Int = 0
-    var downStreak: Int = 0
-    var upStreakStart: Int = 0
-    var downStreakStart: Int = 0
-    var bottomReversalY: Double = 500
-    var topReversalY: Double = 0
-    var isDrawTop: Bool = false
-    var isDrawBottom: Bool = false
-    var stuckBreaths: Int = 0
-    var endBreathY: Double = 0
-    var bottomReversalFound: Int = 0
-    var topReversalFound: Int = 0
-    var scrollX: Int = 0
-    var currentStrainGaugeLowest: Double = 0
-    var currentStrainGaugeHighest: Double = 0
-    var breathEnding: Int = 0
-    var strainGauge: Double = 1
-    var uprightPostureAngle: Double = 0
-    var uprightSet: Int = 0
-    var currentPostureAngle: [Double] = []
-    var xPos: Int = 0
-    var whichPostureFrame: Int = 1
-    var useRotationSensor: Int = 0
-    var postureRange: Double = 0.18
-    var postureAttenuator: Double = 0.15
-    var smoothBreathingCoef: Double = 1
-    var lightBreathsInARow: Int = 0
-    var deepBreathsInARow: Int = 0
-    var damp: Double = 0
-    var dampX: Double = 0
-    var dampY: Double = 0
-    var dampZ: Double = 0
-    var noisyMovements: Int = 0
-    var dampingLevel: Int = 0
-    var postureAttenuatorLevel: Int = 0
-    var currentStrainGaugeLowestNew: Double = 0
-    var currentStrainGaugeHighestNew: Double = 0
-    var newStrainGaugeRange: Double = 0
-    var currentStrainGaugeHighestPrev: Double = 0
-    var breathTopExceeded: Int = 0
-    var guidedPath: [Double] = []
-    var strainGaugeMinRange: Double = 0.0005
-    var birdDeltaY: Double = 0
-    var birdVelocity: Double = 0
-    //var RRtimer:Timer = new Timer(100)
-    var timeElapsed: Double = 0
-    var whenBreathsEnd: [Double] = []
-    var respRate: Double = 0
-    var breathCount: Int = 0
-    var stuckBreathsThreshold: Int = 1
-    var breathTopExceededThreshold: Int = 1
-    var smoothBreathingCoefBaseLevel: Double = 0.15
-    var postureIsGood: Int = 1
-    var minBreathRange: Double = 10
-    var reversalThreshold: Int = 6
-    var birdIncrements: Int = 24
-    var avgRespRate: Double = 0
     
     func resetCount() {
         
@@ -437,7 +372,7 @@ class BreathingGraph: UIView {
             smoothBreathingCoef = smoothBreathingCoefBaseLevel - 0.05
         }
         
-        if (buzzerTraining_isBuzzing == 0) {
+        if (isBuzzing == 0) {
             var a: Double = 0
             if (dampingLevel > 0) {
                 smoothBreathingCoef = smoothBreathingCoef*Double(truncating: pow(0.8, dampingLevel) as NSNumber)
@@ -493,135 +428,15 @@ class BreathingGraph: UIView {
         let value = smoothBreathingCoef*graphY + (1.0 - smoothBreathingCoef)*beforeValue
         graphYSeries[count] = value
         
-//        print("y \(value)")
-        
-        setNeedsDisplay()
-    }
-    
-    func reversalDetector() {
-        
-        if (count <= reversalThreshold + 1) {
-            return
-        }
-        
-        var up:Int = 0
-        var down:Int = 0
-        //        var i:Int = 0
-        
-        if (upStreak == 0) {
-            for i:Int in 0...reversalThreshold {
-                if (graphYSeries[count-i] < graphYSeries[count-i-1]) {
-                    up += 1
-                    if (up == reversalThreshold+1) {
-                        upStreak = 1
-                        upStreakStart = count - (reversalThreshold + 1)
-                    }
-                }
-            }
-        }
-        
-        if (downStreak == 0) {
-            for i:Int in 0...reversalThreshold {
-                if (graphYSeries[count-i] > graphYSeries[count-i-1]) {
-                    down += 1;
-                    if (down == reversalThreshold+1) {
-                        downStreak = 1;
-                        downStreakStart = count-(reversalThreshold+1);
-                    }
-                }
-            }
-        }
-        
-        if (up == (reversalThreshold+1)) {
-            if (downStreak == 1) {
-                downStreak = 0
-                bottomReversalFound = 1
-                bottomReversalY = graphYSeries[downStreakStart]
-                
-                currentStrainGaugeLowestNew = breathSensor[count - (reversalThreshold+2)]
-                
-                if downStreakStart <= upStreakStart {
-                    for i:Int in downStreakStart...upStreakStart {
-                        if (graphYSeries[i] > bottomReversalY) {
-                            bottomReversalY = graphYSeries[i]
-                        }
-                    }
-                }
-                
-                
-//                bottomReversalLine.y = bottomReversalY
-//                topReversalLine.y = 5000
-                isDrawTop = false
-                isDrawBottom = true
-                
-                if (breathEnding == 1) {
-                    stuckBreaths += 1
-                }
-                
-                if (stuckBreaths == 0) {
-                    currentStrainGaugeHighestPrev = currentStrainGaugeHighest
-                }
-                
-                topReversalFound = 0
-            }
-        }
-        
-        if (down == (reversalThreshold+1)) {
-            if (upStreak == 1) {
-                upStreak = 0
-                topReversalY = graphYSeries[upStreakStart]
-                
-                if upStreakStart <= downStreakStart {
-                    for i:Int in upStreakStart...downStreakStart {
-                        if (graphYSeries[i] < topReversalY) {
-                            topReversalY = graphYSeries[i]
-                        }
-                    }
-                }
-                
-                
-                if ( ((bottomReversalY-topReversalY < minBreathRange) && (stuckBreaths > 0)) || (yStartPos-topReversalY < (minBreathRange/3)) ) {
-                    return
-                }
-                
-                topReversalFound = 1
-                
-                currentStrainGaugeHighestNew = breathSensor[count-(reversalThreshold+2)]
-                
-//                topReversalLine.y = topReversalY
-                isDrawBottom = false
-                isDrawTop = true
-                
-                if (bottomReversalFound == 1 || breathCount < 2) {
-                    bottomReversalFound = 0
-                    breathEnding = 1
-                    
-                    if breathCount < 2 {
-                        endBreathY = bottomReversalY - 0.95 * (bottomReversalY - topReversalY)
-                    } else if (appMode == 2) {
-                        //
-                    } else if (appMode == 1 || appMode == 3) {
-                        endBreathY = bottomReversalY - 0.2*(bottomReversalY-topReversalY)
-                        
-                        if (noisyMovements == 1) {
-                            endBreathY = bottomReversalY - 0.5*(bottomReversalY - topReversalY)
-                        }
-                        
-                        if (stuckBreaths >= stuckBreathsThreshold) {
-                            endBreathY = bottomReversalY - 0.5*(bottomReversalY - topReversalY)
-                        }
-                    }
-                    
-//                    endBreathLine.y = endBreathY
-                }
-            }
+        for item in self.delegates {
+            item.liveNewBreathingCalculated()
         }
     }
     
     func displayPostureIndicator() {
         
         if (uprightSet == 1) {
-            if (buzzerTraining_isBuzzing == 1) { //Don't evaluate posture if buzzer is buzzing! The buzzer TOTALLY messes up the accelerometer signal
+            if (isBuzzing == 1) { //Don't evaluate posture if buzzer is buzzing! The buzzer TOTALLY messes up the accelerometer signal
                 postureAttenuator = 0;
             }
             else {
@@ -662,22 +477,35 @@ class BreathingGraph: UIView {
             }
             
             relativePosturePositionFiltered[count] = Double(postureAttenuator * currentPostureAngle[count] + (1-postureAttenuator) * relativePosturePositionFiltered[count-1])
-            xPos = Int(Double(width-3)*(1-(abs(relativePosturePositionFiltered[count] - uprightPostureAngle)/postureRange)))
+            xPos = Int(Double(Constants.maxXOfPosture)*(1-(abs(relativePosturePositionFiltered[count] - uprightPostureAngle)/postureRange)))
             
-            if (xPos > Int(width)-3) {
-                xPos = Int(width)-3
+            if (xPos > Int(Constants.maxXOfPosture)) {
+                xPos = Int(Constants.maxXOfPosture)
             }
-            if (xPos < 3) {
-                xPos = 3
+            if (xPos < 0) {
+                xPos = 0
             }
             
-            if nTrainingTutorial == 0 {
-                postureIndicatorView!.displayPostureIndicator(x: xPos)
-            } else if nTrainingTutorial == 1 {
-                tutorialLowerbackView!.displayPostureStatusValue(x: xPos)
-            } else {
-                tutorialUpperchestView!.displayPostureStatusValue(x: xPos)
+            for item in self.delegates {
+                item.liveNewPostureCalculated()
             }
+
+            whichPostureFrame = Int(round(30*((Constants.maxXOfPosture - Float(xPos))/Constants.maxXOfPosture)));
+            
+            if (whichPostureFrame < 1) {
+                whichPostureFrame = 1;
+            }
+            else if (whichPostureFrame > 30) {
+                whichPostureFrame = 30;
+            }
+            
+            if (whichPostureFrame > 19) {
+                postureIsGood = 0;
+            }
+            else {
+                postureIsGood = 1;
+            }
+            
         } else {
             if (xSensor[count] == 0 && ySensor[count] == 0) {
                 relativePosturePositionFiltered[count] = 2*(sin(zSensor[count])/Double.pi)
@@ -687,16 +515,34 @@ class BreathingGraph: UIView {
         }
     }
     
-    func displayDebugStats() {
-        let strln1: String = "strainGauge = " + String(roundNumber(num: strainGauge, dec: 100000)) + "  magneticAngle = " + String(roundNumber(num: rotationSensor[count], dec: 1000)) + " " + String(useRotationSensor)
-        let strln2: String = "Z = " + String(roundNumber(num: zSensor[count], dec: 1000)) + "  Y = " + String(roundNumber(num: ySensor[count], dec: 1000)) + "  X = " + String(roundNumber(num: xSensor[count], dec: 1000)) + "  " + String(roundNumber(num: currentPostureAngle[count], dec: 1000))
-        let strln3: String = String(roundNumber(num: currentStrainGaugeHighest, dec: 100000)) + "  " + String(roundNumber(num: currentStrainGaugeLowest, dec: 100000)) + "  " + String(roundNumber(num: currentStrainGaugeHighest - currentStrainGaugeLowest, dec: 100000)) + "  " + String(breathTopExceeded) + " noisy " + String(dampingLevel) + " stuck " + String(stuckBreaths)
-        let strln4: String = ""
-        liveGraphView?.displayDebugStats(ln1: strln1, ln2: strln2, ln3: strln3, ln4: strln4)
-    }
-    
-    func roundNumber(num:Double, dec:Double) -> Double {
-        return round(num*dec)/dec
+    func processBreathingPosture(sensorData: [Double]) {
+        
+        storeSensorData(sensorData: sensorData)
+        
+        if (count < 5) {
+            return
+        }
+        
+        setSmoothingAndDamping()
+        setRelativeInhaleLevelStrainGauge()
+        displayPostureIndicator()
+        displayBreathingGraph()
+        reversalDetector()
+        displayDebugStats()
+
+        if (breathEnding == 1) {
+            if (graphYSeries[count] > endBreathY) {
+                //                endBreathLine
+                stuckBreaths = 0
+                breathEnding = 0
+                breathCount += 1
+                calculateRespRate()
+                setNewStrainGaugeRange()
+                
+                noisyMovements = 0
+                currentStrainGaugeLowest = strainGauge
+            }
+        }
     }
     
     func calculateRespRate() {
@@ -716,9 +562,8 @@ class BreathingGraph: UIView {
         respRate = roundNumber(num:respRate, dec:10.0)
         avgRespRate = roundNumber(num:avgRespRate, dec:10.0)
         
-        if nTrainingTutorial == 0 {
-            liveGraphView!.displayRespirationRate(val: respRate)
-            liveGraphView!.displayBreathCount(val: Int(breathCount))
+        for item in self.delegates {
+            item.liveNewRespRateCaclculated()
         }
     }
     
@@ -786,74 +631,137 @@ class BreathingGraph: UIView {
         
     }
     
-    func processBreathingPosture(sensorData: [Double]) {
+    func reversalDetector() {
         
-        if !isReady {
+        if (count <= reversalThreshold + 1) {
             return
         }
         
-        storeSensorData(sensorData: sensorData)
+        var up:Int = 0
+        var down:Int = 0
+        //        var i:Int = 0
         
-        if (count < 5) {
-            return
+        if (upStreak == 0) {
+            for i:Int in 0...reversalThreshold {
+                if (graphYSeries[count-i] < graphYSeries[count-i-1]) {
+                    up += 1
+                    if (up == reversalThreshold+1) {
+                        upStreak = 1
+                        upStreakStart = count - (reversalThreshold + 1)
+                    }
+                }
+            }
         }
         
-        setSmoothingAndDamping()
-        setRelativeInhaleLevelStrainGauge()
-        displayPostureIndicator()
-        displayBreathingGraph()
-        reversalDetector()
-        if nTrainingTutorial == 0 {
-            displayDebugStats()
+        if (downStreak == 0) {
+            for i:Int in 0...reversalThreshold {
+                if (graphYSeries[count-i] > graphYSeries[count-i-1]) {
+                    down += 1;
+                    if (down == reversalThreshold+1) {
+                        downStreak = 1;
+                        downStreakStart = count-(reversalThreshold+1);
+                    }
+                }
+            }
         }
         
-        if (breathEnding == 1) {
-            if (graphYSeries[count] > endBreathY) {
-                //                endBreathLine
-                stuckBreaths = 0
-                breathEnding = 0
-                breathCount += 1
-                calculateRespRate()
-                setNewStrainGaugeRange()
+        if (up == (reversalThreshold+1)) {
+            if (downStreak == 1) {
+                downStreak = 0
+                bottomReversalFound = 1
+                bottomReversalY = graphYSeries[downStreakStart]
                 
-                noisyMovements = 0
-                currentStrainGaugeLowest = strainGauge
+                currentStrainGaugeLowestNew = breathSensor[count - (reversalThreshold+2)]
+                
+                if downStreakStart <= upStreakStart {
+                    for i:Int in downStreakStart...upStreakStart {
+                        if (graphYSeries[i] > bottomReversalY) {
+                            bottomReversalY = graphYSeries[i]
+                        }
+                    }
+                }
+                
+                
+                //                bottomReversalLine.y = bottomReversalY
+                //                topReversalLine.y = 5000
+                isDrawTop = false
+                isDrawBottom = true
+                
+                if (breathEnding == 1) {
+                    stuckBreaths += 1
+                }
+                
+                if (stuckBreaths == 0) {
+                    currentStrainGaugeHighestPrev = currentStrainGaugeHighest
+                }
+                
+                topReversalFound = 0
+            }
+        }
+        
+        if (down == (reversalThreshold+1)) {
+            if (upStreak == 1) {
+                upStreak = 0
+                topReversalY = graphYSeries[upStreakStart]
+                
+                if upStreakStart <= downStreakStart {
+                    for i:Int in upStreakStart...downStreakStart {
+                        if (graphYSeries[i] < topReversalY) {
+                            topReversalY = graphYSeries[i]
+                        }
+                    }
+                }
+                
+                
+                if ( ((bottomReversalY-topReversalY < minBreathRange) && (stuckBreaths > 0)) || (yStartPos-topReversalY < (minBreathRange/3)) ) {
+                    return
+                }
+                
+                topReversalFound = 1
+                
+                currentStrainGaugeHighestNew = breathSensor[count-(reversalThreshold+2)]
+                
+                //                topReversalLine.y = topReversalY
+                isDrawBottom = false
+                isDrawTop = true
+                
+                if (bottomReversalFound == 1 || breathCount < 2) {
+                    bottomReversalFound = 0
+                    breathEnding = 1
+                    
+                    if breathCount < 2 {
+                        endBreathY = bottomReversalY - 0.95 * (bottomReversalY - topReversalY)
+                    } else if (appMode == 2) {
+                        //
+                    } else if (appMode == 1 || appMode == 3) {
+                        endBreathY = bottomReversalY - 0.2*(bottomReversalY-topReversalY)
+                        
+                        if (noisyMovements == 1) {
+                            endBreathY = bottomReversalY - 0.5*(bottomReversalY - topReversalY)
+                        }
+                        
+                        if (stuckBreaths >= stuckBreathsThreshold) {
+                            endBreathY = bottomReversalY - 0.5*(bottomReversalY - topReversalY)
+                        }
+                    }
+                    
+                    //                    endBreathLine.y = endBreathY
+                }
             }
         }
     }
     
-    func learnUprightAngleHandler()  {
-        
-        if (!isReady || count < 0) {
-            return
+    func setPostureResponsiveness(val: Int) {
+        switch(val) {
+        case 1:
+            postureRange = 0.15
+        case 2:
+            postureRange = 0.1
+        case 3:
+            postureRange = 0.05
+        default:
+            break
         }
-        
-        uprightSet = 1;
-        
-        if (xSensor[count] == 0 && ySensor[count] == 0) {
-            uprightPostureAngle = 2*(asin(zSensor[count])/Double.pi);
-        }
-        else {
-            uprightPostureAngle = 2*(atan(zSensor[count]/sqrt(pow(xSensor[count],2)+pow(ySensor[count],2)))/Double.pi);
-        }
-        
-    }
-    
-    func setUprightButtonPush(sensorData a:[Double])  {
-    
-        if (!isReady || count < 0) {
-            return
-        }
-        
-        uprightSet = 1;
-        
-        if (a[1] == 0.0 && a[2] == 0.0) {
-            uprightPostureAngle = 2*(asin(a[3])/Double.pi);
-        }
-        else {
-            uprightPostureAngle = 2*(atan(a[3]/sqrt(pow(a[1],2)+pow(a[2],2)))/Double.pi);
-        }
-        
     }
     
     func setBreathingResponsiveness(val: Int) {
@@ -875,17 +783,103 @@ class BreathingGraph: UIView {
         }
     }
     
-    func setPostureResponsiveness(val: Int) {
-        switch(val) {
-        case 1:
-            postureRange = 0.15
-        case 2:
-            postureRange = 0.1
-        case 3:
-            postureRange = 0.05
-        default:
-            break
+    func learnUprightAngleHandler()  {
+        if (count < 0) {
+            return
+        }
+        
+        uprightSet = 1;
+        
+        if (xSensor[count] == 0 && ySensor[count] == 0) {
+            uprightPostureAngle = 2*(asin(zSensor[count])/Double.pi);
+        }
+        else {
+            uprightPostureAngle = 2*(atan(zSensor[count]/sqrt(pow(xSensor[count],2)+pow(ySensor[count],2)))/Double.pi);
+        }
+        
+    }
+    
+    func setUprightButtonPush(sensorData a:[Double])  {
+        
+        if (count < 0) {
+            return
+        }
+        
+        uprightSet = 1;
+        
+        if (a[1] == 0.0 && a[2] == 0.0) {
+            uprightPostureAngle = 2*(asin(a[3])/Double.pi);
+        }
+        else {
+            uprightPostureAngle = 2*(atan(a[3]/sqrt(pow(a[1],2)+pow(a[2],2)))/Double.pi);
+        }
+        
+    }
+    
+    func roundNumber(num:Double, dec:Double) -> Double {
+        return round(num*dec)/dec
+    }
+}
+
+extension Live: PranaDeviceManagerDelegate {
+    func PranaDeviceManagerDidStartScan() {
+        
+    }
+    
+    func PranaDeviceManagerDidStopScan(with error: String?) {
+        
+    }
+    
+    func PranaDeviceManagerDidDiscover(_ device: PranaDevice) {
+        
+    }
+    
+    func PranaDeviceManagerDidConnect(_ deviceName: String) {
+        
+    }
+    
+    func PranaDeviceManagerFailConnect() {
+        
+    }
+    
+    func PranaDeviceManagerDidOpenChannel() {
+        
+    }
+    
+    func PranaDeviceManagerDidReceiveData(_ parameter: CBCharacteristic) {
+        
+    }
+    
+    func PranaDeviceManagerDidReceiveLiveData(_ data: String!) {
+        let raw = data.split(separator: ",")
+        
+        if raw[0] == "20hz" {
+            if raw.count != 7 {
+                return
+            }
+            var paras: [Double] = []
+            paras.append(0.0)
+            paras.append(Double(raw[1])!)
+            paras.append(Double(raw[2])!)
+            paras.append(Double(raw[3])!)
+            paras.append(Double(raw[4])!)
+            paras.append(Double(raw[5])!)
+            paras.append(0.0)
+            
+            processBreathingPosture(sensorData: paras)
+        }
+        else if raw[0] == "Upright" {
+            if raw.count != 4 {
+                return
+            }
+            var paras: [Double] = []
+            paras.append(0.0)
+            paras.append(Double(raw[1])!)
+            paras.append(Double(raw[2])!)
+            paras.append(Double(raw[3])!)
+            setUprightButtonPush(sensorData: paras)
         }
     }
-
+    
+    
 }

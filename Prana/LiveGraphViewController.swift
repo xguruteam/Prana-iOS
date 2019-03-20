@@ -15,10 +15,12 @@ class LiveGraphViewController: UIViewController {
     @IBOutlet weak var breathingGraphView: BreathingGraph!
     @IBOutlet weak var postureIndicatorView: PostureIndicator!
     @IBOutlet weak var btnUpright: UIButton!
-    @IBOutlet weak var slidBreathResponsiveness: UISlider!
-    @IBOutlet weak var lblBreathResponsiveness: UILabel!
-    @IBOutlet weak var slidPostureResponsiveness: UISlider!
-    @IBOutlet weak var lblPostureResponsiveness: UILabel!
+    @IBOutlet weak var btnBreathSensitivity1: UIButton!
+    @IBOutlet weak var btnBreathSensitivity2: UIButton!
+    @IBOutlet weak var btnBreathSensitivity3: UIButton!
+    @IBOutlet weak var btnPostureSensitivity1: UIButton!
+    @IBOutlet weak var btnPostureSensitivity2: UIButton!
+    @IBOutlet weak var btnPostureSensitivity3: UIButton!
     @IBOutlet weak var lblRespirationRate: UILabel!
     @IBOutlet weak var lblBreathCount: UILabel!
     @IBOutlet weak var lblDebugLine1: UILabel!
@@ -36,6 +38,30 @@ class LiveGraphViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         PranaDeviceManager.shared.addDelegate(self)
+        
+        btnBreathSensitivity1.layer.cornerRadius = 8
+        btnBreathSensitivity1.clipsToBounds = true
+        btnBreathSensitivity1.layer.borderColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 1).cgColor
+        btnBreathSensitivity2.layer.cornerRadius = 8
+        btnBreathSensitivity2.clipsToBounds = true
+        btnBreathSensitivity3.layer.borderColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 1).cgColor
+        btnBreathSensitivity3.layer.cornerRadius = 8
+        btnBreathSensitivity3.clipsToBounds = true
+        btnBreathSensitivity3.layer.borderColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 1).cgColor
+        
+        setBreathSensitivity(val: 1)
+        
+        btnPostureSensitivity1.layer.cornerRadius = 8
+        btnPostureSensitivity1.clipsToBounds = true
+        btnPostureSensitivity1.layer.borderColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 1).cgColor
+        btnPostureSensitivity2.layer.cornerRadius = 8
+        btnPostureSensitivity2.clipsToBounds = true
+        btnPostureSensitivity2.layer.borderColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 1).cgColor
+        btnPostureSensitivity3.layer.cornerRadius = 8
+        btnPostureSensitivity3.clipsToBounds = true
+        btnPostureSensitivity3.layer.borderColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 1).cgColor
+        
+        setPostureSensitivity(val: 1)
     }
     
     
@@ -111,17 +137,50 @@ class LiveGraphViewController: UIViewController {
         }
     }
     
-    @IBAction func onSliderBreathResponsivenessChanged(_ sender: UISlider) {
-//        lblBreathResponsiveness.text = String.
-        let value = Int(round(sender.value))
-        lblBreathResponsiveness.text = "\(value)"
-        breathingGraphView.setBreathingResponsiveness(val: value)
+    func setBreathSensitivity(val: Int) {
+        btnBreathSensitivity1.backgroundColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 0.1)
+        btnBreathSensitivity2.backgroundColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 0.1)
+        btnBreathSensitivity3.backgroundColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 0.1)
+        
+        switch val {
+        case 1:
+            btnBreathSensitivity1.backgroundColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 1)
+        case 2:
+            btnBreathSensitivity2.backgroundColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 1)
+        case 3:
+            btnBreathSensitivity3.backgroundColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 1)
+        default:
+            break
+        }
+        
+        breathingGraphView.setBreathingResponsiveness(val: val)
     }
     
-    @IBAction func onSliderPostureResponsivenessChanged(_ sender: UISlider) {
-        let value = Int(sender.value)
-        lblPostureResponsiveness.text = "\(value)"
-        breathingGraphView.setPostureResponsiveness(val: value)
+    @IBAction func onBreathSensitivityChange(_ sender: UIButton) {
+        setBreathSensitivity(val: sender.tag)
+    }
+    
+    func setPostureSensitivity(val: Int) {
+        btnPostureSensitivity1.backgroundColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 0.1)
+        btnPostureSensitivity2.backgroundColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 0.1)
+        btnPostureSensitivity3.backgroundColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 0.1)
+        
+        switch val {
+        case 1:
+            btnPostureSensitivity1.backgroundColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 1)
+        case 2:
+            btnPostureSensitivity2.backgroundColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 1)
+        case 3:
+            btnPostureSensitivity3.backgroundColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 1)
+        default:
+            break
+        }
+        
+        breathingGraphView.setPostureResponsiveness(val: val)
+    }
+    
+    @IBAction func onPostureSensitivityChange(_ sender: UIButton) {
+        setPostureSensitivity(val: sender.tag)
     }
     
     // MARK: - Navigation

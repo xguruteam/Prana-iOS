@@ -2,7 +2,7 @@
 //  ConnectViewController.swift
 //  Prana
 //
-//  Created by Guru on 3/14/19.
+//  Created by Luccas on 3/14/19.
 //  Copyright © 2019 Prana. All rights reserved.
 //
 
@@ -150,7 +150,7 @@ extension ConnectViewController: PranaDeviceManagerDelegate {
     
     func PranaDeviceManagerDidDiscover(_ device: PranaDevice) {
         print(device.name)
-        if device.name.contains("Prana Tech") || device.name.contains("iPod touch") {
+        if device.name.contains("Prana Tech") || device.name.contains("iPod touch") || device.name.contains("PranaTech") {
             stopScanPrana()
             connectPrana(device)
         }

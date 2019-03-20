@@ -49,7 +49,7 @@ class LoginViewController: UIViewController {
         
 //        let x = true
 //        if x {
-//            let firstVC = Utils.getStoryboardWithIdentifier(identifier: "LiveGraphViewController")
+//            let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ChargingGuideViewController")
 //            let navVC = UINavigationController(rootViewController: firstVC)
 //            self.present(navVC, animated: true, completion: nil)
 //            return

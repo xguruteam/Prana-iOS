@@ -74,6 +74,14 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
         currentDevice?.writeValue("start20hzdata".data(using: .utf8)!, for: char, type: .withoutResponse)
     }
     
+    open func sendCommand(_ command: String) {
+        guard let char = self.rxChar else {
+            return
+        }
+        print("command " + command)
+        currentDevice?.writeValue(command.data(using: .utf8)!, for: char, type: .withoutResponse)
+    }
+    
     open func stopGettingLiveData() {
         guard let char = self.rxChar else {
             return
