@@ -10,6 +10,20 @@ import Foundation
 
 class Pattern {
     
+    static func getPatternValue(value: Any) -> Double {
+        if value is Int {
+            return Double(value as! Int)
+        }
+        else if value is Double {
+            return value as! Double
+        }
+        else if value is Float {
+            return Double(value as! Float)
+        }
+        
+        return 0.0
+    }
+    
     //inhalationTime = 3;
     //retentionTime = 4;
     //exhalationTime = 5;

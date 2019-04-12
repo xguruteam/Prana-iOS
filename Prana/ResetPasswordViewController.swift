@@ -16,7 +16,9 @@ import MBProgressHUD
 class ResetPasswordViewController: UIViewController {
     
     @IBOutlet weak var tf_password: UITextField!
+    @IBOutlet weak var lbl_error_password: UILabel!
     @IBOutlet weak var tf_password_confirmation: UITextField!
+    @IBOutlet weak var lbl_error_password_confirmation: UILabel!
     
     var token: String = ""
     var email: String = ""
@@ -30,12 +32,30 @@ class ResetPasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.isHidden = true
+        
+        initView()
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         token = appDelegate.token
         
         checkPasswordResetToken()
+    }
+    
+    func initView() {
+        let background = UIImage(named: "app-background")
+        let imageView = UIImageView(frame: view.bounds)
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = view.center
+        view.insertSubview(imageView, at: 0)
+        view.sendSubviewToBack(imageView)
+        
+        tf_password.borderStyle = .none
+        lbl_error_password.isHidden = true
+        tf_password_confirmation.borderStyle = .none
+        lbl_error_password_confirmation.isHidden = true
     }
     
     func checkPasswordResetToken() {
@@ -76,10 +96,6 @@ class ResetPasswordViewController: UIViewController {
                 }
                 MBProgressHUD.hide(for: self.view, animated: true)
         }
-    }
-    
-    func updateUI()
-    {
     }
     
     @IBAction func onSubmitClick(_ sender: Any) {
@@ -150,6 +166,22 @@ class ResetPasswordViewController: UIViewController {
                 }
                 
                 MBProgressHUD.hide(for: self.view, animated: true)
+        }
+    }
+    
+    @IBAction func onBlinkPasswordClick(_ sender: UIButton) {
+        if tf_password.isSecureTextEntry {
+            tf_password.isSecureTextEntry = false
+        } else {
+            tf_password.isSecureTextEntry = true
+        }
+    }
+    
+    @IBAction func onBlinkConfirmPasswordClick(_ sender: UIButton) {
+        if tf_password_confirmation.isSecureTextEntry {
+            tf_password_confirmation.isSecureTextEntry = false
+        } else {
+            tf_password_confirmation.isSecureTextEntry = true
         }
     }
 }

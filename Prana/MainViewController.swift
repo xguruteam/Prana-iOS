@@ -82,7 +82,7 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "descriptionCellId") as! SesseionRecordCell
         cell.lblDateTime.text = convertTimeStamp(self.sessionData[indexPath.row]["session_started_at"] as! String, format: "h:mm a")
-        cell.tvDescription.text = self.sessionData[indexPath.row]["description"] as! String
+        cell.tvDescription.text = (self.sessionData[indexPath.row]["description"] as! String)
         return cell
     }
     

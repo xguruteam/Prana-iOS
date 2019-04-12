@@ -26,6 +26,8 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     static let RX_CHAR_UUID = "6E400002-B5A3-F393-E0A9-E50E24DCCA9E"
     static let TX_CHAR_UUID = "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
     
+    let concurrentQueue = DispatchQueue(label: "ScanningQueue")
+    
     //MARK: Singleton Share PranaDeviceManager
     static let shared = PranaDeviceManager()
     
@@ -41,9 +43,11 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     
     var rxChar: CBCharacteristic?
     
+    var needStopLive = false
+    
     override init() {
-        //        let concurrentQueue = DispatchQueue(label: "ScanningQueue", attributes: .concurrent)
-        self.centralManager = CBCentralManager(delegate: nil, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true])
+        
+        self.centralManager = CBCentralManager(delegate: nil, queue: concurrentQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true])
         super.init()
         self.centralManager.delegate = self
     }
@@ -53,17 +57,25 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     }
     
     open func startScan() {
-        if self.centralManager.state != .poweredOn {
-            self.delegate?.PranaDeviceManagerDidStopScan(with: "Bluetooth is turned off.")
+        isRunning = true
+        if self.centralManager.state == .poweredOn {
+            start()
+            self.delegate?.PranaDeviceManagerDidStartScan()
             return
         }
-        
-        start()
-        self.delegate?.PranaDeviceManagerDidStartScan()
+        self.delegate?.PranaDeviceManagerDidStopScan(with: "Bluetooth is turned off.")
+        return
     }
     
     open func stopScan() {
-        stop()
+        if isRunning {
+            isRunning = false
+            if self.centralManager.state == .poweredOn {
+                stop()
+                self.delegate?.PranaDeviceManagerDidStopScan(with: nil)
+                return
+            }
+        }
     }
     
     open func startGettingLiveData() {
@@ -71,6 +83,8 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
             return
         }
         
+        needStopLive = false
+        buff = nil
         currentDevice?.writeValue("start20hzdata".data(using: .utf8)!, for: char, type: .withoutResponse)
     }
     
@@ -87,12 +101,12 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
             return
         }
         
+        needStopLive = true
         currentDevice?.writeValue("stopData".data(using: .utf8)!, for: char, type: .withoutResponse)
     }
     
     private func start() {
         //        self.centralManager.delegate = self
-        self.isRunning = true
         disconnect()
         self.centralManager.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: false])
     }
@@ -100,7 +114,6 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     private func stop() {
         self.centralManager.stopScan()
         //        self.centralManager.delegate = nil
-        self.isRunning = false
     }
     
     open func addDelegate(_ delegate: PranaDeviceManagerDelegate) {
@@ -147,6 +160,7 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
         }
         
         currentDevice = nil
+        self.rxChar = nil
     }
     
     //MARK: Notify to Delegates
@@ -180,8 +194,10 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
         
         if data.starts(with: "20hz,") || data.starts(with: "Upright,") {
             if let raw = buff {
-                for item in self.delegates {
-                    item.PranaDeviceManagerDidReceiveLiveData(raw)
+                if !needStopLive {
+                    for item in self.delegates {
+                        item.PranaDeviceManagerDidReceiveLiveData(raw)
+                    }
                 }
             }
             
@@ -200,9 +216,17 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     
     //MARK: CBCentralManagerDelegate
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        if central.state != .poweredOn {
-            stop()
-            self.delegate?.PranaDeviceManagerDidStopScan(with: "Bluetooth is turned off.")
+        if central.state == .poweredOn {
+            if isRunning {
+                start()
+                self.delegate?.PranaDeviceManagerDidStartScan()
+            }
+        }
+        else {
+            if isRunning {
+                stop()
+                self.delegate?.PranaDeviceManagerDidStopScan(with: "Bluetooth is turned off.")
+            }
         }
     }
     
@@ -288,13 +312,12 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
         if let chars = service.characteristics {
             for char in chars {
                 Log.d("discovered characteristic - \(char.uuid.uuidString)")
-                
+
                 switch char.uuid.uuidString {
                 case PranaDeviceManager.TX_CHAR_UUID:
                     peripheral.setNotifyValue(true, for: char)
                 case PranaDeviceManager.RX_CHAR_UUID:
                     self.rxChar = char
-                    break
                 default:
                     continue
                 }
@@ -310,8 +333,10 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
         
         if characteristic.isNotifying {
             Log.d("start subscribing from - \(characteristic.uuid.uuidString)")
-            for item in self.delegates {
-                item.PranaDeviceManagerDidOpenChannel()
+            concurrentQueue.asyncAfter(deadline: DispatchTime.now() + .seconds(4)) {
+                for item in self.delegates {
+                    item.PranaDeviceManagerDidOpenChannel()
+                }
             }
         }
         else {

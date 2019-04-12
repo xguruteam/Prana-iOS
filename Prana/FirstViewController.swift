@@ -33,15 +33,43 @@ class FirstViewController: UIViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if self.isMovingFromParent {
+            
+        }
+    }
+    
+    
+    
     @IBAction func onLogoutClicked(_ sender: Any) {
         UserDefaults.standard.removeObject(forKey: KEY_TOKEN)
         UserDefaults.standard.removeObject(forKey: KEY_EXPIREAT)
         UserDefaults.standard.removeObject(forKey: KEY_REMEMBERME)
         UserDefaults.standard.synchronize()
+        
+        if PranaDeviceManager.shared.isConnected {
+            PranaDeviceManager.shared.stopGettingLiveData()
+            PranaDeviceManager.shared.disconnect()
+            PranaDeviceManager.shared.delegate = nil
+        }
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func onHistoryClicked(_ sender: Any) {
+    }
+    
+    @IBAction func onBuzzerTrainingClicked(_ sender: UIButton) {
+        let vc = Utils.getStoryboardWithIdentifier(identifier: "BuzzerTrainingViewController")
+        let navVC = UINavigationController(rootViewController: vc)
+        self.present(navVC, animated: true, completion: nil)
+    }
+    
+    @IBAction func onVisualTrainingClicked(_ sender: UIButton) {
+        let vc = Utils.getStoryboardWithIdentifier(identifier: "PrepareViewController")
+        let navVC = UINavigationController(rootViewController: vc)
+        self.present(navVC, animated: true, completion: nil)
     }
     
     @IBAction func onGenTrainingClicked(_ sender: Any) {

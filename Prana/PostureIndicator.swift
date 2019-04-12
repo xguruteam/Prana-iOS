@@ -93,8 +93,8 @@ class PostureIndicator: UIView {
     }
     
     open func displayPostureIndicator(x: Int) {
-        print("x \(x)")
-        xPos = x
+//        print("x \(x)")
+        xPos = Int(Float(x) / Live.Constants.maxXOfPosture * Float(width))
         
         setNeedsDisplay()
     }

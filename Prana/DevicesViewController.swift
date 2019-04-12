@@ -50,7 +50,9 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var devices = [PranaDevice]() {
         didSet {
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -162,24 +164,28 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func PranaDeviceManagerDidConnect(_ deviceName: String) {
-        let alert = UIAlertController(title: "ClubRow", message: "\(deviceName) is connected successfully!", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action: UIAlertAction!) in
-            //            C2ConnectionManager.shared.removeDelegate(self)
-            //            self.navigationController?.popViewController(animated: true)
-            self.onBack(self)
-        }))
-        
-        present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "ClubRow", message: "\(deviceName) is connected successfully!", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action: UIAlertAction!) in
+                //            C2ConnectionManager.shared.removeDelegate(self)
+                //            self.navigationController?.popViewController(animated: true)
+                self.onBack(self)
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     func PranaDeviceManagerFailConnect() {
-        let alert = UIAlertController(title: "ClubRow", message: "This device is unable to connect.\n Please try another device!", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action: UIAlertAction!) in
-        }))
-        
-        present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "ClubRow", message: "This device is unable to connect.\n Please try another device!", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action: UIAlertAction!) in
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     func PranaDeviceManagerDidReceiveData(_ parameter: CBCharacteristic) {

@@ -692,7 +692,7 @@ class BreathingGraph: UIView {
         let strln2: String = "Z = " + String(roundNumber(num: zSensor[count], dec: 1000)) + "  Y = " + String(roundNumber(num: ySensor[count], dec: 1000)) + "  X = " + String(roundNumber(num: xSensor[count], dec: 1000)) + "  " + String(roundNumber(num: currentPostureAngle[count], dec: 1000))
         let strln3: String = String(roundNumber(num: currentStrainGaugeHighest, dec: 100000)) + "  " + String(roundNumber(num: currentStrainGaugeLowest, dec: 100000)) + "  " + String(roundNumber(num: currentStrainGaugeHighest - currentStrainGaugeLowest, dec: 100000)) + "  " + String(breathTopExceeded) + " noisy " + String(dampingLevel) + " stuck " + String(stuckBreaths)
         let strln4: String = ""
-        liveGraphView?.displayDebugStats(ln1: strln1, ln2: strln2, ln3: strln3, ln4: strln4)
+//        liveGraphView?.displayDebugStats(ln1: strln1, ln2: strln2, ln3: strln3, ln4: strln4)
     }
     
     func roundNumber(num:Double, dec:Double) -> Double {

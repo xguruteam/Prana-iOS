@@ -43,7 +43,15 @@ class LiveGraph: UIView {
             return
         }
         
-        if live.count <= 1 {
+        let yPos = live.yPos
+        
+        let count = live.count
+        
+        if count <= 1 {
+            return
+        }
+        
+        if count > (live.totalPoints-1) {
             return
         }
         
@@ -53,9 +61,13 @@ class LiveGraph: UIView {
         
         let xStep = (width - 50) / CGFloat(live.totalPoints - 1)
         
-        path.move(to: CGPoint(x: 0, y: scale(live.graphYSeries[0])))
-        for i: Int in 1 ... live.count {
-            path.addLine(to: CGPoint(x: CGFloat(i) * xStep, y: scale(live.graphYSeries[i])))
+        path.move(to: CGPoint(x: 0, y: scale(yPos[0])))
+        for i: Int in 1 ... count {
+            let y = yPos[i]
+//            if y > live.yStartPos {
+//                break
+//            }
+            path.addLine(to: CGPoint(x: CGFloat(i) * xStep, y: scale(y)))
         }
         
         path.stroke()
@@ -95,12 +107,18 @@ class LiveGraph: UIView {
 }
 
 extension LiveGraph: LiveDelegate {
+    func liveDebug(para1: String, para2: String, para3: String, para4: String) {
+        
+    }
+    
     func liveDidUprightSet() {
         
     }
     
     func liveNewBreathingCalculated() {
-        setNeedsDisplay()
+        DispatchQueue.main.async {
+            self.setNeedsDisplay()
+        }
     }
     
     func liveNewPostureCalculated() {

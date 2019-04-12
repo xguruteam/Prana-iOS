@@ -9,6 +9,14 @@
 import UIKit
 import IQKeyboardManagerSwift
 
+extension Notification.Name {
+    static let connectViewControllerDidNext = Notification.Name("connectViewControllerDidNext")
+    static let tutorialDidEnd = Notification.Name("tutorialDidEnd")
+    static let didLogIn = Notification.Name("didLogIn")
+    static let landscapeViewControllerDidDismiss = Notification.Name("landscapeViewControllerDidDismiss")
+    static let deviceOrientationDidChange = UIDevice.orientationDidChangeNotification
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -80,6 +88,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         return rootViewController
+    }
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        if let rootViewController = self.topViewControllerWithRootViewController(rootViewController: window?.rootViewController) {
+            if (rootViewController is VisualTrainingViewController){
+                return .landscapeRight
+            }
+        }
+        
+        // Only allow portrait (standard behaviour)
+        return .portrait;
     }
 
 }

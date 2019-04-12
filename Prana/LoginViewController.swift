@@ -15,21 +15,40 @@ import MBProgressHUD
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var img_logo: UIImageView!
     @IBOutlet weak var tf_email: UITextField!
     @IBOutlet weak var tf_password: UITextField!
-    @IBOutlet weak var swi_keeplogin: UISwitch!
+    @IBOutlet weak var lbl_copyright: UILabel!
+    @IBOutlet weak var lbl_error_email: UILabel!
+    @IBOutlet weak var lbl_error_password: UILabel!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.isHidden = true
 
-        updateUI()
+        initView()
     }
 
-    func updateUI() {
+    func initView() {
+        let background = UIImage(named: "app-background")
+        let imageView = UIImageView(frame: view.bounds)
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = view.center
+        view.insertSubview(imageView, at: 0)
+        view.sendSubviewToBack(imageView)
         
+        tf_email.borderStyle = .none
+        tf_email.borderWidth = 0
+        tf_password.borderStyle = .none
+        
+        lbl_error_email.isHidden = true
+        lbl_error_password.isHidden = true
+        
+        lbl_copyright.textColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     }
 
     @IBAction func onBackClick(_ sender: Any) {
@@ -80,7 +99,7 @@ class LoginViewController: UIViewController {
         hud.mode = .indeterminate
         hud.label.text = "Loading..."
         
-        let remember_me = swi_keeplogin.isOn
+        let remember_me = true
         let param: Parameters = [
             "email": tf_email.text!,
             "password": tf_password.text!,
@@ -100,9 +119,7 @@ class LoginViewController: UIViewController {
                         UserDefaults.standard.synchronize()
                         // let firstVC = Utils.getStoryboardWithIdentifier(identifier: "FirstViewController")
                         self.navigationController?.popToRootViewController(animated: false)
-                        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ChargingGuideViewController")
-                        let navVC = UINavigationController(rootViewController: firstVC)
-                        self.present(navVC, animated: true, completion: nil)
+                        NotificationCenter.default.post(name: .didLogIn, object: nil)
                     }
                     
                     break
@@ -129,4 +146,11 @@ class LoginViewController: UIViewController {
         }
     }
     
+    @IBAction func onBlinkClick(_ sender: UIButton) {
+        if tf_password.isSecureTextEntry {
+            tf_password.isSecureTextEntry = false
+        } else {
+            tf_password.isSecureTextEntry = true
+        }
+    }
 }

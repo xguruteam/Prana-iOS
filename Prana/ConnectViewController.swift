@@ -11,12 +11,8 @@ import CoreBluetooth
 
 class ConnectViewController: UIViewController {
 
-    @IBOutlet weak var lblSuccessMessage: UILabel!
-    @IBOutlet weak var lblBatteryWarning: UILabel!
-    @IBOutlet weak var btNext: UIButton!
-    @IBOutlet weak var lblConnectState: UILabel!
-    @IBOutlet weak var lblBatteryLevel: UILabel!
-    
+    @IBOutlet weak var lbl_success_connect: UILabel!
+    @IBOutlet weak var btn_next: UIButton!
     
     var isScanning = false
     var isConnected = false
@@ -26,17 +22,26 @@ class ConnectViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        lblSuccessMessage.isHidden = true
-        lblBatteryWarning.isHidden = true
-        btNext.isEnabled = false
-        btNext.alpha = 0.5
-        lblConnectState.text = "Off"
-        lblBatteryLevel.text = "?%"
+        initView()
         
         PranaDeviceManager.shared.delegate = self
         PranaDeviceManager.shared.addDelegate(self)
         
         startScanPrana()
+    }
+    
+    func initView() {
+        let background = UIImage(named: "app-background")
+        let imageView = UIImageView(frame: view.bounds)
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = view.center
+        view.insertSubview(imageView, at: 0)
+        view.sendSubviewToBack(imageView)
+        
+        lbl_success_connect.isHidden = true
+        btn_next.isEnabled = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -55,12 +60,14 @@ class ConnectViewController: UIViewController {
     
     @IBAction func onNext(_ sender: Any) {
         PranaDeviceManager.shared.removeDelegate(self)
-        NotificationCenter.default.post(name: .connectViewControllerDidNext, object: nil)
+        PranaDeviceManager.shared.delegate = nil
+        self.dismiss(animated: false) {
+            NotificationCenter.default.post(name: .connectViewControllerDidNext, object: nil)
+        }
     }
     
     func startScanPrana() {
         isScanning = true
-        
         
         PranaDeviceManager.shared.startScan()
     }
@@ -101,19 +108,11 @@ class ConnectViewController: UIViewController {
         
         isConnected = true
         
-        self.lblConnectState.text = "On"
-        self.lblBatteryLevel.text = "\(level)%"
-        
         if level < 60 {
-            self.lblBatteryWarning.layer.borderWidth = 1
-            self.lblBatteryWarning.layer.borderColor = UIColor.red.cgColor
-            self.lblBatteryWarning.isHidden = false
             return
         }
         
-        self.btNext.isEnabled = true
-        self.btNext.alpha = 1.0
-        
+        self.btn_next.isEnabled = true
     }
     
     /*
@@ -130,7 +129,10 @@ class ConnectViewController: UIViewController {
 
 extension ConnectViewController: PranaDeviceManagerDelegate {
     func PranaDeviceManagerDidOpenChannel() {
-        self.lblSuccessMessage.isHidden = false
+        DispatchQueue.main.async {
+            self.lbl_success_connect.isHidden = false
+            self.btn_next.setBackgroundImage(UIImage(named: "button-green-lg"), for: .normal)
+        }
         PranaDeviceManager.shared.startGettingLiveData()
     }
     
@@ -150,7 +152,9 @@ extension ConnectViewController: PranaDeviceManagerDelegate {
     
     func PranaDeviceManagerDidDiscover(_ device: PranaDevice) {
         print(device.name)
-        if device.name.contains("Prana Tech") || device.name.contains("iPod touch") || device.name.contains("PranaTech") {
+        if device.name.contains("iPhone")
+            || device.name.contains("iPod touch")
+            || device.name.contains("Prana Tech") {
             stopScanPrana()
             connectPrana(device)
         }
@@ -161,9 +165,11 @@ extension ConnectViewController: PranaDeviceManagerDelegate {
     }
     
     func PranaDeviceManagerFailConnect() {
-        self.lblSuccessMessage.textColor = UIColor.black
-        self.lblSuccessMessage.text = "Failed to connect Prana!"
-        self.lblSuccessMessage.isHidden = false
+        DispatchQueue.main.async {
+//            self.lblSuccessMessage.textColor = UIColor.black
+            self.lbl_success_connect.text = "Failed to connect Prana!"
+            self.lbl_success_connect.isHidden = false
+        }
     }
     
     func PranaDeviceManagerDidReceiveData(_ parameter: CBCharacteristic) {

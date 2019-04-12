@@ -16,14 +16,20 @@ import MBProgressHUD
 class SignupViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var tf_firstname: UITextField!
+    @IBOutlet weak var lbl_error_firstname: UILabel!
     @IBOutlet weak var tf_lastname: UITextField!
+    @IBOutlet weak var lbl_error_lastname: UILabel!
     @IBOutlet weak var tf_email: UITextField!
+    @IBOutlet weak var lbl_error_email: UILabel!
     @IBOutlet weak var tf_password: UITextField!
+    @IBOutlet weak var lbl_error_password: UILabel!
     @IBOutlet weak var tf_confirmpassword: UITextField!
+    @IBOutlet weak var lbl_error_confirmpassword: UILabel!
     @IBOutlet weak var tf_birthdate: UITextField!
+    @IBOutlet weak var lbl_error_birthdate: UILabel!
     @IBOutlet weak var btn_submit: UIButton!
-    @IBOutlet weak var btn_gendermale: UIButton!
-    @IBOutlet weak var btn_genderfemale: UIButton!
+    @IBOutlet weak var btn_gender_male: UIButton!
+    @IBOutlet weak var btn_gender_female: UIButton!
     
     var strGender: String!
     
@@ -32,24 +38,42 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.isHidden = true
         
         tf_birthdate.delegate = self
         
-        strGender = "male"
-        btn_gendermale.layer.cornerRadius = 12
-        btn_gendermale.clipsToBounds = true
-        btn_genderfemale.layer.cornerRadius = 12
-        btn_genderfemale.clipsToBounds = true
-        genderChanged()
-        updateUI()
+        initView()
+        
+        genderChange(nGender: 0)
     }
     
-    @IBAction func onback(_ sender: Any) {
+    @IBAction func onBackClick(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
-    func updateUI() {
+    func initView() {
+        let background = UIImage(named: "app-background")
+        let imageView = UIImageView(frame: view.bounds)
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = view.center
+        view.insertSubview(imageView, at: 0)
+        view.sendSubviewToBack(imageView)
+        
+        tf_firstname.borderStyle = .none
+        tf_lastname.borderStyle = .none
+        tf_email.borderStyle = .none
+        tf_password.borderStyle = .none
+        tf_confirmpassword.borderStyle = .none
+        tf_birthdate.borderStyle = .none
+        
+        lbl_error_firstname.isHidden = true
+        lbl_error_lastname.isHidden = true
+        lbl_error_email.isHidden = true
+        lbl_error_password.isHidden = true
+        lbl_error_confirmpassword.isHidden = true
+        lbl_error_birthdate.isHidden = true
     }
 
     @IBAction func onSubmitClick(_ sender: Any) {
@@ -173,10 +197,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                         UserDefaults.standard.set(false, forKey: KEY_REMEMBERME)
                         UserDefaults.standard.synchronize()
                         self.navigationController?.popToRootViewController(animated: false)
-                        // let firstVC = Utils.getStoryboardWithIdentifier(identifier: "FirstViewController")
-                        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ChargingGuideViewController")
-                        let navVC = UINavigationController(rootViewController: firstVC)
-                        self.present(navVC, animated: true, completion: nil)
+                        NotificationCenter.default.post(name: .didLogIn, object: nil)
                     }
                     break
                 case .failure:
@@ -214,38 +235,46 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    @IBAction func onGenderChange(_ sender: UIButton) {
+        genderChange(nGender: sender.tag)
+    }
+    
+    func genderChange(nGender: Int) {
+        if nGender == 0 {
+            strGender = "male"
+            
+            btn_gender_male.setBackgroundImage(UIImage(named: "radio-green-selected"), for: .normal)
+            btn_gender_female.setBackgroundImage(UIImage(named: "radio-green-normal"), for: .normal)
+        } else {
+            strGender = "female"
+            
+            btn_gender_male.setBackgroundImage(UIImage(named: "radio-green-normal"), for: .normal)
+            btn_gender_female.setBackgroundImage(UIImage(named: "radio-green-selected"), for: .normal)
+        }
+    }
+    
+    @IBAction func onBlinkPasswordClick(_ sender: UIButton) {
+        if tf_password.isSecureTextEntry {
+            tf_password.isSecureTextEntry = false
+        } else {
+            tf_password.isSecureTextEntry = true
+        }
+    }
+    
+    @IBAction func onBlinkConfirmPasswordClick(_ sender: UIButton) {
+        if tf_confirmpassword.isSecureTextEntry {
+            tf_confirmpassword.isSecureTextEntry = false
+        } else {
+            tf_confirmpassword.isSecureTextEntry = true
+        }
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if (textField == tf_birthdate){
             let datePickerView:UIDatePicker = UIDatePicker()
             datePickerView.datePickerMode = UIDatePicker.Mode.date
             textField.inputView = datePickerView
             datePickerView.addTarget(self, action: #selector(datePickerValueChanged), for: UIControl.Event.valueChanged)
-        }
-    }
-    
-    @IBAction func onGenderMaleClick(_ sender: Any) {
-        strGender = "male"
-        genderChanged()
-    }
-    
-    @IBAction func onGenderFemaleClick(_ sender: Any) {
-        strGender = "female"
-        genderChanged()
-    }
-    
-    func genderChanged() {
-        if strGender == "male" {
-            btn_gendermale.backgroundColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 1)
-            btn_gendermale.layer.borderColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 0.1).cgColor
-            
-            btn_genderfemale.backgroundColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 0.1)
-            btn_genderfemale.layer.borderColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 1).cgColor
-        } else {
-            btn_genderfemale.backgroundColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 1)
-            btn_genderfemale.layer.borderColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 0.1).cgColor
-            
-            btn_gendermale.backgroundColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 0.1)
-            btn_gendermale.layer.borderColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 1).cgColor
         }
     }
     

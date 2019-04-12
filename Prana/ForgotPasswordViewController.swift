@@ -16,17 +16,35 @@ import MBProgressHUD
 class ForgotPasswordViewController: UIViewController {
     
     @IBOutlet weak var tf_email: UITextField!
+    @IBOutlet weak var lbl_error_email: UILabel!
+    @IBOutlet weak var lbl_copyright: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.isHidden = true
         
-        updateUI()
+        initView()
     }
     
-    func updateUI() {
+    func initView() {
+        let background = UIImage(named: "app-background")
+        let imageView = UIImageView(frame: view.bounds)
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = view.center
+        view.insertSubview(imageView, at: 0)
+        view.sendSubviewToBack(imageView)
         
+        tf_email.borderStyle = .none
+        lbl_error_email.isHidden = true
+        
+        lbl_copyright.textColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    }
+    
+    @IBAction func onBackClick(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func onSubmitClick(_ sender: Any) {
@@ -35,6 +53,8 @@ class ForgotPasswordViewController: UIViewController {
         if (!Utils.isValidEmail(str:tf_email.text!)) {
             alertController = UIAlertController(title: "Input Error", message: "Invaild Email", preferredStyle: UIAlertController.Style.alert)
             alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alertController, animated: false, completion: nil)
+            
             return
         }
         

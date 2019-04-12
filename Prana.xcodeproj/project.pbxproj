@@ -22,27 +22,43 @@
 		CA9892152240C86D00D824B0 /* Live.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9892142240C86D00D824B0 /* Live.swift */; };
 		CA9892172240EB1000D824B0 /* Buzzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9892162240EB1000D824B0 /* Buzzer.swift */; };
 		CA9892192240ED9A00D824B0 /* Pattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9892182240ED9A00D824B0 /* Pattern.swift */; };
-		CA98921C2241285B00D824B0 /* BuzzerTrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98921B2241285B00D824B0 /* BuzzerTrainingViewController.swift */; };
+		CA98921C2241285B00D824B0 /* BuzzerTrainingViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98921B2241285B00D824B0 /* BuzzerTrainingViewController1.swift */; };
 		CA98921F2241353B00D824B0 /* TSCDesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98921E2241353A00D824B0 /* TSCDesignableView.swift */; };
 		CA98922222413B2300D824B0 /* LiveGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98922122413B2300D824B0 /* LiveGraph.swift */; };
+		CAA44A31224425EF0050D619 /* ConnectionTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA44A30224425EF0050D619 /* ConnectionTestViewController.swift */; };
+		CAC36BCE2249A05E00B4FF1F /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC36BCD2249A05E00B4FF1F /* TestData.swift */; };
 		CAC46CCD223A8E95004691F4 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */; };
 		CACC9C87223356D0008C54B7 /* BreathingGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC9C86223356D0008C54B7 /* BreathingGraph.swift */; };
 		CAD502F52231BCF500F97B31 /* PranaDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502F42231BCF500F97B31 /* PranaDeviceManager.swift */; };
 		CAD502F72231BEB900F97B31 /* PranaDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502F62231BEB900F97B31 /* PranaDevice.swift */; };
 		CAD502F92231C04F00F97B31 /* DevicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502F82231C04F00F97B31 /* DevicesViewController.swift */; };
 		CAD502FB2231C0B200F97B31 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502FA2231C0B200F97B31 /* Log.swift */; };
-		CAD502FD2231C48E00F97B31 /* LiveGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502FC2231C48E00F97B31 /* LiveGraphViewController.swift */; };
 		CAD7D34E2229364D00F3C805 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD7D34D2229364D00F3C805 /* FirstViewController.swift */; };
 		CAE21B00223E818D00CC7A4D /* ChargingGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE21AFF223E818D00CC7A4D /* ChargingGuideViewController.swift */; };
 		D701F4DE223B998800D19574 /* TutorialUpperchestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D701F4DD223B998800D19574 /* TutorialUpperchestViewController.swift */; };
 		D70C2FE7223452EF00EE6A22 /* PostureIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70C2FE6223452EF00EE6A22 /* PostureIndicator.swift */; };
 		D71129382236932700145C4B /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71129372236932700145C4B /* ForgotPasswordViewController.swift */; };
+		D7172B762258A026007AA168 /* BuzzerTrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7172B752258A026007AA168 /* BuzzerTrainingViewController.swift */; };
+		D7172B7822596179007AA168 /* VisualTrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7172B7722596179007AA168 /* VisualTrainingViewController.swift */; };
+		D71D37462253527300D98376 /* PranaDesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71D37452253527200D98376 /* PranaDesignableView.swift */; };
+		D732BDB02255FC86008AFF76 /* TutorialWearLowerbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D732BDAF2255FC86008AFF76 /* TutorialWearLowerbackViewController.swift */; };
 		D73610002239C70700CCAD48 /* TutorialStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7360FFF2239C70700CCAD48 /* TutorialStartViewController.swift */; };
 		D76F20FC223AF63E006B15E7 /* TutorialLowerbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76F20FB223AF63E006B15E7 /* TutorialLowerbackViewController.swift */; };
 		D77D3BF1223AA17E0022E86C /* TutorialEndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77D3BF0223AA17E0022E86C /* TutorialEndViewController.swift */; };
+		D7992AD1225C21D000C5C8F2 /* Quicksand regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7992ACD225C21CF00C5C8F2 /* Quicksand regular.ttf */; };
+		D7992AD2225C21D100C5C8F2 /* Quicksand 500.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7992ACE225C21CF00C5C8F2 /* Quicksand 500.ttf */; };
+		D7992AD3225C21D100C5C8F2 /* Quicksand 300.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7992ACF225C21D000C5C8F2 /* Quicksand 300.ttf */; };
+		D7992AD4225C21D100C5C8F2 /* Quicksand 700.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7992AD0225C21D000C5C8F2 /* Quicksand 700.ttf */; };
 		D79A36D32227C6DD0085D3FA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79A36D22227C6DC0085D3FA /* MainViewController.swift */; };
 		D79A36D6222827E50085D3FA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79A36D5222827E50085D3FA /* Utils.swift */; };
 		D79A36D9222838820085D3FA /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79A36D8222838820085D3FA /* APIClient.swift */; };
+		D7A6AC9F22559A44001DD8F9 /* TutorialWearUpperchestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A6AC9E22559A44001DD8F9 /* TutorialWearUpperchestViewController.swift */; };
+		D7B12F5C22438A38002D2E0F /* VisualTrainingViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B12F5B22438A38002D2E0F /* VisualTrainingViewController1.swift */; };
+		D7B12F5E22438B19002D2E0F /* VisualTrainingScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B12F5D22438B19002D2E0F /* VisualTrainingScene.swift */; };
+		D7B12F602243972A002D2E0F /* PrepareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B12F5F2243972A002D2E0F /* PrepareViewController.swift */; };
+		D7BA349D22565D9100B4689E /* TutorialVisualViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BA349C22565D9100B4689E /* TutorialVisualViewController.swift */; };
+		D7BA34A122565DDD00B4689E /* TutorialBuzzerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BA34A022565DDD00B4689E /* TutorialBuzzerViewController.swift */; };
+		D7BA34A32256FBFE00B4689E /* LiveGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BA34A22256FBFE00B4689E /* LiveGraphViewController.swift */; };
 		D7E145AD2236F50100991D34 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E145AC2236F50100991D34 /* ResetPasswordViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -66,27 +82,43 @@
 		CA9892142240C86D00D824B0 /* Live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Live.swift; sourceTree = "<group>"; };
 		CA9892162240EB1000D824B0 /* Buzzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buzzer.swift; sourceTree = "<group>"; };
 		CA9892182240ED9A00D824B0 /* Pattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pattern.swift; sourceTree = "<group>"; };
-		CA98921B2241285B00D824B0 /* BuzzerTrainingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuzzerTrainingViewController.swift; sourceTree = "<group>"; };
+		CA98921B2241285B00D824B0 /* BuzzerTrainingViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuzzerTrainingViewController1.swift; sourceTree = "<group>"; };
 		CA98921E2241353A00D824B0 /* TSCDesignableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSCDesignableView.swift; sourceTree = "<group>"; };
 		CA98922122413B2300D824B0 /* LiveGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveGraph.swift; sourceTree = "<group>"; };
+		CAA44A30224425EF0050D619 /* ConnectionTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionTestViewController.swift; sourceTree = "<group>"; };
+		CAC36BCD2249A05E00B4FF1F /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
 		CACC9C86223356D0008C54B7 /* BreathingGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingGraph.swift; sourceTree = "<group>"; };
 		CAD502F42231BCF500F97B31 /* PranaDeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranaDeviceManager.swift; sourceTree = "<group>"; };
 		CAD502F62231BEB900F97B31 /* PranaDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranaDevice.swift; sourceTree = "<group>"; };
 		CAD502F82231C04F00F97B31 /* DevicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesViewController.swift; sourceTree = "<group>"; };
 		CAD502FA2231C0B200F97B31 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
-		CAD502FC2231C48E00F97B31 /* LiveGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveGraphViewController.swift; sourceTree = "<group>"; };
 		CAD7D34D2229364D00F3C805 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		CAE21AFF223E818D00CC7A4D /* ChargingGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingGuideViewController.swift; sourceTree = "<group>"; };
 		D701F4DD223B998800D19574 /* TutorialUpperchestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialUpperchestViewController.swift; sourceTree = "<group>"; };
 		D70C2FE6223452EF00EE6A22 /* PostureIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureIndicator.swift; sourceTree = "<group>"; };
 		D71129372236932700145C4B /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		D7172B752258A026007AA168 /* BuzzerTrainingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuzzerTrainingViewController.swift; sourceTree = "<group>"; };
+		D7172B7722596179007AA168 /* VisualTrainingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualTrainingViewController.swift; sourceTree = "<group>"; };
+		D71D37452253527200D98376 /* PranaDesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranaDesignableView.swift; sourceTree = "<group>"; };
+		D732BDAF2255FC86008AFF76 /* TutorialWearLowerbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialWearLowerbackViewController.swift; sourceTree = "<group>"; };
 		D7360FFF2239C70700CCAD48 /* TutorialStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialStartViewController.swift; sourceTree = "<group>"; };
 		D76F20FB223AF63E006B15E7 /* TutorialLowerbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialLowerbackViewController.swift; sourceTree = "<group>"; };
 		D77D3BF0223AA17E0022E86C /* TutorialEndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialEndViewController.swift; sourceTree = "<group>"; };
+		D7992ACD225C21CF00C5C8F2 /* Quicksand regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand regular.ttf"; sourceTree = "<group>"; };
+		D7992ACE225C21CF00C5C8F2 /* Quicksand 500.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand 500.ttf"; sourceTree = "<group>"; };
+		D7992ACF225C21D000C5C8F2 /* Quicksand 300.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand 300.ttf"; sourceTree = "<group>"; };
+		D7992AD0225C21D000C5C8F2 /* Quicksand 700.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand 700.ttf"; sourceTree = "<group>"; };
 		D79A36D22227C6DC0085D3FA /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D79A36D5222827E50085D3FA /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		D79A36D8222838820085D3FA /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		D7A6AC9E22559A44001DD8F9 /* TutorialWearUpperchestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialWearUpperchestViewController.swift; sourceTree = "<group>"; };
+		D7B12F5B22438A38002D2E0F /* VisualTrainingViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualTrainingViewController1.swift; sourceTree = "<group>"; };
+		D7B12F5D22438B19002D2E0F /* VisualTrainingScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualTrainingScene.swift; sourceTree = "<group>"; };
+		D7B12F5F2243972A002D2E0F /* PrepareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareViewController.swift; sourceTree = "<group>"; };
+		D7BA349C22565D9100B4689E /* TutorialVisualViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialVisualViewController.swift; sourceTree = "<group>"; };
+		D7BA34A022565DDD00B4689E /* TutorialBuzzerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialBuzzerViewController.swift; sourceTree = "<group>"; };
+		D7BA34A22256FBFE00B4689E /* LiveGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveGraphViewController.swift; sourceTree = "<group>"; };
 		D7E145AC2236F50100991D34 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,19 +163,25 @@
 		AA172019222670420080BD71 /* Prana */ = {
 			isa = PBXGroup;
 			children = (
+				D7992ACC225C218100C5C8F2 /* Resources */,
+				CAC36BCC2249A04600B4FF1F /* Test */,
 				CA9892132240C83800D824B0 /* Core */,
 				CAD502F32231BC9800F97B31 /* Device */,
 				D79A36D7222838580085D3FA /* RestAPI */,
 				D79A36D42228279C0085D3FA /* Utils */,
 				CA98921A2241283800D824B0 /* UI */,
 				AA17201A222670420080BD71 /* AppDelegate.swift */,
+				AA172020222670420080BD71 /* Main.storyboard */,
+				AA172025222670450080BD71 /* LaunchScreen.storyboard */,
+				AA172023222670450080BD71 /* Assets.xcassets */,
+				AA172028222670450080BD71 /* Info.plist */,
 				AA7FE2D3222720EB0092E8A6 /* WelcomeViewController.swift */,
 				AA7FE2D5222721130092E8A6 /* LoginViewController.swift */,
 				AA7FE2D72227213F0092E8A6 /* SignupViewController.swift */,
-				AA172020222670420080BD71 /* Main.storyboard */,
-				AA172023222670450080BD71 /* Assets.xcassets */,
-				AA172025222670450080BD71 /* LaunchScreen.storyboard */,
-				AA172028222670450080BD71 /* Info.plist */,
+				D71129372236932700145C4B /* ForgotPasswordViewController.swift */,
+				D7E145AC2236F50100991D34 /* ResetPasswordViewController.swift */,
+				CAE21AFF223E818D00CC7A4D /* ChargingGuideViewController.swift */,
+				CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */,
 				D79A36D22227C6DC0085D3FA /* MainViewController.swift */,
 				CAD7D34D2229364D00F3C805 /* FirstViewController.swift */,
 				CA97DB0E22296163002C5592 /* Session.swift */,
@@ -151,17 +189,18 @@
 				CA97DB1222298BF1002C5592 /* HistoryViewController.swift */,
 				CA97DB142229A546002C5592 /* SesseionRecordCell.swift */,
 				CAD502F82231C04F00F97B31 /* DevicesViewController.swift */,
-				CAD502FC2231C48E00F97B31 /* LiveGraphViewController.swift */,
+				D7BA34A22256FBFE00B4689E /* LiveGraphViewController.swift */,
 				CACC9C86223356D0008C54B7 /* BreathingGraph.swift */,
 				D70C2FE6223452EF00EE6A22 /* PostureIndicator.swift */,
-				D71129372236932700145C4B /* ForgotPasswordViewController.swift */,
-				D7E145AC2236F50100991D34 /* ResetPasswordViewController.swift */,
 				D7360FFF2239C70700CCAD48 /* TutorialStartViewController.swift */,
+				D732BDAF2255FC86008AFF76 /* TutorialWearLowerbackViewController.swift */,
 				D76F20FB223AF63E006B15E7 /* TutorialLowerbackViewController.swift */,
+				D7A6AC9E22559A44001DD8F9 /* TutorialWearUpperchestViewController.swift */,
 				D701F4DD223B998800D19574 /* TutorialUpperchestViewController.swift */,
+				D7BA349C22565D9100B4689E /* TutorialVisualViewController.swift */,
+				D7BA34A022565DDD00B4689E /* TutorialBuzzerViewController.swift */,
 				D77D3BF0223AA17E0022E86C /* TutorialEndViewController.swift */,
-				CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */,
-				CAE21AFF223E818D00CC7A4D /* ChargingGuideViewController.swift */,
+				D7B12F5F2243972A002D2E0F /* PrepareViewController.swift */,
 			);
 			path = Prana;
 			sourceTree = "<group>";
@@ -188,7 +227,11 @@
 		CA98921D2241286100D824B0 /* Training */ = {
 			isa = PBXGroup;
 			children = (
-				CA98921B2241285B00D824B0 /* BuzzerTrainingViewController.swift */,
+				D7172B752258A026007AA168 /* BuzzerTrainingViewController.swift */,
+				CA98921B2241285B00D824B0 /* BuzzerTrainingViewController1.swift */,
+				D7172B7722596179007AA168 /* VisualTrainingViewController.swift */,
+				D7B12F5B22438A38002D2E0F /* VisualTrainingViewController1.swift */,
+				D7B12F5D22438B19002D2E0F /* VisualTrainingScene.swift */,
 			);
 			path = Training;
 			sourceTree = "<group>";
@@ -201,6 +244,15 @@
 			path = LiveGraph;
 			sourceTree = "<group>";
 		};
+		CAC36BCC2249A04600B4FF1F /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				CAA44A30224425EF0050D619 /* ConnectionTestViewController.swift */,
+				CAC36BCD2249A05E00B4FF1F /* TestData.swift */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
 		CAD502F32231BC9800F97B31 /* Device */ = {
 			isa = PBXGroup;
 			children = (
@@ -210,10 +262,22 @@
 			path = Device;
 			sourceTree = "<group>";
 		};
+		D7992ACC225C218100C5C8F2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D7992ACF225C21D000C5C8F2 /* Quicksand 300.ttf */,
+				D7992ACE225C21CF00C5C8F2 /* Quicksand 500.ttf */,
+				D7992AD0225C21D000C5C8F2 /* Quicksand 700.ttf */,
+				D7992ACD225C21CF00C5C8F2 /* Quicksand regular.ttf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		D79A36D42228279C0085D3FA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				CA98921E2241353A00D824B0 /* TSCDesignableView.swift */,
+				D71D37452253527200D98376 /* PranaDesignableView.swift */,
 				D79A36D5222827E50085D3FA /* Utils.swift */,
 				CAD502FA2231C0B200F97B31 /* Log.swift */,
 			);
@@ -305,8 +369,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7992AD2225C21D100C5C8F2 /* Quicksand 500.ttf in Resources */,
 				AA172027222670450080BD71 /* LaunchScreen.storyboard in Resources */,
 				AA172024222670450080BD71 /* Assets.xcassets in Resources */,
+				D7992AD4225C21D100C5C8F2 /* Quicksand 700.ttf in Resources */,
+				D7992AD3225C21D100C5C8F2 /* Quicksand 300.ttf in Resources */,
+				D7992AD1225C21D000C5C8F2 /* Quicksand regular.ttf in Resources */,
 				AA172022222670420080BD71 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,9 +439,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7B12F5E22438B19002D2E0F /* VisualTrainingScene.swift in Sources */,
 				AA7FE2D82227213F0092E8A6 /* SignupViewController.swift in Sources */,
+				D7BA34A122565DDD00B4689E /* TutorialBuzzerViewController.swift in Sources */,
 				CAD502F92231C04F00F97B31 /* DevicesViewController.swift in Sources */,
-				CAD502FD2231C48E00F97B31 /* LiveGraphViewController.swift in Sources */,
 				D79A36D9222838820085D3FA /* APIClient.swift in Sources */,
 				D77D3BF1223AA17E0022E86C /* TutorialEndViewController.swift in Sources */,
 				CA98921F2241353B00D824B0 /* TSCDesignableView.swift in Sources */,
@@ -381,7 +450,10 @@
 				CACC9C87223356D0008C54B7 /* BreathingGraph.swift in Sources */,
 				D79A36D6222827E50085D3FA /* Utils.swift in Sources */,
 				D7E145AD2236F50100991D34 /* ResetPasswordViewController.swift in Sources */,
+				CAA44A31224425EF0050D619 /* ConnectionTestViewController.swift in Sources */,
 				CA9892152240C86D00D824B0 /* Live.swift in Sources */,
+				D7B12F602243972A002D2E0F /* PrepareViewController.swift in Sources */,
+				D71D37462253527300D98376 /* PranaDesignableView.swift in Sources */,
 				D701F4DE223B998800D19574 /* TutorialUpperchestViewController.swift in Sources */,
 				D73610002239C70700CCAD48 /* TutorialStartViewController.swift in Sources */,
 				CA97DB152229A546002C5592 /* SesseionRecordCell.swift in Sources */,
@@ -389,20 +461,28 @@
 				D76F20FC223AF63E006B15E7 /* TutorialLowerbackViewController.swift in Sources */,
 				CAD502FB2231C0B200F97B31 /* Log.swift in Sources */,
 				AA7FE2D4222720EB0092E8A6 /* WelcomeViewController.swift in Sources */,
+				D7172B762258A026007AA168 /* BuzzerTrainingViewController.swift in Sources */,
 				CAD502F72231BEB900F97B31 /* PranaDevice.swift in Sources */,
 				CA97DB1322298BF1002C5592 /* HistoryViewController.swift in Sources */,
+				D7BA34A32256FBFE00B4689E /* LiveGraphViewController.swift in Sources */,
 				CA9892172240EB1000D824B0 /* Buzzer.swift in Sources */,
 				CA97DB112229893F002C5592 /* Constants.swift in Sources */,
 				CA98922222413B2300D824B0 /* LiveGraph.swift in Sources */,
 				CAD502F52231BCF500F97B31 /* PranaDeviceManager.swift in Sources */,
 				CAE21B00223E818D00CC7A4D /* ChargingGuideViewController.swift in Sources */,
 				AA17201B222670420080BD71 /* AppDelegate.swift in Sources */,
-				CA98921C2241285B00D824B0 /* BuzzerTrainingViewController.swift in Sources */,
+				CA98921C2241285B00D824B0 /* BuzzerTrainingViewController1.swift in Sources */,
 				AA7FE2D6222721130092E8A6 /* LoginViewController.swift in Sources */,
 				D71129382236932700145C4B /* ForgotPasswordViewController.swift in Sources */,
 				D79A36D32227C6DD0085D3FA /* MainViewController.swift in Sources */,
+				D7A6AC9F22559A44001DD8F9 /* TutorialWearUpperchestViewController.swift in Sources */,
+				D7B12F5C22438A38002D2E0F /* VisualTrainingViewController1.swift in Sources */,
+				D732BDB02255FC86008AFF76 /* TutorialWearLowerbackViewController.swift in Sources */,
 				D70C2FE7223452EF00EE6A22 /* PostureIndicator.swift in Sources */,
+				D7BA349D22565D9100B4689E /* TutorialVisualViewController.swift in Sources */,
+				D7172B7822596179007AA168 /* VisualTrainingViewController.swift in Sources */,
 				CA97DB0F22296163002C5592 /* Session.swift in Sources */,
+				CAC36BCE2249A05E00B4FF1F /* TestData.swift in Sources */,
 				CA9892192240ED9A00D824B0 /* Pattern.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -554,7 +634,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U37J473DVK;
 				INFOPLIST_FILE = Prana/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -576,7 +656,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U37J473DVK;
 				INFOPLIST_FILE = Prana/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

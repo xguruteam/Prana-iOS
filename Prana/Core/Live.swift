@@ -15,14 +15,15 @@ protocol LiveDelegate {
     func liveNewPostureCalculated()
     func liveNewRespRateCaclculated()
     func liveDidUprightSet()
+    func liveDebug(para1: String, para2: String, para3: String, para4: String)
 }
 
 class Live: NSObject {
     
     public struct Constants {
-        static let numberOfBeathingSamples: Int = 100
-        static let maxYOfBreathing: Float = 100
-        static let maxXOfPosture: Float = 100
+        static let numberOfBeathingSamples: Int = 280
+        static let maxYOfBreathing: Float = 500
+        static let maxXOfPosture: Float = 598
     }
     
     var delegates: [LiveDelegate] = []
@@ -44,11 +45,25 @@ class Live: NSObject {
         self.delegates.remove(at: i)
     }
     
+    let liveQueue = DispatchQueue(label: "liveQueue")
+    
+    var yPos: [Double] {
+        var yPosCopy: [Double]!
+        
+        liveQueue.sync {
+            yPosCopy = self.graphYSeries
+        }
+        return yPosCopy
+    }
+    
+    
+    var testDataOffset: Int = 0
+    
     // init again later
     var totalPoints: Int = 600
     let initialPrepareCount: Int = 5
-    var fullBreathGraphHeight: Double = 400.0
-    var yStartPos: Double = 500
+    public var fullBreathGraphHeight: Double = 400.0
+    public var yStartPos: Double = 500
     var count: Int = -1
     
     
@@ -126,6 +141,8 @@ class Live: NSObject {
     var breathTopExceeded: Int = 0
     var guidedPath: [Double] = []
     var strainGaugeMinRange: Double = 0.0005
+    
+    var birdY: Double = 500
     var birdDeltaY: Double = 0
     var birdVelocity: Double = 0
     //var RRtimer:Timer = new Timer(100)
@@ -135,20 +152,24 @@ class Live: NSObject {
     var breathCount: Int = 0
     var stuckBreathsThreshold: Int = 1
     var breathTopExceededThreshold: Int = 1
-    var smoothBreathingCoefBaseLevel: Double = 0.15
-    var postureIsGood: Int = 1
+    var smoothBreathingCoefBaseLevel: Double = 0.4
+    var postureIsGood: Int = 0
     var minBreathRange: Double = 10
     var reversalThreshold: Int = 6
-    var birdIncrements: Int = 24
+    var birdIncrements: Int = 20
     var avgRespRate: Double = 0
     
-    
+    var calibrationBreathsDone: Int = 0 // used by Game
+
     override init() {
         super.init()
         totalPoints = Constants.numberOfBeathingSamples
         yStartPos = Double(Constants.maxYOfBreathing) - 2
-        fullBreathGraphHeight = yStartPos * 0.9
+        fullBreathGraphHeight = yStartPos * 0.8
+        birdY = yStartPos
         count = -1
+        
+        testDataOffset = 0
         
         
         graphYSeries = [Double](repeating: yStartPos, count: totalPoints)
@@ -160,7 +181,7 @@ class Live: NSObject {
         dampHistory = [Double](repeating: 0.0, count: totalPoints)
         rotationSensor = [Double](repeating: 0.0, count: totalPoints)
         currentPostureAngle = [Double](repeating: 0.0, count: totalPoints)
-        guidedPath = [Double](repeating: 0.0, count: totalPoints)
+        guidedPath = [Double](repeating: fullBreathGraphHeight, count: totalPoints)
         whenBreathsEnd = [Double]()
         whenBreathsEnd.append(0)
         
@@ -214,7 +235,7 @@ class Live: NSObject {
         breathCount = 0
         stuckBreathsThreshold = 1
         breathTopExceededThreshold = 1
-        smoothBreathingCoefBaseLevel = 0.15
+        smoothBreathingCoefBaseLevel = 0.4
         postureIsGood = 1
         minBreathRange = Double(fullBreathGraphHeight/16)
         reversalThreshold = 6
@@ -241,9 +262,11 @@ class Live: NSObject {
     func displayDebugStats() {
         let strln1: String = "strainGauge = " + String(roundNumber(num: strainGauge, dec: 100000)) + "  magneticAngle = " + String(roundNumber(num: rotationSensor[count], dec: 1000)) + " " + String(useRotationSensor)
         let strln2: String = "Z = " + String(roundNumber(num: zSensor[count], dec: 1000)) + "  Y = " + String(roundNumber(num: ySensor[count], dec: 1000)) + "  X = " + String(roundNumber(num: xSensor[count], dec: 1000)) + "  " + String(roundNumber(num: currentPostureAngle[count], dec: 1000))
-        let strln3: String = String(roundNumber(num: currentStrainGaugeHighest, dec: 100000)) + "  " + String(roundNumber(num: currentStrainGaugeLowest, dec: 100000)) + "  " + String(roundNumber(num: currentStrainGaugeHighest - currentStrainGaugeLowest, dec: 100000)) + "  " + String(breathTopExceeded) + " noisy " + String(dampingLevel) + " stuck " + String(stuckBreaths)
+        let strln3: String = String(roundNumber(num: currentStrainGaugeHighest, dec: 100000)) + "  " + String(roundNumber(num: currentStrainGaugeLowest, dec: 100000)) + "  " + String(roundNumber(num: currentStrainGaugeHighest - currentStrainGaugeLowest, dec: 100000)) + "  " + String(breathTopExceeded) + "  " + String(lightBreathsInARow) + " noisy " + String(dampingLevel) + " stuck " + String(stuckBreaths)
         let strln4: String = ""
-        
+        for item in self.delegates {
+            item.liveDebug(para1: strln1, para2: strln2, para3: strln3, para4: strln4)
+        }
     }
     
     func resetCount() {
@@ -315,6 +338,24 @@ class Live: NSObject {
             rotationSensor[count] = 0.5*(-Double(dataArray[5])) + (1.0-0.5)*rotationSensor[count-1]
             breathSensor[count] = 0.5*(2-Double(dataArray[1])) + (1.0-0.5)*breathSensor[count-1]
         }
+        
+//        if testDataOffset < gstretchSensor.count {
+//            xSensor[count] = gxSensor[testDataOffset]
+//            ySensor[count] = gySensor[testDataOffset]
+//            zSensor[count] = gzSensor[testDataOffset]
+//            
+//            if (xSensor[count] == 0 && ySensor[count] == 0) {
+//                currentPostureAngle[count] = 2*(asin(zSensor[count])/Double.pi)
+//            } else {
+//                currentPostureAngle[count] = 2*(atan(zSensor[count]/sqrt(pow(xSensor[count], 2)+pow(ySensor[count], 2)))/Double.pi)
+//            }
+//            
+//            rotationSensor[count] = grotationSensor[testDataOffset]
+//            breathSensor[count] = gstretchSensor[testDataOffset]
+//            
+//            testDataOffset += 1
+//            
+//        }
         
         strainGauge = breathSensor[count]
         
@@ -732,7 +773,21 @@ class Live: NSObject {
                     if breathCount < 2 {
                         endBreathY = bottomReversalY - 0.95 * (bottomReversalY - topReversalY)
                     } else if (appMode == 2) {
-                        //
+                        if (calibrationBreathsDone == 1) {
+                            endBreathY = yStartPos + (0.20*(-fullBreathGraphHeight));
+                        }
+                        else if (calibrationBreathsDone == 0) {
+                            endBreathY = bottomReversalY - 0.60*(bottomReversalY - topReversalY); //end breath line
+                        }
+                        
+                        if (noisyMovements == 1 && stuckBreaths > 0) {
+                            endBreathY = bottomReversalY - 0.50*(bottomReversalY - topReversalY); //end breath line
+                        }
+                        
+                        if (stuckBreaths >= stuckBreathsThreshold) {
+                            endBreathY = bottomReversalY - 0.50*(bottomReversalY - topReversalY); //end breath line
+                        }
+
                     } else if (appMode == 1 || appMode == 3) {
                         endBreathY = bottomReversalY - 0.2*(bottomReversalY-topReversalY)
                         
@@ -749,54 +804,6 @@ class Live: NSObject {
                 }
             }
         }
-    }
-    
-    func setPostureResponsiveness(val: Int) {
-        switch(val) {
-        case 1:
-            postureRange = 0.15
-        case 2:
-            postureRange = 0.1
-        case 3:
-            postureRange = 0.05
-        default:
-            break
-        }
-    }
-    
-    func setBreathingResponsiveness(val: Int) {
-        switch(val) {
-        case 1:
-            smoothBreathingCoefBaseLevel = 0.15
-            reversalThreshold = 6
-            birdIncrements = 24
-        case 2:
-            smoothBreathingCoefBaseLevel = 0.4
-            reversalThreshold = 5
-            birdIncrements = 20
-        case 3:
-            smoothBreathingCoefBaseLevel = 0.6
-            reversalThreshold = 3
-            birdIncrements = 12
-        default:
-            break
-        }
-    }
-    
-    func learnUprightAngleHandler()  {
-        if (count < 0) {
-            return
-        }
-        
-        uprightSet = 1;
-        
-        if (xSensor[count] == 0 && ySensor[count] == 0) {
-            uprightPostureAngle = 2*(asin(zSensor[count])/Double.pi);
-        }
-        else {
-            uprightPostureAngle = 2*(atan(zSensor[count]/sqrt(pow(xSensor[count],2)+pow(ySensor[count],2)))/Double.pi);
-        }
-        
     }
     
     func setUprightButtonPush(sensorData a:[Double])  {
@@ -816,6 +823,99 @@ class Live: NSObject {
         
     }
     
+    //MARK: Handlers
+    
+    func setPostureResponsiveness(val: Int) {
+        liveQueue.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            switch(val) {
+            case 1:
+                self.postureRange = 0.15
+            case 2:
+                self.postureRange = 0.1
+            case 3:
+                self.postureRange = 0.05
+            default:
+                break
+            }
+        }
+    }
+    
+    func setBreathingResponsiveness(val: Int) {
+        liveQueue.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            switch(val) {
+            case 1:
+                self.smoothBreathingCoefBaseLevel = 0.15
+                self.reversalThreshold = 6
+                self.birdIncrements = 24
+            case 2:
+                self.smoothBreathingCoefBaseLevel = 0.4
+                self.reversalThreshold = 5
+                self.birdIncrements = 20
+            case 3:
+                self.smoothBreathingCoefBaseLevel = 0.6
+                self.reversalThreshold = 3
+                self.birdIncrements = 12
+            default:
+                break
+            }
+        }
+    }
+    
+    func learnUprightAngleHandler() {
+        liveQueue.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.learnUprightAngle()
+        }
+    }
+    
+    private func learnUprightAngle()  {
+        if (count < 0) {
+            return
+        }
+        
+        uprightSet = 1;
+        
+        if (xSensor[count] == 0 && ySensor[count] == 0) {
+            uprightPostureAngle = 2*(asin(zSensor[count])/Double.pi);
+        }
+        else {
+            uprightPostureAngle = 2*(atan(zSensor[count]/sqrt(pow(xSensor[count],2)+pow(ySensor[count],2)))/Double.pi);
+        }
+        
+    }
+    
+    func setInhaledHandler() {
+        liveQueue.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.setInhaled()
+        }
+    }
+    
+    private func setInhaled() {
+        currentStrainGaugeHighest = strainGauge;
+        currentStrainGaugeHighestPrev = strainGauge;
+        
+        if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
+            currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
+        }
+        
+        lightBreathsInARow = 0;
+        breathTopExceeded = 0;
+        
+    }
+    
+    
+    //MARK: RoundNumber
     func roundNumber(num:Double, dec:Double) -> Double {
         return round(num*dec)/dec
     }
@@ -866,7 +966,14 @@ extension Live: PranaDeviceManagerDelegate {
             paras.append(Double(raw[5])!)
             paras.append(0.0)
             
-            processBreathingPosture(sensorData: paras)
+            liveQueue.async { [weak self] in
+                
+                guard let self = self else {
+                    return
+                }
+                
+                self.processBreathingPosture(sensorData: paras)
+            }
         }
         else if raw[0] == "Upright" {
             if raw.count != 4 {
@@ -877,9 +984,15 @@ extension Live: PranaDeviceManagerDelegate {
             paras.append(Double(raw[1])!)
             paras.append(Double(raw[2])!)
             paras.append(Double(raw[3])!)
-            setUprightButtonPush(sensorData: paras)
+            liveQueue.async { [weak self] in
+                
+                guard let self = self else {
+                    return
+                }
+                
+                self.setUprightButtonPush(sensorData: paras)
+            }
         }
     }
-    
     
 }

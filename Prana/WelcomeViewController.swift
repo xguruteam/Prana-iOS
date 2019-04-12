@@ -12,14 +12,14 @@ import Alamofire
 import SwiftyJSON
 import MBProgressHUD
 
-extension Notification.Name {
-    static let connectViewControllerDidNext = Notification.Name("connectViewControllerDidNext")
-}
 
 class WelcomeViewController: UIViewController {
 
     @IBOutlet weak var signupButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var lblCopyright: UILabel!
+    @IBOutlet weak var btnSignup: ImageButton!
+    @IBOutlet weak var btnLogin: ImageButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +27,24 @@ class WelcomeViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        initView()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(onConnectViewControllerNext), name: .connectViewControllerDidNext, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onTutorialDidEnd), name: .tutorialDidEnd, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didLogIn), name: .didLogIn, object: nil)
+    }
+    
+    func initView() {
+        let background = UIImage(named: "app-background")
+        let imageView = UIImageView(frame: view.bounds)
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = view.center
+        view.insertSubview(imageView, at: 0)
+        view.sendSubviewToBack(imageView)
+        
+        lblCopyright.textColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,13 +53,31 @@ class WelcomeViewController: UIViewController {
     }
     
     @objc func onConnectViewControllerNext() {
-        self.dismiss(animated: false) {
-            let firstVC = Utils.getStoryboardWithIdentifier(identifier: "TutorialStartViewController")
-            //        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "FirstViewController")
-            let navVC = UINavigationController(rootViewController: firstVC)
-            self.present(navVC, animated: true, completion: nil)
-
+        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "TutorialStartViewController")
+        let navVC = UINavigationController(rootViewController: firstVC)
+        self.present(navVC, animated: true, completion: nil)
+    }
+    
+    @objc func onTutorialDidEnd() {
+        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "FirstViewController")
+        let navVC = UINavigationController(rootViewController: firstVC)
+        self.present(navVC, animated: true, completion: nil)
+    }
+    
+    @objc func didLogIn() {
+        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        hud.mode = .indeterminate
+        hud.label.text = "Loading..."
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+            MBProgressHUD.hide(for: self.view, animated: true)
+            self.afterLogin()
         }
+    }
+    
+    func afterLogin() {
+        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ChargingGuideViewController")
+        let navVC = UINavigationController(rootViewController: firstVC)
+        self.present(navVC, animated: true, completion: nil)
     }
     
 
@@ -80,7 +115,7 @@ class WelcomeViewController: UIViewController {
         let expireDate = formatter.date(from: expireDateStr!)
         let curDate2h = formatter.date(from: formatter.string(from: Calendar.current.date(byAdding: .hour, value: +2, to: Date())!))
         if (expireDate?.compare(curDate2h!) == .orderedAscending) {
-            return
+//            return
         }
         
         var isValidToken = false
@@ -107,11 +142,7 @@ class WelcomeViewController: UIViewController {
                 }
                 MBProgressHUD.hide(for: self.view, animated: true)
                 if (isValidToken) {
-                    self.navigationController?.popToRootViewController(animated: false)
-                    // let firstVC = self.getStoryboardWithIdentifier(identifier: "FirstViewController")
-                    let firstVC = self.getStoryboardWithIdentifier(identifier: "ChargingGuideViewController")
-                    let navVC = UINavigationController(rootViewController: firstVC)
-                    self.present(navVC, animated: true, completion: nil)
+                    self.afterLogin()
                 }
         }
     }

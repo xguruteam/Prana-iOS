@@ -12,7 +12,7 @@ import CoreBluetooth
 
 class TutorialUpperchestViewController: UIViewController {
     
-    @IBOutlet weak var breathingGraphView: BreathingGraph!
+    @IBOutlet weak var breathingGraphView: LiveGraph!
     
     @IBOutlet weak var btnUpright: UIButton!
     @IBOutlet weak var btnBreathSensitivity1: UIButton!
@@ -25,15 +25,14 @@ class TutorialUpperchestViewController: UIViewController {
     @IBOutlet weak var lblPostureStateValue: UILabel!
     
     var isLive = false
-    var seconds: Int = 62
-    var timer: Timer?
-    var buff: String?
+    var objLive: Live?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        PranaDeviceManager.shared.addDelegate(self)
-        startTimer()
+        objLive = Live()
+        objLive?.addDelegate(self)
+        breathingGraphView.objLive = objLive
         
         btnBreathSensitivity1.layer.cornerRadius = 8
         btnBreathSensitivity1.clipsToBounds = true
@@ -45,7 +44,7 @@ class TutorialUpperchestViewController: UIViewController {
         btnBreathSensitivity3.clipsToBounds = true
         btnBreathSensitivity3.layer.borderColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 1).cgColor
         
-        setBreathSensitivity(val: 1)
+        setBreathSensitivity(val: 2)
         
         btnPostureSensitivity1.layer.cornerRadius = 8
         btnPostureSensitivity1.clipsToBounds = true
@@ -57,26 +56,16 @@ class TutorialUpperchestViewController: UIViewController {
         btnPostureSensitivity3.clipsToBounds = true
         btnPostureSensitivity3.layer.borderColor = UIColor(red: 32/255, green: 203/255, blue: 245/255, alpha: 1).cgColor
         
-        setPostureSensitivity(val: 1)
+        setPostureSensitivity(val: 2)
+        
+        startLive()
     }
     
-    func startTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.countTime), userInfo: nil, repeats: true)
-    }
-    
-    func stopTimer() {
-        if timer != nil {
-            timer?.invalidate()
-            timer = nil
-        }
-    }
-    
-    @objc func countTime() {
-        self.seconds -= 1
-        if self.seconds == 60 {
-            startLive()
-        } else if self.seconds == 0 {
-            stopTimer()
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if isMovingFromParent {
+            objLive?.removeDelegate(self)
             stopLive()
         }
     }
@@ -89,8 +78,6 @@ class TutorialUpperchestViewController: UIViewController {
             return
         }
         
-        breathingGraphView.initGraph()
-        breathingGraphView.setTutorialUCView(view: self)
         PranaDeviceManager.shared.startGettingLiveData()
     }
     
@@ -99,7 +86,7 @@ class TutorialUpperchestViewController: UIViewController {
     }
     
     @IBAction func onSetUprightClick(_ sender: UIButton) {
-        breathingGraphView.learnUprightAngleHandler()
+        objLive?.learnUprightAngleHandler()
     }
     
     func setBreathSensitivity(val: Int) {
@@ -118,7 +105,7 @@ class TutorialUpperchestViewController: UIViewController {
             break
         }
         
-        breathingGraphView.setBreathingResponsiveness(val: val)
+        objLive?.setBreathingResponsiveness(val: val)
     }
     
     @IBAction func onBreathSensitivityChange(_ sender: UIButton) {
@@ -141,41 +128,11 @@ class TutorialUpperchestViewController: UIViewController {
             break
         }
         
-        breathingGraphView.setPostureResponsiveness(val: val)
+        objLive?.setPostureResponsiveness(val: val)
     }
     
     @IBAction func onPostureSensitivityChange(_ sender: UIButton) {
         setPostureSensitivity(val: sender.tag)
-    }
-    
-    func onNewLiveData(_ raw: String) {
-        let paras = raw.split(separator: ",")
-        
-        if paras[0] == "20hz" {
-            if paras.count != 7 {
-                return
-            }
-            var data: [Double] = []
-            data.append(0.0)
-            data.append(Double(paras[1])!)
-            data.append(Double(paras[2])!)
-            data.append(Double(paras[3])!)
-            data.append(Double(paras[4])!)
-            data.append(Double(paras[5])!)
-            data.append(0.0)
-            
-            breathingGraphView.processBreathingPosture(sensorData: data)
-        } else if paras[0] == "Upright" {
-            if paras.count != 4 {
-                return
-            }
-            var data: [Double] = []
-            data.append(0.0)
-            data.append(Double(paras[1])!)
-            data.append(Double(paras[2])!)
-            data.append(Double(paras[3])!)
-            breathingGraphView.setUprightButtonPush(sensorData: data)
-        }
     }
     
     func displayPostureStatusValue(x: Int) {
@@ -183,63 +140,35 @@ class TutorialUpperchestViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        stopTimer()
+        objLive?.removeDelegate(self)
         stopLive()
     }
 }
 
-extension TutorialUpperchestViewController: PranaDeviceManagerDelegate {
-    func PranaDeviceManagerDidOpenChannel() {
+extension TutorialUpperchestViewController: LiveDelegate {
+    func liveDebug(para1: String, para2: String, para3: String, para4: String) {
         
     }
     
-    func PranaDeviceManagerDidReceiveLiveData(_ data: String!) {
+    func liveNewBreathingCalculated() {
         
     }
     
-    func PranaDeviceManagerDidStartScan() {
-        
-    }
-    
-    func PranaDeviceManagerDidStopScan(with error: String?) {
-        
-    }
-    
-    func PranaDeviceManagerDidDiscover(_ device: PranaDevice) {
-        
-    }
-    
-    func PranaDeviceManagerDidConnect(_ deviceName: String) {
-        
-    }
-    
-    func PranaDeviceManagerFailConnect() {
-        
-    }
-    
-    func PranaDeviceManagerDidReceiveData(_ parameter: CBCharacteristic) {
-        
-        guard let data  = String(data: parameter.value!, encoding: .utf8) else {
-            return
-        }
-        
-        if data.starts(with: "20hz,") || data.starts(with: "Upright,") {
-            if let raw = buff {
-                DispatchQueue.main.async { [weak self] in
-                    self?.onNewLiveData(raw)
-                }
+    func liveNewPostureCalculated() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
             }
             
-            buff = data
+            self.displayPostureStatusValue(x: self.objLive?.whichPostureFrame ?? 0)
         }
-        else {
-            if let _ = buff {
-                buff = buff! + data
-            }
-            else {
-                buff = data
-            }
-        }
+    }
+    
+    func liveNewRespRateCaclculated() {
+        
+    }
+    
+    func liveDidUprightSet() {
         
     }
     
