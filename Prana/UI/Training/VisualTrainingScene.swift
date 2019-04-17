@@ -12,6 +12,7 @@ import CoreMotion
 
 
 protocol VisualDelegate {
+    func visualUprightHasBeenSet()
     func visualOnBack()
     func visualOnTimer(v: Int)
     func visualNewTargetRateCalculated(rate: Double)
@@ -145,6 +146,11 @@ class VisualTrainingScene: SKScene {
     
     var _calibrationRegionWidth: Double = 600
     
+    convenience init(_ trainingDuration: Int) {
+        self.init()
+        self.trainingDuration = trainingDuration
+    }
+    
     deinit {
     }
     
@@ -173,7 +179,7 @@ class VisualTrainingScene: SKScene {
         hasUprightBeenSet = 0
         totalBreaths = 0
         
-        trainingDuration = 180
+//        trainingDuration = 180
         self.visualDelegate?.visualOnTimer(v: trainingDuration)
         
         mindfulBreathCount = 0
@@ -935,6 +941,7 @@ extension VisualTrainingScene: LiveDelegate {
     
     func liveDidUprightSet() {
         // enable start
+        self.visualDelegate?.visualUprightHasBeenSet()
     }
     
     func liveDebug(para1: String, para2: String, para3: String, para4: String) {

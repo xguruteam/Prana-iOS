@@ -15,6 +15,9 @@ class TutorialVisualViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NotificationCenter.default.addObserver(self, selector: #selector(onLandscapeViewControllerDismiss), name: .landscapeViewControllerDidDismiss, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onDeviceOrientationChange), name: .deviceOrientationDidChange, object: nil)
+
         // Do any additional setup after loading the view.
         
         self.navigationController?.isNavigationBarHidden = true
@@ -22,7 +25,30 @@ class TutorialVisualViewController: UIViewController {
         initView()
     }
     
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+    }
+    
+    override var shouldAutorotate: Bool {
+        return true
+    }
+    
+    @objc func onLandscapeViewControllerDismiss() {
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+        let vc = Utils.getStoryboardWithIdentifier(identifier: "TutorialBuzzerViewController")
+        self.navigationController?.pushViewController(vc, animated: false)
+    }
+    
+    @objc func onDeviceOrientationChange() {
+        self.setNeedsStatusBarAppearanceUpdate()
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -46,4 +72,10 @@ class TutorialVisualViewController: UIViewController {
         btn_next.titleLabel?.textAlignment = .center
     }
 
+    @IBAction func onNext(_ sender: Any) {
+        let vc = Utils.getStoryboardWithIdentifier(identifier:"VisualTrainingViewController") as! VisualTrainingViewController
+        vc.isTutorial = true
+        UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+        self.present(vc, animated: false, completion: nil)
+    }
 }

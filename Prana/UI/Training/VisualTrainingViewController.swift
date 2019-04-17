@@ -9,6 +9,7 @@
 import UIKit
 import GameplayKit
 import SpriteKit
+import Macaw
 
 class VisualTrainingViewController: UIViewController {
 
@@ -19,7 +20,7 @@ class VisualTrainingViewController: UIViewController {
     
     @IBOutlet weak var lblTimeRemaining: UILabel!
     
-    @IBOutlet weak var imgPostureAnimation: UIImageView!
+    @IBOutlet weak var imgPostureAnimation: SVGView!
     @IBOutlet weak var lblPostureValue: UILabel!
     @IBOutlet weak var lblStatus1: UILabel!
     @IBOutlet weak var lblStatus2: UILabel!
@@ -46,6 +47,7 @@ class VisualTrainingViewController: UIViewController {
     
     var isShowControls: Bool = true
     var isStarted: Bool = false
+    var isTutorial = false
     
     var mindfulBreaths: Int = 0 {
         didSet {
@@ -94,10 +96,10 @@ class VisualTrainingViewController: UIViewController {
     var postureDuration: Int = 0 {
         didSet {
             if postureDuration < 0 {
-                lblStatus3.text = "Upright Posture: --% (- of - seconds"
+                lblStatus3.text = "Upright Posture: --% (- of - seconds)"
             }
             else {
-                lblStatus3.text = "Upright Posture: \(Int(uprightDuration * 100 / postureDuration))% (\(uprightDuration) of \(postureDuration) seconds"
+                lblStatus3.text = "Upright Posture: \(Int(uprightDuration * 100 / postureDuration))% (\(uprightDuration) of \(postureDuration) seconds)"
             }
         }
     }
@@ -105,10 +107,10 @@ class VisualTrainingViewController: UIViewController {
     var uprightDuration: Int = 0 {
         didSet {
             if postureDuration < 0 {
-                lblStatus3.text = "Upright Posture: --% (- of - seconds"
+                lblStatus3.text = "Upright Posture: --% (- of - seconds)"
             }
             else {
-                lblStatus3.text = "Upright Posture: \(Int(uprightDuration * 100 / postureDuration))% (\(uprightDuration) of \(postureDuration) seconds"
+                lblStatus3.text = "Upright Posture: \(Int(uprightDuration * 100 / postureDuration))% (\(uprightDuration) of \(postureDuration) seconds)"
             }
         }
     }
@@ -153,6 +155,8 @@ class VisualTrainingViewController: UIViewController {
         onBreathSensitivityChange(btnBreathSensitivityRadio2)
         onPostureSensitivityChange(btnPostureSensitivityRadio2)
         
+        displayPostureAnimation(1)
+        
         btnStart.isHidden = true
         
         lblPostureValue.isHidden = true
@@ -161,7 +165,7 @@ class VisualTrainingViewController: UIViewController {
         isStarted = false
         isShowControls = true
         
-        let scene = VisualTrainingScene()
+        let scene = VisualTrainingScene(180)
         scene.visualDelegate = self
         
         scene.size = CGSize(width: gameView.bounds.size.height, height: gameView.bounds.size.width)
@@ -177,6 +181,7 @@ class VisualTrainingViewController: UIViewController {
         objVisual = scene
         
         liveGraphView.objLive = objVisual?.objLive
+        liveGraphView.isHidden = true
         
         // Do any additional setup after loading the view.
     }
@@ -211,9 +216,9 @@ class VisualTrainingViewController: UIViewController {
     @IBAction func onSetUpright(_ sender: Any) {
         objVisual!.setUpright()
         
-        if !isStarted {
-            btnStart.isHidden = false
-        }
+//        if !isStarted {
+//            btnStart.isHidden = false
+//        }
 //        btnStart.alpha = 1.0
 //        btnStart.isEnabled = true
     }
@@ -262,11 +267,8 @@ class VisualTrainingViewController: UIViewController {
     
     func displayPostureAnimation(_ whichFrame: Int) {
         var frame = whichFrame
-        if frame > 29 {
-            frame = 29
-        }
         
-        imgPostureAnimation.image = UIImage(named: "animation-sit-\(frame)")
+        imgPostureAnimation.fileName = "sit (\(frame))"
     }
     
     func showHideControls() {
@@ -297,6 +299,15 @@ class VisualTrainingViewController: UIViewController {
 }
 
 extension VisualTrainingViewController: VisualDelegate {
+    
+    func visualUprightHasBeenSet() {
+        DispatchQueue.main.async {
+            if !self.isStarted {
+                self.btnStart.isHidden = false
+            }
+        }
+    }
+    
     func visualPostureFrameCalculated(frameIndex: Int) {
         DispatchQueue.main.async {
             self.displayPostureAnimation(frameIndex ?? 1)
