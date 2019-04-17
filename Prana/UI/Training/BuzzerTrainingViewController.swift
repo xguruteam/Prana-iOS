@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Macaw
 
 class BuzzerTrainingViewController: UIViewController {
 
@@ -31,7 +32,7 @@ class BuzzerTrainingViewController: UIViewController {
     //    @IBOutlet weak var lblWearing: UILabel!
     //    @IBOutlet weak var btnNext: UIBarButtonItem!
     
-    @IBOutlet weak var imgPostureAnimation: UIImageView!
+    @IBOutlet weak var imgPostureAnimation: SVGView!
     
     @IBOutlet weak var postureSensitivityGroup: UIView!
     @IBOutlet weak var btnPostureSensitivityRadio1: UIButton!
@@ -50,6 +51,7 @@ class BuzzerTrainingViewController: UIViewController {
     
     var objLive: Live?
     var objBuzzer: Buzzer?
+    var isTutorial = false
     
     var timeRemaining: Int = 180 {
         didSet {
@@ -102,6 +104,9 @@ class BuzzerTrainingViewController: UIViewController {
         PranaDeviceManager.shared.startGettingLiveData()
         
         initView()
+        
+        btnStartStop.isHidden = true
+        displayPostureAnimation(1)
     }
     
     func initView() {
@@ -140,6 +145,9 @@ class BuzzerTrainingViewController: UIViewController {
     */
     
     @IBAction func onBack(_ sender: Any) {
+        if isTutorial {
+            return
+        }
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -158,8 +166,8 @@ class BuzzerTrainingViewController: UIViewController {
     @IBAction func onStartStop(_ sender: Any) {
         if isLiving {
             stopLiving()
-            self.btnStartStop.isEnabled = false
-            self.btnStartStop.alpha = 0.5
+//            self.btnStartStop.isEnabled = false
+//            self.btnStartStop.alpha = 0.5
             //            self.btnNext.isEnabled = true
         }
         else {
@@ -171,8 +179,9 @@ class BuzzerTrainingViewController: UIViewController {
         if objBuzzer?.hasUprightBeenSet == 0 {
             objBuzzer?.hasUprightBeenSet = 1
             DispatchQueue.main.async {
-                self.btnStartStop.isEnabled = true
-                self.btnStartStop.alpha = 1.0
+//                self.btnStartStop.isEnabled = true
+//                self.btnStartStop.alpha = 1.0
+                self.btnStartStop.isHidden = false
             }
         }
     }
@@ -217,11 +226,7 @@ class BuzzerTrainingViewController: UIViewController {
     
     func displayPostureAnimation(_ whichFrame: Int) {
         var frame = whichFrame
-        if frame > 29 {
-            frame = 29
-        }
-        
-        imgPostureAnimation.image = UIImage(named: "animation-sit-\(frame)")
+        imgPostureAnimation.fileName = "sit (\(frame))"
     }
     
     func startLiving() {
@@ -235,6 +240,13 @@ class BuzzerTrainingViewController: UIViewController {
         btnStartStop.setTitle("Start", for: .normal)
         objBuzzer?.endSession()
         PranaDeviceManager.shared.stopGettingLiveData()
+        
+        if isTutorial {
+            objLive?.removeDelegate(self as! LiveDelegate)
+            let vc = Utils.getStoryboardWithIdentifier(identifier: "TutorialEndViewController")
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
     }
     
     func styledTime(v: Int) -> String {
@@ -316,7 +328,7 @@ extension BuzzerTrainingViewController: BuzzerDelegate {
     func buzzerDidSessionComplete() {
         DispatchQueue.main.async {
             self.btnStartStop.isEnabled = false
-            self.btnStartStop.alpha = 0.5
+//            self.btnStartStop.alpha = 0.5
             self.btnStartStop.setTitle("Session Completed!", for: .normal)
 //            self.btnNext.isEnabled = true
         }

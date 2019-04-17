@@ -46,4 +46,9 @@ class TutorialBuzzerViewController: UIViewController {
         btn_next.titleLabel?.textAlignment = .center
     }
 
+    @IBAction func onNext(_ sender: Any) {
+        let vc = Utils.getStoryboardWithIdentifier(identifier:"BuzzerTrainingViewController") as! BuzzerTrainingViewController
+        vc.isTutorial = true
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }

@@ -155,10 +155,6 @@ class VisualTrainingScene: SKScene {
     }
     
     open func setUpright() {
-        if !_isUprightSet {
-            _isUprightSet = true
-        }
-        
         objLive?.learnUprightAngleHandler()
     }
     
@@ -940,6 +936,10 @@ extension VisualTrainingScene: LiveDelegate {
     }
     
     func liveDidUprightSet() {
+        if !_isUprightSet {
+            _isUprightSet = true
+        }
+
         // enable start
         self.visualDelegate?.visualUprightHasBeenSet()
     }
