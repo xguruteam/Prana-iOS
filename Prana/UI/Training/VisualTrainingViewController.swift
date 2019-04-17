@@ -44,6 +44,9 @@ class VisualTrainingViewController: UIViewController {
     
     @IBOutlet weak var btnStart: UIButton!
     
+    var isShowControls: Bool = true
+    var isStarted: Bool = false
+    
     var mindfulBreaths: Int = 0 {
         didSet {
             if mindfulBreaths < 0 {
@@ -149,13 +152,14 @@ class VisualTrainingViewController: UIViewController {
         
         onBreathSensitivityChange(btnBreathSensitivityRadio2)
         onPostureSensitivityChange(btnPostureSensitivityRadio2)
-
-//        btnStart.alpha = 0.5
-//        btnStart.isEnabled = false
+        
+        btnStart.isHidden = true
         
         lblPostureValue.isHidden = true
-        
         controlPanel.isHidden = false
+        
+        isStarted = false
+        isShowControls = true
         
         let scene = VisualTrainingScene()
         scene.visualDelegate = self
@@ -167,8 +171,8 @@ class VisualTrainingViewController: UIViewController {
         
         gameView.ignoresSiblingOrder = true
         
-        gameView.showsFPS = true
-        gameView.showsNodeCount = true
+//        gameView.showsFPS = true
+//        gameView.showsNodeCount = true
         
         objVisual = scene
         
@@ -187,6 +191,15 @@ class VisualTrainingViewController: UIViewController {
     }
     */
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            let y = touch.location(in: self.view).y
+            if y > 40 && y < self.view.frame.size.height - controlPanel.frame.size.height - 8.0 && isStarted {
+                showHideControls()
+            }
+        }
+    }
+    
     @IBAction func onBack(_ sender: UIButton) {
         //MARK: Landscape
         self.dismiss(animated: false) {
@@ -198,6 +211,9 @@ class VisualTrainingViewController: UIViewController {
     @IBAction func onSetUpright(_ sender: Any) {
         objVisual!.setUpright()
         
+        if !isStarted {
+            btnStart.isHidden = false
+        }
 //        btnStart.alpha = 1.0
 //        btnStart.isEnabled = true
     }
@@ -253,12 +269,29 @@ class VisualTrainingViewController: UIViewController {
         imgPostureAnimation.image = UIImage(named: "animation-sit-\(frame)")
     }
     
+    func showHideControls() {
+        if isShowControls {
+            isShowControls = false
+            btnStart.isHidden = true
+//            controlPanel.isHidden = true
+        } else {
+            isShowControls = true
+            btnStart.isHidden = false
+//            controlPanel.isHidden = false
+        }
+    }
+    
     @IBAction func onStart(_ sender: UIButton) {
-        if (objVisual?._isUprightSet)! {
+        if (objVisual?._isUprightSet)! && !isStarted {
             objVisual?.startMode()
             
-//            btnStart.alpha = 0.5
-//            btnStart.isEnabled = false
+            isStarted = true
+            
+            btnStart.setTitle("END SESSION EARLY", for: .normal)
+            
+            showHideControls()
+        } else if isStarted {
+            self.onBack(btnBack)
         }
     }
 }

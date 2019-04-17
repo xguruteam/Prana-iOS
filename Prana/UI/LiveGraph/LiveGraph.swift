@@ -24,11 +24,11 @@ class LiveGraph: UIView {
         return bounds.height
     }
     
-    let lineWith: CGFloat = 2.0
+    let lineWith: CGFloat = 4.0
     
-    @IBInspectable var lineColor: UIColor = UIColor.black
-    @IBInspectable var topLineColor: UIColor = UIColor.red
-    @IBInspectable var bottomLineColor: UIColor = UIColor.blue
+    @IBInspectable var lineColor: UIColor = UIColor.colorFromHex(hexString: "#5EB839")
+    @IBInspectable var topLineColor: UIColor = UIColor.colorFromHex(hexString: "#FA9797")
+    @IBInspectable var bottomLineColor: UIColor = UIColor.colorFromHex(hexString: "#A3C53C")
     @IBInspectable var endLineColor: UIColor = UIColor.yellow
     
     deinit {

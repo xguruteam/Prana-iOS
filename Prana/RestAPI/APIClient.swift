@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 
 class APIClient {
+//    static var BaseURL = "http://10.70.10.11:8000/api/"
     static var BaseURL = "http://202.173.118.30/api/"
     
     static let sessionManager: SessionManager = {

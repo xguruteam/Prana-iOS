@@ -22,42 +22,60 @@ class FirstViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        // Do any additional setup after loading the view.
+        NotificationCenter.default.addObserver(self, selector: #selector(onLandscapeViewControllerDismiss), name: .landscapeViewControllerDidDismiss, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onDeviceOrientationChange), name: .deviceOrientationDidChange, object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if #available(iOS 11.0, *) {
-            self.navigationController?.navigationBar.prefersLargeTitles = true
-        } else {
-            // Fallback on earlier versions
-        }
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        if self.isMovingFromParent {
-            
-        }
+    override var shouldAutorotate: Bool {
+        return true
     }
     
+    @objc func onLandscapeViewControllerDismiss() {
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+    }
     
+    @objc func onDeviceOrientationChange() {
+        self.setNeedsStatusBarAppearanceUpdate()
+    }
     
     @IBAction func onLogoutClicked(_ sender: Any) {
+//        UserDefaults.standard.removeObject(forKey: KEY_TOKEN)
+//        UserDefaults.standard.removeObject(forKey: KEY_EXPIREAT)
+//        UserDefaults.standard.removeObject(forKey: KEY_REMEMBERME)
+//        UserDefaults.standard.synchronize()
+//        
+//        if PranaDeviceManager.shared.isConnected {
+//            PranaDeviceManager.shared.stopGettingLiveData()
+//            PranaDeviceManager.shared.disconnect()
+//            PranaDeviceManager.shared.delegate = nil
+//        }
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func onHistoryClicked(_ sender: Any) {
         UserDefaults.standard.removeObject(forKey: KEY_TOKEN)
         UserDefaults.standard.removeObject(forKey: KEY_EXPIREAT)
         UserDefaults.standard.removeObject(forKey: KEY_REMEMBERME)
         UserDefaults.standard.synchronize()
-        
+
         if PranaDeviceManager.shared.isConnected {
             PranaDeviceManager.shared.stopGettingLiveData()
             PranaDeviceManager.shared.disconnect()
             PranaDeviceManager.shared.delegate = nil
         }
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func onHistoryClicked(_ sender: Any) {
+
+        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func onBuzzerTrainingClicked(_ sender: UIButton) {
@@ -67,9 +85,9 @@ class FirstViewController: UIViewController {
     }
     
     @IBAction func onVisualTrainingClicked(_ sender: UIButton) {
-        let vc = Utils.getStoryboardWithIdentifier(identifier: "PrepareViewController")
-        let navVC = UINavigationController(rootViewController: vc)
-        self.present(navVC, animated: true, completion: nil)
+        let vc = Utils.getStoryboardWithIdentifier(identifier:"VisualTrainingViewController")
+        UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+        self.present(vc, animated: false, completion: nil)
     }
     
     @IBAction func onGenTrainingClicked(_ sender: Any) {

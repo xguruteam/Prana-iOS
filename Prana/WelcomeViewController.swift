@@ -59,7 +59,7 @@ class WelcomeViewController: UIViewController {
     }
     
     @objc func onTutorialDidEnd() {
-        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "FirstViewController")
+        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "TabViewController")
         let navVC = UINavigationController(rootViewController: firstVC)
         self.present(navVC, animated: true, completion: nil)
     }

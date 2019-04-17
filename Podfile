@@ -10,4 +10,5 @@ target 'Prana' do
     pod 'SwiftyJSON', '~> 3.1'
     pod 'IQKeyboardManagerSwift'
     pod 'MBProgressHUD', '~> 1.1.0'
+    pod 'Macaw', '~> 0.9.5'
 end

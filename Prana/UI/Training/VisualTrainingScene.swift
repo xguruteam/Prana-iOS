@@ -202,13 +202,6 @@ class VisualTrainingScene: SKScene {
         objLive?.appMode = 2
         objLive?.calibrationBreathsDone = 0
         
-        let btnPlay = SKSpriteNode(imageNamed: "back")
-        btnPlay.position = CGPoint(x: self.size.width / 2, y: 24)
-        btnPlay.zPosition = 1
-        btnPlay.name = "btnPlay"
-        self.addChild(btnPlay)
-        
-        
         // Clibration Region
         _calibrationRegion = SKSpriteNode(color: UIColor.black, size: CGSize(width: _calibrationRegionWidth, height: 32))
         _calibrationRegion?.position = CGPoint(x: CGFloat(lastX) + _calibrationRegion!.size.width / 2, y: _playRegionY + _playRegionH/2)
@@ -763,7 +756,6 @@ class VisualTrainingScene: SKScene {
     func assessBreathForRegularPattern() {
         totalBreaths += 1
         
-        print("\(targetsHit): \(flyingObjects[0].flowers.count)")
         if flyingObjects[0].flowers.count == targetsHit {
             mindfulBreathCount += 1
         }
@@ -781,7 +773,6 @@ class VisualTrainingScene: SKScene {
             goodBreaths = 0
         }
         
-        print("\(targetsHit): \(flyingObjects[0].flowers.count)")
         if flyingObjects[0].flowers?.count == targetsHit {
             goodBreaths += 1
             mindfulBreathCount += 1
@@ -914,19 +905,6 @@ class VisualTrainingScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            let location = touch.location(in: self)
-            let nodesArray = nodes(at: location)
-            
-            for node in nodesArray {
-                switch node.name {
-                case "btnPlay":
-                    self.startStopSession()
-                default:
-                    break
-                }
-            }
-        }
         
     }
     
