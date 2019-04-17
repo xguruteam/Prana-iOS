@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreBluetooth
+import Macaw
 
 class LiveGraphViewController: UIViewController {
     
@@ -27,7 +28,7 @@ class LiveGraphViewController: UIViewController {
     @IBOutlet weak var lblRespirationRate: UILabel!
     @IBOutlet weak var lblBreathCount: UILabel!
     
-    @IBOutlet weak var imgPostureAnimation: UIImageView!
+    @IBOutlet weak var imgPostureAnimation: SVGView!
     
     @IBOutlet weak var postureSensitivityGroup: UIView!
     @IBOutlet weak var btnPostureSensitivityRadio1: UIButton!
@@ -42,6 +43,7 @@ class LiveGraphViewController: UIViewController {
     
     var isLive = false
     var objLive: Live?
+    var isLowerBack = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +61,8 @@ class LiveGraphViewController: UIViewController {
         
         setBreathSensitivity(val: 2)
         setPostureSensitivity(val: 2)
+        
+        displayPostureAnimation(1)
         
         setWearPosition(val: 0)
         
@@ -180,6 +184,7 @@ class LiveGraphViewController: UIViewController {
             btnWearUpperChest.backgroundColor
                 = UIColor(red: 0.965, green: 0.97, blue: 0.98, alpha: 1)
             btnWearUpperChest.setTitleColor(UIColor(red: 0.47, green: 0.52, blue: 0.62, alpha: 1.0), for: .normal)
+            isLowerBack = true
         } else {
             btnWearLowerBack.backgroundColor
                 = UIColor(red: 0.965, green: 0.97, blue: 0.98, alpha: 1)
@@ -188,16 +193,20 @@ class LiveGraphViewController: UIViewController {
             btnWearUpperChest.backgroundColor
                 = UIColor(red: 0.43, green: 0.75, blue: 0.23, alpha: 1)
             btnWearUpperChest.setTitleColor(UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
+            isLowerBack = false
         }
+        
     }
     
     func displayPostureAnimation(_ whichFrame: Int) {
         var frame = whichFrame
-        if frame > 29 {
-            frame = 29
-        }
         
-        imgPostureAnimation.image = UIImage(named: "animation-sit-\(frame)")
+        if isLowerBack {
+            imgPostureAnimation.fileName = "sit (\(frame))"
+        }
+        else {
+            imgPostureAnimation.fileName = "stand (\(frame))"
+        }
     }
     
     func displayRespirationRate(val: Double) {
