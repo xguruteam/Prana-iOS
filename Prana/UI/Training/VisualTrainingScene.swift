@@ -13,7 +13,7 @@ import CoreMotion
 
 protocol VisualDelegate {
     func visualUprightHasBeenSet()
-    func visualOnBack()
+    func visualOnComplete()
     func visualOnTimer(v: Int)
     func visualNewTargetRateCalculated(rate: Double)
     func visualNewActualRateCalculated(rate: Double)
@@ -97,6 +97,7 @@ class VisualTrainingScene: SKScene {
     
     var _calibrationRegion: SKSpriteNode?
     var _calibrationRegionLabel: SKLabelNode?
+    var _messageNode: SKLabelNode!
     
     var _backgrounds: [SKSpriteNode]!
     
@@ -183,7 +184,7 @@ class VisualTrainingScene: SKScene {
         
         self._playOrPause = false
         
-        _birdX = 150
+        _birdX = 100
         lastX = 200
         
         xStep = 22.5
@@ -208,6 +209,18 @@ class VisualTrainingScene: SKScene {
         _calibrationRegion = SKSpriteNode(color: UIColor.black, size: CGSize(width: _calibrationRegionWidth, height: 32))
         _calibrationRegion?.position = CGPoint(x: CGFloat(lastX) + _calibrationRegion!.size.width / 2, y: _playRegionY + _playRegionH/2)
         _calibrationRegion?.name = "calibration"
+        
+        _calibrationRegionLabel = SKLabelNode(text: "Breadthe normally here to set your initial Target Respirate Rate.")
+        _calibrationRegionLabel?.color = .white
+        _calibrationRegionLabel?.fontName = "Quicksand"
+        _calibrationRegionLabel?.fontSize = 16
+        _calibrationRegionLabel?.position = CGPoint(x: 0, y: 0)
+        _calibrationRegionLabel?.horizontalAlignmentMode = .center
+        _calibrationRegionLabel?.verticalAlignmentMode = .center
+
+        _calibrationRegion?.addChild(_calibrationRegionLabel!)
+
+        
 
         _flowerTexture1 = SKTexture(imageNamed: "fr01")
         _flowerTexture1!.filteringMode = SKTextureFilteringMode.nearest
@@ -237,6 +250,13 @@ class VisualTrainingScene: SKScene {
         createBird()
         
         startSession()
+        
+        _messageNode = SKLabelNode(text: "First sit upright and tap the Set Upright button.")
+        _messageNode.position = CGPoint(x: size.width / 2, y: size.height * 3 / 4)
+        _messageNode.color = .white
+        _messageNode.fontName = "Quicksand-Bold"
+        _messageNode.fontSize = 20
+        addChild(_messageNode)
     }
     
     func createBird() {
@@ -500,8 +520,10 @@ class VisualTrainingScene: SKScene {
         
         if trainingDuration == 0 {
             stopSession()
-            clearGame()
-            self.visualDelegate?.visualOnBack()
+//            clearGame()
+            _messageNode.text = "Session Completed!"
+            addChild(_messageNode)
+            self.visualDelegate?.visualOnComplete()
         }
     }
     
@@ -722,9 +744,29 @@ class VisualTrainingScene: SKScene {
     }
     
     func fadeInPatterns() {
+        for i in 0..<flyingObjects.count {
+            let breath = flyingObjects[i]
+            for column in breath.flowers {
+                for flower in column {
+                    flower.node.alpha += 0.05
+                }
+            }
+        }
+        
+        if (flyingObjects[0].flowers[0][0].node.alpha > 0.99) {
+            initialFadeIn = 0
+        }
     }
     
     func setInvisibleInitialPatterns() {
+        for i in 0..<flyingObjects.count {
+            let breath = flyingObjects[i]
+            for column in breath.flowers {
+                for flower in column {
+                    flower.node.alpha = 0.0
+                }
+            }
+        }
     }
     
     func checkTargetsHit() {
@@ -938,6 +980,9 @@ extension VisualTrainingScene: LiveDelegate {
     func liveDidUprightSet() {
         if !_isUprightSet {
             _isUprightSet = true
+            DispatchQueue.main.async {
+                self._messageNode.removeFromParent()
+            }
         }
 
         // enable start

@@ -44,15 +44,23 @@ class VisualTrainingViewController: UIViewController {
     @IBOutlet weak var controlPanel: UIView!
     
     @IBOutlet weak var btnStart: UIButton!
+    @IBOutlet weak var btnHelp: UIButton!
     
     var isShowControls: Bool = true
-    var isStarted: Bool = false
+    var isShowButton = true
+    var isStarted: Bool = false {
+        didSet {
+            self.btnHelp.isHidden = isStarted
+            self.btnBack.isHidden = isStarted
+        }
+    }
     var isTutorial = false
+    var isCompleted = false
     
     var mindfulBreaths: Int = 0 {
         didSet {
             if mindfulBreaths < 0 {
-                lblStatus1.text = "Mindful Breaths: --% (- of -)"
+                lblStatus1.text = "Mindful Breaths:"
             }
             else {
                 lblStatus1.text = "Mindful Breaths: \(Int(mindfulBreaths * 100 / breathCount))% (\(mindfulBreaths) of \(breathCount))"
@@ -63,7 +71,7 @@ class VisualTrainingViewController: UIViewController {
     var breathCount: Int = 0 {
         didSet {
             if mindfulBreaths < 0 {
-                lblStatus1.text = "Mindful Breaths: --% (- of -)"
+                lblStatus1.text = "Mindful Breaths:"
             }
             else {
                 lblStatus1.text = "Mindful Breaths: \(Int(mindfulBreaths * 100 / breathCount))% (\(mindfulBreaths) of \(breathCount))"
@@ -74,7 +82,7 @@ class VisualTrainingViewController: UIViewController {
     var targetRR: Double = 0 {
         didSet {
             if targetRR < 0 {
-                lblStatus2.text = "Target Respiration Rate: -- Actual: --"
+                lblStatus2.text = "Target Respiration Rate:"
             }
             else {
                 lblStatus2.text = "Target Respiration Rate: \(roundDouble(double: targetRR)) Actual: \(roundDouble(double: actualRR))"
@@ -85,7 +93,7 @@ class VisualTrainingViewController: UIViewController {
     var actualRR: Double = 0 {
         didSet {
             if targetRR < 0 {
-                lblStatus2.text = "Target Respiration Rate: -- Actual: --"
+                lblStatus2.text = "Target Respiration Rate:"
             }
             else {
                 lblStatus2.text = "Target Respiration Rate: \(roundDouble(double: targetRR)) Actual: \(roundDouble(double: actualRR))"
@@ -96,7 +104,7 @@ class VisualTrainingViewController: UIViewController {
     var postureDuration: Int = 0 {
         didSet {
             if postureDuration < 0 {
-                lblStatus3.text = "Upright Posture: --% (- of - seconds)"
+                lblStatus3.text = "Upright Posture:"
             }
             else {
                 lblStatus3.text = "Upright Posture: \(Int(uprightDuration * 100 / postureDuration))% (\(uprightDuration) of \(postureDuration) seconds)"
@@ -107,7 +115,7 @@ class VisualTrainingViewController: UIViewController {
     var uprightDuration: Int = 0 {
         didSet {
             if postureDuration < 0 {
-                lblStatus3.text = "Upright Posture: --% (- of - seconds)"
+                lblStatus3.text = "Upright Posture:"
             }
             else {
                 lblStatus3.text = "Upright Posture: \(Int(uprightDuration * 100 / postureDuration))% (\(uprightDuration) of \(postureDuration) seconds)"
@@ -118,7 +126,7 @@ class VisualTrainingViewController: UIViewController {
     var slouches: Int = 0 {
         didSet {
             if slouches < 0 {
-                lblStatus4.text = "Slouches: --"
+                lblStatus4.text = "Slouches:"
             }
             else {
                 lblStatus4.text = "Slouches: \(slouches)"
@@ -147,6 +155,8 @@ class VisualTrainingViewController: UIViewController {
     
     override func viewDidLoad() {
         
+        super.viewDidLoad()
+        
         mindfulBreaths = -1
         targetRR = -1.0
         postureDuration = -1
@@ -164,6 +174,8 @@ class VisualTrainingViewController: UIViewController {
         
         isStarted = false
         isShowControls = true
+        isShowButton = false
+        isCompleted = false
         
         let scene = VisualTrainingScene(180)
         scene.visualDelegate = self
@@ -186,6 +198,14 @@ class VisualTrainingViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -197,15 +217,28 @@ class VisualTrainingViewController: UIViewController {
     */
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        if !isStarted {
+            return
+        }
+        
         if let touch = touches.first {
             let y = touch.location(in: self.view).y
-            if y > 40 && y < self.view.frame.size.height - controlPanel.frame.size.height - 8.0 && isStarted {
+            if y > 40 && y < self.view.frame.size.height - controlPanel.frame.size.height - 8.0 {
+                showHideStartButton()
+            }
+            
+            if y > (self.view.frame.size.height - controlPanel.frame.size.height - 8.0) && y < (self.view.frame.size.height - 8.0) {
                 showHideControls()
             }
         }
     }
     
     @IBAction func onBack(_ sender: UIButton) {
+        if isCompleted {
+            self.onEnd()
+            return
+        }
         //MARK: Landscape
         self.dismiss(animated: false) {
             NotificationCenter.default.post(name: .landscapeViewControllerDidDismiss, object: nil)
@@ -274,12 +307,23 @@ class VisualTrainingViewController: UIViewController {
     func showHideControls() {
         if isShowControls {
             isShowControls = false
-            btnStart.isHidden = true
-//            controlPanel.isHidden = true
+//            btnStart.isHidden = true
+            controlPanel.isHidden = true
         } else {
             isShowControls = true
+//            btnStart.isHidden = false
+            controlPanel.isHidden = false
+        }
+    }
+    
+    func showHideStartButton() {
+        if isShowButton {
+            isShowButton = false
+            btnStart.isHidden = true
+        }
+        else {
+            isShowButton = true
             btnStart.isHidden = false
-//            controlPanel.isHidden = false
         }
     }
     
@@ -291,9 +335,30 @@ class VisualTrainingViewController: UIViewController {
             
             btnStart.setTitle("END SESSION EARLY", for: .normal)
             
-            showHideControls()
+            showHideStartButton()
         } else if isStarted {
-            self.onBack(btnBack)
+            objVisual?.stopSession()
+            onComplete()
+        }
+    }
+    
+    func onEnd() {
+        //MARK: Landscape
+        self.dismiss(animated: false) {
+            NotificationCenter.default.post(name: .visualViewControllerEndSession, object: nil)
+        }
+        //End: Landscape
+    }
+    
+    func onComplete() {
+        isCompleted = true
+        isStarted = false
+        if !isShowControls {
+            showHideControls()
+        }
+        
+        if isShowButton {
+           showHideStartButton()
         }
     }
 }
@@ -302,8 +367,10 @@ extension VisualTrainingViewController: VisualDelegate {
     
     func visualUprightHasBeenSet() {
         DispatchQueue.main.async {
-            if !self.isStarted {
-                self.btnStart.isHidden = false
+            if !self.isStarted && !self.isCompleted {
+                if !self.isShowButton {
+                    self.showHideStartButton()
+                }
             }
         }
     }
@@ -346,11 +413,15 @@ extension VisualTrainingViewController: VisualDelegate {
         }
     }
 
-    func visualOnBack() {
-        self.onBack(btnBack)
+    func visualOnComplete() {
+        DispatchQueue.main.async {
+            self.onComplete()
+        }
     }
     
     func visualOnTimer(v: Int) {
-        self.timeRemaining = v
+        DispatchQueue.main.async {
+            self.timeRemaining = v
+        }
     }
 }

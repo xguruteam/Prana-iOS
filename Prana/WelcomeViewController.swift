@@ -140,9 +140,11 @@ class WelcomeViewController: UIViewController {
                     isValidToken = false
                     break
                 }
-                MBProgressHUD.hide(for: self.view, animated: true)
-                if (isValidToken) {
-                    self.afterLogin()
+                DispatchQueue.main.async {
+                    MBProgressHUD.hide(for: self.view, animated: true)
+                    if (isValidToken) {
+                        self.afterLogin()
+                    }
                 }
         }
     }

@@ -14,6 +14,7 @@ extension Notification.Name {
     static let tutorialDidEnd = Notification.Name("tutorialDidEnd")
     static let didLogIn = Notification.Name("didLogIn")
     static let landscapeViewControllerDidDismiss = Notification.Name("landscapeViewControllerDidDismiss")
+    static let visualViewControllerEndSession = Notification.Name("visualViewControllerEndSession")
     static let deviceOrientationDidChange = UIDevice.orientationDidChangeNotification
 }
 

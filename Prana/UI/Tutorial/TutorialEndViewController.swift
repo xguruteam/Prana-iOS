@@ -36,4 +36,7 @@ class TutorialEndViewController: UIViewController {
         }
     }
     
+    @IBAction func onBack(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
 }

@@ -97,6 +97,7 @@
 		CAD502FB2231C0B200F97B31 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502FA2231C0B200F97B31 /* Log.swift */; };
 		CAD7D34E2229364D00F3C805 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD7D34D2229364D00F3C805 /* FirstViewController.swift */; };
 		CAE21B00223E818D00CC7A4D /* ChargingGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE21AFF223E818D00CC7A4D /* ChargingGuideViewController.swift */; };
+		CAE6B14A2268DBBD00881B18 /* ProgramsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE6B1492268DBBD00881B18 /* ProgramsViewController.swift */; };
 		D701F4DE223B998800D19574 /* TutorialUpperchestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D701F4DD223B998800D19574 /* TutorialUpperchestViewController.swift */; };
 		D70C2FE7223452EF00EE6A22 /* PostureIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70C2FE6223452EF00EE6A22 /* PostureIndicator.swift */; };
 		D70D9E86226084A200BC30F8 /* TapBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D9E85226084A200BC30F8 /* TapBarViewController.swift */; };
@@ -221,6 +222,7 @@
 		CAD502FA2231C0B200F97B31 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		CAD7D34D2229364D00F3C805 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		CAE21AFF223E818D00CC7A4D /* ChargingGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingGuideViewController.swift; sourceTree = "<group>"; };
+		CAE6B1492268DBBD00881B18 /* ProgramsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramsViewController.swift; sourceTree = "<group>"; };
 		D701F4DD223B998800D19574 /* TutorialUpperchestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialUpperchestViewController.swift; sourceTree = "<group>"; };
 		D70C2FE6223452EF00EE6A22 /* PostureIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureIndicator.swift; sourceTree = "<group>"; };
 		D70D9E85226084A200BC30F8 /* TapBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBarViewController.swift; sourceTree = "<group>"; };
@@ -357,6 +359,7 @@
 		CA98921A2241283800D824B0 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				CAE6B1482268DB7200881B18 /* Programs */,
 				CA48E58622664994002CFA19 /* Tutorial */,
 				CA98922022413B0900D824B0 /* LiveGraph */,
 				CA98921D2241286100D824B0 /* Training */,
@@ -465,6 +468,14 @@
 				CAD502F62231BEB900F97B31 /* PranaDevice.swift */,
 			);
 			path = Device;
+			sourceTree = "<group>";
+		};
+		CAE6B1482268DB7200881B18 /* Programs */ = {
+			isa = PBXGroup;
+			children = (
+				CAE6B1492268DBBD00881B18 /* ProgramsViewController.swift */,
+			);
+			path = Programs;
 			sourceTree = "<group>";
 		};
 		D7992ACC225C218100C5C8F2 /* Resources */ = {
@@ -660,6 +671,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Prana/Pods-Prana-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/ExpandableCell/ExpandableCell.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Macaw/Macaw.framework",
@@ -671,6 +683,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ExpandableCell.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Macaw.framework",
@@ -738,6 +751,7 @@
 				CAD502FB2231C0B200F97B31 /* Log.swift in Sources */,
 				AA7FE2D4222720EB0092E8A6 /* WelcomeViewController.swift in Sources */,
 				D7172B762258A026007AA168 /* BuzzerTrainingViewController.swift in Sources */,
+				CAE6B14A2268DBBD00881B18 /* ProgramsViewController.swift in Sources */,
 				CAD502F72231BEB900F97B31 /* PranaDevice.swift in Sources */,
 				D7C6AC1722611A77004A4388 /* TabTrainViewController.swift in Sources */,
 				CA97DB1322298BF1002C5592 /* HistoryTableViewController.swift in Sources */,

@@ -45,6 +45,10 @@ class LiveFeedViewController: UIViewController {
 
         self.navigationController?.isNavigationBarHidden = true
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         objLive = Live()
         objLive?.appMode = 1
         objLive?.addDelegate(self as LiveDelegate)
@@ -52,12 +56,17 @@ class LiveFeedViewController: UIViewController {
         
         setBreathSensitivity(val: 2)
         setPostureSensitivity(val: 2)
-
+        
         displayPostureAnimation(1)
         
         btnNext.isHidden = true
         
         startLive()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        stopLive()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -79,7 +88,6 @@ class LiveFeedViewController: UIViewController {
     }
     
     @IBAction func onNext(_ sender: Any) {
-        stopLive()
         
         if isLowerBack {
             let vc = Utils.getStoryboardWithIdentifier(identifier: "TutorialWearUpperchestViewController")
@@ -90,6 +98,10 @@ class LiveFeedViewController: UIViewController {
             self.navigationController?.pushViewController(vc, animated: true)
         }
         
+    }
+    
+    @IBAction func onBack(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     func startLive() {

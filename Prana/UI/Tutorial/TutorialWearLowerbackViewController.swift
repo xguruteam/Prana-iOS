@@ -51,4 +51,8 @@ class TutorialWearLowerbackViewController: UIViewController {
         vc.isLowerBack = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @IBAction func onBack(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
 }

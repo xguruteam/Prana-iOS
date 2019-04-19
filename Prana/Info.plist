@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>21</string>
+	<string>24</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -50,6 +50,13 @@
 	</dict>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Connect your ios device to the Prana Tech wellness device</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Quicksand 300.ttf</string>
+		<string>Quicksand 500.ttf</string>
+		<string>Quicksand 700.ttf</string>
+		<string>Quicksand regular.ttf</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>
@@ -84,13 +91,6 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Quicksand 300.ttf</string>
-		<string>Quicksand 500.ttf</string>
-		<string>Quicksand 700.ttf</string>
-		<string>Quicksand regular.ttf</string>
 	</array>
 </dict>
 </plist>

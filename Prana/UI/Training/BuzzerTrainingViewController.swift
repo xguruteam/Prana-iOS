@@ -46,14 +46,16 @@ class BuzzerTrainingViewController: UIViewController {
     
     @IBOutlet weak var liveGraph: LiveGraph!
     @IBOutlet weak var lblPostureValue: UILabel!
+    @IBOutlet weak var btnBack: UIButton!
     
     var isLiving = false
     
     var objLive: Live?
     var objBuzzer: Buzzer?
     var isTutorial = false
+    var isCompleted = false
     
-    var timeRemaining: Int = 180 {
+    var timeRemaining: Int = 0 {
         didSet {
             lblTimeRemaining.text = "\(styledTime(v: timeRemaining))"
         }
@@ -77,40 +79,10 @@ class BuzzerTrainingViewController: UIViewController {
         
         self.navigationController?.navigationBar.isHidden = true
         
-        objLive = Live()
-        objLive?.appMode = 3
-        objLive?.addDelegate(self)
-        liveGraph.objLive = objLive
         
-        targetRR = 0
-        actualRR = 0
-        
-        lblBuzzerReason.text = "Buzzer Reason: __"
-        lblTimeRemaining.text = "_:__"
-        
-        lblMindfulBreaths.text = "Mindful Breaths: __% (__ of __)"
-        lblTargetRespirationRate.text = "Target Respiration Rate: 0.0 Actual 0.0"
-        lblBreathingPattern.text = "Breathing Pattern: SLOWING PATTERN"
-        
-        lblUprightPosture.text = "Upright Posture: --% (__ of __ seconds)"
-        
-        
-        objBuzzer = Buzzer(pattern: 0, subPattern: 5, duration: 180, live: objLive!)
-        objBuzzer?.delegate = self
-        
-        setBreathSensitivity(val: 2)
-        setPostureSensitivity(val: 2)
-        
-        PranaDeviceManager.shared.startGettingLiveData()
-        
-        initView()
-        
-        btnStartStop.isHidden = true
-        displayPostureAnimation(1)
     }
     
     func initView() {
-        timeRemaining = 180
         
         let border1 = CALayer()
         border1.backgroundColor = UIColor(red: 224.0/256.0, green: 224.0/256.0, blue: 224.0/256.0, alpha: 1).cgColor
@@ -125,12 +97,56 @@ class BuzzerTrainingViewController: UIViewController {
         postureSensitivityGroup.layer.addSublayer(border2)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        timeRemaining = 180
+        
+        objLive = Live()
+        objLive?.appMode = 3
+        objLive?.addDelegate(self)
+        liveGraph.objLive = objLive
+        
+        targetRR = 0
+        actualRR = 0
+        
+        isCompleted = false
+        btnStartStop.isEnabled = true
+        
+        lblBuzzerReason.text = "Buzzer Reason:"
+//        lblTimeRemaining.text = "_:__"
+        
+        lblMindfulBreaths.text = "Mindful Breaths:"
+        lblTargetRespirationRate.text = "Target Respiration Rate:"
+        lblBreathingPattern.text = "Breathing Pattern: SLOWING PATTERN"
+        
+        lblUprightPosture.text = "Upright Posture:"
+        
+        
+        objBuzzer = Buzzer(pattern: 0, subPattern: 5, duration: timeRemaining, live: objLive!)
+        objBuzzer?.delegate = self
+        
+        setBreathSensitivity(val: 2)
+        setPostureSensitivity(val: 2)
+        
+        PranaDeviceManager.shared.startGettingLiveData()
+        
+        initView()
+        
+        btnStartStop.isHidden = true
+        displayPostureAnimation(1)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        objLive?.removeDelegate(self as! LiveDelegate)
+        stopLiving()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         if isMovingFromParent {
-            objLive?.removeDelegate(self as! LiveDelegate)
-            stopLiving()
         }
     }
     
@@ -145,10 +161,12 @@ class BuzzerTrainingViewController: UIViewController {
     */
     
     @IBAction func onBack(_ sender: Any) {
-        if isTutorial {
+        if isCompleted {
+            let vc = Utils.getStoryboardWithIdentifier(identifier: "TutorialEndViewController")
+            self.navigationController?.pushViewController(vc, animated: true)
             return
         }
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func onBreathingResponseChange(_ sender: UIButton) {
@@ -166,6 +184,9 @@ class BuzzerTrainingViewController: UIViewController {
     @IBAction func onStartStop(_ sender: Any) {
         if isLiving {
             stopLiving()
+            isCompleted = true
+            btnStartStop.isEnabled = false
+            btnStartStop.setTitle("Session End", for: .normal)
 //            self.btnStartStop.isEnabled = false
 //            self.btnStartStop.alpha = 0.5
             //            self.btnNext.isEnabled = true
@@ -233,6 +254,7 @@ class BuzzerTrainingViewController: UIViewController {
         isLiving = true
         btnStartStop.setTitle("Stop", for: .normal)
         objBuzzer?.startSession()
+        btnBack.isHidden = true
     }
     
     func stopLiving() {
@@ -240,13 +262,19 @@ class BuzzerTrainingViewController: UIViewController {
         btnStartStop.setTitle("Start", for: .normal)
         objBuzzer?.endSession()
         PranaDeviceManager.shared.stopGettingLiveData()
+        btnBack.isHidden = false
         
-        if isTutorial {
-            objLive?.removeDelegate(self as! LiveDelegate)
-            let vc = Utils.getStoryboardWithIdentifier(identifier: "TutorialEndViewController")
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
+//        if isTutorial {
+//            objLive?.removeDelegate(self as! LiveDelegate)
+//            let vc = Utils.getStoryboardWithIdentifier(identifier: "TutorialEndViewController")
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        }
         
+    }
+    
+    func onComplete() {
+        isCompleted = true
+        stopLiving()
     }
     
     func styledTime(v: Int) -> String {
@@ -327,12 +355,12 @@ extension BuzzerTrainingViewController: BuzzerDelegate {
     
     func buzzerDidSessionComplete() {
         DispatchQueue.main.async {
+            self.onComplete()
             self.btnStartStop.isEnabled = false
 //            self.btnStartStop.alpha = 0.5
             self.btnStartStop.setTitle("Session Completed!", for: .normal)
 //            self.btnNext.isEnabled = true
         }
-        stopLiving()
         print("Session Completed!")
     }
     

@@ -70,9 +70,9 @@ class TabTrainViewController: UIViewController {
     
     
     @IBAction func onTrainClick(_ sender: UIButton) {
-        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "FirstViewController")
-        let navVC = UINavigationController(rootViewController: firstVC)
-        self.present(navVC, animated: true, completion: nil)
+        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ProgramsViewController")
+//        let navVC = UINavigationController(rootViewController: firstVC)
+        self.present(firstVC, animated: true, completion: nil)
     }
     
     @IBAction func onLiveGraphClick(_ sender: UIButton) {

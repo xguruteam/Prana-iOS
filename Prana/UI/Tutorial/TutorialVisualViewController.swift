@@ -17,6 +17,7 @@ class TutorialVisualViewController: UIViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(onLandscapeViewControllerDismiss), name: .landscapeViewControllerDidDismiss, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onDeviceOrientationChange), name: .deviceOrientationDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onVisualViewControllerEnd), name: .visualViewControllerEndSession, object: nil)
 
         // Do any additional setup after loading the view.
         
@@ -40,6 +41,9 @@ class TutorialVisualViewController: UIViewController {
     }
     
     @objc func onLandscapeViewControllerDismiss() {
+    }
+    
+    @objc func onVisualViewControllerEnd() {
         UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
         let vc = Utils.getStoryboardWithIdentifier(identifier: "TutorialBuzzerViewController")
         self.navigationController?.pushViewController(vc, animated: false)
@@ -78,4 +82,9 @@ class TutorialVisualViewController: UIViewController {
         UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
         self.present(vc, animated: false, completion: nil)
     }
+    
+    @IBAction func onBack(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 }

@@ -34,14 +34,14 @@ class TutorialBuzzerViewController: UIViewController {
     */
     
     func initView() {
-        let background = UIImage(named: "app-background")
-        let imageView = UIImageView(frame: view.bounds)
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.image = background
-        imageView.center = view.center
-        view.insertSubview(imageView, at: 0)
-        view.sendSubviewToBack(imageView)
+//        let background = UIImage(named: "app-background")
+//        let imageView = UIImageView(frame: view.bounds)
+//        imageView.contentMode = .scaleAspectFill
+//        imageView.clipsToBounds = true
+//        imageView.image = background
+//        imageView.center = view.center
+//        view.insertSubview(imageView, at: 0)
+//        view.sendSubviewToBack(imageView)
         
         btn_next.titleLabel?.textAlignment = .center
     }
@@ -51,4 +51,9 @@ class TutorialBuzzerViewController: UIViewController {
         vc.isTutorial = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @IBAction func onBack(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 }
