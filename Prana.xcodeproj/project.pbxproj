@@ -28,6 +28,7 @@
 		CA98921F2241353B00D824B0 /* TSCDesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98921E2241353A00D824B0 /* TSCDesignableView.swift */; };
 		CA98922222413B2300D824B0 /* LiveGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98922122413B2300D824B0 /* LiveGraph.swift */; };
 		CAA44A31224425EF0050D619 /* ConnectionTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA44A30224425EF0050D619 /* ConnectionTestViewController.swift */; };
+		CAAB4ED5226E7FF9000C8802 /* ProgramChildCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAB4ED4226E7FF9000C8802 /* ProgramChildCell.swift */; };
 		CAB9664F2267883100D0E904 /* sit (4).svg in Resources */ = {isa = PBXBuildFile; fileRef = CAB966312267882A00D0E904 /* sit (4).svg */; };
 		CAB966502267883100D0E904 /* sit (2).svg in Resources */ = {isa = PBXBuildFile; fileRef = CAB966322267882A00D0E904 /* sit (2).svg */; };
 		CAB966512267883100D0E904 /* sit (29).svg in Resources */ = {isa = PBXBuildFile; fileRef = CAB966332267882A00D0E904 /* sit (29).svg */; };
@@ -88,6 +89,7 @@
 		CAB966A62267930300D0E904 /* stand (18).svg in Resources */ = {isa = PBXBuildFile; fileRef = CAB966882267930200D0E904 /* stand (18).svg */; };
 		CAB966A72267930300D0E904 /* stand (12).svg in Resources */ = {isa = PBXBuildFile; fileRef = CAB966892267930200D0E904 /* stand (12).svg */; };
 		CAB966A82267930300D0E904 /* stand (27).svg in Resources */ = {isa = PBXBuildFile; fileRef = CAB9668A2267930200D0E904 /* stand (27).svg */; };
+		CAC191C2226E592F009E04B5 /* PranaExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC191C1226E592F009E04B5 /* PranaExpandableCell.swift */; };
 		CAC36BCE2249A05E00B4FF1F /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC36BCD2249A05E00B4FF1F /* TestData.swift */; };
 		CAC46CCD223A8E95004691F4 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */; };
 		CACC9C87223356D0008C54B7 /* BreathingGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC9C86223356D0008C54B7 /* BreathingGraph.swift */; };
@@ -153,6 +155,7 @@
 		CA98921E2241353A00D824B0 /* TSCDesignableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSCDesignableView.swift; sourceTree = "<group>"; };
 		CA98922122413B2300D824B0 /* LiveGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveGraph.swift; sourceTree = "<group>"; };
 		CAA44A30224425EF0050D619 /* ConnectionTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionTestViewController.swift; sourceTree = "<group>"; };
+		CAAB4ED4226E7FF9000C8802 /* ProgramChildCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramChildCell.swift; sourceTree = "<group>"; };
 		CAB966312267882A00D0E904 /* sit (4).svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "sit (4).svg"; sourceTree = "<group>"; };
 		CAB966322267882A00D0E904 /* sit (2).svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "sit (2).svg"; sourceTree = "<group>"; };
 		CAB966332267882A00D0E904 /* sit (29).svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "sit (29).svg"; sourceTree = "<group>"; };
@@ -213,6 +216,7 @@
 		CAB966882267930200D0E904 /* stand (18).svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "stand (18).svg"; sourceTree = "<group>"; };
 		CAB966892267930200D0E904 /* stand (12).svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "stand (12).svg"; sourceTree = "<group>"; };
 		CAB9668A2267930200D0E904 /* stand (27).svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "stand (27).svg"; sourceTree = "<group>"; };
+		CAC191C1226E592F009E04B5 /* PranaExpandableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranaExpandableCell.swift; sourceTree = "<group>"; };
 		CAC36BCD2249A05E00B4FF1F /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
 		CACC9C86223356D0008C54B7 /* BreathingGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingGraph.swift; sourceTree = "<group>"; };
@@ -359,6 +363,7 @@
 		CA98921A2241283800D824B0 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				CAC191C0226E58FB009E04B5 /* Reusable */,
 				CAE6B1482268DB7200881B18 /* Programs */,
 				CA48E58622664994002CFA19 /* Tutorial */,
 				CA98922022413B0900D824B0 /* LiveGraph */,
@@ -452,6 +457,14 @@
 			path = Animation;
 			sourceTree = "<group>";
 		};
+		CAC191C0226E58FB009E04B5 /* Reusable */ = {
+			isa = PBXGroup;
+			children = (
+				CAC191C1226E592F009E04B5 /* PranaExpandableCell.swift */,
+			);
+			path = Reusable;
+			sourceTree = "<group>";
+		};
 		CAC36BCC2249A04600B4FF1F /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -474,6 +487,7 @@
 			isa = PBXGroup;
 			children = (
 				CAE6B1492268DBBD00881B18 /* ProgramsViewController.swift */,
+				CAAB4ED4226E7FF9000C8802 /* ProgramChildCell.swift */,
 			);
 			path = Programs;
 			sourceTree = "<group>";
@@ -741,6 +755,7 @@
 				CAA44A31224425EF0050D619 /* ConnectionTestViewController.swift in Sources */,
 				CA9892152240C86D00D824B0 /* Live.swift in Sources */,
 				D7C6AC1B226198F9004A4388 /* GradientArcView.swift in Sources */,
+				CAAB4ED5226E7FF9000C8802 /* ProgramChildCell.swift in Sources */,
 				D7B12F602243972A002D2E0F /* PrepareViewController.swift in Sources */,
 				D71D37462253527300D98376 /* PranaDesignableView.swift in Sources */,
 				D701F4DE223B998800D19574 /* TutorialUpperchestViewController.swift in Sources */,
@@ -770,6 +785,7 @@
 				D732BDB02255FC86008AFF76 /* TutorialWearLowerbackViewController.swift in Sources */,
 				D70C2FE7223452EF00EE6A22 /* PostureIndicator.swift in Sources */,
 				D7BA349D22565D9100B4689E /* TutorialVisualViewController.swift in Sources */,
+				CAC191C2226E592F009E04B5 /* PranaExpandableCell.swift in Sources */,
 				D7172B7822596179007AA168 /* VisualTrainingViewController.swift in Sources */,
 				CA97DB0F22296163002C5592 /* Session.swift in Sources */,
 				CAC36BCE2249A05E00B4FF1F /* TestData.swift in Sources */,
@@ -921,8 +937,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = U37J473DVK;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = D4J7AW2S69;
 				INFOPLIST_FILE = Prana/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -931,7 +947,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.prana.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = All_Dev_160129;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -943,8 +959,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = U37J473DVK;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Prana/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
