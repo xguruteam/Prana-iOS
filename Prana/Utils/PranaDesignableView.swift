@@ -47,11 +47,13 @@ class ImageButton: UIButton {
 }
 
 extension UIView {
-    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
-        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        layer.mask = mask
+    func roundCorners(corners: CACornerMask, radius: CGFloat) {
+//        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+//        let mask = CAShapeLayer()
+//        mask.path = path.cgPath
+//        layer.mask = mask
+        layer.cornerRadius = radius
+        layer.maskedCorners = corners
     }
 }
 
@@ -60,16 +62,43 @@ class PranaButton: UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        commonInit()
         
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        commonInit()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        isClicked = isClicked ? true : false
+//        isClicked = isClicked ? true : false
+    }
+    
+    func commonInit() {
+        if isClicked {
+            backgroundColor = UIColor.colorFromHex(hexString: "#2BB7B8")
+            //                titleLabel?.textColor = .white
+            tintColor = .white
+            
+            layer.shadowColor = UIColor.colorFromHex(hexString: "#2BB7B8").cgColor
+        }
+        else {
+            backgroundColor = UIColor.colorFromHex(hexString: "#F8F9FB")
+            //                titleLabel?.textColor = .white
+            tintColor = UIColor.colorFromHex(hexString: "#79859F")
+            
+            layer.shadowColor = UIColor.colorFromHex(hexString: "#79859F").cgColor
+        }
+        
+        titleLabel?.font = UIFont(name: "Quicksand-Medium", size: 15.0)
+        
+        layer.cornerRadius = 4.0
+        
+        layer.shadowOpacity = 0.2
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.shadowRadius = 7.0
     }
     
     @IBInspectable

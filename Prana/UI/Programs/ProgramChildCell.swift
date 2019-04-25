@@ -13,9 +13,16 @@ class ProgramChildCell: UITableViewCell {
     @IBOutlet weak var dailyButton: PranaButton!
     @IBOutlet weak var customButton: PranaButton!
     
+    @IBOutlet weak var fourteenContainer: UIView!
+    @IBOutlet weak var customContainer: UIView!
+    @IBOutlet weak var notificationContainer: UIView!
+    
+    var programTypeListner: ((Int) -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -24,4 +31,7 @@ class ProgramChildCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBAction func onProgramTypeChange(_ sender: UIButton) {
+        programTypeListner?(sender.tag)
+    }
 }

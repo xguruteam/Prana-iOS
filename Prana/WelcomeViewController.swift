@@ -75,7 +75,7 @@ class WelcomeViewController: UIViewController {
     }
     
     func afterLogin() {
-        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ChargingGuideViewController")
+        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "TabViewController")
         let navVC = UINavigationController(rootViewController: firstVC)
         self.present(navVC, animated: true, completion: nil)
     }

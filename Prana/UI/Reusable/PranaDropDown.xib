@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Quicksand 700.ttf">
+            <string>Quicksand-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="bxf-sk-id7"/>
+                <outlet property="titleLabel" destination="wOk-bl-KdP" id="bPn-GB-Wu7"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="325" height="101"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_down_white" translatesAutoresizingMaskIntoConstraints="NO" id="1ij-Op-5cN">
+                    <rect key="frame" x="294" y="46.5" width="15" height="8"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wOk-bl-KdP">
+                    <rect key="frame" x="16" y="42.5" width="35" height="16.5"/>
+                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="13"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zMB-Q4-YtJ">
+                    <rect key="frame" x="0.0" y="0.0" width="325" height="101"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.16862745098039217" green="0.71764705882352942" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="wOk-bl-KdP" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="0gj-lL-Ab6"/>
+                <constraint firstAttribute="trailing" secondItem="zMB-Q4-YtJ" secondAttribute="trailing" id="Aen-e7-PbR"/>
+                <constraint firstItem="zMB-Q4-YtJ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Ig6-mb-Cik"/>
+                <constraint firstAttribute="bottom" secondItem="zMB-Q4-YtJ" secondAttribute="bottom" id="KRc-g4-gYa"/>
+                <constraint firstItem="1ij-Op-5cN" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="YTv-AF-r0n"/>
+                <constraint firstItem="wOk-bl-KdP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="h8Z-cC-1tX"/>
+                <constraint firstAttribute="trailing" secondItem="1ij-Op-5cN" secondAttribute="trailing" constant="16" id="jDK-Hy-7MN"/>
+                <constraint firstItem="zMB-Q4-YtJ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="qUo-PB-H0a"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                    <real key="value" value="4"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                    <color key="value" red="0.16862745100000001" green="0.71764705880000002" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                    <real key="value" value="0.20000000000000001"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="point" keyPath="shadowOffset">
+                    <point key="value" x="0.0" y="2"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                    <real key="value" value="7"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="63.200000000000003" y="-152.47376311844079"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_arrow_down_white" width="15" height="8"/>
+    </resources>
+</document>

@@ -741,7 +741,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app-background" translatesAutoresizingMaskIntoConstraints="NO" id="vGN-gk-ERJ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DeT-rV-6Uv" customClass="ExpandableTableView" customModule="ExpandableCell">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DeT-rV-6Uv" customClass="ExpandableTableView" customModule="ExpandableCell">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="L5p-1X-wP5">
@@ -823,15 +823,15 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProgramParentCell" rowHeight="50" id="5WI-Ft-KGO" customClass="ExpandableCell" customModule="ExpandableCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProgramParentCell" rowHeight="50" id="5WI-Ft-KGO" customClass="ProgramParentCell" customModule="Prana" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="188" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5WI-Ft-KGO" id="1iy-pI-9Cd">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kis-Et-C2N">
-                                                    <rect key="frame" x="20" y="0.0" width="335" height="49.5"/>
+                                                    <rect key="frame" x="20" y="0.0" width="335" height="50"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_doctor" translatesAutoresizingMaskIntoConstraints="NO" id="suw-fH-HaC">
                                                             <rect key="frame" x="16" y="13" width="24" height="24"/>
@@ -865,24 +865,24 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProgramChildCell" rowHeight="500" id="lGO-s7-JWB" customClass="ProgramChildCell" customModule="Prana" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="238" width="375" height="500"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProgramChildCell" rowHeight="995" id="lGO-s7-JWB" customClass="ProgramChildCell" customModule="Prana" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="238" width="375" height="995"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lGO-s7-JWB" id="Ypi-fp-YcK">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="499.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="995"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r4z-R9-2ha">
-                                                    <rect key="frame" x="20" y="0.0" width="335" height="499.5"/>
+                                                    <rect key="frame" x="20" y="0.0" width="335" height="142"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYc-At-VpW">
-                                                            <rect key="frame" x="16" y="8" width="303" height="16.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your Traning Program for Breathing and Posture. We recomend our 14 day program for new users." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYc-At-VpW">
+                                                            <rect key="frame" x="16" y="8" width="303" height="49"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                             <color key="textColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B9u-fN-UG7">
-                                                            <rect key="frame" x="16" y="44.5" width="303" height="45"/>
+                                                            <rect key="frame" x="16" y="77" width="303" height="45"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5cf-HE-Fbf" customClass="PranaButton" customModule="Prana" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="149" height="45"/>
@@ -890,10 +890,16 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="isClicked" value="YES"/>
                                                                     </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="onProgramTypeChange:" destination="lGO-s7-JWB" eventType="touchUpInside" id="C9R-1M-GHb"/>
+                                                                    </connections>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="avR-M4-0b2" customClass="PranaButton" customModule="Prana" customModuleProvider="target">
+                                                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="avR-M4-0b2" customClass="PranaButton" customModule="Prana" customModuleProvider="target">
                                                                     <rect key="frame" x="154" y="0.0" width="149" height="45"/>
                                                                     <state key="normal" title="Custom"/>
+                                                                    <connections>
+                                                                        <action selector="onProgramTypeChange:" destination="lGO-s7-JWB" eventType="touchUpInside" id="TIR-QV-6jE"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -914,28 +920,235 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     <constraints>
                                                         <constraint firstItem="B9u-fN-UG7" firstAttribute="top" secondItem="AYc-At-VpW" secondAttribute="bottom" constant="20" id="8vn-Qw-Sqy"/>
                                                         <constraint firstItem="AYc-At-VpW" firstAttribute="top" secondItem="r4z-R9-2ha" secondAttribute="top" constant="8" id="BTb-KY-Dpp"/>
+                                                        <constraint firstAttribute="bottom" secondItem="B9u-fN-UG7" secondAttribute="bottom" constant="20" id="SR8-vz-a3e"/>
                                                         <constraint firstItem="B9u-fN-UG7" firstAttribute="leading" secondItem="r4z-R9-2ha" secondAttribute="leading" constant="16" id="apY-Ya-cZM"/>
                                                         <constraint firstItem="AYc-At-VpW" firstAttribute="leading" secondItem="r4z-R9-2ha" secondAttribute="leading" constant="16" id="dcF-tf-bST"/>
                                                         <constraint firstAttribute="trailing" secondItem="B9u-fN-UG7" secondAttribute="trailing" constant="16" id="fe0-Wp-yts"/>
                                                         <constraint firstAttribute="trailing" secondItem="AYc-At-VpW" secondAttribute="trailing" constant="16" id="rnn-Ny-gOk"/>
                                                     </constraints>
                                                 </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vbl-dq-xDz">
+                                                    <rect key="frame" x="20" y="142" width="335" height="302.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f9w-bC-pCy">
+                                                            <rect key="frame" x="16" y="0.0" width="303" height="292.5"/>
+                                                            <string key="text">• Automatically sets your daily training minutes for breathing and posture, with increasing times over the 14 dyas.
+
+• Automatically selects your breath training pattern (slower breathing and stress reduction).
+
+• Automatically selects when to wear Prana on your lower back or upper chest.
+
+For each training session:
+
+• Choose whether to train Breathing &amp; Posture, Breathing Only, or Posture Only.
+
+• Choose the length of the session.
+
+• Choose whether to use Visual or Buzzer.</string>
+                                                            <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
+                                                            <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="f9w-bC-pCy" firstAttribute="leading" secondItem="vbl-dq-xDz" secondAttribute="leading" constant="16" id="MpR-AZ-ffW"/>
+                                                        <constraint firstAttribute="trailing" secondItem="f9w-bC-pCy" secondAttribute="trailing" constant="16" id="mrg-e4-Jmi"/>
+                                                        <constraint firstItem="f9w-bC-pCy" firstAttribute="height" secondItem="vbl-dq-xDz" secondAttribute="height" constant="-10" id="oKN-J4-tjo"/>
+                                                        <constraint firstItem="f9w-bC-pCy" firstAttribute="top" secondItem="vbl-dq-xDz" secondAttribute="top" id="vww-2U-WGV"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I0L-bA-pdv">
+                                                    <rect key="frame" x="20" y="142" width="335" height="559.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PE0-a5-csy">
+                                                            <rect key="frame" x="16" y="0.0" width="303" height="276.5"/>
+                                                            <string key="text">• You set your daily training minute goals for breathing and posture.
+
+For each training session:
+
+• Choose whether to train Breathing &amp; Posture, Breathing Only, or Posture Only.
+
+• Choose the breathing pattern to train with from our gallery of patterns.
+
+• Choose whether to train your lower back or upper chest posture.
+
+• Choose the length of the session.
+
+• Choose whether to use Visual or Buzzer.</string>
+                                                            <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
+                                                            <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CmL-8p-vA3">
+                                                            <rect key="frame" x="0.0" y="276.5" width="335" height="283"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S2L-pz-Njo">
+                                                                    <rect key="frame" x="16" y="20" width="43" height="20"/>
+                                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
+                                                                    <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How many minutes of Breath Training would you like to do daily?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JYb-Kg-Ofx">
+                                                                    <rect key="frame" x="16" y="60" width="303" height="32.5"/>
+                                                                    <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
+                                                                    <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5cH-fk-Lrn" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
+                                                                    <rect key="frame" x="16" y="112.5" width="107" height="44"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="44" id="Onf-fe-CL4"/>
+                                                                        <constraint firstAttribute="width" constant="107" id="wt7-WW-vVs"/>
+                                                                    </constraints>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="title" value="8 AM"/>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                </view>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How many minutes of Breath Training would you like to do daily?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfo-9N-AcZ">
+                                                                    <rect key="frame" x="16" y="176.5" width="303" height="32.5"/>
+                                                                    <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
+                                                                    <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IYi-nr-bHk" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
+                                                                    <rect key="frame" x="16" y="229" width="107" height="44"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="107" id="I9J-ei-jrS"/>
+                                                                        <constraint firstAttribute="height" constant="44" id="S8w-17-3Zb"/>
+                                                                    </constraints>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="title" value="8 AM"/>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                </view>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstItem="S2L-pz-Njo" firstAttribute="top" secondItem="CmL-8p-vA3" secondAttribute="top" constant="20" id="1XE-6t-Z3D"/>
+                                                                <constraint firstItem="S2L-pz-Njo" firstAttribute="leading" secondItem="CmL-8p-vA3" secondAttribute="leading" constant="16" id="9Af-rf-2pm"/>
+                                                                <constraint firstItem="JYb-Kg-Ofx" firstAttribute="top" secondItem="S2L-pz-Njo" secondAttribute="bottom" constant="20" id="Crd-pi-0O8"/>
+                                                                <constraint firstItem="hfo-9N-AcZ" firstAttribute="top" secondItem="5cH-fk-Lrn" secondAttribute="bottom" constant="20" id="Djo-aM-pNh"/>
+                                                                <constraint firstItem="hfo-9N-AcZ" firstAttribute="leading" secondItem="CmL-8p-vA3" secondAttribute="leading" constant="16" id="LQW-qU-q28"/>
+                                                                <constraint firstAttribute="bottom" secondItem="IYi-nr-bHk" secondAttribute="bottom" constant="10" id="Ly5-F1-sED"/>
+                                                                <constraint firstAttribute="trailing" secondItem="JYb-Kg-Ofx" secondAttribute="trailing" constant="16" id="O9T-rH-Vy7"/>
+                                                                <constraint firstItem="5cH-fk-Lrn" firstAttribute="top" secondItem="JYb-Kg-Ofx" secondAttribute="bottom" constant="20" id="TWj-6u-Uhl"/>
+                                                                <constraint firstItem="IYi-nr-bHk" firstAttribute="leading" secondItem="CmL-8p-vA3" secondAttribute="leading" constant="16" id="m4t-3R-E0I"/>
+                                                                <constraint firstItem="5cH-fk-Lrn" firstAttribute="leading" secondItem="CmL-8p-vA3" secondAttribute="leading" constant="16" id="nxs-FR-s5H"/>
+                                                                <constraint firstItem="IYi-nr-bHk" firstAttribute="top" secondItem="hfo-9N-AcZ" secondAttribute="bottom" constant="20" id="rMf-Ab-OA1"/>
+                                                                <constraint firstAttribute="trailing" secondItem="hfo-9N-AcZ" secondAttribute="trailing" constant="16" id="wgi-eH-paW"/>
+                                                                <constraint firstItem="JYb-Kg-Ofx" firstAttribute="leading" secondItem="CmL-8p-vA3" secondAttribute="leading" constant="16" id="xsW-xh-u6e"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="PE0-a5-csy" firstAttribute="leading" secondItem="I0L-bA-pdv" secondAttribute="leading" constant="16" id="19f-dz-a1l"/>
+                                                        <constraint firstAttribute="trailing" secondItem="PE0-a5-csy" secondAttribute="trailing" constant="16" id="1lh-AP-iBb"/>
+                                                        <constraint firstItem="CmL-8p-vA3" firstAttribute="top" secondItem="PE0-a5-csy" secondAttribute="bottom" id="6Im-ZM-fbu"/>
+                                                        <constraint firstItem="CmL-8p-vA3" firstAttribute="leading" secondItem="I0L-bA-pdv" secondAttribute="leading" id="EH7-Nm-kO0"/>
+                                                        <constraint firstAttribute="bottom" secondItem="CmL-8p-vA3" secondAttribute="bottom" id="GBl-Bk-YjP"/>
+                                                        <constraint firstItem="PE0-a5-csy" firstAttribute="top" secondItem="I0L-bA-pdv" secondAttribute="top" id="ZWs-sm-iCF"/>
+                                                        <constraint firstAttribute="trailing" secondItem="CmL-8p-vA3" secondAttribute="trailing" id="mh5-8z-tO3"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gpk-5x-Y7U">
+                                                    <rect key="frame" x="20" y="697" width="335" height="203"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OZA-T4-G6R">
+                                                            <rect key="frame" x="16" y="20" width="98" height="20"/>
+                                                            <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
+                                                            <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What time should daily notifications start? (Notifications are sent every 3 hours until your daily goals are achieved)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kO5-DF-Q74">
+                                                            <rect key="frame" x="16" y="60" width="303" height="49"/>
+                                                            <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
+                                                            <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Uv-zs-UWv" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
+                                                            <rect key="frame" x="16" y="129" width="107" height="44"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="44" id="241-TS-UaF"/>
+                                                                <constraint firstAttribute="width" constant="107" id="HRR-Op-02G"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="title" value="8 AM"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
+                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3LH-ke-5dj">
+                                                            <rect key="frame" x="270" y="135.5" width="51" height="31"/>
+                                                            <color key="onTintColor" red="0.16862745100000001" green="0.71764705880000002" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </switch>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="OZA-T4-G6R" firstAttribute="leading" secondItem="gpk-5x-Y7U" secondAttribute="leading" constant="16" id="3OR-1t-FKJ"/>
+                                                        <constraint firstItem="kO5-DF-Q74" firstAttribute="leading" secondItem="gpk-5x-Y7U" secondAttribute="leading" constant="16" id="DgC-tc-8Kq"/>
+                                                        <constraint firstItem="OZA-T4-G6R" firstAttribute="top" secondItem="gpk-5x-Y7U" secondAttribute="top" constant="20" id="Dnw-bE-NaV"/>
+                                                        <constraint firstItem="1Uv-zs-UWv" firstAttribute="top" secondItem="kO5-DF-Q74" secondAttribute="bottom" constant="20" id="MLZ-VX-Q9w"/>
+                                                        <constraint firstAttribute="trailing" secondItem="3LH-ke-5dj" secondAttribute="trailing" constant="16" id="Q5J-3N-fSO"/>
+                                                        <constraint firstAttribute="bottom" secondItem="1Uv-zs-UWv" secondAttribute="bottom" constant="30" id="S83-eF-jNg"/>
+                                                        <constraint firstItem="1Uv-zs-UWv" firstAttribute="leading" secondItem="gpk-5x-Y7U" secondAttribute="leading" constant="16" id="c4e-le-TRI"/>
+                                                        <constraint firstItem="3LH-ke-5dj" firstAttribute="centerY" secondItem="1Uv-zs-UWv" secondAttribute="centerY" id="fgO-n4-Fxn"/>
+                                                        <constraint firstAttribute="trailing" secondItem="kO5-DF-Q74" secondAttribute="trailing" constant="16" id="m3c-ML-jJt"/>
+                                                        <constraint firstItem="kO5-DF-Q74" firstAttribute="top" secondItem="OZA-T4-G6R" secondAttribute="bottom" constant="20" id="wux-KZ-Drf"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Zz-Df-qC5">
+                                                    <rect key="frame" x="20" y="900" width="335" height="95"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="jEW-6H-PNz">
+                                                            <rect key="frame" x="0.0" y="19.5" width="335" height="56"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="56" id="0Jr-1O-sBm"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="20"/>
+                                                            <state key="normal" title="START 14 DAY PROGRAM" backgroundImage="button-sky-lg"/>
+                                                        </button>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="jEW-6H-PNz" firstAttribute="leading" secondItem="7Zz-Df-qC5" secondAttribute="leading" id="9T4-N0-Ptb"/>
+                                                        <constraint firstItem="jEW-6H-PNz" firstAttribute="centerY" secondItem="7Zz-Df-qC5" secondAttribute="centerY" id="L9j-q9-ge1"/>
+                                                        <constraint firstAttribute="height" constant="95" id="boN-CO-Qwl"/>
+                                                        <constraint firstAttribute="trailing" secondItem="jEW-6H-PNz" secondAttribute="trailing" id="uIy-B6-seF"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="vbl-dq-xDz" firstAttribute="leading" secondItem="Ypi-fp-YcK" secondAttribute="leading" constant="20" id="4W5-cJ-K7E"/>
                                                 <constraint firstItem="r4z-R9-2ha" firstAttribute="leading" secondItem="Ypi-fp-YcK" secondAttribute="leading" constant="20" id="4d3-Gs-J2P"/>
+                                                <constraint firstItem="I0L-bA-pdv" firstAttribute="top" secondItem="r4z-R9-2ha" secondAttribute="bottom" id="8br-FG-opy"/>
+                                                <constraint firstAttribute="trailing" secondItem="gpk-5x-Y7U" secondAttribute="trailing" constant="20" id="AhL-Ek-6mZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="7Zz-Df-qC5" secondAttribute="trailing" constant="20" id="LtS-KV-HGb"/>
+                                                <constraint firstAttribute="bottom" secondItem="7Zz-Df-qC5" secondAttribute="bottom" id="Sqt-SI-5V1"/>
+                                                <constraint firstItem="gpk-5x-Y7U" firstAttribute="leading" secondItem="Ypi-fp-YcK" secondAttribute="leading" constant="20" id="SwH-qF-IEB"/>
                                                 <constraint firstItem="r4z-R9-2ha" firstAttribute="top" secondItem="Ypi-fp-YcK" secondAttribute="top" id="Xc2-Ty-EEM"/>
-                                                <constraint firstAttribute="bottom" secondItem="r4z-R9-2ha" secondAttribute="bottom" id="dv8-l8-1zb"/>
+                                                <constraint firstItem="I0L-bA-pdv" firstAttribute="leading" secondItem="Ypi-fp-YcK" secondAttribute="leading" constant="20" id="at8-ZZ-nyE"/>
+                                                <constraint firstAttribute="trailing" secondItem="vbl-dq-xDz" secondAttribute="trailing" constant="20" id="bwn-ow-1IT"/>
+                                                <constraint firstItem="7Zz-Df-qC5" firstAttribute="leading" secondItem="Ypi-fp-YcK" secondAttribute="leading" constant="20" id="fhH-M3-2SO"/>
                                                 <constraint firstAttribute="trailing" secondItem="r4z-R9-2ha" secondAttribute="trailing" constant="20" id="gdS-Z1-7Po"/>
+                                                <constraint firstItem="7Zz-Df-qC5" firstAttribute="top" secondItem="gpk-5x-Y7U" secondAttribute="bottom" id="tBO-rk-S5D"/>
+                                                <constraint firstItem="vbl-dq-xDz" firstAttribute="top" secondItem="r4z-R9-2ha" secondAttribute="bottom" id="tEj-sq-1bY"/>
+                                                <constraint firstAttribute="trailing" secondItem="I0L-bA-pdv" secondAttribute="trailing" constant="20" id="v8c-SM-IIl"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="customButton" destination="avR-M4-0b2" id="3Ee-T6-j23"/>
+                                            <outlet property="customContainer" destination="I0L-bA-pdv" id="3by-JX-vRr"/>
                                             <outlet property="dailyButton" destination="5cf-HE-Fbf" id="eF7-OU-FwS"/>
+                                            <outlet property="fourteenContainer" destination="vbl-dq-xDz" id="RHr-14-DBz"/>
+                                            <outlet property="notificationContainer" destination="gpk-5x-Y7U" id="dIm-jK-SSa"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChildCell" id="NrF-44-bER">
-                                        <rect key="frame" x="0.0" y="738" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ChildCell" id="NrF-44-bER">
+                                        <rect key="frame" x="0.0" y="1233" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NrF-44-bER" id="OF5-Kr-tuZ">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -965,7 +1178,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7wr-y9-zSn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1738" y="-5199"/>
+            <point key="canvasLocation" x="1736.8" y="-5199.8500749625191"/>
         </scene>
         <!--Connection Test View Controller-->
         <scene sceneID="J16-0s-HGv">

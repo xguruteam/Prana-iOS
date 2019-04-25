@@ -15,13 +15,16 @@ class ProgramsViewController: UIViewController {
     @IBOutlet weak var tableView: ExpandableTableView!
     @IBOutlet weak var titleView: UIView!
     
+    var programType: Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.expandableDelegate = self
-        tableView.expansionStyle = .multi
+        tableView.expansionStyle = .single
         tableView.animation = .none
         
+        onProgramTypeChange(0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,9 +33,17 @@ class ProgramsViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        titleView.roundCorners(corners: [.topLeft, .topRight, .bottomLeft, .bottomRight], radius: 12.0)
+        titleView.roundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 10.0)
+        tableView.open(at: IndexPath(row: 0, section: 0))
     }
     
+    func onProgramTypeChange(_ type: Int) {
+        programType = type
+        tableView.closeAll()
+        tableView.reloadData()
+        tableView.open(at: IndexPath(row: 0, section: 0))
+//        tableView.open(at: T##IndexPath)
+    }
 
     /*
     // MARK: - Navigation
@@ -55,7 +66,25 @@ extension ProgramsViewController: ExpandableDelegate {
         switch indexPath.row {
         case 0:
             let cell1 = tableView.dequeueReusableCell(withIdentifier: "ProgramChildCell") as! ProgramChildCell
-            cell1.dailyButton.isClicked = true
+            
+            cell1.notificationContainer.roundCorners(corners: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner], radius: 10.0)
+
+            cell1.programTypeListner = { [weak self] (type) in
+                guard let self = self else { return }
+                self.onProgramTypeChange(type)
+            }
+            if programType == 0 {
+                cell1.fourteenContainer.isHidden = false
+                cell1.customContainer.isHidden = true
+                cell1.dailyButton.isClicked = true
+                cell1.customButton.isClicked = false
+            }
+            else {
+                cell1.fourteenContainer.isHidden = true
+                cell1.customContainer.isHidden = false
+                cell1.dailyButton.isClicked = false
+                cell1.customButton.isClicked = true
+            }
             return [cell1]
             
         case 1:
@@ -70,7 +99,12 @@ extension ProgramsViewController: ExpandableDelegate {
     func expandableTableView(_ expandableTableView: ExpandableTableView, heightsForExpandedRowAt indexPath: IndexPath) -> [CGFloat]? {
         switch indexPath.row {
         case 0:
-            return [500]
+            if programType == 0 {
+                return [740]
+            }
+            else {
+                return [995]//[740]
+            }
             
         case 1:
             return [33]
@@ -114,8 +148,8 @@ extension ProgramsViewController: ExpandableDelegate {
     func expandableTableView(_ expandableTableView: ExpandableTableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = expandableTableView.dequeueReusableCell(withIdentifier: "ProgramParentCell") as? ExpandableCell else { return UITableViewCell() }
         cell.arrowImageView.image = UIImage(named: "ic_arrow_down")
-        cell.arrowImageView.contentMode = .scaleAspectFit
-        cell.rightMargin = 36.0
+//        cell.arrowImageView.contentMode = .scaleAspectFit
+        cell.rightMargin = 56.0
         return cell
     }
     
