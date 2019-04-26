@@ -232,7 +232,7 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
-        Log.d("discover a peripheral - \(peripheral.name ?? "Unknown")")
+//        Log.d("discover a peripheral - \(peripheral.name ?? "Unknown")")
         //        if peripheral.name?.starts(with: "PM5") == true {
         let c2device = PranaDevice(name: peripheral.name ?? "Unknown", rssi: RSSI.doubleValue, id: peripheral.identifier.uuidString, peripheral: peripheral)
         self.delegate?.PranaDeviceManagerDidDiscover(c2device)
@@ -241,7 +241,7 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        Log.d("didConnect: \(peripheral.identifier)")
+//        Log.d("didConnect: \(peripheral.identifier)")
         if isConnected == true {
             if peripheral.isEqual(currentDevice) {
                 didConnect()
@@ -252,7 +252,7 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        Log.d("didFailToConnect")
+//        Log.d("didFailToConnect")
         if isConnected == true {
             if peripheral.isEqual(currentDevice) {
                 failConnect()
@@ -261,7 +261,7 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        Log.d("didDisConnectPeripheral")
+//        Log.d("didDisConnectPeripheral")
         // try to re-connect
         if isConnected == true {
             if peripheral.isEqual(currentDevice) {
@@ -287,13 +287,13 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     //MARK: CBPeripheralDelegate
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         if error != nil {
-            Log.e((error?.localizedDescription)!)
+//            Log.e((error?.localizedDescription)!)
             return
         }
         
         if let services = peripheral.services {
             for service in services {
-                Log.d("discovered service - \(service.uuid.uuidString)")
+//                Log.d("discovered service - \(service.uuid.uuidString)")
                 
                 if service.uuid.uuidString == PranaDeviceManager.RX_SERVICE_UUID {
                     peripheral.discoverCharacteristics(nil, for: service)
@@ -305,13 +305,13 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         if error != nil {
-            Log.e((error?.localizedDescription)!)
+//            Log.e((error?.localizedDescription)!)
             return
         }
         
         if let chars = service.characteristics {
             for char in chars {
-                Log.d("discovered characteristic - \(char.uuid.uuidString)")
+//                Log.d("discovered characteristic - \(char.uuid.uuidString)")
 
                 switch char.uuid.uuidString {
                 case PranaDeviceManager.TX_CHAR_UUID:
@@ -327,12 +327,12 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
         if error != nil {
-            Log.e((error?.localizedDescription)!)
+//            Log.e((error?.localizedDescription)!)
             return
         }
         
         if characteristic.isNotifying {
-            Log.d("start subscribing from - \(characteristic.uuid.uuidString)")
+//            Log.d("start subscribing from - \(characteristic.uuid.uuidString)")
             concurrentQueue.asyncAfter(deadline: DispatchTime.now() + .seconds(0)) {
                 for item in self.delegates {
                     item.PranaDeviceManagerDidOpenChannel()
@@ -340,13 +340,13 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
             }
         }
         else {
-            Log.d("end subscribing from - \(characteristic.uuid.uuidString)")
+//            Log.d("end subscribing from - \(characteristic.uuid.uuidString)")
         }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         if error != nil {
-            Log.e((error?.localizedDescription)!)
+//            Log.e((error?.localizedDescription)!)
             return
         }
         

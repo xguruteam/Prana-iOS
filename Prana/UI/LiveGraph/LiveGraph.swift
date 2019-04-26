@@ -16,13 +16,13 @@ class LiveGraph: UIView {
         }
     }
     
-    private var width: CGFloat {
-        return bounds.width
-    }
-    
-    private var height: CGFloat {
-        return bounds.height
-    }
+//    private var width: CGFloat {
+//        return bounds.width
+//    }
+//    
+//    private var height: CGFloat {
+//        return bounds.height
+//    }
     
     let lineWith: CGFloat = 4.0
     

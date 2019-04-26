@@ -23,7 +23,7 @@ class ProgramParentCell: ExpandableCell {
     }
     
     override func isInitiallyExpanded() -> Bool {
-        return false
+        return true
     }
 
 }

@@ -84,13 +84,13 @@ class PostureIndicator: UIView {
         indicatorPath.stroke()
     }
     
-    private var width: CGFloat {
-        return bounds.width
-    }
-    
-    private var height: CGFloat {
-        return bounds.height
-    }
+//    private var width: CGFloat {
+//        return bounds.width
+//    }
+//    
+//    private var height: CGFloat {
+//        return bounds.height
+//    }
     
     open func displayPostureIndicator(x: Int) {
 //        print("x \(x)")

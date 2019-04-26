@@ -17,13 +17,13 @@ class BreathingGraph: UIView {
     }
     
     
-    private var width: CGFloat {
-        return bounds.width
-    }
-    
-    private var height: CGFloat {
-        return bounds.height
-    }
+//    private var width: CGFloat {
+//        return bounds.width
+//    }
+//    
+//    private var height: CGFloat {
+//        return bounds.height
+//    }
     
     private var isReady: Bool = false
     

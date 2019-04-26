@@ -99,6 +99,9 @@ class PranaButton: UIButton {
         layer.shadowOpacity = 0.2
         layer.shadowOffset = CGSize(width: 0, height: 2)
         layer.shadowRadius = 7.0
+        
+        titleLabel?.lineBreakMode = .byWordWrapping
+        titleLabel?.textAlignment = .center
     }
     
     @IBInspectable
@@ -126,6 +129,9 @@ class PranaButton: UIButton {
             layer.shadowOpacity = 0.2
             layer.shadowOffset = CGSize(width: 0, height: 2)
             layer.shadowRadius = 7.0
+            
+            titleLabel?.lineBreakMode = .byWordWrapping
+            titleLabel?.textAlignment = .center
         }
     }
 }

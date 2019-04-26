@@ -8,9 +8,16 @@
 
 import UIKit
 import ExpandableCell
+import MKProgress
 
 
 class ProgramsViewController: UIViewController {
+    
+    var isTrainingStarted = false
+    var sessionKind: Int = 0
+    var sessionType: Int = 0
+    var sessionPosition: Int = 0
+    var notificationTime: Date = Date(calendar: Calendar.current, timeZone: TimeZone.current, era: 0, year: 2019, month: 4, day: 26, hour: 8, minute: 0, second: 0, nanosecond: 0)
 
     @IBOutlet weak var tableView: ExpandableTableView!
     @IBOutlet weak var titleView: UIView!
@@ -34,7 +41,18 @@ class ProgramsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         titleView.roundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 10.0)
-        tableView.open(at: IndexPath(row: 0, section: 0))
+//        tableView.open(at: IndexPath(row: 0, section: 0))
+    }
+    
+    func reloadPage() {
+        tableView.closeAll()
+        tableView.reloadData()
+//        if isTrainingStarted {
+//            tableView.open(at: IndexPath(row: 1, section: 0))
+//        }
+//        else {
+//            tableView.open(at: IndexPath(row: 0, section: 0))
+//        }
     }
     
     func onProgramTypeChange(_ type: Int) {
@@ -43,6 +61,28 @@ class ProgramsViewController: UIViewController {
         tableView.reloadData()
         tableView.open(at: IndexPath(row: 0, section: 0))
 //        tableView.open(at: T##IndexPath)
+    }
+    
+    func onNotificationTime(_ time: Date) {
+        notificationTime = time
+    }
+    
+    func onTrainingStart() {
+        MKProgress.show()
+        tableView.closeAll()
+        isTrainingStarted = true
+        tableView.reloadData()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(1000)) {
+            self.tableView.open(at: IndexPath(row: 1, section: 0))
+            MKProgress.hide()
+        }
+    }
+    
+    func onSessionKindChange(_ kind: Int) {
+        sessionKind = kind
+        tableView.reloadData()
+        tableView.closeAll()
+        tableView.open(at: IndexPath(row: 1, section: 0))
     }
 
     /*
@@ -73,22 +113,65 @@ extension ProgramsViewController: ExpandableDelegate {
                 guard let self = self else { return }
                 self.onProgramTypeChange(type)
             }
+            cell1.startTrainingListner = { [weak self] in
+                guard let self = self else { return }
+                self.onTrainingStart()
+            }
+            cell1.notificationTimeListener = { [weak self] (time) in
+                guard let self = self else { return }
+                self.onNotificationTime(time)
+            }
+            
             if programType == 0 {
                 cell1.fourteenContainer.isHidden = false
                 cell1.customContainer.isHidden = true
                 cell1.dailyButton.isClicked = true
                 cell1.customButton.isClicked = false
+                cell1.startButton.setTitle("START 14 DAY PROGRAM", for: .normal)
             }
             else {
                 cell1.fourteenContainer.isHidden = true
                 cell1.customContainer.isHidden = false
                 cell1.dailyButton.isClicked = false
                 cell1.customButton.isClicked = true
+                cell1.startButton.setTitle("START CUSTOM TRAINING", for: .normal)
             }
+            
+            cell1.notificationTime = self.notificationTime
+            
             return [cell1]
             
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ChildCell")!
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SessionChildCell") as! SessionChildCell
+            cell.settingContainer.roundCorners(corners: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner], radius: 10.0)
+            if programType == 0 {
+                cell.constrain1.constant = 30
+                cell.constrain2.constant = 40
+            }
+            else {
+                cell.constrain1.constant = 200
+                cell.constrain2.constant = 20
+            }
+            
+            cell.kindChangeListener = { [weak self] (kind) in
+                guard let self = self else { return }
+                self.onSessionKindChange(kind)
+            }
+            
+            
+            cell.btnKind1.isClicked = false
+            cell.btnKind2.isClicked = false
+            cell.btnKind3.isClicked = false
+            switch sessionKind {
+            case 0:
+                cell.btnKind1.isClicked = true
+            case 1:
+                cell.btnKind2.isClicked = true
+            case 2:
+                cell.btnKind3.isClicked = true
+            default:
+                break
+            }
             return [cell]
         default:
             break
@@ -107,7 +190,10 @@ extension ProgramsViewController: ExpandableDelegate {
             }
             
         case 1:
-            return [33]
+            if programType == 0 {
+                return [550]
+            }
+            return [550+170]
             
         default:
             break
@@ -121,6 +207,12 @@ extension ProgramsViewController: ExpandableDelegate {
     //    }
     
     func expandableTableView(_ expandableTableView: ExpandableTableView, numberOfRowsInSection section: Int) -> Int {
+        if isTrainingStarted {
+            return 2
+        }
+        else {
+            return 1
+        }
         return 2
     }
     
@@ -146,16 +238,32 @@ extension ProgramsViewController: ExpandableDelegate {
     //    }
     //
     func expandableTableView(_ expandableTableView: ExpandableTableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = expandableTableView.dequeueReusableCell(withIdentifier: "ProgramParentCell") as? ExpandableCell else { return UITableViewCell() }
-        cell.arrowImageView.image = UIImage(named: "ic_arrow_down")
-//        cell.arrowImageView.contentMode = .scaleAspectFit
-        cell.rightMargin = 56.0
-        return cell
+    
+        switch indexPath.row {
+        case 0:
+            guard let cell = expandableTableView.dequeueReusableCell(withIdentifier: "ProgramParentCell") as? ExpandableCell else { return UITableViewCell() }
+            cell.arrowImageView.image = UIImage(named: "ic_arrow_down")
+            //        cell.arrowImageView.contentMode = .scaleAspectFit
+            cell.rightMargin = 56.0
+            return cell
+        case 1:
+            guard let cell = expandableTableView.dequeueReusableCell(withIdentifier: "SessionParentCell") as? ExpandableCell else { return UITableViewCell() }
+            cell.arrowImageView.image = UIImage(named: "ic_arrow_down")
+            //        cell.arrowImageView.contentMode = .scaleAspectFit
+            cell.rightMargin = 56.0
+            
+            cell.roundCorners(corners: [.layerMinXMinYCorner, .layerMinXMaxYCorner], radius: 10.0)
+            return cell
+        default:
+            break
+        }
+        
+        return UITableViewCell()
     }
     
     func expandableTableView(_ expandableTableView: ExpandableTableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
-        case 0:
+        case 0, 1:
             return 50
         default:
             break

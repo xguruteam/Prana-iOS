@@ -23,7 +23,7 @@ class LiveFeedViewController: UIViewController {
     @IBOutlet weak var btnBreathSensitivityRadio3: UIButton!
     @IBOutlet weak var btnBreathSensitivityTitle3: UIButton!
     
-    @IBOutlet weak var imgPostureAnimation: SVGView!
+    @IBOutlet weak var imgPostureAnimation: UIImageView!
     
     @IBOutlet weak var postureSensitivityGroup: UIView!
     @IBOutlet weak var btnPostureSensitivityRadio1: UIButton!
@@ -173,10 +173,10 @@ class LiveFeedViewController: UIViewController {
 //        }
         
         if isLowerBack {
-            imgPostureAnimation.fileName = "sit (\(frame))"
+            imgPostureAnimation.image = UIImage(named: "sit (\(frame))")
         }
         else {
-            imgPostureAnimation.fileName = "stand (\(frame))"
+            imgPostureAnimation.image = UIImage(named: "stand (\(frame))")
         }
     }
     

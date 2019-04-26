@@ -21,6 +21,8 @@ class PranaDropDown: UIView {
     @IBOutlet weak var titleButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     
+    var clickListener: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -47,6 +49,10 @@ class PranaDropDown: UIView {
         layer.shadowRadius = 7.0
         
         contentView.fixInView(self)
+    }
+    
+    @IBAction func onClick(_ sender: Any) {
+        clickListener?()
     }
     
     /*

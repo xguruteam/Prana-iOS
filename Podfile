@@ -12,4 +12,5 @@ target 'Prana' do
     pod 'MBProgressHUD', '~> 1.1.0'
     pod 'Macaw', '~> 0.9.5'
     pod 'ExpandableCell'
+    pod 'MKProgress', '~> 1.0.9'
 end
