@@ -33,7 +33,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="818-tT-0Id" userLabel="Copyright">
-                                <rect key="frame" x="16" y="610" width="343" height="25"/>
+                                <rect key="frame" x="16" y="611.5" width="343" height="23.5"/>
                                 <string key="text">CONFIDENTIAL
 PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                 <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="10"/>
@@ -790,6 +790,12 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bkg-3a-Awm">
+                                                            <rect key="frame" x="146" y="67.5" width="43" height="20"/>
+                                                            <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
@@ -797,9 +803,11 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                         <constraint firstItem="swQ-os-Upx" firstAttribute="centerX" secondItem="SUm-IY-YgM" secondAttribute="centerX" id="6ZU-eS-mH3"/>
                                                         <constraint firstItem="swQ-os-Upx" firstAttribute="width" secondItem="SUm-IY-YgM" secondAttribute="width" id="B5O-Fj-tHC"/>
                                                         <constraint firstItem="swQ-os-Upx" firstAttribute="height" secondItem="SUm-IY-YgM" secondAttribute="height" id="BgU-7F-hC4"/>
+                                                        <constraint firstItem="Bkg-3a-Awm" firstAttribute="top" secondItem="Q2e-OD-0Aa" secondAttribute="bottom" constant="5" id="I9f-2E-Muj"/>
                                                         <constraint firstItem="Q2e-OD-0Aa" firstAttribute="centerY" secondItem="SUm-IY-YgM" secondAttribute="centerY" id="Jki-Gg-sH0"/>
                                                         <constraint firstAttribute="height" constant="88" id="PEw-Lq-9Dp"/>
                                                         <constraint firstItem="Q2e-OD-0Aa" firstAttribute="centerX" secondItem="SUm-IY-YgM" secondAttribute="centerX" id="eNg-Wq-mMq"/>
+                                                        <constraint firstItem="Bkg-3a-Awm" firstAttribute="centerX" secondItem="SUm-IY-YgM" secondAttribute="centerX" id="gKx-fy-mpa"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -841,7 +849,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Training Programs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8kL-X3-PFP">
-                                                            <rect key="frame" x="48" y="15" width="142.5" height="20"/>
+                                                            <rect key="frame" x="48" y="15.5" width="130" height="19"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                                             <color key="textColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -873,16 +881,16 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r4z-R9-2ha">
-                                                    <rect key="frame" x="20" y="0.0" width="335" height="142"/>
+                                                    <rect key="frame" x="20" y="0.0" width="335" height="138.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your Traning Program for Breathing and Posture. We recomend our 14 day program for new users." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYc-At-VpW">
-                                                            <rect key="frame" x="16" y="8" width="303" height="49"/>
+                                                            <rect key="frame" x="16" y="8" width="303" height="45.5"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                             <color key="textColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B9u-fN-UG7">
-                                                            <rect key="frame" x="16" y="77" width="303" height="45"/>
+                                                            <rect key="frame" x="16" y="73.5" width="303" height="45"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5cf-HE-Fbf" customClass="PranaButton" customModule="Prana" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="149" height="45"/>
@@ -928,10 +936,10 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vbl-dq-xDz">
-                                                    <rect key="frame" x="20" y="142" width="335" height="302.5"/>
+                                                    <rect key="frame" x="20" y="138.5" width="335" height="283"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f9w-bC-pCy">
-                                                            <rect key="frame" x="16" y="0.0" width="303" height="292.5"/>
+                                                            <rect key="frame" x="16" y="0.0" width="303" height="273"/>
                                                             <string key="text">• Automatically sets your daily training minutes for breathing and posture, with increasing times over the 14 dyas.
 
 • Automatically selects your breath training pattern (slower breathing and stress reduction).
@@ -959,10 +967,10 @@ For each training session:
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I0L-bA-pdv">
-                                                    <rect key="frame" x="20" y="142" width="335" height="559.5"/>
+                                                    <rect key="frame" x="20" y="138.5" width="335" height="257.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PE0-a5-csy">
-                                                            <rect key="frame" x="16" y="0.0" width="303" height="276.5"/>
+                                                            <rect key="frame" x="16" y="0.0" width="303" height="257.5"/>
                                                             <string key="text">• You set your daily training minute goals for breathing and posture.
 
 For each training session:
@@ -980,96 +988,93 @@ For each training session:
                                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CmL-8p-vA3">
-                                                            <rect key="frame" x="0.0" y="276.5" width="335" height="283"/>
-                                                            <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S2L-pz-Njo">
-                                                                    <rect key="frame" x="16" y="20" width="43" height="20"/>
-                                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
-                                                                    <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How many minutes of Breath Training would you like to do daily?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JYb-Kg-Ofx">
-                                                                    <rect key="frame" x="16" y="60" width="303" height="32.5"/>
-                                                                    <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
-                                                                    <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5cH-fk-Lrn" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
-                                                                    <rect key="frame" x="16" y="112.5" width="107" height="44"/>
-                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="44" id="Onf-fe-CL4"/>
-                                                                        <constraint firstAttribute="width" constant="107" id="wt7-WW-vVs"/>
-                                                                    </constraints>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="string" keyPath="title" value="8 AM"/>
-                                                                    </userDefinedRuntimeAttributes>
-                                                                </view>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How many minutes of Breath Training would you like to do daily?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfo-9N-AcZ">
-                                                                    <rect key="frame" x="16" y="176.5" width="303" height="32.5"/>
-                                                                    <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
-                                                                    <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IYi-nr-bHk" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
-                                                                    <rect key="frame" x="16" y="229" width="107" height="44"/>
-                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="width" constant="107" id="I9J-ei-jrS"/>
-                                                                        <constraint firstAttribute="height" constant="44" id="S8w-17-3Zb"/>
-                                                                    </constraints>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="string" keyPath="title" value="8 AM"/>
-                                                                    </userDefinedRuntimeAttributes>
-                                                                </view>
-                                                            </subviews>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstItem="S2L-pz-Njo" firstAttribute="top" secondItem="CmL-8p-vA3" secondAttribute="top" constant="20" id="1XE-6t-Z3D"/>
-                                                                <constraint firstItem="S2L-pz-Njo" firstAttribute="leading" secondItem="CmL-8p-vA3" secondAttribute="leading" constant="16" id="9Af-rf-2pm"/>
-                                                                <constraint firstItem="JYb-Kg-Ofx" firstAttribute="top" secondItem="S2L-pz-Njo" secondAttribute="bottom" constant="20" id="Crd-pi-0O8"/>
-                                                                <constraint firstItem="hfo-9N-AcZ" firstAttribute="top" secondItem="5cH-fk-Lrn" secondAttribute="bottom" constant="20" id="Djo-aM-pNh"/>
-                                                                <constraint firstItem="hfo-9N-AcZ" firstAttribute="leading" secondItem="CmL-8p-vA3" secondAttribute="leading" constant="16" id="LQW-qU-q28"/>
-                                                                <constraint firstAttribute="bottom" secondItem="IYi-nr-bHk" secondAttribute="bottom" constant="10" id="Ly5-F1-sED"/>
-                                                                <constraint firstAttribute="trailing" secondItem="JYb-Kg-Ofx" secondAttribute="trailing" constant="16" id="O9T-rH-Vy7"/>
-                                                                <constraint firstItem="5cH-fk-Lrn" firstAttribute="top" secondItem="JYb-Kg-Ofx" secondAttribute="bottom" constant="20" id="TWj-6u-Uhl"/>
-                                                                <constraint firstItem="IYi-nr-bHk" firstAttribute="leading" secondItem="CmL-8p-vA3" secondAttribute="leading" constant="16" id="m4t-3R-E0I"/>
-                                                                <constraint firstItem="5cH-fk-Lrn" firstAttribute="leading" secondItem="CmL-8p-vA3" secondAttribute="leading" constant="16" id="nxs-FR-s5H"/>
-                                                                <constraint firstItem="IYi-nr-bHk" firstAttribute="top" secondItem="hfo-9N-AcZ" secondAttribute="bottom" constant="20" id="rMf-Ab-OA1"/>
-                                                                <constraint firstAttribute="trailing" secondItem="hfo-9N-AcZ" secondAttribute="trailing" constant="16" id="wgi-eH-paW"/>
-                                                                <constraint firstItem="JYb-Kg-Ofx" firstAttribute="leading" secondItem="CmL-8p-vA3" secondAttribute="leading" constant="16" id="xsW-xh-u6e"/>
-                                                            </constraints>
-                                                        </view>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="PE0-a5-csy" firstAttribute="leading" secondItem="I0L-bA-pdv" secondAttribute="leading" constant="16" id="19f-dz-a1l"/>
                                                         <constraint firstAttribute="trailing" secondItem="PE0-a5-csy" secondAttribute="trailing" constant="16" id="1lh-AP-iBb"/>
-                                                        <constraint firstItem="CmL-8p-vA3" firstAttribute="top" secondItem="PE0-a5-csy" secondAttribute="bottom" id="6Im-ZM-fbu"/>
-                                                        <constraint firstItem="CmL-8p-vA3" firstAttribute="leading" secondItem="I0L-bA-pdv" secondAttribute="leading" id="EH7-Nm-kO0"/>
-                                                        <constraint firstAttribute="bottom" secondItem="CmL-8p-vA3" secondAttribute="bottom" id="GBl-Bk-YjP"/>
+                                                        <constraint firstItem="PE0-a5-csy" firstAttribute="bottom" secondItem="I0L-bA-pdv" secondAttribute="bottom" id="7Mn-53-vbl"/>
                                                         <constraint firstItem="PE0-a5-csy" firstAttribute="top" secondItem="I0L-bA-pdv" secondAttribute="top" id="ZWs-sm-iCF"/>
-                                                        <constraint firstAttribute="trailing" secondItem="CmL-8p-vA3" secondAttribute="trailing" id="mh5-8z-tO3"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CmL-8p-vA3">
+                                                    <rect key="frame" x="20" y="426.5" width="335" height="278"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S2L-pz-Njo">
+                                                            <rect key="frame" x="16" y="20" width="41.5" height="19"/>
+                                                            <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
+                                                            <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How many minutes of Breath Training would you like to do daily?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JYb-Kg-Ofx">
+                                                            <rect key="frame" x="16" y="59" width="303" height="30.5"/>
+                                                            <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
+                                                            <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5cH-fk-Lrn" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
+                                                            <rect key="frame" x="16" y="109.5" width="120" height="44"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="44" id="Onf-fe-CL4"/>
+                                                                <constraint firstAttribute="width" constant="120" id="wt7-WW-vVs"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="title" value="8 AM"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How many minutes of Breath Training would you like to do daily?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfo-9N-AcZ">
+                                                            <rect key="frame" x="16" y="173.5" width="303" height="30.5"/>
+                                                            <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
+                                                            <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IYi-nr-bHk" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
+                                                            <rect key="frame" x="16" y="224" width="120" height="44"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="120" id="I9J-ei-jrS"/>
+                                                                <constraint firstAttribute="height" constant="44" id="S8w-17-3Zb"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="title" value="8 AM"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="S2L-pz-Njo" firstAttribute="top" secondItem="CmL-8p-vA3" secondAttribute="top" constant="20" id="1XE-6t-Z3D"/>
+                                                        <constraint firstItem="S2L-pz-Njo" firstAttribute="leading" secondItem="CmL-8p-vA3" secondAttribute="leading" constant="16" id="9Af-rf-2pm"/>
+                                                        <constraint firstItem="JYb-Kg-Ofx" firstAttribute="top" secondItem="S2L-pz-Njo" secondAttribute="bottom" constant="20" id="Crd-pi-0O8"/>
+                                                        <constraint firstItem="hfo-9N-AcZ" firstAttribute="top" secondItem="5cH-fk-Lrn" secondAttribute="bottom" constant="20" id="Djo-aM-pNh"/>
+                                                        <constraint firstItem="hfo-9N-AcZ" firstAttribute="leading" secondItem="CmL-8p-vA3" secondAttribute="leading" constant="16" id="LQW-qU-q28"/>
+                                                        <constraint firstAttribute="bottom" secondItem="IYi-nr-bHk" secondAttribute="bottom" constant="10" id="Ly5-F1-sED"/>
+                                                        <constraint firstAttribute="trailing" secondItem="JYb-Kg-Ofx" secondAttribute="trailing" constant="16" id="O9T-rH-Vy7"/>
+                                                        <constraint firstItem="5cH-fk-Lrn" firstAttribute="top" secondItem="JYb-Kg-Ofx" secondAttribute="bottom" constant="20" id="TWj-6u-Uhl"/>
+                                                        <constraint firstItem="IYi-nr-bHk" firstAttribute="leading" secondItem="CmL-8p-vA3" secondAttribute="leading" constant="16" id="m4t-3R-E0I"/>
+                                                        <constraint firstItem="5cH-fk-Lrn" firstAttribute="leading" secondItem="CmL-8p-vA3" secondAttribute="leading" constant="16" id="nxs-FR-s5H"/>
+                                                        <constraint firstItem="IYi-nr-bHk" firstAttribute="top" secondItem="hfo-9N-AcZ" secondAttribute="bottom" constant="20" id="rMf-Ab-OA1"/>
+                                                        <constraint firstAttribute="trailing" secondItem="hfo-9N-AcZ" secondAttribute="trailing" constant="16" id="wgi-eH-paW"/>
+                                                        <constraint firstItem="JYb-Kg-Ofx" firstAttribute="leading" secondItem="CmL-8p-vA3" secondAttribute="leading" constant="16" id="xsW-xh-u6e"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gpk-5x-Y7U">
-                                                    <rect key="frame" x="20" y="697" width="335" height="203"/>
+                                                    <rect key="frame" x="20" y="701.5" width="335" height="198.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OZA-T4-G6R">
-                                                            <rect key="frame" x="16" y="20" width="98" height="20"/>
+                                                            <rect key="frame" x="16" y="20" width="89.5" height="19"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What time should daily notifications start? (Notifications are sent every 3 hours until your daily goals are achieved)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kO5-DF-Q74">
-                                                            <rect key="frame" x="16" y="60" width="303" height="49"/>
+                                                            <rect key="frame" x="16" y="59" width="303" height="45.5"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Uv-zs-UWv" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
-                                                            <rect key="frame" x="16" y="129" width="107" height="44"/>
+                                                            <rect key="frame" x="16" y="124.5" width="107" height="44"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="44" id="241-TS-UaF"/>
@@ -1080,7 +1085,7 @@ For each training session:
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3LH-ke-5dj">
-                                                            <rect key="frame" x="270" y="135.5" width="51" height="31"/>
+                                                            <rect key="frame" x="270" y="131" width="51" height="31"/>
                                                             <color key="onTintColor" red="0.16862745100000001" green="0.71764705880000002" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                                             <connections>
                                                                 <action selector="onNotificationEnableChange:" destination="lGO-s7-JWB" eventType="valueChanged" id="8Ax-0u-XKk"/>
@@ -1130,6 +1135,7 @@ For each training session:
                                                 <constraint firstItem="vbl-dq-xDz" firstAttribute="leading" secondItem="Ypi-fp-YcK" secondAttribute="leading" constant="20" id="4W5-cJ-K7E"/>
                                                 <constraint firstItem="r4z-R9-2ha" firstAttribute="leading" secondItem="Ypi-fp-YcK" secondAttribute="leading" constant="20" id="4d3-Gs-J2P"/>
                                                 <constraint firstItem="I0L-bA-pdv" firstAttribute="top" secondItem="r4z-R9-2ha" secondAttribute="bottom" id="8br-FG-opy"/>
+                                                <constraint firstAttribute="trailing" secondItem="CmL-8p-vA3" secondAttribute="trailing" constant="20" id="A10-71-NoT"/>
                                                 <constraint firstAttribute="trailing" secondItem="gpk-5x-Y7U" secondAttribute="trailing" constant="20" id="AhL-Ek-6mZ"/>
                                                 <constraint firstAttribute="trailing" secondItem="7Zz-Df-qC5" secondAttribute="trailing" constant="20" id="LtS-KV-HGb"/>
                                                 <constraint firstAttribute="bottom" secondItem="7Zz-Df-qC5" secondAttribute="bottom" id="Sqt-SI-5V1"/>
@@ -1137,8 +1143,10 @@ For each training session:
                                                 <constraint firstItem="r4z-R9-2ha" firstAttribute="top" secondItem="Ypi-fp-YcK" secondAttribute="top" id="Xc2-Ty-EEM"/>
                                                 <constraint firstItem="I0L-bA-pdv" firstAttribute="leading" secondItem="Ypi-fp-YcK" secondAttribute="leading" constant="20" id="at8-ZZ-nyE"/>
                                                 <constraint firstAttribute="trailing" secondItem="vbl-dq-xDz" secondAttribute="trailing" constant="20" id="bwn-ow-1IT"/>
+                                                <constraint firstItem="CmL-8p-vA3" firstAttribute="leading" secondItem="Ypi-fp-YcK" secondAttribute="leading" constant="20" id="dx3-jI-fMd"/>
                                                 <constraint firstItem="7Zz-Df-qC5" firstAttribute="leading" secondItem="Ypi-fp-YcK" secondAttribute="leading" constant="20" id="fhH-M3-2SO"/>
                                                 <constraint firstAttribute="trailing" secondItem="r4z-R9-2ha" secondAttribute="trailing" constant="20" id="gdS-Z1-7Po"/>
+                                                <constraint firstItem="gpk-5x-Y7U" firstAttribute="top" secondItem="CmL-8p-vA3" secondAttribute="bottom" constant="-3" id="lZu-gX-JsJ"/>
                                                 <constraint firstItem="7Zz-Df-qC5" firstAttribute="top" secondItem="gpk-5x-Y7U" secondAttribute="bottom" id="tBO-rk-S5D"/>
                                                 <constraint firstItem="vbl-dq-xDz" firstAttribute="top" secondItem="r4z-R9-2ha" secondAttribute="bottom" id="tEj-sq-1bY"/>
                                                 <constraint firstAttribute="trailing" secondItem="I0L-bA-pdv" secondAttribute="trailing" constant="20" id="v8c-SM-IIl"/>
@@ -1149,9 +1157,14 @@ For each training session:
                                             <outlet property="customButton" destination="avR-M4-0b2" id="3Ee-T6-j23"/>
                                             <outlet property="customContainer" destination="I0L-bA-pdv" id="3by-JX-vRr"/>
                                             <outlet property="dailyButton" destination="5cf-HE-Fbf" id="eF7-OU-FwS"/>
+                                            <outlet property="ddCustomBreathingGoal" destination="5cH-fk-Lrn" id="ogn-Py-MJ3"/>
+                                            <outlet property="ddCustomPostureGoal" destination="IYi-nr-bHk" id="NuK-a3-Rc5"/>
                                             <outlet property="ddNotificationTime" destination="1Uv-zs-UWv" id="sN4-sh-QVa"/>
                                             <outlet property="fourteenContainer" destination="vbl-dq-xDz" id="RHr-14-DBz"/>
+                                            <outlet property="goalsContainer" destination="CmL-8p-vA3" id="138-DV-nl0"/>
+                                            <outlet property="lblCustomDescription" destination="PE0-a5-csy" id="LiE-TX-8YM"/>
                                             <outlet property="notificationContainer" destination="gpk-5x-Y7U" id="dIm-jK-SSa"/>
+                                            <outlet property="programContainer" destination="r4z-R9-2ha" id="Cy6-Ck-2Cf"/>
                                             <outlet property="startButton" destination="jEW-6H-PNz" id="CND-DT-1qQ"/>
                                             <outlet property="swNotification" destination="3LH-ke-5dj" id="iJD-8q-PZ8"/>
                                         </connections>
@@ -1174,7 +1187,7 @@ For each training session:
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Training Session Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WIZ-uu-1wW">
-                                                            <rect key="frame" x="48" y="15" width="192" height="20"/>
+                                                            <rect key="frame" x="48" y="15.5" width="180" height="19"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1206,16 +1219,16 @@ For each training session:
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Jf-VP-Gdl">
-                                                    <rect key="frame" x="20" y="0.0" width="335" height="500.5"/>
+                                                    <rect key="frame" x="20" y="0.0" width="335" height="481.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What kind of training session would you like to do?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4we-fB-OPk">
-                                                            <rect key="frame" x="16" y="20" width="303" height="32.5"/>
+                                                            <rect key="frame" x="16" y="20" width="303" height="15.5"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WPU-87-oaw">
-                                                            <rect key="frame" x="16" y="62.5" width="303" height="50"/>
+                                                            <rect key="frame" x="16" y="45.5" width="303" height="50"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k3z-Ks-BaM" customClass="PranaButton" customModule="Prana" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="91" height="50"/>
@@ -1260,13 +1273,13 @@ For each training session:
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How do you wish to do the training?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kgo-Yb-Ktr">
-                                                            <rect key="frame" x="16" y="132.5" width="303" height="16.5"/>
+                                                            <rect key="frame" x="16" y="115.5" width="303" height="15.5"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z97-9l-97p">
-                                                            <rect key="frame" x="16" y="159" width="303" height="50"/>
+                                                            <rect key="frame" x="16" y="141" width="303" height="50"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2zs-QN-aKT" customClass="PranaButton" customModule="Prana" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="91" height="50"/>
@@ -1308,33 +1321,33 @@ For each training session:
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How long should the training session be?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Erv-Hd-MRP">
-                                                            <rect key="frame" x="16" y="229" width="303" height="16.5"/>
+                                                            <rect key="frame" x="16" y="211" width="303" height="15.5"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e8z-hh-TOT" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
-                                                            <rect key="frame" x="16" y="255.5" width="107" height="45"/>
+                                                            <rect key="frame" x="16" y="236.5" width="120" height="45"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="45" id="5dV-Kc-GpQ"/>
-                                                                <constraint firstAttribute="width" constant="107" id="RiH-4R-mwt"/>
+                                                                <constraint firstAttribute="width" constant="120" id="RiH-4R-mwt"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="title" value="5 Minutes"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What breathing pattern would you like to use?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2nQ-eR-ViT">
-                                                            <rect key="frame" x="16" y="320.5" width="303" height="16.5"/>
+                                                            <rect key="frame" x="16" y="301.5" width="303" height="15.5"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0rx-Tq-1fA" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
-                                                            <rect key="frame" x="16" y="347" width="107" height="45"/>
+                                                            <rect key="frame" x="16" y="327" width="120" height="45"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="107" id="Jfb-aL-bZG"/>
+                                                                <constraint firstAttribute="width" constant="120" id="Jfb-aL-bZG"/>
                                                                 <constraint firstAttribute="height" constant="45" id="W9M-Xz-ve8"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
@@ -1342,17 +1355,17 @@ For each training session:
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How do you wish to do the training?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r6m-uh-nQG">
-                                                            <rect key="frame" x="16" y="402" width="303" height="16.5"/>
+                                                            <rect key="frame" x="16" y="382" width="303" height="15.5"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E2h-GI-YS9">
-                                                            <rect key="frame" x="16" y="428.5" width="303" height="50"/>
+                                                            <rect key="frame" x="16" y="407.5" width="303" height="50"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lbA-Gk-AW6" customClass="PranaButton" customModule="Prana" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="91" height="50"/>
-                                                                    <state key="normal" title="Lower Back (sit)"/>
+                                                                    <state key="normal" title="Lower Back (sit)"/>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="isClicked" value="YES"/>
                                                                     </userDefinedRuntimeAttributes>
@@ -1427,10 +1440,10 @@ For each training session:
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xtY-fn-55j">
-                                                    <rect key="frame" x="20" y="520.5" width="335" height="109"/>
+                                                    <rect key="frame" x="20" y="501.5" width="335" height="109"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o0T-wu-4Co">
-                                                            <rect key="frame" x="146" y="16" width="43" height="20"/>
+                                                            <rect key="frame" x="148" y="16" width="39.5" height="19"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                                             <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1449,7 +1462,7 @@ For each training session:
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="j6C-5W-Nh7">
-                                                    <rect key="frame" x="138.5" y="580.5" width="98" height="98"/>
+                                                    <rect key="frame" x="138.5" y="561.5" width="98" height="98"/>
                                                     <color key="backgroundColor" red="0.43529411764705883" green="0.75686274509803919" blue="0.23137254901960785" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="98" id="4PD-iB-zSG"/>
@@ -1513,6 +1526,9 @@ For each training session:
                     </view>
                     <connections>
                         <outlet property="tableView" destination="DeT-rV-6Uv" id="W0h-vw-SjH"/>
+                        <outlet property="titleConstrain" destination="Jki-Gg-sH0" id="vx8-sC-jXq"/>
+                        <outlet property="titleLabel" destination="Q2e-OD-0Aa" id="54O-yT-brt"/>
+                        <outlet property="titleSubLabel" destination="Bkg-3a-Awm" id="UDl-Dn-gO8"/>
                         <outlet property="titleView" destination="cb2-b3-Sk5" id="ngV-U3-l9Z"/>
                     </connections>
                 </viewController>
@@ -3025,19 +3041,19 @@ Chest</string>
                                             <rect key="frame" x="16" y="56" width="343" height="400"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Training Tutorial" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Qf-YR-p6S">
-                                                    <rect key="frame" x="77" y="32" width="189" height="30"/>
+                                                    <rect key="frame" x="87.5" y="32" width="168.5" height="28"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="24"/>
                                                     <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The following hands on tutorial only takes about 5 minutes to complete" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="buX-Nb-ngk">
-                                                    <rect key="frame" x="26" y="90" width="291" height="67.5"/>
+                                                    <rect key="frame" x="26" y="88" width="291" height="42"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="18"/>
                                                     <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U9E-Mv-bkJ">
-                                                    <rect key="frame" x="26" y="261.5" width="291" height="56"/>
+                                                    <rect key="frame" x="26" y="234" width="291" height="56"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="56" id="VLm-eP-VOO"/>
@@ -3055,7 +3071,7 @@ Chest</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gB7-uV-FhT">
-                                                    <rect key="frame" x="26" y="185.5" width="291" height="56"/>
+                                                    <rect key="frame" x="26" y="158" width="291" height="56"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="56" id="KGh-8i-EGa"/>
@@ -3072,7 +3088,7 @@ Chest</string>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is not recommended for new users. Only skip if you are an advanced or returning user" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VbN-xO-Qhr">
-                                                    <rect key="frame" x="24" y="341.5" width="295" height="30"/>
+                                                    <rect key="frame" x="24" y="314" width="295" height="28"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="12"/>
                                                     <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -5624,13 +5640,13 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make sure Prana is charged" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rYh-ek-25h">
-                                            <rect key="frame" x="89.5" y="12" width="196.5" height="19"/>
+                                            <rect key="frame" x="94" y="12" width="187" height="17.5"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="15"/>
                                             <color key="textColor" red="0.25490196078431371" green="0.31764705882352939" blue="0.396078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p67-YY-Bxt">
-                                            <rect key="frame" x="19" y="87" width="337.5" height="374"/>
+                                            <rect key="frame" x="19" y="85.5" width="337.5" height="374"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="video-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="hhb-XY-cUC">
                                                     <rect key="frame" x="0.0" y="0.0" width="337.5" height="208"/>
@@ -5639,7 +5655,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpN-u1-PQk">
-                                                    <rect key="frame" x="16" y="224" width="305.5" height="80"/>
+                                                    <rect key="frame" x="16" y="224" width="305.5" height="75"/>
                                                     <string key="text">Before proceeding to the next step, make sure Prana is fully charged by using the provided USB cable. The light on the device will turn green when fully charged.</string>
                                                     <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="16"/>
                                                     <color key="textColor" red="0.39205139880000001" green="0.39667910340000001" blue="0.41570192579999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -5673,7 +5689,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wca-nI-6sA">
-                                            <rect key="frame" x="47" y="433" width="281" height="56"/>
+                                            <rect key="frame" x="47" y="431.5" width="281" height="56"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="56" id="0Lz-oV-Dfn"/>
@@ -5745,13 +5761,13 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect Prana with your phone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="peI-0T-lcw">
-                                            <rect key="frame" x="74" y="12" width="227.5" height="19"/>
+                                            <rect key="frame" x="81.5" y="12" width="212.5" height="17.5"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="15"/>
                                             <color key="textColor" red="0.25490196078431371" green="0.31764705882352939" blue="0.396078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJs-1v-2rB">
-                                            <rect key="frame" x="19" y="87" width="337.5" height="360"/>
+                                            <rect key="frame" x="19" y="85.5" width="337.5" height="360"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="video-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="uVr-tp-zk4">
                                                     <rect key="frame" x="0.0" y="0.0" width="337.5" height="200"/>
@@ -5775,7 +5791,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     <state key="normal" backgroundImage="ic-triangle"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Successfully connected!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x2F-wr-2d1">
-                                                    <rect key="frame" x="65.5" y="290.5" width="206" height="22.5"/>
+                                                    <rect key="frame" x="70.5" y="290.5" width="196.5" height="21"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="18"/>
                                                     <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -5802,7 +5818,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E97-aE-tgq">
-                                            <rect key="frame" x="47" y="419" width="281" height="56"/>
+                                            <rect key="frame" x="47" y="417.5" width="281" height="56"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="56" id="Zih-jO-h81"/>
@@ -6181,7 +6197,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                 <rect key="frame" x="0.0" y="36" width="375" height="24"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breathing and Posture" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qbQ-qp-6IK">
-                                        <rect key="frame" x="108" y="2.5" width="159" height="19"/>
+                                        <rect key="frame" x="112.5" y="3.5" width="150" height="17.5"/>
                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="15"/>
                                         <color key="textColor" red="0.25490196079999999" green="0.31764705879999999" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -6204,7 +6220,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="88"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Training" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3TU-jq-XJc">
-                                                <rect key="frame" x="111" y="26" width="113.5" height="36.5"/>
+                                                <rect key="frame" x="117" y="27" width="101" height="34"/>
                                                 <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="29"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -6228,13 +6244,13 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6.2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GqU-JS-E1b">
-                                                        <rect key="frame" x="47.5" y="36" width="25.5" height="24"/>
+                                                        <rect key="frame" x="47" y="36" width="26.5" height="22.5"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="19"/>
                                                         <color key="textColor" red="0.25490196078431371" green="0.31764705882352939" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXg-TK-QnE">
-                                                        <rect key="frame" x="39.5" y="60" width="41" height="24"/>
+                                                        <rect key="frame" x="39.5" y="61.5" width="41" height="22.5"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="19"/>
                                                         <color key="textColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -6273,31 +6289,31 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                 <rect key="frame" x="147.5" y="0.0" width="147.5" height="120"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breath Training" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6mZ-7H-Is9">
-                                                        <rect key="frame" x="0.0" y="4" width="117" height="20"/>
+                                                        <rect key="frame" x="0.0" y="4" width="107.5" height="19"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="16"/>
                                                         <color key="textColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Result" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WR1-Tt-80f">
-                                                        <rect key="frame" x="4" y="34" width="42.5" height="17.5"/>
+                                                        <rect key="frame" x="4" y="33" width="39.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="14"/>
                                                         <color key="textColor" red="0.25490196078431371" green="0.31764705882352939" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="62% Mindful" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gLC-vl-k5N">
-                                                        <rect key="frame" x="4" y="53.5" width="80" height="17.5"/>
+                                                        <rect key="frame" x="4" y="51.5" width="80" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="14"/>
                                                         <color key="textColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wkR-zX-Ba8">
-                                                        <rect key="frame" x="4" y="79" width="31" height="17.5"/>
+                                                        <rect key="frame" x="4" y="76" width="29.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="14"/>
                                                         <color key="textColor" red="0.25490196078431371" green="0.31764705882352939" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 mins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SJa-xd-OIL">
-                                                        <rect key="frame" x="4" y="98.5" width="48.5" height="17.5"/>
+                                                        <rect key="frame" x="4" y="94.5" width="49.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="14"/>
                                                         <color key="textColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -6338,13 +6354,13 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8.5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2rs-jY-1vx">
-                                                        <rect key="frame" x="46.5" y="36" width="27" height="24"/>
+                                                        <rect key="frame" x="46.5" y="36" width="27" height="22.5"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="19"/>
                                                         <color key="textColor" red="0.25490196079999999" green="0.31764705879999999" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nao-Cf-DXY">
-                                                        <rect key="frame" x="39.5" y="60" width="41" height="24"/>
+                                                        <rect key="frame" x="39.5" y="61.5" width="41" height="22.5"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="19"/>
                                                         <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -6383,31 +6399,31 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                 <rect key="frame" x="147.5" y="0.0" width="147.5" height="120"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posture Training" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zkS-5G-hDI">
-                                                        <rect key="frame" x="0.0" y="4" width="123.5" height="20"/>
+                                                        <rect key="frame" x="0.0" y="4" width="115.5" height="19"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="16"/>
                                                         <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Result" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CdS-2A-Gep">
-                                                        <rect key="frame" x="4" y="34" width="42.5" height="17.5"/>
+                                                        <rect key="frame" x="4" y="33" width="39.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="14"/>
                                                         <color key="textColor" red="0.25490196079999999" green="0.31764705879999999" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="85% Upright" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eiH-Ry-zTm">
-                                                        <rect key="frame" x="4" y="53.5" width="81" height="17.5"/>
+                                                        <rect key="frame" x="4" y="51.5" width="80" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="14"/>
                                                         <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EOF-P1-7SS">
-                                                        <rect key="frame" x="4" y="79" width="31" height="17.5"/>
+                                                        <rect key="frame" x="4" y="76" width="29.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="14"/>
                                                         <color key="textColor" red="0.25490196079999999" green="0.31764705879999999" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 mins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egE-VS-rxa">
-                                                        <rect key="frame" x="4" y="98.5" width="48.5" height="17.5"/>
+                                                        <rect key="frame" x="4" y="94.5" width="49.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="14"/>
                                                         <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
