@@ -35,6 +35,7 @@ class SessionChildCell: UITableViewCell {
     var kindChangeListener: ((Int) -> Void)?
     var typeChangeListener: ((Int) -> Void)?
     var positionChangeListener: ((Int) -> Void)?
+    var sessionStartListener: (() -> Void)?
     
     var sessionDuration: Int = 0 {
         didSet {
@@ -85,6 +86,10 @@ class SessionChildCell: UITableViewCell {
     @IBAction func onPositionChange(_ sender: UIButton) {
         changePosition(sender.tag)
         positionChangeListener?(sender.tag)
+    }
+    
+    @IBAction func onSessionStart(_ sender: Any) {
+        sessionStartListener?()
     }
     
     func changeKind(_ kind: Int) {

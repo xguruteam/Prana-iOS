@@ -32,7 +32,7 @@ class BuzzerTrainingViewController: UIViewController {
     //    @IBOutlet weak var lblWearing: UILabel!
     //    @IBOutlet weak var btnNext: UIBarButtonItem!
     
-    @IBOutlet weak var imgPostureAnimation: SVGView!
+    @IBOutlet weak var imgPostureAnimation: UIImageView!
     
     @IBOutlet weak var postureSensitivityGroup: UIView!
     @IBOutlet weak var btnPostureSensitivityRadio1: UIButton!
@@ -54,6 +54,10 @@ class BuzzerTrainingViewController: UIViewController {
     var objBuzzer: Buzzer?
     var isTutorial = false
     var isCompleted = false
+    
+    var sessionPosture: Int = 0 // Lower Back, 1: Upper Chest
+    var sessionDuration: Int = 0
+    
     
     var timeRemaining: Int = 0 {
         didSet {
@@ -100,7 +104,7 @@ class BuzzerTrainingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        timeRemaining = 180
+        timeRemaining = sessionDuration
         
         objLive = Live()
         objLive?.appMode = 3
@@ -161,12 +165,20 @@ class BuzzerTrainingViewController: UIViewController {
     */
     
     @IBAction func onBack(_ sender: Any) {
-        if isCompleted {
-            let vc = Utils.getStoryboardWithIdentifier(identifier: "TutorialEndViewController")
-            self.navigationController?.pushViewController(vc, animated: true)
+        if isTutorial {
+            if isCompleted {
+                let vc = Utils.getStoryboardWithIdentifier(identifier: "TutorialEndViewController")
+                self.navigationController?.pushViewController(vc, animated: true)
+                return
+            }
+            self.navigationController?.popViewController(animated: true)
             return
         }
-        self.navigationController?.popViewController(animated: true)
+        else {
+            self.dismiss(animated: true) {
+                
+            }
+        }
     }
     
     @IBAction func onBreathingResponseChange(_ sender: UIButton) {
@@ -247,7 +259,12 @@ class BuzzerTrainingViewController: UIViewController {
     
     func displayPostureAnimation(_ whichFrame: Int) {
         var frame = whichFrame
-        imgPostureAnimation.fileName = "sit (\(frame))"
+        if sessionPosture == 0 {
+            imgPostureAnimation.image = UIImage(named: "sit (\(frame))")
+        }
+        else {
+            imgPostureAnimation.image = UIImage(named: "stand (\(frame))")
+        }
     }
     
     func startLiving() {

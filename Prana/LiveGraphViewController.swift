@@ -28,7 +28,7 @@ class LiveGraphViewController: UIViewController {
     @IBOutlet weak var lblRespirationRate: UILabel!
     @IBOutlet weak var lblBreathCount: UILabel!
     
-    @IBOutlet weak var imgPostureAnimation: SVGView!
+    @IBOutlet weak var imgPostureAnimation: UIImageView!
     
     @IBOutlet weak var postureSensitivityGroup: UIView!
     @IBOutlet weak var btnPostureSensitivityRadio1: UIButton!
@@ -202,10 +202,10 @@ class LiveGraphViewController: UIViewController {
         var frame = whichFrame
         
         if isLowerBack {
-            imgPostureAnimation.fileName = "sit (\(frame))"
+            imgPostureAnimation.image = UIImage(named: "sit (\(frame))")
         }
         else {
-            imgPostureAnimation.fileName = "stand (\(frame))"
+            imgPostureAnimation.image = UIImage(named: "stand (\(frame))")
         }
     }
     

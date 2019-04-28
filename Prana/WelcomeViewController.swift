@@ -53,7 +53,7 @@ class WelcomeViewController: UIViewController {
     }
     
     @objc func onConnectViewControllerNext() {
-        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "TutorialStartViewController")
+        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "TabViewController")
         let navVC = UINavigationController(rootViewController: firstVC)
         self.present(navVC, animated: true, completion: nil)
     }
@@ -75,7 +75,7 @@ class WelcomeViewController: UIViewController {
     }
     
     func afterLogin() {
-        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "TabViewController")
+        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ChargingGuideViewController")
         let navVC = UINavigationController(rootViewController: firstVC)
         self.present(navVC, animated: true, completion: nil)
     }

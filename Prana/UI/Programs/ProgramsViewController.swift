@@ -37,7 +37,7 @@ class ProgramsViewController: UIViewController {
         super.viewDidLoad()
 
         tableView.expandableDelegate = self
-        tableView.expansionStyle = .single
+        tableView.expansionStyle = .multi
         tableView.animation = .none
         
         titleSubLabel.isHidden = true
@@ -48,6 +48,7 @@ class ProgramsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        tableView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -84,11 +85,16 @@ class ProgramsViewController: UIViewController {
     }
     
     func onTrainingStart() {
+        if isTrainingStarted {
+            return
+        }
+        
+        
         MKProgress.show()
-        tableView.closeAll()
         isTrainingStarted = true
         tableView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(1000)) {
+//            self.tableView.closeAll()
             self.tableView.open(at: IndexPath(row: 1, section: 0))
             MKProgress.hide()
         }
@@ -106,6 +112,45 @@ class ProgramsViewController: UIViewController {
             titleSubLabel.isHidden = true
             titleSubLabel.text = ""
             titleConstrain.constant = 0
+        }
+    }
+    
+    func onSessionStart() {
+        Log("Program: \(programType == 0 ? "14 day" : "Custom")")
+        Log("Notification: \(notificationTime)")
+        if programType == 1 {
+            Log("Daily Breathing goal: \(customBreathingGoal) Minutes")
+            Log("Daily Posture goal: \(customPostureGoal) Minutes")
+        }
+        
+        switch sessionKind {
+        case 0:
+            Log("Session Kind: Breathing with Posture")
+        case 1:
+            Log("Session Kind: Breathing only")
+        case 2:
+            Log("Session Kind: Posture only")
+        default:
+            break
+        }
+        
+        Log("Session Type: \(sessionType == 0 ? "Visual" : "Buzzer")")
+        
+        Log("Session Duration: \(sessionDuration) Minutes")
+        
+        if programType == 1 {
+            Log("Session Pattern: Focus")
+            Log("Session Position: \(sessionPosition)")
+        }
+        
+        if sessionType == 1 {
+            let vc = Utils.getStoryboardWithIdentifier(identifier: "BuzzerTrainingViewController") as! BuzzerTrainingViewController
+            vc.isTutorial = false
+            vc.sessionPosture = sessionPosition
+            vc.sessionDuration = sessionDuration * 60
+            self.present(vc, animated: true) {
+                
+            }
         }
     }
     
@@ -266,6 +311,10 @@ extension ProgramsViewController: ExpandableDelegate {
             
             cell.sessionPatternChangeListener = { [weak self] (pattern) in
                 self?.onSessionPatternChange(pattern)
+            }
+            
+            cell.sessionStartListener = { [weak self] in
+                self?.onSessionStart()
             }
             
             cell.changeKind(sessionKind)
