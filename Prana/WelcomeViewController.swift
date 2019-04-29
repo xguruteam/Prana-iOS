@@ -23,6 +23,7 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         shouldLogin()
 
         // Do any additional setup after loading the view.
@@ -53,15 +54,28 @@ class WelcomeViewController: UIViewController {
     }
     
     @objc func onConnectViewControllerNext() {
-        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "TabViewController")
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        if appDelegate.dataController.isTutorialPassed {
+            gotoMainPage()
+            return
+        }
+        
+        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "TutorialStartViewController")
         let navVC = UINavigationController(rootViewController: firstVC)
         self.present(navVC, animated: true, completion: nil)
     }
     
     @objc func onTutorialDidEnd() {
-        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "TabViewController")
-        let navVC = UINavigationController(rootViewController: firstVC)
-        self.present(navVC, animated: true, completion: nil)
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        appDelegate.dataController.isDevicePaired = true
+        appDelegate.dataController.isTutorialPassed = true
+        appDelegate.dataController.saveSettings()
+        
+        gotoMainPage()
     }
     
     @objc func didLogIn() {
@@ -76,6 +90,12 @@ class WelcomeViewController: UIViewController {
     
     func afterLogin() {
         let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ChargingGuideViewController")
+        let navVC = UINavigationController(rootViewController: firstVC)
+        self.present(navVC, animated: true, completion: nil)
+    }
+    
+    func gotoMainPage() {
+        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "TabViewController")
         let navVC = UINavigationController(rootViewController: firstVC)
         self.present(navVC, animated: true, completion: nil)
     }

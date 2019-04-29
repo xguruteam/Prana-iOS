@@ -27,6 +27,8 @@
 		CA9892192240ED9A00D824B0 /* Pattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9892182240ED9A00D824B0 /* Pattern.swift */; };
 		CA98921F2241353B00D824B0 /* TSCDesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98921E2241353A00D824B0 /* TSCDesignableView.swift */; };
 		CA98922222413B2300D824B0 /* LiveGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98922122413B2300D824B0 /* LiveGraph.swift */; };
+		CAA21A1522777D090004F5E0 /* Prana.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CAA21A1322777D090004F5E0 /* Prana.xcdatamodeld */; };
+		CAA21A17227780F10004F5E0 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA21A16227780F10004F5E0 /* DataController.swift */; };
 		CAA44A31224425EF0050D619 /* ConnectionTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA44A30224425EF0050D619 /* ConnectionTestViewController.swift */; };
 		CAAB4ED5226E7FF9000C8802 /* ProgramChildCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAB4ED4226E7FF9000C8802 /* ProgramChildCell.swift */; };
 		CAAC19822270D2EF001DC02D /* PranaDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAC19812270D2EF001DC02D /* PranaDropDown.swift */; };
@@ -211,6 +213,8 @@
 		CA9892182240ED9A00D824B0 /* Pattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pattern.swift; sourceTree = "<group>"; };
 		CA98921E2241353A00D824B0 /* TSCDesignableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSCDesignableView.swift; sourceTree = "<group>"; };
 		CA98922122413B2300D824B0 /* LiveGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveGraph.swift; sourceTree = "<group>"; };
+		CAA21A1422777D090004F5E0 /* Prana.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Prana.xcdatamodel; sourceTree = "<group>"; };
+		CAA21A16227780F10004F5E0 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		CAA44A30224425EF0050D619 /* ConnectionTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionTestViewController.swift; sourceTree = "<group>"; };
 		CAAB4ED4226E7FF9000C8802 /* ProgramChildCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramChildCell.swift; sourceTree = "<group>"; };
 		CAAC19812270D2EF001DC02D /* PranaDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranaDropDown.swift; sourceTree = "<group>"; };
@@ -411,6 +415,7 @@
 		AA172019222670420080BD71 /* Prana */ = {
 			isa = PBXGroup;
 			children = (
+				CAA21A1222777CEB0004F5E0 /* Models */,
 				CAAF9CB522737951003232C4 /* AlertsAndActionSheets */,
 				D79A36D7222838580085D3FA /* RestAPI */,
 				D7992ACC225C218100C5C8F2 /* Resources */,
@@ -503,6 +508,15 @@
 				CA98922122413B2300D824B0 /* LiveGraph.swift */,
 			);
 			path = LiveGraph;
+			sourceTree = "<group>";
+		};
+		CAA21A1222777CEB0004F5E0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CAA21A1322777D090004F5E0 /* Prana.xcdatamodeld */,
+				CAA21A16227780F10004F5E0 /* DataController.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		CAAF9CB522737951003232C4 /* AlertsAndActionSheets */ = {
@@ -1141,6 +1155,7 @@
 				CAAF9D2622737952003232C4 /* SearchHistoryManager.swift in Sources */,
 				CAAF9D2A22737952003232C4 /* ContactsPickerViewController.swift in Sources */,
 				CAAF9D0822737951003232C4 /* UIImageView+Extensions.swift in Sources */,
+				CAA21A1522777D090004F5E0 /* Prana.xcdatamodeld in Sources */,
 				CAAF9D0D22737951003232C4 /* UITextView+Extensions.swift in Sources */,
 				CAAC198622710471001DC02D /* ProgramParentCell.swift in Sources */,
 				D7B12F5E22438B19002D2E0F /* VisualTrainingScene.swift in Sources */,
@@ -1225,6 +1240,7 @@
 				CAAF9D3322737952003232C4 /* TelegramPickerViewController.swift in Sources */,
 				CAAF9D2C22737952003232C4 /* Contact.swift in Sources */,
 				CAAF9D1C22737952003232C4 /* LocalePickerViewController.swift in Sources */,
+				CAA21A17227780F10004F5E0 /* DataController.swift in Sources */,
 				CAE21B00223E818D00CC7A4D /* ChargingGuideViewController.swift in Sources */,
 				AA17201B222670420080BD71 /* AppDelegate.swift in Sources */,
 				AA7FE2D6222721130092E8A6 /* LoginViewController.swift in Sources */,
@@ -1451,6 +1467,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		CAA21A1322777D090004F5E0 /* Prana.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CAA21A1422777D090004F5E0 /* Prana.xcdatamodel */,
+			);
+			currentVersion = CAA21A1422777D090004F5E0 /* Prana.xcdatamodel */;
+			path = Prana.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = AA17200F222670420080BD71 /* Project object */;
 }

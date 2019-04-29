@@ -148,7 +148,7 @@ class BuzzerTrainingViewController: UIViewController {
         lblWearing.text = "Wearing: " + (sessionWearing == 0 ? "Lower Back" : "Upper Chest")
         
         
-        objBuzzer = Buzzer(pattern: 0, subPattern: 5, duration: timeRemaining, live: objLive!)
+        objBuzzer = Buzzer(pattern: 0, subPattern: 5, duration: timeRemaining * 60, live: objLive!)
         objBuzzer?.delegate = self
         
         setBreathSensitivity(val: 2)

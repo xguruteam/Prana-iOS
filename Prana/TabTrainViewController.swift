@@ -26,13 +26,45 @@ class TabTrainViewController: UIViewController {
     @IBOutlet weak var btnTracking: UIButton!
     @IBOutlet weak var btnLiveGraph: UIButton!
     
+    @IBOutlet weak var lblTitle: UILabel!
+    
+    var dataController: DataController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         initView()
         
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            dataController = appDelegate.dataController
+        }
+        
+        lblTitle.text = "Today's Result"
+        
+        
 //        getTrainSummary()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if dataController?.programType > 1 {
+            lblMindfulBreathTime.text = "0"
+            lblBreathResult.text = "N/A"
+            lblBreathGoal.text = "Set your Goal"
+            lblUprightPostureTime.text = "0"
+            lblPostureResult.text = "N/A"
+            lblPostureGoal.text = "Set your Goal"
+        }
+        else {
+            lblMindfulBreathTime.text = "0"
+            lblBreathResult.text = "0% Mindful"
+            lblBreathGoal.text = "\(dataController?.breathingGoals ?? 0) mins"
+            lblUprightPostureTime.text = "0"
+            lblPostureResult.text = "0% Upright"
+            lblPostureGoal.text = "\(dataController?.postureGoals ?? 0) mins"
+        }
     }
     
     func initView() {

@@ -13,6 +13,8 @@ import MKProgress
 
 class ProgramsViewController: UIViewController {
     
+    var dataController: DataController?
+    
     var isTrainingStarted = false
     var sessionKind: Int = 0
     var sessionType: Int = 0
@@ -40,17 +42,56 @@ class ProgramsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        dataController = appDelegate.dataController
+        
+        
         NotificationCenter.default.addObserver(self, selector: #selector(onLandscapeViewControllerDismiss), name: .landscapeViewControllerDidDismiss, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onDeviceOrientationChange), name: .deviceOrientationDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onVisualViewControllerEnd), name: .visualViewControllerEndSession, object: nil)
-
+        
         tableView.dataSource = self
         tableView.delegate = self
         
-        titleSubLabel.isHidden = true
-        titleConstrain.constant = 0.0
-        
-        onProgramTypeChange(0)
+        let savedProgramType = dataController?.programType ?? 100
+        if savedProgramType > 1 {
+            titleSubLabel.isHidden = true
+            titleConstrain.constant = 0.0
+            
+            onProgramTypeChange(0)
+        }
+        else {
+            programType = savedProgramType
+            
+            isTrainingStarted = true
+            isProgramCellOpen = false
+            isSessionCellOpen = true
+//            tableView.reloadData()
+            
+            notificationTime = dataController?.dailyNotification ?? Date()
+
+            if programType == 0 {
+                titleLabel.text = "14 Days Training"
+                titleSubLabel.isHidden = false
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MMMM d, yyyy"
+                dataController?.currentDay += 1
+                titleSubLabel.text = "Day \(dataController?.currentDay ?? 0 + 1): " + dateFormatter.string(from: Date())
+                titleConstrain.constant = -20
+            }
+            else {
+                titleLabel.text = "Custom Training"
+                titleSubLabel.isHidden = true
+                titleSubLabel.text = ""
+                titleConstrain.constant = 0
+                
+                customBreathingGoal = dataController?.breathingGoals ?? 5
+                customPostureGoal = dataController?.postureGoals ?? 5
+            }
+        }
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,6 +153,9 @@ class ProgramsViewController: UIViewController {
     
     func onNotificationTime(_ time: Date) {
         notificationTime = time
+        
+        dataController?.dailyNotification = notificationTime
+        dataController?.saveSettings()
     }
     
     func onNotificationEnableChange(_ isEnable: Bool) {
@@ -120,6 +164,34 @@ class ProgramsViewController: UIViewController {
     
     func onTrainingStart() {
         if isTrainingStarted {
+            // cancel
+            MKProgress.show()
+            isTrainingStarted = false
+            isProgramCellOpen = true
+            isSessionCellOpen = false
+            tableView.reloadData()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(1000)) {
+                //            self.tableView.closeAll()
+                //            self.tableView.open(at: IndexPath(row: 1, section: 0))
+                MKProgress.hide()
+            }
+            
+            titleSubLabel.isHidden = true
+            titleConstrain.constant = 0.0
+            titleLabel.text = "Training"
+            titleSubLabel.isHidden = true
+            titleSubLabel.text = ""
+            titleConstrain.constant = 0
+            
+            onProgramTypeChange(0)
+            
+            dataController?.programType = 100
+            dataController?.breathingGoals = 0
+            dataController?.postureGoals = 0
+            dataController?.dailyNotification = nil
+            dataController?.currentDay = 0
+            dataController?.saveSettings()
+
             return
         }
         
@@ -136,6 +208,9 @@ class ProgramsViewController: UIViewController {
             MKProgress.hide()
         }
         
+        dataController?.programType = programType
+        dataController?.dailyNotification = notificationTime
+        
         if programType == 0 {
             titleLabel.text = "14 Days Training"
             titleSubLabel.isHidden = false
@@ -143,13 +218,23 @@ class ProgramsViewController: UIViewController {
             dateFormatter.dateFormat = "MMMM d, yyyy"
             titleSubLabel.text = "Day 1: " + dateFormatter.string(from: Date())
             titleConstrain.constant = -20
+            
+            dataController?.breathingGoals = 5
+            dataController?.postureGoals = 5
+            dataController?.currentDay = 1
         }
         else {
             titleLabel.text = "Custom Training"
             titleSubLabel.isHidden = true
             titleSubLabel.text = ""
             titleConstrain.constant = 0
+            
+            dataController?.breathingGoals = customBreathingGoal
+            dataController?.postureGoals = customPostureGoal
+            dataController?.currentDay = 0
         }
+        
+        dataController?.saveSettings()
     }
     
     func onSessionStart() {
@@ -184,7 +269,7 @@ class ProgramsViewController: UIViewController {
             let vc = Utils.getStoryboardWithIdentifier(identifier: "BuzzerTrainingViewController") as! BuzzerTrainingViewController
             vc.isTutorial = false
             vc.sessionWearing = sessionPosition
-            vc.sessionDuration = sessionDuration * 60
+            vc.sessionDuration = sessionDuration
             vc.sessionKind = sessionKind
             self.present(vc, animated: true) {
                 
@@ -223,10 +308,14 @@ class ProgramsViewController: UIViewController {
     
     func onCustomBreathingGoalChange(_ duration: Int) {
         customBreathingGoal = duration
+        dataController?.breathingGoals = customBreathingGoal
+        dataController?.saveSettings()
     }
     
     func onCustomPostureGoalChange(_ duration: Int) {
         customPostureGoal = duration
+        dataController?.postureGoals = customPostureGoal
+        dataController?.saveSettings()
     }
     
     func onSessionDurationChange(_ duration: Int) {
@@ -317,7 +406,7 @@ class ProgramsViewController: UIViewController {
                     cell1.startButton.setTitle("CANCEL 14 DAY PROGRAM", for: .normal)
                 }
                 else {
-                    cell1.startButton.setTitle("UPDATE CUSTOM TRAINING", for: .normal)
+                    cell1.startButton.setTitle("CANCEL CUSTOM TRAINING", for: .normal)
                 }
             }
             else {
@@ -625,7 +714,7 @@ extension ProgramsViewController: ExpandableDelegate {
                     cell1.startButton.setTitle("CANCEL 14 DAY PROGRAM", for: .normal)
                 }
                 else {
-                    cell1.startButton.setTitle("UPDATE CUSTOM TRAINING", for: .normal)
+                    cell1.startButton.setTitle("CANCEL CUSTOM TRAINING", for: .normal)
                 }
             }
             else {

@@ -80,6 +80,9 @@ class TutorialVisualViewController: UIViewController {
     @IBAction func onNext(_ sender: Any) {
         let vc = Utils.getStoryboardWithIdentifier(identifier:"VisualTrainingViewController") as! VisualTrainingViewController
         vc.isTutorial = true
+        vc.sessionKind = 0
+        vc.sessionWearing = 0
+        vc.sessionDuration = 1
         UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
         self.present(vc, animated: false, completion: nil)
     }

@@ -49,6 +49,9 @@ class TutorialBuzzerViewController: UIViewController {
     @IBAction func onNext(_ sender: Any) {
         let vc = Utils.getStoryboardWithIdentifier(identifier:"BuzzerTrainingViewController") as! BuzzerTrainingViewController
         vc.isTutorial = true
+        vc.sessionKind = 0
+        vc.sessionWearing = 0
+        vc.sessionDuration = 1
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
