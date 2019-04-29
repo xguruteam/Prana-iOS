@@ -1173,7 +1173,7 @@ For each training session:
                                         <rect key="frame" x="0.0" y="1233" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lau-f3-8di" id="6KQ-uc-e2N">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5r1-xa-Aiv">
@@ -1215,7 +1215,7 @@ For each training session:
                                         <rect key="frame" x="0.0" y="1283" width="375" height="550"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NrF-44-bER" id="OF5-Kr-tuZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="549.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Jf-VP-Gdl">
@@ -2157,13 +2157,13 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upright Posture: 100% (00 of 00 seconds)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADf-TB-rua" userLabel="Upright Posture:  100%">
-                                            <rect key="frame" x="132" y="364.5" width="223" height="28"/>
+                                            <rect key="frame" x="132" y="364.5" width="223" height="14"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                             <color key="textColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slouches:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ay-ZU-wL5" userLabel="Upright Posture:  100%">
-                                            <rect key="frame" x="132" y="397.5" width="223" height="14"/>
+                                            <rect key="frame" x="132" y="383.5" width="223" height="14"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -2344,7 +2344,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wearing" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o8d-yp-Z61" userLabel="Upright Posture:  100%">
-                                            <rect key="frame" x="132" y="416.5" width="223" height="14"/>
+                                            <rect key="frame" x="132" y="402.5" width="223" height="14"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -2353,33 +2353,40 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="7ay-ZU-wL5" secondAttribute="trailing" constant="20" id="0EK-aE-l8f"/>
+                                        <constraint firstItem="RYM-IL-29f" firstAttribute="top" secondItem="8Qf-9K-Ee2" secondAttribute="bottom" priority="250" constant="20" id="0S6-gu-dWh"/>
                                         <constraint firstAttribute="trailing" secondItem="ADf-TB-rua" secondAttribute="trailing" constant="20" id="1U7-WL-iJe"/>
                                         <constraint firstItem="2gg-yn-2Zf" firstAttribute="leading" secondItem="Lz8-BJ-MR8" secondAttribute="leading" id="6Gn-Kf-DfU"/>
-                                        <constraint firstItem="f9X-ab-sM2" firstAttribute="leading" secondItem="RYM-IL-29f" secondAttribute="leading" constant="16" id="6Lr-OD-xHL"/>
+                                        <constraint firstItem="f9X-ab-sM2" firstAttribute="leading" secondItem="RYM-IL-29f" secondAttribute="leading" priority="750" constant="16" id="6Lr-OD-xHL"/>
                                         <constraint firstItem="fwg-W0-Hi4" firstAttribute="leading" secondItem="Lz8-BJ-MR8" secondAttribute="leading" id="6Mt-ap-dMa"/>
                                         <constraint firstItem="0f9-4Q-pEK" firstAttribute="top" secondItem="xz3-Nu-iWN" secondAttribute="top" constant="16" id="7ZJ-he-R9y"/>
                                         <constraint firstItem="RYM-IL-29f" firstAttribute="leading" secondItem="xz3-Nu-iWN" secondAttribute="leading" constant="16" id="8Sa-Qr-Y3f"/>
                                         <constraint firstItem="f9X-ab-sM2" firstAttribute="top" secondItem="RYM-IL-29f" secondAttribute="bottom" constant="12" id="8aI-Qf-bTZ"/>
+                                        <constraint firstItem="5zU-aU-VSO" firstAttribute="bottom" secondItem="ADf-TB-rua" secondAttribute="top" priority="250" constant="-30" id="AGN-b8-OJN"/>
                                         <constraint firstItem="Lz8-BJ-MR8" firstAttribute="top" secondItem="lHa-Wo-BfC" secondAttribute="bottom" constant="12" id="AKQ-fV-iyD"/>
-                                        <constraint firstItem="nkK-aH-qIU" firstAttribute="top" secondItem="5zU-aU-VSO" secondAttribute="bottom" constant="24" id="ARu-wP-lM2"/>
+                                        <constraint firstItem="nkK-aH-qIU" firstAttribute="top" secondItem="5zU-aU-VSO" secondAttribute="bottom" priority="750" constant="24" id="ARu-wP-lM2"/>
                                         <constraint firstItem="LBb-0o-G8l" firstAttribute="leading" secondItem="Hvr-cw-zHr" secondAttribute="leading" id="Axp-OH-ktH"/>
+                                        <constraint firstItem="nkK-aH-qIU" firstAttribute="top" secondItem="o8d-yp-Z61" secondAttribute="bottom" priority="250" constant="30" id="CON-qG-JOH"/>
                                         <constraint firstItem="7C7-E7-2sJ" firstAttribute="bottom" secondItem="f9X-ab-sM2" secondAttribute="bottom" id="Cf9-Om-AvW"/>
-                                        <constraint firstItem="o8d-yp-Z61" firstAttribute="leading" secondItem="f9X-ab-sM2" secondAttribute="trailing" id="Csp-rN-UJP"/>
+                                        <constraint firstItem="o8d-yp-Z61" firstAttribute="leading" secondItem="ADf-TB-rua" secondAttribute="leading" id="Csp-rN-UJP"/>
                                         <constraint firstItem="8Qf-9K-Ee2" firstAttribute="top" secondItem="0f9-4Q-pEK" secondAttribute="bottom" constant="4" id="Doy-Zs-TUe"/>
                                         <constraint firstItem="6En-5k-zh2" firstAttribute="top" secondItem="8Qf-9K-Ee2" secondAttribute="bottom" constant="8" id="F57-UO-67m"/>
                                         <constraint firstItem="2gg-yn-2Zf" firstAttribute="leading" secondItem="lHa-Wo-BfC" secondAttribute="leading" id="KHh-gk-oe9"/>
-                                        <constraint firstItem="7ay-ZU-wL5" firstAttribute="leading" secondItem="f9X-ab-sM2" secondAttribute="trailing" id="PHH-kq-smc"/>
-                                        <constraint firstItem="5zU-aU-VSO" firstAttribute="bottom" secondItem="f9X-ab-sM2" secondAttribute="bottom" id="Q5s-q0-iZa"/>
-                                        <constraint firstItem="5zU-aU-VSO" firstAttribute="leading" secondItem="f9X-ab-sM2" secondAttribute="trailing" constant="20" id="QPj-Bd-ykS"/>
-                                        <constraint firstItem="Roa-L5-UiV" firstAttribute="top" secondItem="nkK-aH-qIU" secondAttribute="bottom" constant="24" id="RQz-tm-UcX"/>
+                                        <constraint firstItem="Roa-L5-UiV" firstAttribute="top" secondItem="2gg-yn-2Zf" secondAttribute="bottom" priority="250" constant="30" id="NVJ-oT-V1P"/>
+                                        <constraint firstItem="7ay-ZU-wL5" firstAttribute="leading" secondItem="o8d-yp-Z61" secondAttribute="leading" id="PHH-kq-smc"/>
+                                        <constraint firstItem="5zU-aU-VSO" firstAttribute="bottom" secondItem="f9X-ab-sM2" secondAttribute="bottom" priority="750" id="Q5s-q0-iZa"/>
+                                        <constraint firstItem="5zU-aU-VSO" firstAttribute="leading" secondItem="f9X-ab-sM2" secondAttribute="trailing" priority="750" constant="20" id="QPj-Bd-ykS"/>
+                                        <constraint firstItem="Roa-L5-UiV" firstAttribute="top" secondItem="nkK-aH-qIU" secondAttribute="bottom" priority="750" constant="24" id="RQz-tm-UcX"/>
+                                        <constraint firstItem="5zU-aU-VSO" firstAttribute="top" secondItem="f9X-ab-sM2" secondAttribute="bottom" priority="250" constant="20" id="SRi-aO-dfx"/>
                                         <constraint firstItem="7C7-E7-2sJ" firstAttribute="trailing" secondItem="f9X-ab-sM2" secondAttribute="trailing" id="Seb-Dr-e7C"/>
                                         <constraint firstItem="6En-5k-zh2" firstAttribute="centerX" secondItem="8Qf-9K-Ee2" secondAttribute="centerX" id="U0C-hL-yHE"/>
                                         <constraint firstAttribute="trailing" secondItem="o8d-yp-Z61" secondAttribute="trailing" constant="20" id="Uf0-c2-eRp"/>
                                         <constraint firstAttribute="trailing" secondItem="Roa-L5-UiV" secondAttribute="trailing" constant="40" id="Vh5-tx-MO0"/>
                                         <constraint firstItem="o8d-yp-Z61" firstAttribute="top" secondItem="7ay-ZU-wL5" secondAttribute="bottom" constant="5" id="W8y-oZ-yeP"/>
                                         <constraint firstItem="lHa-Wo-BfC" firstAttribute="leading" secondItem="xz3-Nu-iWN" secondAttribute="leading" constant="16" id="WMR-mb-M5g"/>
+                                        <constraint firstItem="5zU-aU-VSO" firstAttribute="centerX" secondItem="xz3-Nu-iWN" secondAttribute="centerX" priority="250" id="WcG-So-uMS"/>
                                         <constraint firstItem="Roa-L5-UiV" firstAttribute="leading" secondItem="xz3-Nu-iWN" secondAttribute="leading" constant="40" id="Wkq-H5-uuw"/>
                                         <constraint firstItem="7C7-E7-2sJ" firstAttribute="leading" secondItem="f9X-ab-sM2" secondAttribute="leading" id="XFz-30-uvL"/>
+                                        <constraint firstItem="ADf-TB-rua" firstAttribute="leading" secondItem="xz3-Nu-iWN" secondAttribute="leading" priority="250" constant="20" id="ba7-8l-rVy"/>
                                         <constraint firstItem="8Qf-9K-Ee2" firstAttribute="centerX" secondItem="xz3-Nu-iWN" secondAttribute="centerX" id="bpb-G3-8cU"/>
                                         <constraint firstItem="7C7-E7-2sJ" firstAttribute="top" secondItem="f9X-ab-sM2" secondAttribute="top" id="brY-CF-ONk"/>
                                         <constraint firstItem="0f9-4Q-pEK" firstAttribute="centerX" secondItem="xz3-Nu-iWN" secondAttribute="centerX" id="dbK-lb-GqI"/>
@@ -2391,13 +2398,14 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                         <constraint firstItem="Lz8-BJ-MR8" firstAttribute="leading" secondItem="lHa-Wo-BfC" secondAttribute="leading" id="gfS-9X-IJT"/>
                                         <constraint firstItem="nkK-aH-qIU" firstAttribute="trailing" secondItem="2gg-yn-2Zf" secondAttribute="trailing" id="jGX-3N-PbU"/>
                                         <constraint firstItem="7ay-ZU-wL5" firstAttribute="top" secondItem="ADf-TB-rua" secondAttribute="bottom" constant="5" id="pjv-ig-LKn"/>
-                                        <constraint firstItem="ADf-TB-rua" firstAttribute="leading" secondItem="f9X-ab-sM2" secondAttribute="trailing" id="qkF-hY-ue1"/>
+                                        <constraint firstItem="ADf-TB-rua" firstAttribute="leading" secondItem="f9X-ab-sM2" secondAttribute="trailing" priority="750" id="qkF-hY-ue1"/>
                                         <constraint firstItem="fwg-W0-Hi4" firstAttribute="top" secondItem="Lz8-BJ-MR8" secondAttribute="bottom" constant="4" id="tcJ-qW-Xo7"/>
                                         <constraint firstItem="LBb-0o-G8l" firstAttribute="top" secondItem="Hvr-cw-zHr" secondAttribute="bottom" constant="2" id="uwz-b4-Wkq"/>
-                                        <constraint firstItem="RYM-IL-29f" firstAttribute="top" secondItem="2gg-yn-2Zf" secondAttribute="bottom" constant="24" id="v5k-Kg-dhB"/>
+                                        <constraint firstItem="RYM-IL-29f" firstAttribute="top" secondItem="2gg-yn-2Zf" secondAttribute="bottom" priority="750" constant="24" id="v5k-Kg-dhB"/>
                                         <constraint firstItem="0f9-4Q-pEK" firstAttribute="width" secondItem="xz3-Nu-iWN" secondAttribute="width" id="vBT-vj-heT"/>
                                         <constraint firstAttribute="trailing" secondItem="lHa-Wo-BfC" secondAttribute="trailing" constant="16" id="vRr-kC-X9v"/>
-                                        <constraint firstItem="ADf-TB-rua" firstAttribute="top" secondItem="RYM-IL-29f" secondAttribute="top" id="vja-rJ-QAp"/>
+                                        <constraint firstItem="ADf-TB-rua" firstAttribute="top" secondItem="RYM-IL-29f" secondAttribute="top" priority="750" id="vja-rJ-QAp"/>
+                                        <constraint firstItem="f9X-ab-sM2" firstAttribute="centerX" secondItem="xz3-Nu-iWN" secondAttribute="centerX" priority="250" id="xiW-57-nXE"/>
                                         <constraint firstItem="lHa-Wo-BfC" firstAttribute="top" secondItem="6En-5k-zh2" secondAttribute="bottom" constant="8" id="ybr-KX-CHQ"/>
                                     </constraints>
                                 </view>
@@ -2429,10 +2437,26 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                         <outlet property="btnPostureSensitivityTitle3" destination="BGK-fm-B5X" id="Huq-3E-ZTB"/>
                         <outlet property="btnStartStop" destination="Roa-L5-UiV" id="8lQ-rx-B33"/>
                         <outlet property="btnUpright" destination="5zU-aU-VSO" id="Siq-cN-zyv"/>
+                        <outlet property="con1" destination="0S6-gu-dWh" id="ahn-av-qfp"/>
+                        <outlet property="con10" destination="nLq-Jq-zCr" id="b7I-VQ-GEj"/>
+                        <outlet property="con11" destination="vpv-Mk-uf2" id="akz-qf-sdM"/>
+                        <outlet property="con12" destination="tcJ-qW-Xo7" id="DBi-CH-1q6"/>
+                        <outlet property="con13" destination="gME-Sq-ntr" id="nnT-1n-mIY"/>
+                        <outlet property="con14" destination="NVJ-oT-V1P" id="DaT-QO-iVk"/>
+                        <outlet property="con2" destination="ba7-8l-rVy" id="wFf-Ym-VL8"/>
+                        <outlet property="con3" destination="AGN-b8-OJN" id="e9r-XY-wXJ"/>
+                        <outlet property="con4" destination="SRi-aO-dfx" id="O68-Wo-quI"/>
+                        <outlet property="con5" destination="WcG-So-uMS" id="C8B-pa-sZo"/>
+                        <outlet property="con6" destination="CON-qG-JOH" id="RGf-51-AuX"/>
+                        <outlet property="con7" destination="ARu-wP-lM2" id="LpF-2e-u7K"/>
+                        <outlet property="con8" destination="xiW-57-nXE" id="WTG-UO-bid"/>
+                        <outlet property="con9" destination="ULg-At-Pmh" id="p0E-3V-cMg"/>
                         <outlet property="imgPostureAnimation" destination="f9X-ab-sM2" id="9MS-58-xgN"/>
+                        <outlet property="lblBreathingLabel" destination="Lz8-BJ-MR8" id="ACX-Cd-gyk"/>
                         <outlet property="lblBreathingPattern" destination="LBb-0o-G8l" id="HGB-dZ-V98"/>
                         <outlet property="lblBuzzerReason" destination="6En-5k-zh2" id="ytd-vf-UH0"/>
                         <outlet property="lblMindfulBreaths" destination="fwg-W0-Hi4" id="SFn-sd-e25"/>
+                        <outlet property="lblPostureLabel" destination="RYM-IL-29f" id="jQw-n9-vYT"/>
                         <outlet property="lblSlouches" destination="7ay-ZU-wL5" id="NjP-Pd-6tG"/>
                         <outlet property="lblTargetRespirationRate" destination="Hvr-cw-zHr" id="PJS-9t-AJ1"/>
                         <outlet property="lblTimeRemaining" destination="8Qf-9K-Ee2" id="dgb-Kx-XHp"/>
@@ -5784,13 +5808,13 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect Prana with your phone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="peI-0T-lcw">
-                                            <rect key="frame" x="81.5" y="12" width="212.5" height="17.5"/>
+                                            <rect key="frame" x="74" y="12" width="227.5" height="19"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="15"/>
                                             <color key="textColor" red="0.25490196078431371" green="0.31764705882352939" blue="0.396078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJs-1v-2rB">
-                                            <rect key="frame" x="19" y="85.5" width="337.5" height="360"/>
+                                            <rect key="frame" x="19" y="87" width="337.5" height="360"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="video-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="uVr-tp-zk4">
                                                     <rect key="frame" x="0.0" y="0.0" width="337.5" height="200"/>
@@ -5814,7 +5838,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     <state key="normal" backgroundImage="ic-triangle"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Successfully connected!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x2F-wr-2d1">
-                                                    <rect key="frame" x="70.5" y="290.5" width="196.5" height="21"/>
+                                                    <rect key="frame" x="65.5" y="290.5" width="206" height="22.5"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="18"/>
                                                     <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -5841,7 +5865,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E97-aE-tgq">
-                                            <rect key="frame" x="47" y="417.5" width="281" height="56"/>
+                                            <rect key="frame" x="47" y="419" width="281" height="56"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="56" id="Zih-jO-h81"/>

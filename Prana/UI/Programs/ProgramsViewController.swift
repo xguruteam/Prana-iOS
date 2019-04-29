@@ -157,6 +157,7 @@ class ProgramsViewController: UIViewController {
             vc.isTutorial = false
             vc.sessionWearing = sessionPosition
             vc.sessionDuration = sessionDuration * 60
+            vc.sessionKind = sessionKind
             self.present(vc, animated: true) {
                 
             }

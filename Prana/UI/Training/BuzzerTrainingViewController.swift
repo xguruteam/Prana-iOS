@@ -48,6 +48,25 @@ class BuzzerTrainingViewController: UIViewController {
     @IBOutlet weak var lblPostureValue: UILabel!
     @IBOutlet weak var btnBack: UIButton!
     
+    @IBOutlet weak var lblBreathingLabel: UILabel!
+    @IBOutlet weak var con1: NSLayoutConstraint!
+    @IBOutlet weak var con2: NSLayoutConstraint!
+    @IBOutlet weak var con3: NSLayoutConstraint!
+    @IBOutlet weak var con4: NSLayoutConstraint!
+    @IBOutlet weak var con5: NSLayoutConstraint!
+    @IBOutlet weak var con6: NSLayoutConstraint!
+    @IBOutlet weak var con7: NSLayoutConstraint!
+    @IBOutlet weak var con8: NSLayoutConstraint!
+    @IBOutlet weak var con9: NSLayoutConstraint!
+    @IBOutlet weak var con10: NSLayoutConstraint!
+    
+    @IBOutlet weak var lblPostureLabel: UILabel!
+    @IBOutlet weak var con11: NSLayoutConstraint!
+    @IBOutlet weak var con12: NSLayoutConstraint!
+    @IBOutlet weak var con13: NSLayoutConstraint!
+    @IBOutlet weak var con14: NSLayoutConstraint!
+    
+    
     var isLiving = false
     
     var objLive: Live?
@@ -57,7 +76,7 @@ class BuzzerTrainingViewController: UIViewController {
     
     var sessionWearing: Int = 0 // Lower Back, 1: Upper Chest
     var sessionDuration: Int = 0
-    
+    var sessionKind: Int = 0 // 0: Breathing and Posture, 1: Breathing Only, 2: Posture Only
     
     var timeRemaining: Int = 0 {
         didSet {
@@ -141,6 +160,47 @@ class BuzzerTrainingViewController: UIViewController {
         
         btnStartStop.isHidden = true
         displayPostureAnimation(1)
+        
+        
+        if sessionKind == 1 {
+            lblPostureLabel.isHidden = true
+            imgPostureAnimation.isHidden = true
+            lblUprightPosture.isHidden = true
+            lblSlouches.isHidden = true
+            lblWearing.isHidden = true
+            btnUpright.isHidden = true
+            postureSensitivityGroup.isHidden = true
+            
+            con11.constant = 250
+            con12.constant = 30
+            con13.constant = 30
+            con14.priority = .required
+            
+            objBuzzer?.useBuzzerForPosture = 0
+            uprightHasBeenSetHandler()
+        }
+        else if sessionKind == 2{
+            lblBuzzerReason.isHidden = true
+            liveGraph.isHidden = true
+            lblBreathingLabel.isHidden = true
+            lblMindfulBreaths.isHidden = true
+            lblTargetRespirationRate.isHidden = true
+            lblBreathingPattern.isHidden = true
+            breathSensitivityGroup.isHidden = true
+            con1.priority = .required
+            con2.priority = .required
+            con3.priority = .required
+            con4.priority = .required
+            con5.priority = .required
+            con7.priority = .defaultLow
+            con6.priority = .required
+            con8.priority = .required
+            con9.constant = 200
+            con10.constant = 200
+        }
+        else {
+            
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
