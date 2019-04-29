@@ -39,6 +39,10 @@ class ProgramsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onLandscapeViewControllerDismiss), name: .landscapeViewControllerDidDismiss, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onDeviceOrientationChange), name: .deviceOrientationDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onVisualViewControllerEnd), name: .visualViewControllerEndSession, object: nil)
 
         tableView.dataSource = self
         tableView.delegate = self
@@ -51,13 +55,37 @@ class ProgramsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+        
+        
 //        tableView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+        
         titleView.roundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 10.0)
 //        tableView.open(at: IndexPath(row: 0, section: 0))
+    }
+    
+    override var shouldAutorotate: Bool {
+        return true
+    }
+    
+    @objc func onLandscapeViewControllerDismiss() {
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+    }
+    
+    @objc func onVisualViewControllerEnd() {
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+    }
+    
+    @objc func onDeviceOrientationChange() {
+        self.setNeedsStatusBarAppearanceUpdate()
+        self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
     }
     
     func reloadPage() {
@@ -160,6 +188,23 @@ class ProgramsViewController: UIViewController {
             vc.sessionKind = sessionKind
             self.present(vc, animated: true) {
                 
+            }
+        }
+        else {
+            if sessionKind == 2 {
+                
+            }
+            else {
+                UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+                
+                let vc = Utils.getStoryboardWithIdentifier(identifier: "VisualTrainingViewController") as! VisualTrainingViewController
+                vc.isTutorial = false
+                vc.sessionKind = sessionKind
+                vc.sessionDuration = sessionDuration
+                vc.sessionWearing = sessionPosition
+                self.present(vc, animated: false) {
+                    
+                }
             }
         }
     }

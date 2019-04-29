@@ -41,6 +41,7 @@ class TutorialVisualViewController: UIViewController {
     }
     
     @objc func onLandscapeViewControllerDismiss() {
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
     }
     
     @objc func onVisualViewControllerEnd() {

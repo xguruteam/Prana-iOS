@@ -72,6 +72,8 @@ class VisualTrainingScene: SKScene {
     
     var visualDelegate: VisualDelegate?
     
+    var isBreathingOnly = false
+    
     var _timer: Timer?
     
     var label : SKLabelNode?
@@ -147,9 +149,10 @@ class VisualTrainingScene: SKScene {
     
     var _calibrationRegionWidth: Double = 600
     
-    convenience init(_ trainingDuration: Int) {
+    convenience init(_ trainingDuration: Int, isBreathingOnly: Bool = false) {
         self.init()
         self.trainingDuration = trainingDuration
+        self.isBreathingOnly = isBreathingOnly
     }
     
     deinit {
@@ -256,7 +259,15 @@ class VisualTrainingScene: SKScene {
         _messageNode.color = .white
         _messageNode.fontName = "Quicksand-Bold"
         _messageNode.fontSize = 20
-        addChild(_messageNode)
+        
+        if isBreathingOnly {
+            _isUprightSet = true
+            // enable start
+            self.visualDelegate?.visualUprightHasBeenSet()
+        }
+        else {
+            addChild(_messageNode)
+        }
     }
     
     func createBird() {

@@ -6774,10 +6774,6 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qRR-A8-tN3" customClass="LiveGraph" customModule="Prana" customModuleProvider="target">
-                                <rect key="frame" x="179.5" y="76" width="187.5" height="333.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jOq-z4-S9Z">
                                 <rect key="frame" x="8" y="36" width="359" height="32"/>
                                 <subviews>
@@ -6858,14 +6854,14 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IgC-Cd-If6">
                                 <rect key="frame" x="8" y="571" width="359" height="88"/>
                                 <subviews>
-                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UFl-1k-3cv">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UFl-1k-3cv">
                                         <rect key="frame" x="143.5" y="8" width="72" height="72"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="72" id="2CZ-Uq-NIT"/>
                                             <constraint firstAttribute="width" constant="72" id="yUa-cJ-XOs"/>
                                         </constraints>
                                     </imageView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ooy-oT-3qv" customClass="SVGView" customModule="Macaw">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ooy-oT-3qv" customClass="SVGView" customModule="Macaw">
                                         <rect key="frame" x="143.5" y="8" width="72" height="72"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
@@ -7170,11 +7166,16 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             <constraint firstItem="qS8-do-iWW" firstAttribute="trailing" secondItem="Dsa-gN-ws6" secondAttribute="trailing" constant="5" id="tvH-Ik-kNN"/>
                                         </constraints>
                                     </view>
+                                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qRR-A8-tN3" customClass="LiveGraph" customModule="Prana" customModuleProvider="target">
+                                        <rect key="frame" x="223.5" y="8" width="127.5" height="72"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="zL3-dh-qoV" firstAttribute="top" secondItem="IgC-Cd-If6" secondAttribute="top" constant="8" id="1ny-tU-TIh"/>
                                     <constraint firstItem="JjX-1E-9Gx" firstAttribute="leading" secondItem="6k7-VO-yuw" secondAttribute="leading" id="9fo-SD-bhh"/>
+                                    <constraint firstItem="qRR-A8-tN3" firstAttribute="leading" secondItem="UFl-1k-3cv" secondAttribute="trailing" constant="8" id="AXm-Cm-PAY"/>
                                     <constraint firstAttribute="bottom" secondItem="2GS-C9-bKP" secondAttribute="bottom" constant="12" id="B25-WD-E3B"/>
                                     <constraint firstAttribute="height" constant="88" id="Ef1-JL-OGW"/>
                                     <constraint firstItem="1W4-BZ-boK" firstAttribute="leading" secondItem="UFl-1k-3cv" secondAttribute="trailing" constant="12" id="H4A-Di-U4n"/>
@@ -7188,9 +7189,12 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                     <constraint firstItem="UFl-1k-3cv" firstAttribute="centerX" secondItem="IgC-Cd-If6" secondAttribute="centerX" id="T7P-zB-wdL"/>
                                     <constraint firstItem="6k7-VO-yuw" firstAttribute="top" secondItem="IgC-Cd-If6" secondAttribute="top" constant="12" id="Uvj-AC-9N7"/>
                                     <constraint firstItem="ooy-oT-3qv" firstAttribute="bottom" secondItem="UFl-1k-3cv" secondAttribute="bottom" id="b9f-Aj-H4t"/>
+                                    <constraint firstAttribute="trailing" secondItem="qRR-A8-tN3" secondAttribute="trailing" constant="8" id="bRF-or-QgG"/>
+                                    <constraint firstAttribute="bottom" secondItem="qRR-A8-tN3" secondAttribute="bottom" constant="8" id="d5c-hi-XdL"/>
                                     <constraint firstAttribute="bottom" secondItem="pr8-rt-yMT" secondAttribute="bottom" constant="12" id="dqE-83-YRo"/>
                                     <constraint firstItem="ooy-oT-3qv" firstAttribute="trailing" secondItem="UFl-1k-3cv" secondAttribute="trailing" id="eAR-vU-SFZ"/>
                                     <constraint firstItem="ooy-oT-3qv" firstAttribute="top" secondItem="UFl-1k-3cv" secondAttribute="top" id="fVW-Ln-xDz"/>
+                                    <constraint firstItem="qRR-A8-tN3" firstAttribute="top" secondItem="IgC-Cd-If6" secondAttribute="top" constant="8" id="phe-97-ROV"/>
                                     <constraint firstItem="zL3-dh-qoV" firstAttribute="centerX" secondItem="IgC-Cd-If6" secondAttribute="centerX" id="uqp-ko-jO8"/>
                                     <constraint firstItem="1W4-BZ-boK" firstAttribute="leading" secondItem="2GS-C9-bKP" secondAttribute="leading" id="zye-sM-tVY"/>
                                     <constraint firstItem="pr8-rt-yMT" firstAttribute="leading" secondItem="6k7-VO-yuw" secondAttribute="leading" id="zzW-SE-7wJ"/>
@@ -7225,19 +7229,15 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="e5B-6Q-Ik1" firstAttribute="centerX" secondItem="Lcc-0U-Jrn" secondAttribute="centerX" id="2o4-Pt-5ja"/>
-                            <constraint firstItem="qRR-A8-tN3" firstAttribute="width" secondItem="Lcc-0U-Jrn" secondAttribute="width" multiplier="0.5" id="2xs-RF-qAD"/>
                             <constraint firstItem="v3v-D7-khE" firstAttribute="centerY" secondItem="Lcc-0U-Jrn" secondAttribute="centerY" id="5GC-on-HX2"/>
                             <constraint firstItem="IgC-Cd-If6" firstAttribute="leading" secondItem="Lcc-0U-Jrn" secondAttribute="leading" constant="8" id="6Yt-U6-EOQ"/>
-                            <constraint firstItem="qRR-A8-tN3" firstAttribute="top" secondItem="jOq-z4-S9Z" secondAttribute="bottom" constant="8" id="8GH-aY-xyd"/>
                             <constraint firstItem="t2R-9Z-sLs" firstAttribute="top" secondItem="IgC-Cd-If6" secondAttribute="bottom" constant="8" id="AWu-qD-5mY"/>
                             <constraint firstItem="jOq-z4-S9Z" firstAttribute="leading" secondItem="Lcc-0U-Jrn" secondAttribute="leading" constant="8" id="Aj0-hD-vRr"/>
-                            <constraint firstAttribute="trailing" secondItem="qRR-A8-tN3" secondAttribute="trailing" constant="8" id="Bcv-jn-kXY"/>
                             <constraint firstAttribute="trailing" secondItem="IgC-Cd-If6" secondAttribute="trailing" constant="8" id="E6F-sz-YXR"/>
                             <constraint firstItem="e5B-6Q-Ik1" firstAttribute="width" secondItem="Lcc-0U-Jrn" secondAttribute="width" id="Lkb-QC-2Ll"/>
                             <constraint firstItem="e5B-6Q-Ik1" firstAttribute="centerY" secondItem="Lcc-0U-Jrn" secondAttribute="centerY" id="ODa-0t-keY"/>
                             <constraint firstItem="v3v-D7-khE" firstAttribute="centerX" secondItem="Lcc-0U-Jrn" secondAttribute="centerX" id="OKx-Ir-mgd"/>
                             <constraint firstItem="e5B-6Q-Ik1" firstAttribute="height" secondItem="Lcc-0U-Jrn" secondAttribute="height" id="RQD-KF-hpj"/>
-                            <constraint firstItem="qRR-A8-tN3" firstAttribute="height" secondItem="Lcc-0U-Jrn" secondAttribute="height" multiplier="0.5" id="bsY-vF-cre"/>
                             <constraint firstAttribute="trailing" secondItem="jOq-z4-S9Z" secondAttribute="trailing" constant="8" id="oE2-b8-2gu"/>
                             <constraint firstItem="jOq-z4-S9Z" firstAttribute="top" secondItem="8Rf-RY-Xng" secondAttribute="bottom" constant="16" id="xBZ-5V-EsC"/>
                         </constraints>
@@ -7259,10 +7259,11 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                         <outlet property="btnPostureSensitivityTitle1" destination="Dsa-gN-ws6" id="Fku-D2-BoX"/>
                         <outlet property="btnPostureSensitivityTitle2" destination="FrX-5T-O6o" id="S1y-bJ-egk"/>
                         <outlet property="btnPostureSensitivityTitle3" destination="yRk-Rv-lha" id="6tm-nj-2pM"/>
+                        <outlet property="btnSetUpright" destination="EYJ-kB-qtV" id="xIX-0a-0tA"/>
                         <outlet property="btnStart" destination="v3v-D7-khE" id="fgE-JN-V3W"/>
                         <outlet property="controlPanel" destination="IgC-Cd-If6" id="uzG-0P-L2W"/>
                         <outlet property="gameView" destination="e5B-6Q-Ik1" id="YXE-tW-Rbk"/>
-                        <outlet property="imgPostureAnimation" destination="ooy-oT-3qv" id="khq-tZ-TBa"/>
+                        <outlet property="imgPostureAnimation" destination="UFl-1k-3cv" id="UDr-hS-Bw6"/>
                         <outlet property="lblPostureValue" destination="zL3-dh-qoV" id="c3D-y3-Uvh"/>
                         <outlet property="lblStatus1" destination="6k7-VO-yuw" id="VLv-2D-HD9"/>
                         <outlet property="lblStatus2" destination="JjX-1E-9Gx" id="ty0-mv-wDl"/>
@@ -7270,11 +7271,12 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                         <outlet property="lblStatus4" destination="emI-ju-qHQ" id="yxM-7V-CmV"/>
                         <outlet property="lblTimeRemaining" destination="Iq8-LZ-PRp" id="qIn-Fv-YSa"/>
                         <outlet property="liveGraphView" destination="qRR-A8-tN3" id="ajr-U2-wSq"/>
+                        <outlet property="postureSensetivityGroup" destination="2GS-C9-bKP" id="B7U-LC-T49"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iFr-Wb-Z8m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5105" y="12"/>
+            <point key="canvasLocation" x="5104.8000000000002" y="11.244377811094454"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Oiy-Yq-JJm">

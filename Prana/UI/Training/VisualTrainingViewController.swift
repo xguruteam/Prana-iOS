@@ -17,10 +17,11 @@ class VisualTrainingViewController: UIViewController {
     @IBOutlet weak var liveGraphView: LiveGraph!
     
     @IBOutlet weak var btnBack: UIButton!
+    @IBOutlet weak var btnSetUpright: UIButton!
     
     @IBOutlet weak var lblTimeRemaining: UILabel!
     
-    @IBOutlet weak var imgPostureAnimation: SVGView!
+    @IBOutlet weak var imgPostureAnimation: UIImageView!
     @IBOutlet weak var lblPostureValue: UILabel!
     @IBOutlet weak var lblStatus1: UILabel!
     @IBOutlet weak var lblStatus2: UILabel!
@@ -34,6 +35,7 @@ class VisualTrainingViewController: UIViewController {
     @IBOutlet weak var btnBreathSensitivityRadio3: UIButton!
     @IBOutlet weak var btnBreathSensitivityTitle3: UIButton!
     
+    @IBOutlet weak var postureSensetivityGroup: UIView!
     @IBOutlet weak var btnPostureSensitivityRadio1: UIButton!
     @IBOutlet weak var btnPostureSensitivityTitle1: UIButton!
     @IBOutlet weak var btnPostureSensitivityRadio2: UIButton!
@@ -56,6 +58,10 @@ class VisualTrainingViewController: UIViewController {
     }
     var isTutorial = false
     var isCompleted = false
+    
+    var sessionWearing: Int = 0 // Lower Back, 1: Upper Chest
+    var sessionDuration: Int = 0
+    var sessionKind: Int = 0 // 0: Breathing and Posture, 1: Breathing Only, 2: Posture Only
     
     var mindfulBreaths: Int = 0 {
         didSet {
@@ -126,10 +132,10 @@ class VisualTrainingViewController: UIViewController {
     var slouches: Int = 0 {
         didSet {
             if slouches < 0 {
-                lblStatus4.text = "Slouches:"
+                lblStatus4.text = "Slouches: Wearing: " + (sessionWearing == 0 ? "Lower Back" : "Upper Chest")
             }
             else {
-                lblStatus4.text = "Slouches: \(slouches)"
+                lblStatus4.text = "Slouches: \(slouches) Wearing: " + (sessionWearing == 0 ? "Lower Back" : "Upper Chest")
             }
         }
     }
@@ -177,7 +183,7 @@ class VisualTrainingViewController: UIViewController {
         isShowButton = false
         isCompleted = false
         
-        let scene = VisualTrainingScene(180)
+        let scene = VisualTrainingScene(sessionDuration * 60, isBreathingOnly: (sessionKind == 1 ? true : false))
         scene.visualDelegate = self
         
         scene.size = CGSize(width: gameView.bounds.size.height, height: gameView.bounds.size.width)
@@ -192,8 +198,22 @@ class VisualTrainingViewController: UIViewController {
         
         objVisual = scene
         
+        
         liveGraphView.objLive = objVisual?.objLive
-        liveGraphView.isHidden = true
+
+        if sessionKind == 1 {
+            imgPostureAnimation.isHidden = true
+            lblStatus3.isHidden = true
+            lblStatus4.isHidden = true
+            postureSensetivityGroup.isHidden = true
+            liveGraphView.isHidden = false
+            btnSetUpright.isHidden = true
+        }
+        else if sessionKind == 2 {
+        }
+        else {
+            liveGraphView.isHidden = true
+        }
         
         // Do any additional setup after loading the view.
     }
@@ -239,6 +259,9 @@ class VisualTrainingViewController: UIViewController {
             self.onEnd()
             return
         }
+        
+        objVisual?.stopSession()
+        
         //MARK: Landscape
         self.dismiss(animated: false) {
             NotificationCenter.default.post(name: .landscapeViewControllerDidDismiss, object: nil)
@@ -301,7 +324,20 @@ class VisualTrainingViewController: UIViewController {
     func displayPostureAnimation(_ whichFrame: Int) {
         var frame = whichFrame
         
-        imgPostureAnimation.fileName = "sit (\(frame))"
+        if sessionWearing == 0 {
+            imgPostureAnimation.image = UIImage(named: "sit (\(frame))")
+        }
+        else {
+            imgPostureAnimation.image = UIImage(named: "stand (\(frame))")
+        }
+    }
+    
+    func uprightHasBeenSetHandler() {
+        if !self.isStarted && !self.isCompleted {
+            if !self.isShowButton {
+                self.showHideStartButton()
+            }
+        }
     }
     
     func showHideControls() {
@@ -367,11 +403,7 @@ extension VisualTrainingViewController: VisualDelegate {
     
     func visualUprightHasBeenSet() {
         DispatchQueue.main.async {
-            if !self.isStarted && !self.isCompleted {
-                if !self.isShowButton {
-                    self.showHideStartButton()
-                }
-            }
+            self.uprightHasBeenSetHandler()
         }
     }
     
