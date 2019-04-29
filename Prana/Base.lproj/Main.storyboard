@@ -741,7 +741,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app-background" translatesAutoresizingMaskIntoConstraints="NO" id="vGN-gk-ERJ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DeT-rV-6Uv" customClass="ExpandableTableView" customModule="ExpandableCell">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DeT-rV-6Uv">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="L5p-1X-wP5">
@@ -1528,7 +1528,7 @@ For each training session:
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="tableView" destination="DeT-rV-6Uv" id="W0h-vw-SjH"/>
+                        <outlet property="tableView" destination="DeT-rV-6Uv" id="bAY-iL-GsV"/>
                         <outlet property="titleConstrain" destination="Jki-Gg-sH0" id="vx8-sC-jXq"/>
                         <outlet property="titleLabel" destination="Q2e-OD-0Aa" id="54O-yT-brt"/>
                         <outlet property="titleSubLabel" destination="Bkg-3a-Awm" id="UDl-Dn-gO8"/>
@@ -2157,13 +2157,19 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upright Posture: 100% (00 of 00 seconds)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADf-TB-rua" userLabel="Upright Posture:  100%">
-                                            <rect key="frame" x="116" y="364.5" width="239" height="14"/>
+                                            <rect key="frame" x="132" y="364.5" width="223" height="28"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                             <color key="textColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slouches:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ay-ZU-wL5" userLabel="Upright Posture:  100%">
+                                            <rect key="frame" x="132" y="397.5" width="223" height="14"/>
+                                            <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
+                                            <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5zU-aU-VSO">
-                                            <rect key="frame" x="120" y="463.5" width="135" height="32"/>
+                                            <rect key="frame" x="152" y="463.5" width="135" height="32"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="32" id="Pbr-qh-xrT"/>
                                                 <constraint firstAttribute="width" constant="135" id="X3E-XB-lod"/>
@@ -2337,9 +2343,16 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                 <action selector="onStartStop:" destination="UdP-wR-Snp" eventType="touchUpInside" id="hTQ-jQ-fgz"/>
                                             </connections>
                                         </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wearing" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o8d-yp-Z61" userLabel="Upright Posture:  100%">
+                                            <rect key="frame" x="132" y="416.5" width="223" height="14"/>
+                                            <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
+                                            <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="7ay-ZU-wL5" secondAttribute="trailing" constant="20" id="0EK-aE-l8f"/>
                                         <constraint firstAttribute="trailing" secondItem="ADf-TB-rua" secondAttribute="trailing" constant="20" id="1U7-WL-iJe"/>
                                         <constraint firstItem="2gg-yn-2Zf" firstAttribute="leading" secondItem="Lz8-BJ-MR8" secondAttribute="leading" id="6Gn-Kf-DfU"/>
                                         <constraint firstItem="f9X-ab-sM2" firstAttribute="leading" secondItem="RYM-IL-29f" secondAttribute="leading" constant="16" id="6Lr-OD-xHL"/>
@@ -2351,18 +2364,22 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                         <constraint firstItem="nkK-aH-qIU" firstAttribute="top" secondItem="5zU-aU-VSO" secondAttribute="bottom" constant="24" id="ARu-wP-lM2"/>
                                         <constraint firstItem="LBb-0o-G8l" firstAttribute="leading" secondItem="Hvr-cw-zHr" secondAttribute="leading" id="Axp-OH-ktH"/>
                                         <constraint firstItem="7C7-E7-2sJ" firstAttribute="bottom" secondItem="f9X-ab-sM2" secondAttribute="bottom" id="Cf9-Om-AvW"/>
+                                        <constraint firstItem="o8d-yp-Z61" firstAttribute="leading" secondItem="f9X-ab-sM2" secondAttribute="trailing" id="Csp-rN-UJP"/>
                                         <constraint firstItem="8Qf-9K-Ee2" firstAttribute="top" secondItem="0f9-4Q-pEK" secondAttribute="bottom" constant="4" id="Doy-Zs-TUe"/>
                                         <constraint firstItem="6En-5k-zh2" firstAttribute="top" secondItem="8Qf-9K-Ee2" secondAttribute="bottom" constant="8" id="F57-UO-67m"/>
                                         <constraint firstItem="2gg-yn-2Zf" firstAttribute="leading" secondItem="lHa-Wo-BfC" secondAttribute="leading" id="KHh-gk-oe9"/>
+                                        <constraint firstItem="7ay-ZU-wL5" firstAttribute="leading" secondItem="f9X-ab-sM2" secondAttribute="trailing" id="PHH-kq-smc"/>
                                         <constraint firstItem="5zU-aU-VSO" firstAttribute="bottom" secondItem="f9X-ab-sM2" secondAttribute="bottom" id="Q5s-q0-iZa"/>
+                                        <constraint firstItem="5zU-aU-VSO" firstAttribute="leading" secondItem="f9X-ab-sM2" secondAttribute="trailing" constant="20" id="QPj-Bd-ykS"/>
                                         <constraint firstItem="Roa-L5-UiV" firstAttribute="top" secondItem="nkK-aH-qIU" secondAttribute="bottom" constant="24" id="RQz-tm-UcX"/>
                                         <constraint firstItem="7C7-E7-2sJ" firstAttribute="trailing" secondItem="f9X-ab-sM2" secondAttribute="trailing" id="Seb-Dr-e7C"/>
                                         <constraint firstItem="6En-5k-zh2" firstAttribute="centerX" secondItem="8Qf-9K-Ee2" secondAttribute="centerX" id="U0C-hL-yHE"/>
+                                        <constraint firstAttribute="trailing" secondItem="o8d-yp-Z61" secondAttribute="trailing" constant="20" id="Uf0-c2-eRp"/>
                                         <constraint firstAttribute="trailing" secondItem="Roa-L5-UiV" secondAttribute="trailing" constant="40" id="Vh5-tx-MO0"/>
+                                        <constraint firstItem="o8d-yp-Z61" firstAttribute="top" secondItem="7ay-ZU-wL5" secondAttribute="bottom" constant="5" id="W8y-oZ-yeP"/>
                                         <constraint firstItem="lHa-Wo-BfC" firstAttribute="leading" secondItem="xz3-Nu-iWN" secondAttribute="leading" constant="16" id="WMR-mb-M5g"/>
                                         <constraint firstItem="Roa-L5-UiV" firstAttribute="leading" secondItem="xz3-Nu-iWN" secondAttribute="leading" constant="40" id="Wkq-H5-uuw"/>
                                         <constraint firstItem="7C7-E7-2sJ" firstAttribute="leading" secondItem="f9X-ab-sM2" secondAttribute="leading" id="XFz-30-uvL"/>
-                                        <constraint firstItem="5zU-aU-VSO" firstAttribute="centerX" secondItem="xz3-Nu-iWN" secondAttribute="centerX" id="anv-iL-1s6"/>
                                         <constraint firstItem="8Qf-9K-Ee2" firstAttribute="centerX" secondItem="xz3-Nu-iWN" secondAttribute="centerX" id="bpb-G3-8cU"/>
                                         <constraint firstItem="7C7-E7-2sJ" firstAttribute="top" secondItem="f9X-ab-sM2" secondAttribute="top" id="brY-CF-ONk"/>
                                         <constraint firstItem="0f9-4Q-pEK" firstAttribute="centerX" secondItem="xz3-Nu-iWN" secondAttribute="centerX" id="dbK-lb-GqI"/>
@@ -2373,7 +2390,8 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                         <constraint firstItem="2gg-yn-2Zf" firstAttribute="top" secondItem="LBb-0o-G8l" secondAttribute="bottom" constant="8" id="gME-Sq-ntr"/>
                                         <constraint firstItem="Lz8-BJ-MR8" firstAttribute="leading" secondItem="lHa-Wo-BfC" secondAttribute="leading" id="gfS-9X-IJT"/>
                                         <constraint firstItem="nkK-aH-qIU" firstAttribute="trailing" secondItem="2gg-yn-2Zf" secondAttribute="trailing" id="jGX-3N-PbU"/>
-                                        <constraint firstItem="ADf-TB-rua" firstAttribute="leading" secondItem="RYM-IL-29f" secondAttribute="trailing" constant="40" id="qkF-hY-ue1"/>
+                                        <constraint firstItem="7ay-ZU-wL5" firstAttribute="top" secondItem="ADf-TB-rua" secondAttribute="bottom" constant="5" id="pjv-ig-LKn"/>
+                                        <constraint firstItem="ADf-TB-rua" firstAttribute="leading" secondItem="f9X-ab-sM2" secondAttribute="trailing" id="qkF-hY-ue1"/>
                                         <constraint firstItem="fwg-W0-Hi4" firstAttribute="top" secondItem="Lz8-BJ-MR8" secondAttribute="bottom" constant="4" id="tcJ-qW-Xo7"/>
                                         <constraint firstItem="LBb-0o-G8l" firstAttribute="top" secondItem="Hvr-cw-zHr" secondAttribute="bottom" constant="2" id="uwz-b4-Wkq"/>
                                         <constraint firstItem="RYM-IL-29f" firstAttribute="top" secondItem="2gg-yn-2Zf" secondAttribute="bottom" constant="24" id="v5k-Kg-dhB"/>
@@ -2415,9 +2433,11 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                         <outlet property="lblBreathingPattern" destination="LBb-0o-G8l" id="HGB-dZ-V98"/>
                         <outlet property="lblBuzzerReason" destination="6En-5k-zh2" id="ytd-vf-UH0"/>
                         <outlet property="lblMindfulBreaths" destination="fwg-W0-Hi4" id="SFn-sd-e25"/>
+                        <outlet property="lblSlouches" destination="7ay-ZU-wL5" id="NjP-Pd-6tG"/>
                         <outlet property="lblTargetRespirationRate" destination="Hvr-cw-zHr" id="PJS-9t-AJ1"/>
                         <outlet property="lblTimeRemaining" destination="8Qf-9K-Ee2" id="dgb-Kx-XHp"/>
                         <outlet property="lblUprightPosture" destination="ADf-TB-rua" id="Ikp-VZ-ZLA"/>
+                        <outlet property="lblWearing" destination="o8d-yp-Z61" id="8wO-vP-qQw"/>
                         <outlet property="liveGraph" destination="lHa-Wo-BfC" id="R5q-ms-t8G"/>
                         <outlet property="postureSensitivityGroup" destination="nkK-aH-qIU" id="Jlu-T5-x3p"/>
                     </connections>

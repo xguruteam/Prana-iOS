@@ -24,7 +24,7 @@ class ProgramsViewController: UIViewController {
     var sessionDuration: Int = 5
     var sessionPattern: Int = 0
 
-    @IBOutlet weak var tableView: ExpandableTableView!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var titleView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var titleSubLabel: UILabel!
@@ -33,12 +33,15 @@ class ProgramsViewController: UIViewController {
     
     var programType: Int = 0
     
+    
+    var isProgramCellOpen = true
+    var isSessionCellOpen = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.expandableDelegate = self
-        tableView.expansionStyle = .multi
-        tableView.animation = .none
+        tableView.dataSource = self
+        tableView.delegate = self
         
         titleSubLabel.isHidden = true
         titleConstrain.constant = 0.0
@@ -58,7 +61,7 @@ class ProgramsViewController: UIViewController {
     }
     
     func reloadPage() {
-        tableView.closeAll()
+//        tableView.closeAll()
         tableView.reloadData()
 //        if isTrainingStarted {
 //            tableView.open(at: IndexPath(row: 1, section: 0))
@@ -70,9 +73,12 @@ class ProgramsViewController: UIViewController {
     
     func onProgramTypeChange(_ type: Int) {
         programType = type
-        tableView.closeAll()
-        tableView.reloadData()
-        tableView.open(at: IndexPath(row: 0, section: 0))
+//        tableView.closeAll()
+        tableView.beginUpdates()
+        tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
+        tableView.endUpdates()
+//        tableView.reloadData()
+//        tableView.open(at: IndexPath(row: 0, section: 0))
 //        tableView.open(at: T##IndexPath)
     }
     
@@ -92,10 +98,13 @@ class ProgramsViewController: UIViewController {
         
         MKProgress.show()
         isTrainingStarted = true
+        isProgramCellOpen = false
+        isSessionCellOpen = true
+        self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         tableView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(1000)) {
 //            self.tableView.closeAll()
-            self.tableView.open(at: IndexPath(row: 1, section: 0))
+//            self.tableView.open(at: IndexPath(row: 1, section: 0))
             MKProgress.hide()
         }
         
@@ -146,7 +155,7 @@ class ProgramsViewController: UIViewController {
         if sessionType == 1 {
             let vc = Utils.getStoryboardWithIdentifier(identifier: "BuzzerTrainingViewController") as! BuzzerTrainingViewController
             vc.isTutorial = false
-            vc.sessionPosture = sessionPosition
+            vc.sessionWearing = sessionPosition
             vc.sessionDuration = sessionDuration * 60
             self.present(vc, animated: true) {
                 
@@ -194,6 +203,320 @@ class ProgramsViewController: UIViewController {
 
     @IBAction func onBack(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func getCellForType(_ type: Int) -> UITableViewCell? {
+        switch type {
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProgramParentCell") as? ExpandableCell else { return UITableViewCell() }
+            cell.arrowImageView.image = UIImage(named: "ic_arrow_down")
+            //        cell.arrowImageView.contentMode = .scaleAspectFit
+            cell.rightMargin = 56.0
+            if isProgramCellOpen {
+                cell.arrowImageView.image = UIImage(cgImage: cell.arrowImageView.image!.cgImage!, scale: 1.0, orientation: .downMirrored)
+            }
+            return cell
+        case 1:
+            let cell1 = tableView.dequeueReusableCell(withIdentifier: "ProgramChildCell") as! ProgramChildCell
+            
+            cell1.notificationContainer.roundCorners(corners: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner], radius: 10.0)
+            
+            cell1.programTypeListner = { [weak self] (type) in
+                guard let self = self else { return }
+                self.onProgramTypeChange(type)
+            }
+            cell1.startTrainingListner = { [weak self] in
+                guard let self = self else { return }
+                self.onTrainingStart()
+            }
+            cell1.notificationTimeListener = { [weak self] (time) in
+                guard let self = self else { return }
+                self.onNotificationTime(time)
+            }
+            cell1.notificationEnableChangeListener = { [weak self] (isEnable) in
+                guard let self = self else { return }
+                self.onNotificationEnableChange(isEnable)
+            }
+            cell1.customBreathingGoalChangeListener = { [weak self] (goal) in
+                guard let self = self else { return }
+                self.onCustomBreathingGoalChange(goal)
+            }
+            cell1.customPostureGoalChangeListener = { [weak self] (goal) in
+                guard let self = self else { return }
+                self.onCustomPostureGoalChange(goal)
+            }
+            
+            if programType == 0 {
+                cell1.fourteenContainer.isHidden = false
+                cell1.customContainer.isHidden = true
+                cell1.goalsContainer.isHidden = true
+                cell1.dailyButton.isClicked = true
+                cell1.customButton.isClicked = false
+                //                cell1.startButton.setTitle("START 14 DAY PROGRAM", for: .normal)
+            }
+            else {
+                cell1.fourteenContainer.isHidden = true
+                cell1.customContainer.isHidden = false
+                cell1.goalsContainer.isHidden = false
+                cell1.dailyButton.isClicked = false
+                cell1.customButton.isClicked = true
+                //                cell1.startButton.setTitle("START CUSTOM TRAINING", for: .normal)
+            }
+            
+            if isTrainingStarted {
+                cell1.programContainer.isHidden = true
+                cell1.fourteenContainer.isHidden = true
+                cell1.lblCustomDescription.isHidden = true
+                if programType == 0 {
+                    cell1.startButton.setTitle("CANCEL 14 DAY PROGRAM", for: .normal)
+                }
+                else {
+                    cell1.startButton.setTitle("UPDATE CUSTOM TRAINING", for: .normal)
+                }
+            }
+            else {
+                cell1.programContainer.isHidden = false
+                cell1.fourteenContainer.isHidden = false
+                cell1.lblCustomDescription.isHidden = false
+                if programType == 0 {
+                    cell1.startButton.setTitle("START 14 DAY PROGRAM", for: .normal)
+                }
+                else {
+                    cell1.startButton.setTitle("START CUSTOM TRAINING", for: .normal)
+                }
+            }
+            
+            cell1.notificationTime = self.notificationTime
+            cell1.swNotification.isOn = isNotificationEnable
+            cell1.customBreathingGoal = self.customBreathingGoal
+            cell1.customPostureGoal = self.customPostureGoal
+            
+            return cell1
+        case 2:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SessionParentCell") as? ExpandableCell else { return UITableViewCell() }
+            cell.arrowImageView.image = UIImage(named: "ic_arrow_down")
+            //        cell.arrowImageView.contentMode = .scaleAspectFit
+            cell.rightMargin = 56.0
+            if isSessionCellOpen {
+                cell.arrowImageView.image = UIImage(cgImage: cell.arrowImageView.image!.cgImage!, scale: 1.0, orientation: .downMirrored)
+            }
+            cell.roundCorners(corners: [.layerMinXMinYCorner, .layerMinXMaxYCorner], radius: 10.0)
+            return cell
+        case 3:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SessionChildCell") as! SessionChildCell
+            cell.settingContainer.roundCorners(corners: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner], radius: 10.0)
+            
+            if programType == 0 {
+                cell.constrain1.constant = 30
+                cell.constrain2.constant = 40
+            }
+            else {
+                cell.constrain1.constant = 200
+                cell.constrain2.constant = 20
+            }
+            
+            cell.kindChangeListener = { [weak self] (kind) in
+                guard let self = self else { return }
+                self.onSessionKindChange(kind)
+            }
+            
+            cell.typeChangeListener = { [weak self] (type) in
+                guard let self = self else { return }
+                self.onSessionTypeChange(type)
+            }
+            
+            cell.positionChangeListener = { [weak self] (position) in
+                guard let self = self else { return }
+                self.onSessionPositionChange(position)
+            }
+            cell.sessionDurationChangeListener = { [weak self] (duration) in
+                self?.onSessionDurationChange(duration)
+            }
+            
+            cell.sessionPatternChangeListener = { [weak self] (pattern) in
+                self?.onSessionPatternChange(pattern)
+            }
+            
+            cell.sessionStartListener = { [weak self] in
+                self?.onSessionStart()
+            }
+            
+            cell.changeKind(sessionKind)
+            cell.changeType(sessionType)
+            cell.changePosition(sessionPosition)
+            cell.sessionDuration = sessionDuration
+            cell.sessionPattern = sessionPattern
+            
+            return cell
+        default:
+            break
+        }
+        
+        return nil
+    }
+    
+    func getHeightForType(_ type: Int) -> CGFloat {
+        switch type {
+        case 0: // ProgramParentCell
+            return 50
+        case 1:
+            if isTrainingStarted {
+                if programType == 0 {
+                    return 740 - 445
+                }
+                else {
+                    return 995 - 418
+                }
+            }
+            else {
+                if programType == 0 {
+                    return 740
+                }
+                else {
+                    return 995
+                }
+            }
+        case 2:
+            return 50
+        case 3:
+            if programType == 0 {
+                return 550
+            }
+            return 550+170
+        default:
+            break
+        }
+        
+        return 0.0
+    }
+        
+}
+
+extension ProgramsViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        switch indexPath.row {
+        case 0:
+            return getCellForType(0)!
+        case 1:
+            if isProgramCellOpen {
+                return getCellForType(1)!
+            }
+            else {
+                return getCellForType(2)!
+            }
+        case 2:
+            if isProgramCellOpen {
+                return getCellForType(2)!
+            }
+            else {
+                return getCellForType(3)!
+            }
+        case 3:
+            return getCellForType(3)!
+        default:
+            break
+        }
+        
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.row {
+        case 0:
+            return getHeightForType(0)
+        case 1:
+            if isProgramCellOpen {
+                return getHeightForType(1)
+            }
+            else {
+                return getHeightForType(2)
+            }
+        case 2:
+            if isProgramCellOpen {
+                return getHeightForType(2)
+            }
+            else {
+                return getHeightForType(3)
+            }
+        case 3:
+            return getHeightForType(3)
+        default:
+            break
+        }
+        return 0.0
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        var count = 0
+        if isTrainingStarted {
+            count = 2
+        }
+        else {
+            count = 1
+        }
+        
+        if isProgramCellOpen {
+            count += 1
+        }
+        
+        if isSessionCellOpen {
+            count += 1
+        }
+        
+        return count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.beginUpdates()
+        switch indexPath.row {
+        case 0:
+            if isProgramCellOpen {
+                isProgramCellOpen = false
+                tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+                tableView.deleteRows(at: [IndexPath(row: 1, section: 0)], with: .fade)
+            }
+            else {
+                isProgramCellOpen = true
+                tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+                tableView.insertRows(at: [IndexPath(row: 1, section: 0)], with: .fade)
+            }
+        case 1:
+            if isProgramCellOpen == false {
+                if isSessionCellOpen {
+                    isSessionCellOpen = false
+                    tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
+                    tableView.deleteRows(at: [IndexPath(row: 2, section: 0)], with: .fade)
+                }
+                else {
+                    isSessionCellOpen = true
+                    tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
+                    tableView.insertRows(at: [IndexPath(row: 2, section: 0)], with: .fade)
+                }
+            }
+            break
+        case 2:
+            if isProgramCellOpen {
+                if isSessionCellOpen {
+                    isSessionCellOpen = false
+                    tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .automatic)
+                    tableView.deleteRows(at: [IndexPath(row: 3, section: 0)], with: .fade)
+                }
+                else {
+                    isSessionCellOpen = true
+                    tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .automatic)
+                    tableView.insertRows(at: [IndexPath(row: 3, section: 0)], with: .fade)
+                }
+            }
+            break
+        case 3:
+            break
+        default:
+            break
+        }
+        tableView.endUpdates()
     }
 }
 

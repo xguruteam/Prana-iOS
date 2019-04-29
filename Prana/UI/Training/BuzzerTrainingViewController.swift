@@ -28,8 +28,8 @@ class BuzzerTrainingViewController: UIViewController {
     @IBOutlet weak var lblUprightPosture: UILabel!
     
     @IBOutlet weak var btnUpright: UIButton!
-    //    @IBOutlet weak var lblSlouches: UILabel!
-    //    @IBOutlet weak var lblWearing: UILabel!
+    @IBOutlet weak var lblSlouches: UILabel!
+    @IBOutlet weak var lblWearing: UILabel!
     //    @IBOutlet weak var btnNext: UIBarButtonItem!
     
     @IBOutlet weak var imgPostureAnimation: UIImageView!
@@ -55,7 +55,7 @@ class BuzzerTrainingViewController: UIViewController {
     var isTutorial = false
     var isCompleted = false
     
-    var sessionPosture: Int = 0 // Lower Back, 1: Upper Chest
+    var sessionWearing: Int = 0 // Lower Back, 1: Upper Chest
     var sessionDuration: Int = 0
     
     
@@ -125,6 +125,8 @@ class BuzzerTrainingViewController: UIViewController {
         lblBreathingPattern.text = "Breathing Pattern: SLOWING PATTERN"
         
         lblUprightPosture.text = "Upright Posture:"
+        
+        lblWearing.text = "Wearing: " + (sessionWearing == 0 ? "Lower Back" : "Upper Chest")
         
         
         objBuzzer = Buzzer(pattern: 0, subPattern: 5, duration: timeRemaining, live: objLive!)
@@ -259,7 +261,7 @@ class BuzzerTrainingViewController: UIViewController {
     
     func displayPostureAnimation(_ whichFrame: Int) {
         var frame = whichFrame
-        if sessionPosture == 0 {
+        if sessionWearing == 0 {
             imgPostureAnimation.image = UIImage(named: "sit (\(frame))")
         }
         else {
@@ -366,7 +368,7 @@ extension BuzzerTrainingViewController: BuzzerDelegate {
     
     func buzzerNewSlouches(_ slouches: Int) {
         DispatchQueue.main.async {
-//            self.lblSlouches.text = "Slouches: \(slouches)"
+            self.lblSlouches.text = "Slouches: \(slouches)"
         }
     }
     
