@@ -60,10 +60,40 @@ class TabTrainViewController: UIViewController {
         else {
             lblMindfulBreathTime.text = "0"
             lblBreathResult.text = "0% Mindful"
-            lblBreathGoal.text = "\(dataController?.breathingGoals ?? 0) mins"
             lblUprightPostureTime.text = "0"
             lblPostureResult.text = "0% Upright"
+            lblBreathGoal.text = "\(dataController?.breathingGoals ?? 0) mins"
             lblPostureGoal.text = "\(dataController?.postureGoals ?? 0) mins"
+            
+            calculateSummary()
+        }
+    }
+    
+    func calculateSummary() {
+        if let sessions = dataController?.fetchSessions(), let _ = sessions.first {
+            let (breathingElapsed, postureElapsed, mindfulDuration, uprightDuration) = sessions.reduce((0, 0, 0, 0)) { (acc, session) -> (Int, Int, Int, Int) in
+                var result = acc
+                if session.kind == 1 {
+                    result.0 += session.duration
+                }
+                else if session.kind == 2 {
+                    result.1 += session.duration
+                }
+                else {
+                    result.0 += session.duration
+                    result.1 += session.duration
+                }
+                result.2 += session.mindful
+                result.3 += session.upright
+                
+                return result
+            }
+            
+            lblMindfulBreathTime.text = "\(breathingElapsed / 60)"
+            lblBreathResult.text = "\(mindfulDuration * 100 / breathingElapsed)% Mindful"
+            lblUprightPostureTime.text = "\(postureElapsed / 60)"
+            lblPostureResult.text = "\(uprightDuration * 100 / postureElapsed)% Upright"
+            
         }
     }
     

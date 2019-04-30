@@ -379,6 +379,22 @@ class VisualTrainingViewController: UIViewController {
     }
     
     func onEnd() {
+        var duration = sessionDuration * 60
+        if timeRemaining < duration, breathCount > 0 {
+            if timeRemaining > 0 {
+                duration -= timeRemaining
+            }
+            
+            let mindful = duration * mindfulBreaths / breathCount
+            let upright = uprightDuration
+            
+            let session = Session(duration: duration, kind: sessionKind, mindful: mindful, upright: upright)
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
+                dataController.addSessionRecord(session)
+            }
+        }
+        
+        
         //MARK: Landscape
         self.dismiss(animated: false) {
             NotificationCenter.default.post(name: .visualViewControllerEndSession, object: nil)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Session: NSObject {
+class SessionTemp: NSObject {
     var sessionType: Int = 0
     var elasped: Int = 0
     var startTime: Date = Date()

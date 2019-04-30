@@ -92,19 +92,19 @@ class FirstViewController: UIViewController {
     
     @IBAction func onGenTrainingClicked(_ sender: Any) {
         
-        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        hud.mode = .indeterminate
-        hud.label.text = "Press the button to end session"
-        
-        hud.button.setTitle("End Session", for: .normal)
-        hud.button.addTarget(self, action: #selector(onEnd(_:)), for: .touchUpInside)
-        
-        if let _ = timer {
-            self.timer?.invalidate()
-        }
-        
-        currentSession = Session()
-        sessionInterval = Float.random(in: 0.5 ... 2)
+//        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+//        hud.mode = .indeterminate
+//        hud.label.text = "Press the button to end session"
+//
+//        hud.button.setTitle("End Session", for: .normal)
+//        hud.button.addTarget(self, action: #selector(onEnd(_:)), for: .touchUpInside)
+//
+//        if let _ = timer {
+//            self.timer?.invalidate()
+//        }
+//
+//        currentSession = Session()
+//        sessionInterval = Float.random(in: 0.5 ... 2)
 //        timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(exactly: sessionInterval) ?? 1.0, repeats: true, block: { (_) in
 //            let now = Date()
 //            let elapsed = now.timeIntervalSince(self.currentSession!.startTime)
@@ -141,85 +141,85 @@ class FirstViewController: UIViewController {
             self.timer?.invalidate()
         }
         
-        currentSession = Session()
-        currentSession?.sessionType = 1
-        sessionInterval = Float.random(in: 0.5 ... 2)
+//        currentSession = Session()
+//        currentSession?.sessionType = 1
+//        sessionInterval = Float.random(in: 0.5 ... 2)
     }
     
     @IBAction func onEnd(_ sender: Any) {
-        if let _ = timer {
-            self.timer?.invalidate()
-            self.timer = nil
-        }
-
-        guard let session = self.currentSession else {
-            return
-        }
-        
-        let now = Date()
-        let elapsed = now.timeIntervalSince(self.currentSession!.startTime)
-
-        session.elasped = Int(elapsed)
-        session.uprightScore = Float.random(in: 0 ... 100) // Float(session.slouches.count) / Float(session.breathings.count) * 100.0
-        session.position = Int.random(in: 0 ... 1)
-        
-//        let mindfulCount = session.breathings.reduce(0) { (count, breathing) -> Int in
-//            if breathing.isMindful == true {
-//                return count + 1
-//            }
-//            return count
+//        if let _ = timer {
+//            self.timer?.invalidate()
+//            self.timer = nil
 //        }
-        
-//        session.mindfulScore = Float(mindfulCount) / Float(session.breathings.count) * 100.0
-        
-        session.mindfulScore = Float.random(in: 0 ... 100)
-
-        session.pattern = 0
-        
-        session.avgRR = 60.0 / self.sessionInterval
-        
-        print(session.getDictionary())
-        
-        postSession()
-        
-        MBProgressHUD.hide(for: self.view, animated: true)
+//
+//        guard let session = self.currentSession else {
+//            return
+//        }
+//
+//        let now = Date()
+//        let elapsed = now.timeIntervalSince(self.currentSession!.startTime)
+//
+//        session.elasped = Int(elapsed)
+//        session.uprightScore = Float.random(in: 0 ... 100) // Float(session.slouches.count) / Float(session.breathings.count) * 100.0
+//        session.position = Int.random(in: 0 ... 1)
+//
+////        let mindfulCount = session.breathings.reduce(0) { (count, breathing) -> Int in
+////            if breathing.isMindful == true {
+////                return count + 1
+////            }
+////            return count
+////        }
+//
+////        session.mindfulScore = Float(mindfulCount) / Float(session.breathings.count) * 100.0
+//
+//        session.mindfulScore = Float.random(in: 0 ... 100)
+//
+//        session.pattern = 0
+//
+//        session.avgRR = 60.0 / self.sessionInterval
+//
+//        print(session.getDictionary())
+//
+//        postSession()
+//
+//        MBProgressHUD.hide(for: self.view, animated: true)
     }
     
     func postSession() {
-        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        hud.mode = .indeterminate
-        hud.label.text = "Loading..."
-        
-        let param: Parameters = self.currentSession!.getDictionary()
-        
-        let userdefaults = UserDefaults.standard
-        let token = userdefaults.string(forKey: KEY_TOKEN)
-        
-        
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(token!)"
-        ]
-        
-        APIClient.sessionManager.request(APIClient.BaseURL + "trainsessions", method: .post, parameters: param, encoding: JSONEncoding.default, headers: headers)
-            .validate(statusCode: 200..<300)
-            .responseJSON {(response) in
-                switch response.result {
-                case .success:
-                    let alertController = UIAlertController(title: "Success", message:
-                        "Upload session success", preferredStyle: UIAlertController.Style.alert)
-                    alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default,handler: nil))
-                    self.present(alertController, animated: false, completion: nil)
-                    break
-                case .failure:
-                    let alertController = UIAlertController(title: "Error", message:
-                        "Upload session failed", preferredStyle: UIAlertController.Style.alert)
-                    alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default,handler: nil))
-                    self.present(alertController, animated: false, completion: nil)
-                    break
-                }
-                MBProgressHUD.hide(for: self.view, animated: true)
-        }
+//        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+//        hud.mode = .indeterminate
+//        hud.label.text = "Loading..."
+//        
+//        let param: Parameters = self.currentSession!.getDictionary()
+//        
+//        let userdefaults = UserDefaults.standard
+//        let token = userdefaults.string(forKey: KEY_TOKEN)
+//        
+//        
+//        let headers: HTTPHeaders = [
+//            "Content-Type": "application/json",
+//            "Authorization": "Bearer \(token!)"
+//        ]
+//        
+//        APIClient.sessionManager.request(APIClient.BaseURL + "trainsessions", method: .post, parameters: param, encoding: JSONEncoding.default, headers: headers)
+//            .validate(statusCode: 200..<300)
+//            .responseJSON {(response) in
+//                switch response.result {
+//                case .success:
+//                    let alertController = UIAlertController(title: "Success", message:
+//                        "Upload session success", preferredStyle: UIAlertController.Style.alert)
+//                    alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default,handler: nil))
+//                    self.present(alertController, animated: false, completion: nil)
+//                    break
+//                case .failure:
+//                    let alertController = UIAlertController(title: "Error", message:
+//                        "Upload session failed", preferredStyle: UIAlertController.Style.alert)
+//                    alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default,handler: nil))
+//                    self.present(alertController, animated: false, completion: nil)
+//                    break
+//                }
+//                MBProgressHUD.hide(for: self.view, animated: true)
+//        }
     }
     
     /*

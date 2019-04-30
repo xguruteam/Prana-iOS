@@ -11,6 +11,7 @@ import CoreData
 import UIKit
 
 typealias SettingsManagedObject = NSManagedObject
+typealias SessionManagedObject = NSManagedObject
 
 class DataController {
     var managedObjectContext: NSManagedObjectContext? = nil
@@ -34,7 +35,8 @@ class DataController {
             return
         }
         managedObjectContext = appDelegate.persistentContainer.viewContext
-        clearSettings()
+//        clearSettings()
+//        clearSessions()
         loadSettings()
     }
     
@@ -111,6 +113,71 @@ class DataController {
             
             if let settings = result.first {
                 managedContext.delete(settings)
+                
+                do {
+                    try managedContext.save()
+                }
+                catch {
+                    print(error)
+                }
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    func addSessionRecord(_ session: Session) {
+        guard let managedContext = managedObjectContext else { return }
+        let sessionEntity = NSEntityDescription.entity(forEntityName: "Sessions", in: managedContext)!
+        
+        let result = NSManagedObject(entity: sessionEntity, insertInto: managedContext)
+        result.setValue(session.duration, forKey: "duration")
+        result.setValue(session.kind, forKey: "kind")
+        result.setValue(session.mindful, forKey: "mindful")
+        result.setValue(session.upright, forKey: "upright")
+        
+        do {
+            try managedContext.save()
+        }
+        catch {
+            print(error)
+        }
+    }
+    
+    func fetchSessions() -> [Session] {
+        guard let managedContext = managedObjectContext else { return [] }
+        let fetchRequest = NSFetchRequest<SessionManagedObject>(entityName: "Sessions")
+        
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            let sessions = result.map(self.toSession)
+            
+            return sessions as! [Session]
+        } catch let error as NSError {
+            NSLog("Could not fetch readings. \(error), \(error.userInfo)")
+        }
+        return []
+    }
+    
+    func toSession(_ object: SessionManagedObject) -> Session? {
+        if let duration = object.value(forKey: "duration") as? Int,
+            let mindful = object.value(forKey: "mindful") as? Int,
+            let upright = object.value(forKey: "upright") as? Int,
+            let kind = object.value(forKey: "kind") as? Int {
+            
+            return Session(duration: duration, kind: kind, mindful: mindful, upright: upright)
+        }
+        return nil
+    }
+    
+    func clearSessions() {
+        guard let managedContext = managedObjectContext else { return }
+        let fetchRequest = NSFetchRequest<SessionManagedObject>(entityName: "Sessions")
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            
+            result.each { (_, session) in
+                managedContext.delete(session)
                 
                 do {
                     try managedContext.save()
