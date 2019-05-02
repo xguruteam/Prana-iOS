@@ -401,7 +401,7 @@ class ProgramsViewController: UIViewController {
             if isTrainingStarted {
                 cell1.programContainer.isHidden = true
                 cell1.fourteenContainer.isHidden = true
-                cell1.lblCustomDescription.isHidden = true
+                cell1.customContainer.isHidden = true
                 if programType == 0 {
                     cell1.startButton.setTitle("CANCEL 14 DAY PROGRAM", for: .normal)
                 }
@@ -500,7 +500,7 @@ class ProgramsViewController: UIViewController {
                     return 740 - 445
                 }
                 else {
-                    return 995 - 418
+                    return 1000 - 425
                 }
             }
             else {
@@ -508,7 +508,7 @@ class ProgramsViewController: UIViewController {
                     return 740
                 }
                 else {
-                    return 995
+                    return 1000
                 }
             }
         case 2:
@@ -796,7 +796,7 @@ extension ProgramsViewController: ExpandableDelegate {
                     return [740 - 445]
                 }
                 else {
-                    return [995 - 418]//[740]
+                    return [1100 - 425]//[740]
                 }
             }
             else {
@@ -804,7 +804,7 @@ extension ProgramsViewController: ExpandableDelegate {
                     return [740]
                 }
                 else {
-                    return [995]//[740]
+                    return [1100]//[740]
                 }
             }
             

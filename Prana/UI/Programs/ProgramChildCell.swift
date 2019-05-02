@@ -27,6 +27,8 @@ class ProgramChildCell: UITableViewCell {
     @IBOutlet weak var goalsContainer: UIView!
     @IBOutlet weak var notificationContainer: UIView!
     
+    @IBOutlet weak var lbl14Description: UILabel!
+    
     var programTypeListner: ((Int) -> Void)?
     var startTrainingListner: (() -> Void)?
     var notificationTimeListener: ((Date) -> Void)?
@@ -75,6 +77,60 @@ class ProgramChildCell: UITableViewCell {
             guard let self = self else { return }
             self.openPostureGoal()
         }
+        
+        
+        let text: [AttributedTextBlock] = [
+            .list("Automatically sets your daily training minutes for breathing and posture, with increasing times over the 14 days.\n"),
+            .list("Automatically selects your breath training pattern (slower breathing and stress reduction).\n"),
+            .list("Automatically selects when to wear Prana on your lower back or upper chest.\n"),
+            .normal("For each training session:\n"),
+            .list("Choose whether to train Breathing & Posture, Breathing Only, or Posture Only\n."),
+            .list("Choose the length of the session.\n"),
+            .list("Choose whether to use Visual or Buzzer training."),
+        ]
+        
+        lbl14Description.attributedText = text.map {
+            let att = NSMutableAttributedString(attributedString: $0.text)
+            if $0.text.string.contains("For each") {
+                att.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "Quicksand-Bold", size: 14), range: NSRange(location: 0, length: $0.text.length))
+            }
+            else {
+                att.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "Quicksand-Medium", size: 13), range: NSRange(location: 0, length: $0.text.length))
+            }
+            
+            let style = NSMutableParagraphStyle()
+            style.lineSpacing = 0
+            att.addAttribute(.paragraphStyle, value: style, range: NSRange(location: 0, length: $0.text.length))
+            return att
+            }.joined(separator: "\n")
+        lbl14Description.textColor = UIColor(hexString: "#79859f")
+        
+        
+        let text2: [AttributedTextBlock] = [
+            .list("You set your daily training minute goals for breathing and posture.\n"),
+            .normal("For each training session:\n"),
+            .list("Choose whether to train Breathing & Posture, Breathing Only, or Posture Only.\n"),
+            .list("Choose the breathing pattern to train with from our gallery of patterns.\n"),
+            .list("Choose whether to train your lower back or upper back posture.\n"),
+            .list("Choose the length of the session.\n"),
+            .list("Choose whether to use Visual or Buzzer training."),
+        ]
+        
+        lblCustomDescription.attributedText = text2.map {
+            let att = NSMutableAttributedString(attributedString: $0.text)
+            if $0.text.string.contains("For each") {
+                att.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "Quicksand-Bold", size: 14), range: NSRange(location: 0, length: $0.text.length))
+            }
+            else {
+                att.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "Quicksand-Medium", size: 13), range: NSRange(location: 0, length: $0.text.length))
+            }
+            
+            let style = NSMutableParagraphStyle()
+            style.lineSpacing = 0
+            att.addAttribute(.paragraphStyle, value: style, range: NSRange(location: 0, length: $0.text.length))
+            return att
+            }.joined(separator: "\n")
+        lblCustomDescription.textColor = UIColor(hexString: "#79859f")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
