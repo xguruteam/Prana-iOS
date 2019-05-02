@@ -12,12 +12,12 @@ class TabTrainViewController: UIViewController {
 
     @IBOutlet weak var container: UIView!
     
-    @IBOutlet weak var breathCircle: UIView!
+    @IBOutlet weak var breathCircle: PranaCircleProgressView!
     @IBOutlet weak var lblMindfulBreathTime: UILabel!
     @IBOutlet weak var lblBreathResult: UILabel!
     @IBOutlet weak var lblBreathGoal: UILabel!
     
-    @IBOutlet weak var postureCircle: UIView!
+    @IBOutlet weak var postureCircle: PranaCircleProgressView!
     @IBOutlet weak var lblUprightPostureTime: UILabel!
     @IBOutlet weak var lblPostureResult: UILabel!
     @IBOutlet weak var lblPostureGoal: UILabel!
@@ -89,11 +89,29 @@ class TabTrainViewController: UIViewController {
                 return result
             }
             
-            lblMindfulBreathTime.text = "\(breathingElapsed / 60)"
             lblBreathResult.text = "\(mindfulDuration * 100 / breathingElapsed)% Mindful"
-            lblUprightPostureTime.text = "\(postureElapsed / 60)"
             lblPostureResult.text = "\(uprightDuration * 100 / postureElapsed)% Upright"
             
+            lblMindfulBreathTime.text = "\(breathingElapsed / 60)"
+            lblUprightPostureTime.text = "\(postureElapsed / 60)"
+            
+            breathCircle.progress = CGFloat(breathingElapsed / 60) / CGFloat(dataController!.breathingGoals)
+            
+            postureCircle.progress = CGFloat(postureElapsed / 60) / CGFloat(dataController!.postureGoals)
+            
+            breathCircle.progress = 1.0
+            
+            postureCircle.progress = 1.0
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100), execute: {
+                self.breathCircle.startAnimation()
+//                self.postureCircle.startAnimation()
+            })
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100), execute: {
+//                self.breathCircle.startAnimation()
+                self.postureCircle.startAnimation()
+            })
         }
     }
     

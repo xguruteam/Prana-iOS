@@ -88,6 +88,7 @@
 		CAAF9D3822737952003232C4 /* GradientSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF9D0322737951003232C4 /* GradientSlider.swift */; };
 		CAAF9D3922737952003232C4 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF9D0422737951003232C4 /* TextField.swift */; };
 		CAAF9D3A22737952003232C4 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF9D0522737951003232C4 /* Button.swift */; };
+		CAB2AFDD227AAE570085146C /* PranaCircleProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2AFDC227AAE570085146C /* PranaCircleProgressView.swift */; };
 		CAC191C2226E592F009E04B5 /* PranaExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC191C1226E592F009E04B5 /* PranaExpandableCell.swift */; };
 		CAC36BCE2249A05E00B4FF1F /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC36BCD2249A05E00B4FF1F /* TestData.swift */; };
 		CAC46CCD223A8E95004691F4 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */; };
@@ -275,6 +276,7 @@
 		CAAF9D0322737951003232C4 /* GradientSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientSlider.swift; sourceTree = "<group>"; };
 		CAAF9D0422737951003232C4 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		CAAF9D0522737951003232C4 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		CAB2AFDC227AAE570085146C /* PranaCircleProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PranaCircleProgressView.swift; sourceTree = "<group>"; };
 		CAC191C1226E592F009E04B5 /* PranaExpandableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranaExpandableCell.swift; sourceTree = "<group>"; };
 		CAC36BCD2249A05E00B4FF1F /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
@@ -868,6 +870,7 @@
 		CAC191C0226E58FB009E04B5 /* Reusable */ = {
 			isa = PBXGroup;
 			children = (
+				CAB2AFDC227AAE570085146C /* PranaCircleProgressView.swift */,
 				CAC191C1226E592F009E04B5 /* PranaExpandableCell.swift */,
 				CAAC19812270D2EF001DC02D /* PranaDropDown.swift */,
 				CAAC19832270D309001DC02D /* PranaDropDown.xib */,
@@ -1174,6 +1177,7 @@
 				CAE67086227231A70099D72C /* SessionChildCell.swift in Sources */,
 				D79A36D9222838820085D3FA /* APIClient.swift in Sources */,
 				CA48E58B22671D93002CFA19 /* UIColor+colorFromHex.swift in Sources */,
+				CAB2AFDD227AAE570085146C /* PranaCircleProgressView.swift in Sources */,
 				CAAF9D3922737952003232C4 /* TextField.swift in Sources */,
 				CA48E58C22671D93002CFA19 /* UIColor+Utils.swift in Sources */,
 				CAAF9D2F22737952003232C4 /* DatePickerViewController.swift in Sources */,
@@ -1411,17 +1415,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = D4J7AW2S69;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U37J473DVK;
 				INFOPLIST_FILE = Prana/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.prana.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = All_Dev_160129;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1433,10 +1437,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U37J473DVK;
 				INFOPLIST_FILE = Prana/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1173,7 +1172,7 @@ For each training session:
                                         <rect key="frame" x="0.0" y="1233" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lau-f3-8di" id="6KQ-uc-e2N">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5r1-xa-Aiv">
@@ -1215,7 +1214,7 @@ For each training session:
                                         <rect key="frame" x="0.0" y="1283" width="375" height="550"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NrF-44-bER" id="OF5-Kr-tuZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="550"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="549.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Jf-VP-Gdl">
@@ -5687,13 +5686,13 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make sure Prana is charged" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rYh-ek-25h">
-                                            <rect key="frame" x="94" y="12" width="187" height="17.5"/>
+                                            <rect key="frame" x="89.5" y="12" width="196.5" height="19"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="15"/>
                                             <color key="textColor" red="0.25490196078431371" green="0.31764705882352939" blue="0.396078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p67-YY-Bxt">
-                                            <rect key="frame" x="19" y="85.5" width="337.5" height="374"/>
+                                            <rect key="frame" x="19" y="87" width="337.5" height="374"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="video-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="hhb-XY-cUC">
                                                     <rect key="frame" x="0.0" y="0.0" width="337.5" height="208"/>
@@ -5702,7 +5701,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpN-u1-PQk">
-                                                    <rect key="frame" x="16" y="224" width="305.5" height="75"/>
+                                                    <rect key="frame" x="16" y="224" width="305.5" height="80"/>
                                                     <string key="text">Before proceeding to the next step, make sure Prana is fully charged by using the provided USB cable. The light on the device will turn green when fully charged.</string>
                                                     <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="16"/>
                                                     <color key="textColor" red="0.39205139880000001" green="0.39667910340000001" blue="0.41570192579999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -5736,7 +5735,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wca-nI-6sA">
-                                            <rect key="frame" x="47" y="431.5" width="281" height="56"/>
+                                            <rect key="frame" x="47" y="433" width="281" height="56"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="56" id="0Lz-oV-Dfn"/>
@@ -6313,7 +6312,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     <constraint firstAttribute="width" constant="120" id="rp2-6U-hrG"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iAi-TN-aeS">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iAi-TN-aeS" customClass="PranaCircleProgressView" customModule="Prana" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -6321,14 +6320,17 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     <constraint firstAttribute="width" constant="120" id="GaT-Nf-Gy6"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                                        <color key="value" red="0.29803921568627451" green="0.8901960784313725" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                        <real key="value" value="2"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                                        <color key="value" red="0.10196078431372549" green="0.58823529411764708" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="60"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
+                                                        <real key="value" value="6"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="circleShadowColor">
+                                                        <color key="value" red="0.10980392160000001" green="0.59999999999999998" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
@@ -6423,7 +6425,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     <constraint firstItem="nao-Cf-DXY" firstAttribute="centerX" secondItem="1FB-ck-Bgt" secondAttribute="centerX" id="wXB-5t-N5l"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iV1-H1-8na" userLabel="Posture Circle">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iV1-H1-8na" userLabel="Posture Circle" customClass="PranaCircleProgressView" customModule="Prana" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -6431,14 +6433,17 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     <constraint firstAttribute="width" constant="120" id="sIW-Jv-aMm"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" red="0.94509803920000002" green="0.94509803920000002" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                                        <color key="value" red="0.63137254901960782" green="0.85490196078431369" blue="0.23921568627450979" alpha="1" colorSpace="calibratedRGB"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                        <real key="value" value="2"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                                        <color key="value" red="0.36862745098039218" green="0.72156862745098038" blue="0.22352941176470587" alpha="1" colorSpace="calibratedRGB"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="60"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="circleShadowColor">
+                                                        <color key="value" red="0.5607843137254902" green="0.81960784313725488" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
+                                                        <real key="value" value="6"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
@@ -6617,7 +6622,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                     <tabBarItem key="tabBarItem" title="Training" id="5KB-eJ-fl8"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="breathCircle" destination="iAi-TN-aeS" id="PJW-ND-feD"/>
+                        <outlet property="breathCircle" destination="iAi-TN-aeS" id="7qg-lJ-ksd"/>
                         <outlet property="btnLiveGraph" destination="ucw-dE-aUa" id="30w-jE-G8X"/>
                         <outlet property="btnTracking" destination="FhP-Mx-nLb" id="VkT-sK-LSC"/>
                         <outlet property="btnTraining" destination="ghe-ip-nu3" id="2gX-qR-HZ2"/>
@@ -6629,6 +6634,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                         <outlet property="lblPostureResult" destination="eiH-Ry-zTm" id="eVe-Ar-seo"/>
                         <outlet property="lblTitle" destination="3TU-jq-XJc" id="m4W-EG-5Ih"/>
                         <outlet property="lblUprightPostureTime" destination="2rs-jY-1vx" id="vMp-Lw-utq"/>
+                        <outlet property="postureCircle" destination="iV1-H1-8na" id="Qbl-DW-RW3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Czg-gf-SfH" userLabel="First Responder" sceneMemberID="firstResponder"/>
