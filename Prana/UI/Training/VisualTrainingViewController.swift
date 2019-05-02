@@ -25,8 +25,10 @@ class VisualTrainingViewController: UIViewController {
     @IBOutlet weak var lblPostureValue: UILabel!
     @IBOutlet weak var lblStatus1: UILabel!
     @IBOutlet weak var lblStatus2: UILabel!
+    @IBOutlet weak var lblStatus5: UILabel!
     @IBOutlet weak var lblStatus3: UILabel!
     @IBOutlet weak var lblStatus4: UILabel!
+    @IBOutlet weak var lblStatus6: UILabel!
     
     @IBOutlet weak var btnBreathSensitivityRadio1: UIButton!
     @IBOutlet weak var btnBreathSensitivityTitle1: UIButton!
@@ -91,7 +93,7 @@ class VisualTrainingViewController: UIViewController {
                 lblStatus2.text = "Target Respiration Rate:"
             }
             else {
-                lblStatus2.text = "Target Respiration Rate: \(roundDouble(double: targetRR)) Actual: \(roundDouble(double: actualRR))"
+                lblStatus2.text = "Target Respiration Rate: \(roundDouble(double: targetRR))"
             }
         }
     }
@@ -99,10 +101,10 @@ class VisualTrainingViewController: UIViewController {
     var actualRR: Double = 0 {
         didSet {
             if targetRR < 0 {
-                lblStatus2.text = "Target Respiration Rate:"
+                lblStatus5.text = "Actual:"
             }
             else {
-                lblStatus2.text = "Target Respiration Rate: \(roundDouble(double: targetRR)) Actual: \(roundDouble(double: actualRR))"
+                lblStatus5.text = "Actual: \(roundDouble(double: actualRR))"
             }
         }
     }
@@ -132,10 +134,10 @@ class VisualTrainingViewController: UIViewController {
     var slouches: Int = 0 {
         didSet {
             if slouches < 0 {
-                lblStatus4.text = "Slouches: Wearing: " + (sessionWearing == 0 ? "Lower Back" : "Upper Chest")
+                lblStatus4.text = "Slouches:"
             }
             else {
-                lblStatus4.text = "Slouches: \(slouches) Wearing: " + (sessionWearing == 0 ? "Lower Back" : "Upper Chest")
+                lblStatus4.text = "Slouches: \(slouches)"
             }
         }
     }
@@ -165,6 +167,7 @@ class VisualTrainingViewController: UIViewController {
         
         mindfulBreaths = -1
         targetRR = -1.0
+        actualRR = -1.0
         postureDuration = -1
         slouches = -1
         
@@ -175,7 +178,7 @@ class VisualTrainingViewController: UIViewController {
         
         btnStart.isHidden = true
         
-        lblPostureValue.isHidden = true
+//        lblPostureValue.isHidden = true
         controlPanel.isHidden = false
         
         isStarted = false
@@ -214,6 +217,8 @@ class VisualTrainingViewController: UIViewController {
         else {
             liveGraphView.isHidden = true
         }
+        
+        lblStatus6.text = "Wearing: " + (sessionWearing == 0 ? "Lower Back" : "Upper Chest")
         
         // Do any additional setup after loading the view.
     }
@@ -277,6 +282,33 @@ class VisualTrainingViewController: UIViewController {
 //        }
 //        btnStart.alpha = 1.0
 //        btnStart.isEnabled = true
+    }
+    
+    @IBAction func onHelp(_ sender: Any) {
+        let alert = UIAlertController(style: .actionSheet)
+        
+        var text: [AttributedTextBlock] = [
+            .header2("Visual Training Instructions"),
+            .list("Inhale to move the bird up"),
+            .list("Exhale to move the bird down"),
+            .list("Collect the flowers to follow the breathing pattern"),
+            .list("Maintain your upright posture"),
+            .list("During the session, keep your body fairly still to help accuracy"),
+            .list("Don't worry if you don't get it perfect this first time")]
+        
+        if sessionKind == 1 {
+            text = [
+                .header2("Visual Training Instructions for Breathing Only"),
+                .list("Inhale to move the bird up"),
+                .list("Exhale to move the bird down"),
+                .list("Collect the flowers to follow the breathing pattern"),
+                .list("During the session, keep your body fairly still to help accuracy"),
+                .list("Don't worry if you don't get it perfect this first time")
+            ]
+        }
+        alert.addTextViewer(text: .attributedText(text))
+        alert.addAction(title: "OK", style: .cancel)
+        alert.show()
     }
     
     @IBAction func onBreathSensitivityChange(_ sender: UIButton) {

@@ -35,6 +35,8 @@ class LiveFeedViewController: UIViewController {
     
     @IBOutlet weak var btnNext: UIButton!
     
+    @IBOutlet weak var lblDescription: UILabel!
+    
     var isLive = false
     var objLive: Live?
     var isLowerBack = true
@@ -44,6 +46,13 @@ class LiveFeedViewController: UIViewController {
         super.viewDidLoad()
 
         self.navigationController?.isNavigationBarHidden = true
+        
+        if isLowerBack {
+            lblDescription.text = "Sit upright and tap below to set your upright posture. You can also double-press the device button."
+        }
+        else {
+            lblDescription.text = "Sit or stand upright and tap below to set your upright posture. You can also double-press the device button."
+        }
         
     }
     
@@ -80,6 +89,7 @@ class LiveFeedViewController: UIViewController {
     }
     
     @IBAction func onBreathSensitivityChange(_ sender: UIButton) {
+        print("clicked \(sender.tag)")
         setBreathSensitivity(val: sender.tag)
     }
     

@@ -11,6 +11,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import MBProgressHUD
+import MKProgress
 
 
 class WelcomeViewController: UIViewController {
@@ -145,9 +146,10 @@ class WelcomeViewController: UIViewController {
             "Authorization": "Bearer \(accessToken!)"
         ]
         
-        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        hud.mode = .indeterminate
-        hud.label.text = "Loading..."
+//        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+//        hud.mode = .indeterminate
+//        hud.label.text = "Loading..."
+        MKProgress.show()
         
         APIClient.sessionManager.request(APIClient.BaseURL + "profile", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headers)
             .validate(statusCode: 200..<300)
@@ -161,7 +163,8 @@ class WelcomeViewController: UIViewController {
                     break
                 }
                 DispatchQueue.main.async {
-                    MBProgressHUD.hide(for: self.view, animated: true)
+//                    MBProgressHUD.hide(for: self.view, animated: true)
+                    MKProgress.hide()
                     if (isValidToken) {
                         self.afterLogin()
                     }

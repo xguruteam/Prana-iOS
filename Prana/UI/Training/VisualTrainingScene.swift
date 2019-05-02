@@ -259,6 +259,7 @@ class VisualTrainingScene: SKScene {
         _messageNode.color = .white
         _messageNode.fontName = "Quicksand-Bold"
         _messageNode.fontSize = 20
+        _messageNode.zPosition = 20
         
         if isBreathingOnly {
             _isUprightSet = true
