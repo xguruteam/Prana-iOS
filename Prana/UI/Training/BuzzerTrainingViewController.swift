@@ -80,6 +80,10 @@ class BuzzerTrainingViewController: UIViewController {
     var sessionDuration: Int = 0
     var sessionKind: Int = 0 // 0: Breathing and Posture, 1: Breathing Only, 2: Posture Only
     
+    var mindfulBreaths: Int = 0
+    var breathCount: Int = 0
+    var uprightDuration: Int = 0
+    
     var timeRemaining: Int = 0 {
         didSet {
             lblTimeRemaining.text = "\(styledTime(v: timeRemaining))"
@@ -125,7 +129,7 @@ class BuzzerTrainingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        timeRemaining = sessionDuration
+        timeRemaining = sessionDuration * 60
         
         objLive = Live()
         objLive?.appMode = 3
@@ -150,7 +154,7 @@ class BuzzerTrainingViewController: UIViewController {
         lblWearing.text = "Wearing: " + (sessionWearing == 0 ? "Lower Back" : "Upper Chest")
         
         
-        objBuzzer = Buzzer(pattern: 0, subPattern: 5, duration: timeRemaining * 60, live: objLive!)
+        objBuzzer = Buzzer(pattern: 0, subPattern: 5, duration: timeRemaining, live: objLive!)
         objBuzzer?.delegate = self
         
         setBreathSensitivity(val: 2)
@@ -389,6 +393,52 @@ class BuzzerTrainingViewController: UIViewController {
         btnBack.isHidden = false
         btnHelp.isHidden = false
         
+        
+        var duration = sessionDuration * 60
+        if sessionKind == 0 {
+            if timeRemaining < duration, breathCount > 0 {
+                if timeRemaining > 0 {
+                    duration -= timeRemaining
+                }
+                
+                let mindful = duration * mindfulBreaths / breathCount
+                let upright = uprightDuration
+                
+                let session = Session(duration: duration, kind: sessionKind, mindful: mindful, upright: upright)
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
+                    dataController.addSessionRecord(session)
+                }
+            }
+        }
+        else if sessionKind == 1{
+            if timeRemaining < duration, breathCount > 0 {
+                if timeRemaining > 0 {
+                    duration -= timeRemaining
+                }
+                
+                let mindful = duration * mindfulBreaths / breathCount
+                
+                let session = Session(duration: duration, kind: sessionKind, mindful: mindful, upright: 0)
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
+                    dataController.addSessionRecord(session)
+                }
+            }
+        }
+        else {
+            if timeRemaining < duration {
+                if timeRemaining > 0 {
+                    duration -= timeRemaining
+                }
+                
+                let upright = uprightDuration
+                
+                let session = Session(duration: duration, kind: sessionKind, mindful: 0, upright: upright)
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
+                    dataController.addSessionRecord(session)
+                }
+            }
+        }
+        
 //        if isTutorial {
 //            objLive?.removeDelegate(self as! LiveDelegate)
 //            let vc = Utils.getStoryboardWithIdentifier(identifier: "TutorialEndViewController")
@@ -443,6 +493,8 @@ extension BuzzerTrainingViewController: BuzzerDelegate {
     }
     
     func buzzerNewMindfulBreaths(_ mindfuls: Int, ofTotalBreaths totals: Int) {
+        mindfulBreaths = mindfuls
+        breathCount = totals
         DispatchQueue.main.async {
             self.lblMindfulBreaths.text = "Mindful Breaths: \(Int(mindfuls*100/totals))% (\(mindfuls) of \(totals))"
         }
@@ -467,6 +519,7 @@ extension BuzzerTrainingViewController: BuzzerDelegate {
     }
     
     func buzzerNewUprightTime(_ uprightTime: Int, ofElapsed elapsed: Int) {
+        uprightDuration = uprightTime
         DispatchQueue.main.async {
             self.lblUprightPosture.text = "Upright Posture: \(Int(uprightTime*100/elapsed))% (\(uprightTime) of \(elapsed) seconds)"
         }

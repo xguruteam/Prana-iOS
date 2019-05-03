@@ -418,7 +418,12 @@ class VisualTrainingViewController: UIViewController {
             }
             
             let mindful = duration * mindfulBreaths / breathCount
-            let upright = uprightDuration
+            
+            
+            var upright = uprightDuration
+            if sessionKind == 1 {
+                upright = 0
+            }
             
             let session = Session(duration: duration, kind: sessionKind, mindful: mindful, upright: upright)
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {

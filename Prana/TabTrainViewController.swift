@@ -51,11 +51,14 @@ class TabTrainViewController: UIViewController {
         
         if dataController?.programType > 1 {
             lblMindfulBreathTime.text = "0"
-            lblBreathResult.text = ""
+            lblBreathResult.text = " "
             lblBreathGoal.text = "Set up your Training"
             lblUprightPostureTime.text = "0"
-            lblPostureResult.text = ""
+            lblPostureResult.text = " "
             lblPostureGoal.text = "Set up your Training"
+            
+            breathCircle.progress = 0.0
+            postureCircle.progress = 0.0
         }
         else {
             lblMindfulBreathTime.text = "0"
@@ -89,8 +92,20 @@ class TabTrainViewController: UIViewController {
                 return result
             }
             
-            lblBreathResult.text = "\(mindfulDuration * 100 / breathingElapsed)% Mindful"
-            lblPostureResult.text = "\(uprightDuration * 100 / postureElapsed)% Upright"
+            if breathingElapsed > 0 {
+                lblBreathResult.text = "\(mindfulDuration * 100 / breathingElapsed)% Mindful"
+            }
+            else {
+                lblBreathResult.text = "0% Mindful"
+            }
+        
+            if postureElapsed > 0 {
+                lblPostureResult.text = "\(uprightDuration * 100 / postureElapsed)% Upright"
+            }
+            else {
+                lblPostureResult.text = "0% Upright"
+            }
+            
             
             lblMindfulBreathTime.text = "\(breathingElapsed / 60)"
             lblUprightPostureTime.text = "\(postureElapsed / 60)"
@@ -98,10 +113,6 @@ class TabTrainViewController: UIViewController {
             breathCircle.progress = CGFloat(breathingElapsed / 60) / CGFloat(dataController!.breathingGoals)
             
             postureCircle.progress = CGFloat(postureElapsed / 60) / CGFloat(dataController!.postureGoals)
-            
-            breathCircle.progress = 1.0
-            
-            postureCircle.progress = 1.0
             
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100), execute: {
                 self.breathCircle.startAnimation()

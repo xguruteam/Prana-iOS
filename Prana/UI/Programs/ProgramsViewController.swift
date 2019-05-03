@@ -162,38 +162,49 @@ class ProgramsViewController: UIViewController {
         isNotificationEnable = isEnable
     }
     
+    func cancelTraining() {
+        MKProgress.show()
+        isTrainingStarted = false
+        isProgramCellOpen = true
+        isSessionCellOpen = false
+        tableView.reloadData()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(1000)) {
+            //            self.tableView.closeAll()
+            //            self.tableView.open(at: IndexPath(row: 1, section: 0))
+            MKProgress.hide()
+        }
+        
+        titleSubLabel.isHidden = true
+        titleConstrain.constant = 0.0
+        titleLabel.text = "Training"
+        titleSubLabel.isHidden = true
+        titleSubLabel.text = ""
+        titleConstrain.constant = 0
+        
+        onProgramTypeChange(0)
+        
+        dataController?.programType = 100
+        dataController?.breathingGoals = 0
+        dataController?.postureGoals = 0
+        dataController?.dailyNotification = nil
+        dataController?.currentDay = 0
+        dataController?.saveSettings()
+    }
+    
     func onTrainingStart() {
         if isTrainingStarted {
             // cancel
             if programType == 0 {
-                
-            }
-            MKProgress.show()
-            isTrainingStarted = false
-            isProgramCellOpen = true
-            isSessionCellOpen = false
-            tableView.reloadData()
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(1000)) {
-                //            self.tableView.closeAll()
-                //            self.tableView.open(at: IndexPath(row: 1, section: 0))
-                MKProgress.hide()
+                let alert = UIAlertController(style: .alert, title: "Are you sure you wish to cancel your 14 day training program?", message: "You will not lose history data, but will lose the sequence in the program.")
+                alert.addAction(title: "Yes", style: .destructive) { action in
+                    self.cancelTraining()
+                }
+                alert.addAction(title: "No", style: .cancel)
+                alert.show()
+                return
             }
             
-            titleSubLabel.isHidden = true
-            titleConstrain.constant = 0.0
-            titleLabel.text = "Training"
-            titleSubLabel.isHidden = true
-            titleSubLabel.text = ""
-            titleConstrain.constant = 0
-            
-            onProgramTypeChange(0)
-            
-            dataController?.programType = 100
-            dataController?.breathingGoals = 0
-            dataController?.postureGoals = 0
-            dataController?.dailyNotification = nil
-            dataController?.currentDay = 0
-            dataController?.saveSettings()
+            self.cancelTraining()
 
             return
         }

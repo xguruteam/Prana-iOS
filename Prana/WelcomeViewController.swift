@@ -25,8 +25,8 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        shouldLogin()
-        afterLogin()
+        shouldLogin()
+//        afterLogin()
 
         // Do any additional setup after loading the view.
         

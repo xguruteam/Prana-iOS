@@ -2376,7 +2376,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                         <constraint firstItem="6En-5k-zh2" firstAttribute="top" secondItem="8Qf-9K-Ee2" secondAttribute="bottom" constant="8" id="F57-UO-67m"/>
                                         <constraint firstItem="2gg-yn-2Zf" firstAttribute="leading" secondItem="lHa-Wo-BfC" secondAttribute="leading" id="KHh-gk-oe9"/>
                                         <constraint firstItem="Fws-9k-Mk7" firstAttribute="leading" secondItem="xz3-Nu-iWN" secondAttribute="leading" constant="16" id="LhR-Gx-eFE"/>
-                                        <constraint firstItem="Roa-L5-UiV" firstAttribute="top" secondItem="2gg-yn-2Zf" secondAttribute="bottom" priority="250" constant="30" id="NVJ-oT-V1P"/>
+                                        <constraint firstItem="Roa-L5-UiV" firstAttribute="top" secondItem="2gg-yn-2Zf" secondAttribute="bottom" priority="250" constant="15" id="NVJ-oT-V1P"/>
                                         <constraint firstItem="7ay-ZU-wL5" firstAttribute="leading" secondItem="o8d-yp-Z61" secondAttribute="leading" id="PHH-kq-smc"/>
                                         <constraint firstItem="5zU-aU-VSO" firstAttribute="bottom" secondItem="f9X-ab-sM2" secondAttribute="bottom" priority="750" id="Q5s-q0-iZa"/>
                                         <constraint firstItem="5zU-aU-VSO" firstAttribute="leading" secondItem="f9X-ab-sM2" secondAttribute="trailing" priority="750" constant="20" id="QPj-Bd-ykS"/>
@@ -2874,7 +2874,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                         <constraint firstAttribute="width" constant="50" id="lo6-KO-1kU"/>
                                                     </constraints>
                                                     <connections>
-                                                        <action selector="onWearPositionChange:" destination="uhC-ne-xZr" eventType="touchUpInside" id="XUM-Bk-HON"/>
+                                                        <action selector="onPostureSensitivityChange:" destination="uhC-ne-xZr" eventType="touchUpInside" id="ULv-21-Yvx"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JGt-LT-RIr">

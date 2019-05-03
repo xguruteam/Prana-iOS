@@ -99,10 +99,14 @@ class SessionChildCell: UITableViewCell {
         switch kind {
         case 0:
             btnKind1.isClicked = true
+            btnType1.isEnabled = true
         case 1:
             btnKind2.isClicked = true
+            btnType1.isEnabled = true
         case 2:
             btnKind3.isClicked = true
+            btnType1.isEnabled = false
+            onTypeChange(btnType2)
         default:
             break
         }
@@ -114,8 +118,13 @@ class SessionChildCell: UITableViewCell {
         switch type {
         case 0:
             btnType1.isClicked = true
+            btnKind3.isEnabled = false
+            if btnKind3.isClicked {
+                onKindChange(btnKind1)
+            }
         case 1:
             btnType2.isClicked = true
+            btnKind3.isEnabled = true
         default:
             break
         }
