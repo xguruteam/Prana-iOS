@@ -195,7 +195,7 @@ class LiveGraphViewController: UIViewController {
             btnWearUpperChest.setTitleColor(UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
             isLowerBack = false
         }
-        
+        displayPostureAnimation(1)
     }
     
     func displayPostureAnimation(_ whichFrame: Int) {

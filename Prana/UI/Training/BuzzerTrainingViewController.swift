@@ -66,6 +66,8 @@ class BuzzerTrainingViewController: UIViewController {
     @IBOutlet weak var con13: NSLayoutConstraint!
     @IBOutlet weak var con14: NSLayoutConstraint!
     
+    @IBOutlet weak var lblGuide: UILabel!
+    @IBOutlet weak var btnHelp: UIButton!
     
     var isLiving = false
     
@@ -158,8 +160,10 @@ class BuzzerTrainingViewController: UIViewController {
         
         initView()
         
+        btnStartStop.setTitle("START SESSION", for: .normal)
         btnStartStop.isHidden = true
         displayPostureAnimation(1)
+        lblGuide.isHidden = false
         
         
         if sessionKind == 1 {
@@ -178,6 +182,7 @@ class BuzzerTrainingViewController: UIViewController {
             
             objBuzzer?.useBuzzerForPosture = 0
             uprightHasBeenSetHandler()
+            lblGuide.isHidden = true
         }
         else if sessionKind == 2{
             lblBuzzerReason.isHidden = true
@@ -261,13 +266,51 @@ class BuzzerTrainingViewController: UIViewController {
             isCompleted = true
             btnStartStop.isEnabled = false
             btnStartStop.setTitle("Session End", for: .normal)
+            btnStartStop.isHidden = true
 //            self.btnStartStop.isEnabled = false
 //            self.btnStartStop.alpha = 0.5
             //            self.btnNext.isEnabled = true
         }
         else {
             startLiving()
+            btnHelp.isHidden = true
         }
+    }
+    
+    @IBAction func onHelp(_ sender: Any) {
+        let alert = UIAlertController(style: .actionSheet)
+        
+        var text: [AttributedTextBlock] = [
+            .header2("Buzzer Training Instructions for Breathing & Posture"),
+            .list("Requires your conscious attention during the session time"),
+            .list("Start inhaling on a single buzz (any time after the single buzz but before the exhale double buzz)"),
+            .list("Start exhaling on a double buzz (any time after the double buzz but before the next inhale buzz)"),
+            .list("Maintain your upright posture"),
+            .list("A long single buzz means you are not following the breathing pattern, and a long double buzz means your posture is slouching"),
+            .list("During the session, keep your body fairly still to help accuracy")
+        ]
+        
+        if sessionKind == 1 {
+            text = [
+                .header2("Buzzer Training Instructions for Breathing only"),
+                .list("Requires your conscious attention during the session time"),
+                .list("Start inhaling on a single buzz (any time after the single buzz but before the exhale double buzz)"),
+                .list("Start exhaling on a double buzz (any time after the double buzz but before the next inhale buzz)"),
+                .list("A long single buzz means you are not following the breathing pattern"),
+                .list("During the session, keep your body fairly still to help accuracy")
+            ]
+        }
+        else if sessionKind == 2 {
+            text = [
+                .header2("Buzzer Training Instructions for Posture only"),
+                .list("Can be done in background without your full attention"),
+                .list("Maintain your upright posture"),
+                .list("A long double buzz means your posture is slouching"),
+            ]
+        }
+        alert.addTextViewer(text: .attributedText(text))
+        alert.addAction(title: "OK", style: .cancel)
+        alert.show()
     }
     
     func uprightHasBeenSetHandler() {
@@ -277,6 +320,7 @@ class BuzzerTrainingViewController: UIViewController {
 //                self.btnStartStop.isEnabled = true
 //                self.btnStartStop.alpha = 1.0
                 self.btnStartStop.isHidden = false
+                self.lblGuide.isHidden = true
             }
         }
     }
@@ -331,17 +375,19 @@ class BuzzerTrainingViewController: UIViewController {
     
     func startLiving() {
         isLiving = true
-        btnStartStop.setTitle("Stop", for: .normal)
+        btnStartStop.setTitle("END SESSION EARLY", for: .normal)
         objBuzzer?.startSession()
         btnBack.isHidden = true
+        btnHelp.isHidden = true
     }
     
     func stopLiving() {
         isLiving = false
-        btnStartStop.setTitle("Start", for: .normal)
+        btnStartStop.setTitle("START SESSION", for: .normal)
         objBuzzer?.endSession()
         PranaDeviceManager.shared.stopGettingLiveData()
         btnBack.isHidden = false
+        btnHelp.isHidden = false
         
 //        if isTutorial {
 //            objLive?.removeDelegate(self as! LiveDelegate)
@@ -439,6 +485,7 @@ extension BuzzerTrainingViewController: BuzzerDelegate {
 //            self.btnStartStop.alpha = 0.5
             self.btnStartStop.setTitle("Session Completed!", for: .normal)
 //            self.btnNext.isEnabled = true
+            self.btnStartStop.isHidden = true
         }
         print("Session Completed!")
     }

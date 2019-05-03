@@ -213,7 +213,7 @@ class VisualTrainingScene: SKScene {
         _calibrationRegion?.position = CGPoint(x: CGFloat(lastX) + _calibrationRegion!.size.width / 2, y: _playRegionY + _playRegionH/2)
         _calibrationRegion?.name = "calibration"
         
-        _calibrationRegionLabel = SKLabelNode(text: "Breadthe normally here to set your initial Target Respirate Rate.")
+        _calibrationRegionLabel = SKLabelNode(text: "Breathe normally here to set your initial Target Respiration Rate.")
         _calibrationRegionLabel?.color = .white
         _calibrationRegionLabel?.fontName = "Quicksand"
         _calibrationRegionLabel?.fontSize = 16
@@ -254,7 +254,7 @@ class VisualTrainingScene: SKScene {
         
         startSession()
         
-        _messageNode = SKLabelNode(text: "First sit upright and tap the Set Upright button.")
+        _messageNode = SKLabelNode(text: "First tap Set Upright to set your upright posture")
         _messageNode.position = CGPoint(x: size.width / 2, y: size.height * 3 / 4)
         _messageNode.color = .white
         _messageNode.fontName = "Quicksand-Bold"

@@ -40,7 +40,7 @@ class TabTrainViewController: UIViewController {
             dataController = appDelegate.dataController
         }
         
-        lblTitle.text = "Today's Result"
+        lblTitle.text = "Today's Achievements"
         
         
 //        getTrainSummary()
@@ -51,11 +51,11 @@ class TabTrainViewController: UIViewController {
         
         if dataController?.programType > 1 {
             lblMindfulBreathTime.text = "0"
-            lblBreathResult.text = "N/A"
-            lblBreathGoal.text = "Set your Goal"
+            lblBreathResult.text = ""
+            lblBreathGoal.text = "Set up your Training"
             lblUprightPostureTime.text = "0"
-            lblPostureResult.text = "N/A"
-            lblPostureGoal.text = "Set your Goal"
+            lblPostureResult.text = ""
+            lblPostureGoal.text = "Set up your Training"
         }
         else {
             lblMindfulBreathTime.text = "0"

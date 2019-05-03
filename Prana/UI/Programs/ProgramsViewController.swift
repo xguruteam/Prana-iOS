@@ -165,6 +165,9 @@ class ProgramsViewController: UIViewController {
     func onTrainingStart() {
         if isTrainingStarted {
             // cancel
+            if programType == 0 {
+                
+            }
             MKProgress.show()
             isTrainingStarted = false
             isProgramCellOpen = true
