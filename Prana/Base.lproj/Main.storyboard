@@ -3308,7 +3308,7 @@ Breathing and Posture</string>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j1X-Lt-JNh">
                                             <rect key="frame" x="16" y="71" width="343" height="136"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can wear Prana in two recommended body positions to train your breathing and complete back posture" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DpW-2f-H28">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can wear Prana in two recommended body positions to train your breathing and complete back posture" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DpW-2f-H28">
                                                     <rect key="frame" x="16" y="24" width="311" height="49"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="14"/>
                                                     <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3372,7 +3372,7 @@ Breathing and Posture</string>
                                                         <constraint firstAttribute="height" constant="240" id="vSh-5a-sdV"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjE-QD-2Ue">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjE-QD-2Ue">
                                                     <rect key="frame" x="20" y="260" width="303" height="49"/>
                                                     <string key="text">First try wearing the device on your lower back while sitting. Make sure the clip is fully inserted into the locking hole until it clicks.</string>
                                                     <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="14"/>
@@ -3800,7 +3800,7 @@ Breathing and Posture</string>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jua-ZC-cdy">
                                             <rect key="frame" x="16" y="71" width="343" height="136"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can wear Prana in two recommended body positions to train your breathing and complete back posture" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BnE-UM-fle">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can wear Prana in two recommended body positions to train your breathing and complete back posture" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BnE-UM-fle">
                                                     <rect key="frame" x="16" y="24" width="311" height="49"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="14"/>
                                                     <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3864,9 +3864,9 @@ Breathing and Posture</string>
                                                         <constraint firstAttribute="height" constant="240" id="6kc-jm-vv3"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCo-pC-Nq5">
-                                                    <rect key="frame" x="20" y="250" width="303" height="49"/>
-                                                    <string key="text">Now try wearing the device on your upper chest while sitting or standing. Make sure the clip is fully inserted into the locking hole until it clicks.</string>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCo-pC-Nq5">
+                                                    <rect key="frame" x="20" y="250" width="303" height="65.5"/>
+                                                    <string key="text">Now try wearing the device on your upper chest while sitting or standing. Make sure the clip is fully inserted into the locking hole until it clicks.</string>
                                                     <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="14"/>
                                                     <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -4291,7 +4291,7 @@ MY UPPER CHEST</string>
                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can adjust sensitivity and belt position if needed to better personalize your breath and posture tracking." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wMm-vT-ejg">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can adjust sensitivity and belt position if needed to better personalize your breath and posture tracking." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wMm-vT-ejg">
                                             <rect key="frame" x="16" y="57.5" width="343" height="33"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="14"/>
                                             <color key="textColor" red="0.27058823529999998" green="0.28627450980000002" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4598,7 +4598,7 @@ MY UPPER CHEST</string>
                                                 <constraint firstItem="abw-Zr-fGp" firstAttribute="centerX" secondItem="Y05-sI-OsV" secondAttribute="centerX" id="yRZ-vX-cdC"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sit upright and tap below to set your upright posture. You can also double-press the device button." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="45C-h6-5f9">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sit upright and tap below to set your upright posture. You can also double-press the device button." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="45C-h6-5f9">
                                             <rect key="frame" x="16" y="450.5" width="343" height="33"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="14"/>
                                             <color key="textColor" red="0.27058823529999998" green="0.28627450980000002" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4737,7 +4737,7 @@ MY UPPER CHEST</string>
                                             <rect key="frame" x="16" y="71" width="343" height="148"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prana offers two ways to train your breathing and posture together." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8k-SP-AHn">
-                                                    <rect key="frame" x="25" y="25" width="294" height="42"/>
+                                                    <rect key="frame" x="25" y="20" width="294" height="42"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="18"/>
                                                     <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -4779,7 +4779,7 @@ MY UPPER CHEST</string>
                                                 <constraint firstAttribute="trailing" secondItem="Vfp-T7-dWN" secondAttribute="trailing" constant="24" id="Quh-d2-e1J"/>
                                                 <constraint firstAttribute="height" constant="148" id="TEa-fj-dzr"/>
                                                 <constraint firstAttribute="bottom" secondItem="1Kp-lt-BOH" secondAttribute="bottom" constant="20" id="V6u-gt-RtT"/>
-                                                <constraint firstItem="i8k-SP-AHn" firstAttribute="top" secondItem="rcf-TY-eoV" secondAttribute="top" constant="25" id="dfi-7W-tsn"/>
+                                                <constraint firstItem="i8k-SP-AHn" firstAttribute="top" secondItem="rcf-TY-eoV" secondAttribute="top" constant="20" id="dfi-7W-tsn"/>
                                                 <constraint firstItem="Vfp-T7-dWN" firstAttribute="centerY" secondItem="1Kp-lt-BOH" secondAttribute="centerY" id="ge6-nE-7Uu"/>
                                                 <constraint firstItem="tfr-r0-u8r" firstAttribute="top" secondItem="1Kp-lt-BOH" secondAttribute="top" constant="-10" id="nu3-Jk-56h"/>
                                                 <constraint firstItem="i8k-SP-AHn" firstAttribute="leading" secondItem="rcf-TY-eoV" secondAttribute="leading" constant="25" id="qFG-NJ-mK6"/>
@@ -4808,7 +4808,7 @@ MY UPPER CHEST</string>
                                                     </constraints>
                                                     <state key="normal" backgroundImage="ic-triangle"/>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make sure you are stiill wearing the device on your lower back or upper chest." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5AJ-Ky-HUA">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make sure you are stiill wearing the device on your lower back or upper chest." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5AJ-Ky-HUA">
                                                     <rect key="frame" x="20" y="241" width="303" height="33"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="14"/>
                                                     <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4997,7 +4997,7 @@ TRAINING SESSION</string>
                                             <rect key="frame" x="16" y="71" width="343" height="148"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prana offers two ways to train your breathing and posture together." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6S-Ij-yDb">
-                                                    <rect key="frame" x="25" y="24" width="293" height="42"/>
+                                                    <rect key="frame" x="25" y="20" width="293" height="42"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="18"/>
                                                     <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -5036,7 +5036,7 @@ TRAINING SESSION</string>
                                                 <constraint firstItem="3rE-Qe-dlO" firstAttribute="top" secondItem="i88-Lm-pAs" secondAttribute="top" constant="-10" id="7gd-UM-1Lf"/>
                                                 <constraint firstItem="3rE-Qe-dlO" firstAttribute="leading" secondItem="i88-Lm-pAs" secondAttribute="leading" constant="-16" id="8qD-j3-SX4"/>
                                                 <constraint firstItem="3rE-Qe-dlO" firstAttribute="trailing" secondItem="i88-Lm-pAs" secondAttribute="trailing" constant="16" id="B0p-sF-Krf"/>
-                                                <constraint firstItem="a6S-Ij-yDb" firstAttribute="top" secondItem="IRN-Mg-pYp" secondAttribute="top" constant="24" id="LN1-E8-UXm"/>
+                                                <constraint firstItem="a6S-Ij-yDb" firstAttribute="top" secondItem="IRN-Mg-pYp" secondAttribute="top" constant="20" id="LN1-E8-UXm"/>
                                                 <constraint firstItem="i88-Lm-pAs" firstAttribute="centerY" secondItem="qj5-4o-f0b" secondAttribute="centerY" id="Qlg-cu-rP4"/>
                                                 <constraint firstItem="a6S-Ij-yDb" firstAttribute="leading" secondItem="IRN-Mg-pYp" secondAttribute="leading" constant="25" id="WDX-e4-UDl"/>
                                                 <constraint firstAttribute="height" constant="148" id="beg-LT-6uT"/>
@@ -5068,7 +5068,7 @@ TRAINING SESSION</string>
                                                     </constraints>
                                                     <state key="normal" backgroundImage="ic-triangle"/>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dFi-cy-74F">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dFi-cy-74F">
                                                     <rect key="frame" x="16" y="241" width="311" height="65.5"/>
                                                     <string key="text">Buzzer training guides your breathing and posture without requiring you to look at the app.
 It's great for those times you just wish to close your eyes or meditate.</string>
@@ -7583,7 +7583,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
         <image name="shape-breathing" width="50" height="50"/>
         <image name="shape-lung" width="50" height="50"/>
         <image name="shape_breathing_only" width="50" height="50"/>
-        <image name="sit (1).png" width="720" height="576"/>
+        <image name="sit (1).png" width="459" height="459"/>
         <image name="video-placeholder" width="335" height="245"/>
     </resources>
 </document>
