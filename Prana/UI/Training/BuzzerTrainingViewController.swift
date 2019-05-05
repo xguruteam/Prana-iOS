@@ -65,6 +65,7 @@ class BuzzerTrainingViewController: UIViewController {
     @IBOutlet weak var con12: NSLayoutConstraint!
     @IBOutlet weak var con13: NSLayoutConstraint!
     @IBOutlet weak var con14: NSLayoutConstraint!
+    @IBOutlet weak var con15: NSLayoutConstraint!
     
     @IBOutlet weak var lblGuide: UILabel!
     @IBOutlet weak var btnHelp: UIButton!
@@ -179,9 +180,9 @@ class BuzzerTrainingViewController: UIViewController {
             btnUpright.isHidden = true
             postureSensitivityGroup.isHidden = true
             
-            con11.constant = 250
+            con11.constant = 300
             con12.constant = 30
-            con13.constant = 30
+            con13.constant = 10
             con14.priority = .required
             
             objBuzzer?.useBuzzerForPosture = 0
@@ -204,6 +205,7 @@ class BuzzerTrainingViewController: UIViewController {
             con7.priority = .defaultLow
             con6.priority = .required
             con8.priority = .required
+            con15.priority = .required
             con9.constant = 200
             con10.constant = 200
         }
