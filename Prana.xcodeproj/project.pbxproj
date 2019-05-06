@@ -18,6 +18,7 @@
 		CA48E58822664A5B002CFA19 /* LiveFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48E58722664A5B002CFA19 /* LiveFeedViewController.swift */; };
 		CA48E58B22671D93002CFA19 /* UIColor+colorFromHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48E58922671D93002CFA19 /* UIColor+colorFromHex.swift */; };
 		CA48E58C22671D93002CFA19 /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48E58A22671D93002CFA19 /* UIColor+Utils.swift */; };
+		CA603B7A228053860019A648 /* SessionStartStopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA603B79228053860019A648 /* SessionStartStopCell.swift */; };
 		CA69E8442278977900984324 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA69E8432278977900984324 /* Session.swift */; };
 		CA97DB0F22296163002C5592 /* SessionTemp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA97DB0E22296163002C5592 /* SessionTemp.swift */; };
 		CA97DB112229893F002C5592 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA97DB102229893F002C5592 /* Constants.swift */; };
@@ -206,6 +207,7 @@
 		CA48E58722664A5B002CFA19 /* LiveFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveFeedViewController.swift; sourceTree = "<group>"; };
 		CA48E58922671D93002CFA19 /* UIColor+colorFromHex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+colorFromHex.swift"; sourceTree = "<group>"; };
 		CA48E58A22671D93002CFA19 /* UIColor+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Utils.swift"; sourceTree = "<group>"; };
+		CA603B79228053860019A648 /* SessionStartStopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStartStopCell.swift; sourceTree = "<group>"; };
 		CA69E8432278977900984324 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		CA97DB0E22296163002C5592 /* SessionTemp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTemp.swift; sourceTree = "<group>"; };
 		CA97DB102229893F002C5592 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -903,6 +905,7 @@
 				CAAB4ED4226E7FF9000C8802 /* ProgramChildCell.swift */,
 				CAAC198522710471001DC02D /* ProgramParentCell.swift */,
 				CAE67085227231A70099D72C /* SessionChildCell.swift */,
+				CA603B79228053860019A648 /* SessionStartStopCell.swift */,
 			);
 			path = Programs;
 			sourceTree = "<group>";
@@ -1234,6 +1237,7 @@
 				CA97DB1322298BF1002C5592 /* HistoryTableViewController.swift in Sources */,
 				D7BA34A32256FBFE00B4689E /* LiveGraphViewController.swift in Sources */,
 				CAAF9D0E22737951003232C4 /* UIColor+Extensions.swift in Sources */,
+				CA603B7A228053860019A648 /* SessionStartStopCell.swift in Sources */,
 				CA9892172240EB1000D824B0 /* Buzzer.swift in Sources */,
 				CA97DB112229893F002C5592 /* Constants.swift in Sources */,
 				CAAF9D0A22737951003232C4 /* UIView+Extensions.swift in Sources */,

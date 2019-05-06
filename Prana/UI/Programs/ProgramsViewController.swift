@@ -67,7 +67,7 @@ class ProgramsViewController: UIViewController {
             
             isTrainingStarted = true
             isProgramCellOpen = false
-            isSessionCellOpen = true
+            isSessionCellOpen = false
 //            tableView.reloadData()
             
             notificationTime = dataController?.dailyNotification ?? Date()
@@ -143,9 +143,9 @@ class ProgramsViewController: UIViewController {
     func onProgramTypeChange(_ type: Int) {
         programType = type
 //        tableView.closeAll()
-        tableView.beginUpdates()
-        tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
-        tableView.endUpdates()
+//        tableView.beginUpdates()
+        tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .fade)
+//        tableView.endUpdates()
 //        tableView.reloadData()
 //        tableView.open(at: IndexPath(row: 0, section: 0))
 //        tableView.open(at: T##IndexPath)
@@ -318,6 +318,11 @@ class ProgramsViewController: UIViewController {
     
     func onSessionPositionChange(_ position: Int) {
         self.sessionPosition = position
+        let row = isProgramCellOpen ? 4 : 3
+//        tableView.reloadData()
+//        tableView.beginUpdates()
+        tableView.reloadRows(at: [IndexPath(row: row, section: 0)], with: .fade)
+//        tableView.endUpdates()
     }
     
     func onCustomBreathingGoalChange(_ duration: Int) {
@@ -486,15 +491,24 @@ class ProgramsViewController: UIViewController {
                 self?.onSessionPatternChange(pattern)
             }
             
+//            cell.sessionStartListener = { [weak self] in
+//                self?.onSessionStart()
+//            }
+//
+            cell.changeKind(sessionKind)
+            cell.changeType(sessionType)
+//            cell.changePosition(sessionPosition)
+            cell.sessionDuration = sessionDuration
+            cell.sessionPattern = sessionPattern
+            
+            return cell
+        case 4:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SessionStartStopCell") as! SessionStartStopCell
             cell.sessionStartListener = { [weak self] in
                 self?.onSessionStart()
             }
             
-            cell.changeKind(sessionKind)
-            cell.changeType(sessionType)
             cell.changePosition(sessionPosition)
-            cell.sessionDuration = sessionDuration
-            cell.sessionPattern = sessionPattern
             
             return cell
         default:
@@ -529,9 +543,11 @@ class ProgramsViewController: UIViewController {
             return 50
         case 3:
             if programType == 0 {
-                return 550
+                return 550 - 235
             }
-            return 550+170
+            return 550+170 - 235
+        case 4:
+            return 200
         default:
             break
         }
@@ -560,10 +576,28 @@ extension ProgramsViewController: UITableViewDelegate, UITableViewDataSource {
                 return getCellForType(2)!
             }
             else {
-                return getCellForType(3)!
+                if isSessionCellOpen {
+                    return getCellForType(3)!
+                }
+                else {
+                    return getCellForType(4)!
+                }
             }
         case 3:
-            return getCellForType(3)!
+            if isProgramCellOpen {
+                if isSessionCellOpen {
+                    return getCellForType(3)!
+                }
+                else {
+                    return getCellForType(4)!
+                }
+            }
+            else {
+                return getCellForType(4)!
+            }
+
+        case 4:
+            return getCellForType(4)!
         default:
             break
         }
@@ -587,21 +621,42 @@ extension ProgramsViewController: UITableViewDelegate, UITableViewDataSource {
                 return getHeightForType(2)
             }
             else {
-                return getHeightForType(3)
+                if isSessionCellOpen {
+                    return getHeightForType(3)
+                }
+                else {
+                    return getHeightForType(4)
+                }
             }
         case 3:
-            return getHeightForType(3)
+            if isProgramCellOpen {
+                if isSessionCellOpen {
+                    return getHeightForType(3)
+                }
+                else {
+                    return getHeightForType(4)
+                }
+            }
+            else {
+                return getHeightForType(4)
+            }
+        case 4:
+            return getHeightForType(4)
         default:
             break
         }
         return 0.0
     }
     
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.tableView(tableView, heightForRowAt: indexPath)
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0
         if isTrainingStarted {
-            count = 2
+            count = 3
         }
         else {
             count = 1
@@ -619,30 +674,37 @@ extension ProgramsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.beginUpdates()
         switch indexPath.row {
         case 0:
             if isProgramCellOpen {
                 isProgramCellOpen = false
+                tableView.beginUpdates()
                 tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
                 tableView.deleteRows(at: [IndexPath(row: 1, section: 0)], with: .fade)
+                tableView.endUpdates()
             }
             else {
                 isProgramCellOpen = true
+                tableView.beginUpdates()
                 tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
                 tableView.insertRows(at: [IndexPath(row: 1, section: 0)], with: .fade)
+                tableView.endUpdates()
             }
         case 1:
             if isProgramCellOpen == false {
                 if isSessionCellOpen {
                     isSessionCellOpen = false
+                    tableView.beginUpdates()
                     tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
                     tableView.deleteRows(at: [IndexPath(row: 2, section: 0)], with: .fade)
+                    tableView.endUpdates()
                 }
                 else {
                     isSessionCellOpen = true
+                    tableView.beginUpdates()
                     tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
                     tableView.insertRows(at: [IndexPath(row: 2, section: 0)], with: .fade)
+                    tableView.endUpdates()
                 }
             }
             break
@@ -650,13 +712,17 @@ extension ProgramsViewController: UITableViewDelegate, UITableViewDataSource {
             if isProgramCellOpen {
                 if isSessionCellOpen {
                     isSessionCellOpen = false
+                    tableView.beginUpdates()
                     tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .automatic)
                     tableView.deleteRows(at: [IndexPath(row: 3, section: 0)], with: .fade)
+                    tableView.endUpdates()
                 }
                 else {
                     isSessionCellOpen = true
+                    tableView.beginUpdates()
                     tableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .automatic)
                     tableView.insertRows(at: [IndexPath(row: 3, section: 0)], with: .fade)
+                    tableView.endUpdates()
                 }
             }
             break
@@ -665,7 +731,6 @@ extension ProgramsViewController: UITableViewDelegate, UITableViewDataSource {
         default:
             break
         }
-        tableView.endUpdates()
     }
 }
 
