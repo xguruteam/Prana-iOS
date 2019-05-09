@@ -65,6 +65,8 @@ class VisualTrainingViewController: UIViewController {
     var sessionDuration: Int = 0
     var sessionKind: Int = 0 // 0: Breathing and Posture, 1: Breathing Only, 2: Posture Only
     
+    var currentSessionObject: Session?
+    
     var mindfulBreaths: Int = 0 {
         didSet {
             if mindfulBreaths < 0 {
@@ -398,6 +400,7 @@ class VisualTrainingViewController: UIViewController {
     @IBAction func onStart(_ sender: UIButton) {
         if (objVisual?._isUprightSet)! && !isStarted {
             objVisual?.startMode()
+            self.currentSessionObject = Session(startedAt: Date(), kind: sessionKind)
             
             isStarted = true
             
@@ -411,26 +414,14 @@ class VisualTrainingViewController: UIViewController {
     }
     
     func onEnd() {
-        var duration = sessionDuration * 60
-        if timeRemaining < duration, breathCount > 0 {
-            if timeRemaining > 0 {
-                duration -= timeRemaining
-            }
-            
-            let mindful = duration * mindfulBreaths / breathCount
-            
-            
-            var upright = uprightDuration
-            if sessionKind == 1 {
-                upright = 0
-            }
-            
-            let session = Session(duration: duration, kind: sessionKind, mindful: mindful, upright: upright)
+//        makeSessionObject()
+        currentSessionObject?.floorSessionDuration()
+        
+        if let session = currentSessionObject {
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
                 dataController.addSessionRecord(session)
             }
         }
-        
         
         //MARK: Landscape
         self.dismiss(animated: false) {
@@ -448,6 +439,27 @@ class VisualTrainingViewController: UIViewController {
         
         if isShowButton {
            showHideStartButton()
+        }
+    }
+    
+    func makeSessionObject() {
+        var duration = sessionDuration * 60
+        if timeRemaining < duration, breathCount > 0 {
+            if timeRemaining > 0 {
+                duration -= timeRemaining
+            }
+            
+            let mindful = duration * mindfulBreaths / breathCount
+            
+            
+            var upright = uprightDuration
+            if sessionKind == 1 {
+                upright = 0
+            }
+            
+            currentSessionObject?.duration = duration
+            currentSessionObject?.mindful = mindful
+            currentSessionObject?.upright = upright
         }
     }
 }
@@ -487,14 +499,17 @@ extension VisualTrainingViewController: VisualDelegate {
 
     func visualNewBreathDone(total: Int, mindful: Int) {
         DispatchQueue.main.async {
+            let isMindful = (self.mindfulBreaths != mindful)
             self.breathCount = total
             self.mindfulBreaths = mindful
+            self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: isMindful)
         }
     }
 
     func visualNewSlouches(slouches: Int) {
         DispatchQueue.main.async {
             self.slouches = slouches
+            self.currentSessionObject?.addSlouch(timeStamp: self.sessionDuration * 60 - self.timeRemaining)
         }
     }
 
@@ -507,6 +522,9 @@ extension VisualTrainingViewController: VisualDelegate {
     func visualOnTimer(v: Int) {
         DispatchQueue.main.async {
             self.timeRemaining = v
+            if v % 60 == 0 {
+                self.makeSessionObject()
+            }
         }
     }
 }

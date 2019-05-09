@@ -3,6 +3,7 @@ import CoreLocation
 import Contacts
 
 // class because protocol
+@available(iOS 11.0, *)
 public class Location: NSObject {
 	public let name: String?
 	
@@ -30,6 +31,7 @@ public class Location: NSObject {
 
 import MapKit
 
+@available(iOS 11.0, *)
 extension Location: MKAnnotation {
     
     @objc public var coordinate: CLLocationCoordinate2D {

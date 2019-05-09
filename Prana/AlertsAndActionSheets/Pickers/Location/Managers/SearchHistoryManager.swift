@@ -2,6 +2,7 @@ import UIKit
 import MapKit
 import Contacts
 
+@available(iOS 11.0, *)
 struct SearchHistoryManager {
     
 	fileprivate let HistoryKey = "RecentLocationsKey"
@@ -50,6 +51,7 @@ extension CLLocationCoordinate2D {
 	}
 }
 
+@available(iOS 11.0, *)
 extension Location {
     
 	func toDefaultsDic() -> NSDictionary? {

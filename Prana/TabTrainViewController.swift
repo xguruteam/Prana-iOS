@@ -49,7 +49,37 @@ class TabTrainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if dataController?.programType > 1 {
+        let dayNumber = dataController?.currentDay ?? 0
+        if let currentProgram = dataController?.currentProgram, dayNumber > 14 {
+            if currentProgram.type == .fourteen {
+                let alert = UIAlertController(style: .alert, title: "14 day Program", message: "Congratulation! You have completed the 14 day training program.")
+                alert.addAction(title: "Ok", style: .cancel)
+                alert.show()
+                currentProgram.endedAt = Date()
+                currentProgram.status = "completed"
+                dataController?.endProgram(currentProgram)
+            }
+        }
+        
+        if let currentProgram = dataController?.currentProgram {
+            lblMindfulBreathTime.text = "0"
+            lblBreathResult.text = "0% Mindful"
+            lblUprightPostureTime.text = "0"
+            lblPostureResult.text = "0% Upright"
+            if currentProgram.type == .fourteen {
+                let dayNumber = dataController?.currentDay ?? 0
+                let (breathingGoal, postureGoal, wearing) = fourteenGoals[dayNumber]
+                lblBreathGoal.text = "\(breathingGoal) mins"
+                lblPostureGoal.text = "\(postureGoal) mins"
+            }
+            else {
+                lblBreathGoal.text = "\(dataController?.breathingGoals ?? 0) mins"
+                lblPostureGoal.text = "\(dataController?.postureGoals ?? 0) mins"
+            }
+            
+            calculateSummary()
+        }
+        else {
             lblMindfulBreathTime.text = "0"
             lblBreathResult.text = " "
             lblBreathGoal.text = "Set up your Training"
@@ -60,22 +90,17 @@ class TabTrainViewController: UIViewController {
             breathCircle.progress = 0.0
             postureCircle.progress = 0.0
         }
-        else {
-            lblMindfulBreathTime.text = "0"
-            lblBreathResult.text = "0% Mindful"
-            lblUprightPostureTime.text = "0"
-            lblPostureResult.text = "0% Upright"
-            lblBreathGoal.text = "\(dataController?.breathingGoals ?? 0) mins"
-            lblPostureGoal.text = "\(dataController?.postureGoals ?? 0) mins"
-            
-            calculateSummary()
-        }
     }
     
     func calculateSummary() {
         if let sessions = dataController?.fetchSessions(), let _ = sessions.first {
             let (breathingElapsed, postureElapsed, mindfulDuration, uprightDuration) = sessions.reduce((0, 0, 0, 0)) { (acc, session) -> (Int, Int, Int, Int) in
                 var result = acc
+                
+                let calendar = Calendar.current
+                if calendar.isDateInToday(session.startedAt) == false {
+                    return result
+                }
                 if session.kind == 1 {
                     result.0 += session.duration
                 }
@@ -110,9 +135,18 @@ class TabTrainViewController: UIViewController {
             lblMindfulBreathTime.text = "\(breathingElapsed / 60)"
             lblUprightPostureTime.text = "\(postureElapsed / 60)"
             
-            breathCircle.progress = CGFloat(breathingElapsed / 60) / CGFloat(dataController!.breathingGoals)
-            
-            postureCircle.progress = CGFloat(postureElapsed / 60) / CGFloat(dataController!.postureGoals)
+            if let currentProgram = dataController?.currentProgram {
+                if currentProgram.type == .fourteen {
+                    let dayNumber = dataController?.currentDay ?? 0
+                    let (breathingGoal, postureGoal, wearing) = fourteenGoals[dayNumber]
+                    breathCircle.progress = CGFloat(breathingElapsed / 60) / CGFloat(breathingGoal)
+                    postureCircle.progress = CGFloat(postureElapsed / 60) / CGFloat(postureGoal)
+                }
+                else {
+                    breathCircle.progress = CGFloat(breathingElapsed / 60) / CGFloat(dataController!.breathingGoals)
+                    postureCircle.progress = CGFloat(postureElapsed / 60) / CGFloat(dataController!.postureGoals)
+                }
+            }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100), execute: {
                 self.breathCircle.startAnimation()

@@ -1,5 +1,6 @@
 import UIKit
 
+@available(iOS 11.0, *)
 extension UIAlertController {
     
     /// Add Image Picker
@@ -24,6 +25,7 @@ extension UIAlertController {
     }
 }
 
+@available(iOS 11.0, *)
 final class ImagePickerViewController: UIViewController {
     
     public typealias SingleSelection = (UIImage?) -> Swift.Void
@@ -119,6 +121,7 @@ final class ImagePickerViewController: UIViewController {
 
 // MARK: - CollectionViewDelegate
 
+@available(iOS 11.0, *)
 extension ImagePickerViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -151,6 +154,7 @@ extension ImagePickerViewController: UICollectionViewDelegate {
 
 // MARK: - CollectionViewDataSource
 
+@available(iOS 11.0, *)
 extension ImagePickerViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -170,6 +174,7 @@ extension ImagePickerViewController: UICollectionViewDataSource {
 
 // MARK: - CollectionViewDelegateFlowLayout
 
+@available(iOS 11.0, *)
 extension ImagePickerViewController: UICollectionViewDelegateFlowLayout {
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

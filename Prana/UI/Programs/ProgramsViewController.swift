@@ -47,6 +47,18 @@ class ProgramsViewController: UIViewController {
         }
         dataController = appDelegate.dataController
         
+        let dayNumber = dataController?.currentDay ?? 0
+        if let currentProgram = dataController?.currentProgram, dayNumber > 14 {
+            if currentProgram.type == .fourteen {
+                let alert = UIAlertController(style: .alert, title: "14 day Program", message: "Congratulation! You have completed the 14 day training program.")
+                alert.addAction(title: "Ok", style: .cancel)
+                alert.show()
+                currentProgram.endedAt = Date()
+                currentProgram.status = "completed"
+                dataController?.endProgram(currentProgram)
+            }
+        }
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(onLandscapeViewControllerDismiss), name: .landscapeViewControllerDidDismiss, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onDeviceOrientationChange), name: .deviceOrientationDidChange, object: nil)
@@ -55,30 +67,28 @@ class ProgramsViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        let savedProgramType = dataController?.programType ?? 100
-        if savedProgramType > 1 {
-            titleSubLabel.isHidden = true
-            titleConstrain.constant = 0.0
-            
-            onProgramTypeChange(0)
-        }
-        else {
-            programType = savedProgramType
+        if let currentProgram = dataController?.currentProgram {
+            programType = currentProgram.type == .fourteen ? 0 : 1
             
             isTrainingStarted = true
             isProgramCellOpen = false
             isSessionCellOpen = false
-//            tableView.reloadData()
+            //            tableView.reloadData()
             
             notificationTime = dataController?.dailyNotification ?? Date()
-
+            
+            if programType == 0 {
+                let dayNumber = dataController?.currentDay ?? 0
+                let (_, _, wearing) = fourteenGoals[dayNumber]
+                sessionPosition = wearing
+            }
+            
             if programType == 0 {
                 titleLabel.text = "14 Days Training"
                 titleSubLabel.isHidden = false
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MMMM d, yyyy"
-                dataController?.currentDay += 1
-                titleSubLabel.text = "Day \(dataController?.currentDay ?? 0 + 1): " + dateFormatter.string(from: Date())
+                titleSubLabel.text = "Day \((dataController?.currentDay ?? 0) + 1): " + dateFormatter.string(from: Date())
                 titleConstrain.constant = -20
             }
             else {
@@ -90,6 +100,23 @@ class ProgramsViewController: UIViewController {
                 customBreathingGoal = dataController?.breathingGoals ?? 5
                 customPostureGoal = dataController?.postureGoals ?? 5
             }
+        }
+        else {
+            titleSubLabel.isHidden = true
+            titleConstrain.constant = 0.0
+            
+            onProgramTypeChange(0)
+        }
+        
+        let savedProgramType = dataController?.programType ?? 100
+        if savedProgramType > 1 {
+            titleSubLabel.isHidden = true
+            titleConstrain.constant = 0.0
+            
+            onProgramTypeChange(0)
+        }
+        else {
+            
         }
 
     }
@@ -183,11 +210,15 @@ class ProgramsViewController: UIViewController {
         
         onProgramTypeChange(0)
         
+        if let currentProgram = dataController?.currentProgram {
+            currentProgram.endedAt = Date()
+            currentProgram.status = "canceled"
+            dataController?.endProgram(currentProgram)
+        }
         dataController?.programType = 100
         dataController?.breathingGoals = 0
         dataController?.postureGoals = 0
         dataController?.dailyNotification = nil
-        dataController?.currentDay = 0
         dataController?.saveSettings()
     }
     
@@ -214,6 +245,9 @@ class ProgramsViewController: UIViewController {
         isTrainingStarted = true
         isProgramCellOpen = false
         isSessionCellOpen = true
+        if programType == 0 {
+            sessionPosition = 0
+        }
         self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         tableView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(1000)) {
@@ -221,6 +255,9 @@ class ProgramsViewController: UIViewController {
 //            self.tableView.open(at: IndexPath(row: 1, section: 0))
             MKProgress.hide()
         }
+        
+        let program = Program(type: programType == 0 ? .fourteen : .custom)
+        dataController?.startProgram(program)
         
         dataController?.programType = programType
         dataController?.dailyNotification = notificationTime
@@ -235,7 +272,6 @@ class ProgramsViewController: UIViewController {
             
             dataController?.breathingGoals = 5
             dataController?.postureGoals = 5
-            dataController?.currentDay = 1
         }
         else {
             titleLabel.text = "Custom Training"
@@ -245,7 +281,6 @@ class ProgramsViewController: UIViewController {
             
             dataController?.breathingGoals = customBreathingGoal
             dataController?.postureGoals = customPostureGoal
-            dataController?.currentDay = 0
         }
         
         dataController?.saveSettings()

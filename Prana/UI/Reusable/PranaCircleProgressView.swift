@@ -133,7 +133,11 @@ class PranaCircleProgressLayer: CAGradientLayer {
     }
     
     func configure() {
-        type = .conic
+        if #available(iOS 12.0, *) {
+            type = .conic
+        } else {
+            // Fallback on earlier versions
+        }
         startPoint = CGPoint(x: 0.5, y: 0.5)
         endPoint = CGPoint(x: 0.5, y: 0)
     }

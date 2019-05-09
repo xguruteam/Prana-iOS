@@ -53,7 +53,11 @@ extension UIView {
 //        mask.path = path.cgPath
 //        layer.mask = mask
         layer.cornerRadius = radius
-        layer.maskedCorners = corners
+        if #available(iOS 11.0, *) {
+            layer.maskedCorners = corners
+        } else {
+            // Fallback on earlier versions
+        }
     }
 }
 

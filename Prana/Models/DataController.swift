@@ -28,7 +28,34 @@ class DataController {
     
     
     // Instant variable
-    var currentDay: Int = 0
+    var currentDay: Int {
+        if let program = currentProgram {
+            if program.type == .fourteen {
+                let calendar = Calendar.current
+                
+                // Replace the hour (time) of both dates with 00:00
+                let date1 = calendar.startOfDay(for: program.startedAt)
+                let date2 = calendar.startOfDay(for: Date())
+                
+                let components = calendar.dateComponents([.day], from: date1, to: date2)
+                return components.day ?? 0
+            }
+            else {
+                return 0
+            }
+        }
+        else {
+            return 0
+        }
+    }
+    
+    var currentProgram: Program? {
+        guard let lastProgram = self.fetchPrograms().last else { return nil }
+        
+        if lastProgram.status == "inprogress" { return lastProgram }
+        
+        return nil
+    }
     
     init() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -36,6 +63,7 @@ class DataController {
         }
         managedObjectContext = appDelegate.persistentContainer.viewContext
 //        clearSettings()
+//        clearPrograms()
 //        clearSessions()
         loadSettings()
     }
@@ -130,11 +158,20 @@ class DataController {
         guard let managedContext = managedObjectContext else { return }
         let sessionEntity = NSEntityDescription.entity(forEntityName: "Sessions", in: managedContext)!
         
-        let result = NSManagedObject(entity: sessionEntity, insertInto: managedContext)
-        result.setValue(session.duration, forKey: "duration")
-        result.setValue(session.kind, forKey: "kind")
-        result.setValue(session.mindful, forKey: "mindful")
-        result.setValue(session.upright, forKey: "upright")
+        let result = SessionMO(entity: sessionEntity, insertInto: managedContext)
+        result.startedAt = session.startedAt
+        result.kind = Int32(session.kind)
+        result.duration = Int32(session.duration)
+        result.mindful = Int32(session.mindful)
+        result.upright = Int32(session.upright)
+        result.slouches = session.slouches.map {
+            ["timeStamp" : $0.timeStamp]
+        }
+        
+        result.breaths = session.breaths.map {
+            ["timeStamp" : $0.timeStamp,
+             "isMindful": $0.isMindful]
+        }
         
         do {
             try managedContext.save()
@@ -146,7 +183,7 @@ class DataController {
     
     func fetchSessions() -> [Session] {
         guard let managedContext = managedObjectContext else { return [] }
-        let fetchRequest = NSFetchRequest<SessionManagedObject>(entityName: "Sessions")
+        let fetchRequest = NSFetchRequest<SessionMO>(entityName: "Sessions")
         
         do {
             let result = try managedContext.fetch(fetchRequest)
@@ -159,13 +196,23 @@ class DataController {
         return []
     }
     
-    func toSession(_ object: SessionManagedObject) -> Session? {
+    func toSession(_ object: SessionMO) -> Session? {
         if let duration = object.value(forKey: "duration") as? Int,
             let mindful = object.value(forKey: "mindful") as? Int,
             let upright = object.value(forKey: "upright") as? Int,
-            let kind = object.value(forKey: "kind") as? Int {
-            
-            return Session(duration: duration, kind: kind, mindful: mindful, upright: upright)
+            let kind = object.value(forKey: "kind") as? Int,
+        let startedAt = object.startedAt {
+            let session = Session(startedAt: startedAt, kind: kind)
+            session.duration = duration
+            session.mindful = mindful
+            session.upright = upright
+            session.slouches = object.slouches!.map({ (item) -> SlouchRecord in
+                return SlouchRecord(item["timeStamp"] as! Int)
+            })
+            session.breaths = object.breaths!.map({ (item) -> BreathRecord in
+                return BreathRecord(timeStamp: item["timeStamp"] as! Int, isMindful: item["isMindful"] as! Bool)
+            })
+            return session
         }
         return nil
     }
@@ -173,6 +220,104 @@ class DataController {
     func clearSessions() {
         guard let managedContext = managedObjectContext else { return }
         let fetchRequest = NSFetchRequest<SessionManagedObject>(entityName: "Sessions")
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            
+            result.each { (_, session) in
+                managedContext.delete(session)
+                
+                do {
+                    try managedContext.save()
+                }
+                catch {
+                    print(error)
+                }
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    func startProgram(_ program: Program) {
+        guard let managedContext = managedObjectContext else { return }
+        let programEntity = NSEntityDescription.entity(forEntityName: "Programs", in: managedContext)!
+        
+        let result = ProgramMO(entity: programEntity, insertInto: managedContext)
+        result.startedAt = program.startedAt
+        result.type = program.type.toString()
+        result.endAt = program.endedAt
+        result.status = program.status
+        
+        do {
+            try managedContext.save()
+        }
+        catch {
+            print(error)
+        }
+    }
+    
+    func endProgram(_ program: Program) {
+        guard let managedContext = managedObjectContext else { return }
+        let fetchRequest = NSFetchRequest<ProgramMO>(entityName: "Programs")
+        fetchRequest.predicate = NSPredicate(format: "startedAt == %@", program.startedAt as NSDate)
+        
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            guard result.count == 1 else {
+                fatalError()
+                return
+            }
+            
+            if let object = result.last {
+                object.endAt = program.endedAt
+                object.status = program.status
+                
+                do {
+                    try managedContext.save()
+                }
+                catch {
+                    print(error)
+                }
+            }
+            
+        } catch let error as NSError {
+            NSLog("Could not fetch readings. \(error), \(error.userInfo)")
+        }
+    }
+    
+    func fetchPrograms() -> [Program] {
+        guard let managedContext = managedObjectContext else { return [] }
+        let fetchRequest = NSFetchRequest<ProgramMO>(entityName: "Programs")
+        
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            let programs = result.map(self.toProgram)
+            
+            return programs as! [Program]
+        } catch let error as NSError {
+            NSLog("Could not fetch readings. \(error), \(error.userInfo)")
+        }
+        return []
+    }
+    
+    func toProgram(_ object: ProgramMO) -> Program? {
+        if let type = ProgramType(from: object.type),
+            let startedAt = object.startedAt,
+            let status = object.status {
+            let program = Program(type: type)
+            program.startedAt = startedAt
+            program.endedAt = object.endAt
+            program.status = status
+            
+            return program
+        }
+        
+        return nil
+    }
+    
+    func clearPrograms() {
+        guard let managedContext = managedObjectContext else { return }
+        let fetchRequest = NSFetchRequest<ProgramMO>(entityName: "Programs")
         do {
             let result = try managedContext.fetch(fetchRequest)
             

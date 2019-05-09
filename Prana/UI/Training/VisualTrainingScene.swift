@@ -521,12 +521,12 @@ class VisualTrainingScene: SKScene {
         if prevPostureState == 1 {
             if objLive!.postureIsGood == 0 {
                 slouchesCount += 1
+
+                self.visualDelegate?.visualNewSlouches(slouches: slouchesCount)
             }
         }
         
         self.visualDelegate?.visualUprightTime(uprightPostureTime: uprightPostureTime, elapsedTime: (gameSetTime - trainingDuration))
-        
-        self.visualDelegate?.visualNewSlouches(slouches: slouchesCount)
         
         prevPostureState = (objLive?.postureIsGood)!
         

@@ -381,11 +381,11 @@ class Buzzer {
         if (prevPostureState == 1) {
             if (self.objLiveGraph.postureIsGood == 0) {
                 slouchesCount+=1;
+                self.delegate?.buzzerNewSlouches(slouchesCount)
             }
         }
 
         self.delegate?.buzzerNewUprightTime(uprightPostureTime, ofElapsed: gameSetTime - trainingDuration)
-        self.delegate?.buzzerNewSlouches(slouchesCount)
         
         prevPostureState = self.objLiveGraph.postureIsGood;
         
@@ -412,6 +412,7 @@ class Buzzer {
         whenInhaled = 0;
         whenExhaled = 0;
         buzzReason = 1;
+        self.delegate?.buzzerNewMindfulBreaths(mindfulBreathsCount, ofTotalBreaths: totalBreaths)
         //    buzzerTrainingUI.mindfulBreaths.text = String(mindfulBreathsCount) + " of " + String(totalBreaths);
         
     }

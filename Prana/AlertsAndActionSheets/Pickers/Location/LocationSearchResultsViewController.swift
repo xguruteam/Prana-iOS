@@ -1,6 +1,7 @@
 import UIKit
 import MapKit
 
+@available(iOS 11.0, *)
 final class LocationSearchResultsViewController: UITableViewController {
 	var locations: [Location] = []
 	var onSelectLocation: ((Location) -> ())?

@@ -85,6 +85,8 @@ class BuzzerTrainingViewController: UIViewController {
     var breathCount: Int = 0
     var uprightDuration: Int = 0
     
+    var currentSessionObject: Session?
+    
     var timeRemaining: Int = 0 {
         didSet {
             lblTimeRemaining.text = "\(styledTime(v: timeRemaining))"
@@ -383,6 +385,7 @@ class BuzzerTrainingViewController: UIViewController {
         isLiving = true
         btnStartStop.setTitle("END SESSION EARLY", for: .normal)
         objBuzzer?.startSession()
+        self.currentSessionObject = Session(startedAt: Date(), kind: sessionKind)
         btnBack.isHidden = true
         btnHelp.isHidden = true
     }
@@ -395,7 +398,24 @@ class BuzzerTrainingViewController: UIViewController {
         btnBack.isHidden = false
         btnHelp.isHidden = false
         
+
+        currentSessionObject?.floorSessionDuration()
         
+        if let session = currentSessionObject {
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
+                dataController.addSessionRecord(session)
+            }
+        }
+        
+//        if isTutorial {
+//            objLive?.removeDelegate(self as! LiveDelegate)
+//            let vc = Utils.getStoryboardWithIdentifier(identifier: "TutorialEndViewController")
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        }
+        
+    }
+    
+    func makeSessionObject() {
         var duration = sessionDuration * 60
         if sessionKind == 0 {
             if timeRemaining < duration, breathCount > 0 {
@@ -406,10 +426,9 @@ class BuzzerTrainingViewController: UIViewController {
                 let mindful = duration * mindfulBreaths / breathCount
                 let upright = uprightDuration
                 
-                let session = Session(duration: duration, kind: sessionKind, mindful: mindful, upright: upright)
-                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
-                    dataController.addSessionRecord(session)
-                }
+                currentSessionObject?.duration = duration
+                currentSessionObject?.mindful = mindful
+                currentSessionObject?.upright = upright
             }
         }
         else if sessionKind == 1{
@@ -420,10 +439,9 @@ class BuzzerTrainingViewController: UIViewController {
                 
                 let mindful = duration * mindfulBreaths / breathCount
                 
-                let session = Session(duration: duration, kind: sessionKind, mindful: mindful, upright: 0)
-                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
-                    dataController.addSessionRecord(session)
-                }
+                currentSessionObject?.duration = duration
+                currentSessionObject?.mindful = mindful
+                currentSessionObject?.upright = 0
             }
         }
         else {
@@ -434,19 +452,11 @@ class BuzzerTrainingViewController: UIViewController {
                 
                 let upright = uprightDuration
                 
-                let session = Session(duration: duration, kind: sessionKind, mindful: 0, upright: upright)
-                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
-                    dataController.addSessionRecord(session)
-                }
+                currentSessionObject?.duration = duration
+                currentSessionObject?.mindful = 0
+                currentSessionObject?.upright = upright
             }
         }
-        
-//        if isTutorial {
-//            objLive?.removeDelegate(self as! LiveDelegate)
-//            let vc = Utils.getStoryboardWithIdentifier(identifier: "TutorialEndViewController")
-//            self.navigationController?.pushViewController(vc, animated: true)
-//        }
-        
     }
     
     func onComplete() {
@@ -495,6 +505,10 @@ extension BuzzerTrainingViewController: BuzzerDelegate {
     }
     
     func buzzerNewMindfulBreaths(_ mindfuls: Int, ofTotalBreaths totals: Int) {
+        if breathCount < totals {
+            let isMindful = ((mindfuls > mindfulBreaths) ? true : false)
+            self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: isMindful)
+        }
         mindfulBreaths = mindfuls
         breathCount = totals
         DispatchQueue.main.async {
@@ -517,6 +531,9 @@ extension BuzzerTrainingViewController: BuzzerDelegate {
     func buzzerTimeElapsed(_ elapsed: Int) {
         DispatchQueue.main.async {
             self.timeRemaining = elapsed
+            if elapsed % 60 == 0 {
+                self.makeSessionObject()
+            }
         }
     }
     
@@ -528,6 +545,7 @@ extension BuzzerTrainingViewController: BuzzerDelegate {
     }
     
     func buzzerNewSlouches(_ slouches: Int) {
+        self.currentSessionObject?.addSlouch(timeStamp: self.sessionDuration * 60 - self.timeRemaining)
         DispatchQueue.main.async {
             self.lblSlouches.text = "Slouches: \(slouches)"
         }
