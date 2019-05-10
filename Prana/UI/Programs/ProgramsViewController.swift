@@ -578,9 +578,9 @@ class ProgramsViewController: UIViewController {
             return 50
         case 3:
             if programType == 0 {
-                return 550 - 235
+                return 550 - 200
             }
-            return 550+170 - 235
+            return 550+170 - 200
         case 4:
             return 200
         default:

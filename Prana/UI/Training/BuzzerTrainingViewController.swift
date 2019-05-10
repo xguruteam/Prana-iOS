@@ -188,6 +188,7 @@ class BuzzerTrainingViewController: UIViewController {
             con14.priority = .required
             
             objBuzzer?.useBuzzerForPosture = 0
+            objBuzzer?.buzzerTrainingForPostureOnly = 0
             uprightHasBeenSetHandler()
             lblGuide.isHidden = true
         }
@@ -210,9 +211,12 @@ class BuzzerTrainingViewController: UIViewController {
             con15.priority = .required
             con9.constant = 200
             con10.constant = 200
+            objBuzzer?.useBuzzerForPosture = 1
+            objBuzzer?.buzzerTrainingForPostureOnly = 1
         }
         else {
-            
+            objBuzzer?.useBuzzerForPosture = 1
+            objBuzzer?.buzzerTrainingForPostureOnly = 0
         }
     }
     

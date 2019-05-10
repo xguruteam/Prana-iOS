@@ -32,6 +32,8 @@
 		CAA21A1522777D090004F5E0 /* Prana.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CAA21A1322777D090004F5E0 /* Prana.xcdatamodeld */; };
 		CAA21A17227780F10004F5E0 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA21A16227780F10004F5E0 /* DataController.swift */; };
 		CAA44A31224425EF0050D619 /* ConnectionTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA44A30224425EF0050D619 /* ConnectionTestViewController.swift */; };
+		CAA782E22285D20600EB5122 /* PatternsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA782E12285D20600EB5122 /* PatternsViewController.swift */; };
+		CAA782E42285F28A00EB5122 /* PatternCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA782E32285F28A00EB5122 /* PatternCell.swift */; };
 		CAAB4ED5226E7FF9000C8802 /* ProgramChildCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAB4ED4226E7FF9000C8802 /* ProgramChildCell.swift */; };
 		CAAC19822270D2EF001DC02D /* PranaDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAC19812270D2EF001DC02D /* PranaDropDown.swift */; };
 		CAAC19842270D309001DC02D /* PranaDropDown.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAAC19832270D309001DC02D /* PranaDropDown.xib */; };
@@ -222,6 +224,8 @@
 		CAA21A1422777D090004F5E0 /* Prana.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Prana.xcdatamodel; sourceTree = "<group>"; };
 		CAA21A16227780F10004F5E0 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		CAA44A30224425EF0050D619 /* ConnectionTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionTestViewController.swift; sourceTree = "<group>"; };
+		CAA782E12285D20600EB5122 /* PatternsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternsViewController.swift; sourceTree = "<group>"; };
+		CAA782E32285F28A00EB5122 /* PatternCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternCell.swift; sourceTree = "<group>"; };
 		CAAB4ED4226E7FF9000C8802 /* ProgramChildCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramChildCell.swift; sourceTree = "<group>"; };
 		CAAC19812270D2EF001DC02D /* PranaDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranaDropDown.swift; sourceTree = "<group>"; };
 		CAAC19832270D309001DC02D /* PranaDropDown.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PranaDropDown.xib; sourceTree = "<group>"; };
@@ -909,6 +913,8 @@
 				CAAC198522710471001DC02D /* ProgramParentCell.swift */,
 				CAE67085227231A70099D72C /* SessionChildCell.swift */,
 				CA603B79228053860019A648 /* SessionStartStopCell.swift */,
+				CAA782E12285D20600EB5122 /* PatternsViewController.swift */,
+				CAA782E32285F28A00EB5122 /* PatternCell.swift */,
 			);
 			path = Programs;
 			sourceTree = "<group>";
@@ -1202,6 +1208,7 @@
 				D79A36D6222827E50085D3FA /* Utils.swift in Sources */,
 				CAAF9D1522737952003232C4 /* Locale+Extensions.swift in Sources */,
 				CAAF9D3822737952003232C4 /* GradientSlider.swift in Sources */,
+				CAA782E22285D20600EB5122 /* PatternsViewController.swift in Sources */,
 				CAAF9D1B22737952003232C4 /* LocaleInfo.swift in Sources */,
 				CAAF9D2322737952003232C4 /* PhotoLibraryPickerViewController.swift in Sources */,
 				D7E145AD2236F50100991D34 /* ResetPasswordViewController.swift in Sources */,
@@ -1263,6 +1270,7 @@
 				D71129382236932700145C4B /* ForgotPasswordViewController.swift in Sources */,
 				D79A36D32227C6DD0085D3FA /* HistoryViewController.swift in Sources */,
 				D7A6AC9F22559A44001DD8F9 /* TutorialWearUpperchestViewController.swift in Sources */,
+				CAA782E42285F28A00EB5122 /* PatternCell.swift in Sources */,
 				D732BDB02255FC86008AFF76 /* TutorialWearLowerbackViewController.swift in Sources */,
 				CAAF9D2D22737952003232C4 /* ContactCell.swift in Sources */,
 				CAAF9D1022737951003232C4 /* UISearchBar+Extensions.swift in Sources */,
@@ -1423,8 +1431,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = U37J473DVK;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = D4J7AW2S69;
 				INFOPLIST_FILE = Prana/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1433,7 +1441,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.prana.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = All_Dev_160129;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1445,8 +1453,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = U37J473DVK;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Prana/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (

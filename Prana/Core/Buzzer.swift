@@ -68,6 +68,8 @@ class Buzzer {
     
     var useBuzzerForPosture:Int = 1;
     
+    var buzzerTrainingForPostureOnly:Int = 1
+    
     var timer: Timer?
     
     var objLiveGraph: Live
@@ -173,6 +175,15 @@ class Buzzer {
             }
             return; // if breath was bad, breatTime is set to -90, and needs time to clear bad breath buzzer indicator before proceeding
         }
+        
+        if (buzzerTrainingForPostureOnly == 1) {
+            if (objLiveGraph.postureIsGood == 0 && useBuzzerForPosture == 1)  {   //****** May 7th 2019 changes
+                self.delegate?.buzzerNewBuzzerReason("Slouching Posture")
+//                buzzerTrainingUI.buzzerReason.text = "Slouching Posture";    //****** May 7th 2019 changes
+                badPosture();    //****** May 7th 2019 changes
+            }   //****** May 7th 2019 changes
+            return;  //****** May 7th 2019 changes
+        }   //****** May 7th 2019 changes
         
         if (breathTime >= timeBetweenBreathsEnd) {
             

@@ -173,25 +173,42 @@ class SessionChildCell: UITableViewCell {
     }
     
     func openSessionPatternPicker() {
-        tempSessionPattern = sessionPattern
-        let alert = UIAlertController(style: .actionSheet, title: "Posture Goal", message: nil)
+        let vc = Utils.getStoryboardWithIdentifier(identifier: "PatternsViewController")
+        let topVC = self.topViewControllerWithRootViewController(rootViewController: UIApplication.shared.keyWindow?.rootViewController)
+        topVC?.present(vc, animated: true, completion: nil)
+//        tempSessionPattern = sessionPattern
+//        let alert = UIAlertController(style: .actionSheet, title: "Posture Goal", message: nil)
+//
+//        let frameSizes: [Int] = (0...15).map { Int($0) }
+//        let pickerViewValues: [[String]] = [frameSizes.map { "Pattern \($0)" }]
+//        let pickerViewSelectedValue: PickerViewViewController.Index = (column: 0, row: frameSizes.index(of: tempSessionPattern) ?? 0)
+//
+//        alert.addPickerView(values: pickerViewValues, initialSelection: pickerViewSelectedValue) { vc, picker, index, values in
+//            DispatchQueue.main.async {
+//                self.tempSessionPattern = frameSizes[index.row]
+//            }
+//        }
+//        alert.addAction(title: "Done", style: .default) { (_) in
+//            self.sessionPattern = self.tempSessionPattern
+//            self.sessionDurationChangeListener?(self.sessionPattern)
+//        }
+//        alert.addAction(title: "Cancel", style: .cancel) { (_) in
+//
+//        }
+//        alert.show(style: .prominent)
+    }
+    
+    private func topViewControllerWithRootViewController(rootViewController: UIViewController!) -> UIViewController? {
+        if (rootViewController == nil) { return nil }
+        if (rootViewController.isKind(of: UITabBarController.self)) {
+            return topViewControllerWithRootViewController(rootViewController: (rootViewController as! UITabBarController).selectedViewController)
+        } else if (rootViewController.isKind(of: UINavigationController.self)) {
+            return topViewControllerWithRootViewController(rootViewController: (rootViewController as! UINavigationController).visibleViewController)
+        } else if (rootViewController.presentedViewController != nil) {
+            return topViewControllerWithRootViewController(rootViewController: rootViewController.presentedViewController)
+        }
         
-        let frameSizes: [Int] = (0...15).map { Int($0) }
-        let pickerViewValues: [[String]] = [frameSizes.map { "Pattern \($0)" }]
-        let pickerViewSelectedValue: PickerViewViewController.Index = (column: 0, row: frameSizes.index(of: tempSessionPattern) ?? 0)
         
-        alert.addPickerView(values: pickerViewValues, initialSelection: pickerViewSelectedValue) { vc, picker, index, values in
-            DispatchQueue.main.async {
-                self.tempSessionPattern = frameSizes[index.row]
-            }
-        }
-        alert.addAction(title: "Done", style: .default) { (_) in
-            self.sessionPattern = self.tempSessionPattern
-            self.sessionDurationChangeListener?(self.sessionPattern)
-        }
-        alert.addAction(title: "Cancel", style: .cancel) { (_) in
-            
-        }
-        alert.show(style: .prominent)
+        return rootViewController
     }
 }
