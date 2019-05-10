@@ -250,6 +250,15 @@ class BuzzerTrainingViewController: UIViewController {
             return
         }
         else {
+            currentSessionObject?.floorSessionDuration()
+            
+            if let session = currentSessionObject {
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
+                    dataController.addSessionRecord(session)
+                }
+            }
+            
+
             self.dismiss(animated: true) {
                 
             }
@@ -397,15 +406,6 @@ class BuzzerTrainingViewController: UIViewController {
         PranaDeviceManager.shared.stopGettingLiveData()
         btnBack.isHidden = false
         btnHelp.isHidden = false
-        
-
-        currentSessionObject?.floorSessionDuration()
-        
-        if let session = currentSessionObject {
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
-                dataController.addSessionRecord(session)
-            }
-        }
         
 //        if isTutorial {
 //            objLive?.removeDelegate(self as! LiveDelegate)
