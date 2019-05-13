@@ -84,7 +84,8 @@ class ProgramsViewController: UIViewController {
             }
             
             if programType == 0 {
-                titleLabel.text = "14 Days Training"
+//                titleLabel.text = "14 Days Training"
+                setTitle("14 Days Training")
                 titleSubLabel.isHidden = false
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MMMM d, yyyy"
@@ -92,7 +93,8 @@ class ProgramsViewController: UIViewController {
                 titleConstrain.constant = -20
             }
             else {
-                titleLabel.text = "Custom Training"
+//                titleLabel.text = "Custom Training"
+                setTitle("Custom Training")
                 titleSubLabel.isHidden = true
                 titleSubLabel.text = ""
                 titleConstrain.constant = 0
@@ -104,6 +106,8 @@ class ProgramsViewController: UIViewController {
         else {
             titleSubLabel.isHidden = true
             titleConstrain.constant = 0.0
+            
+            setTitle("Training")
             
             onProgramTypeChange(0)
         }
@@ -119,6 +123,24 @@ class ProgramsViewController: UIViewController {
             
         }
 
+    }
+    
+    func setTitle(_ title: String) {
+        if let titleFont = UIFont(name: "Quicksand-Bold", size: 24.0)  {
+            let shadow : NSShadow = NSShadow()
+            shadow.shadowOffset = CGSize(width: 0, height: 2)
+            shadow.shadowColor = UIColor(hexString: "#910c5274")
+            shadow.shadowBlurRadius = 4
+            
+            let attributes = [
+                NSAttributedString.Key.font : titleFont,
+                NSAttributedString.Key.foregroundColor : UIColor.white,
+                NSAttributedString.Key.shadow : shadow] as [NSAttributedString.Key : Any]
+            
+            var titleStr = NSAttributedString(string: title, attributes: attributes) //1
+            
+            titleLabel.attributedText = titleStr //3
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -203,7 +225,7 @@ class ProgramsViewController: UIViewController {
         
         titleSubLabel.isHidden = true
         titleConstrain.constant = 0.0
-        titleLabel.text = "Training"
+        setTitle("Training")
         titleSubLabel.isHidden = true
         titleSubLabel.text = ""
         titleConstrain.constant = 0
@@ -263,7 +285,8 @@ class ProgramsViewController: UIViewController {
         dataController?.dailyNotification = notificationTime
         
         if programType == 0 {
-            titleLabel.text = "14 Days Training"
+//            titleLabel.text = "14 Days Training"
+            setTitle("14 Days Training")
             titleSubLabel.isHidden = false
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MMMM d, yyyy"
@@ -274,7 +297,8 @@ class ProgramsViewController: UIViewController {
             dataController?.postureGoals = 5
         }
         else {
-            titleLabel.text = "Custom Training"
+//            titleLabel.text = "Custom Training"
+            setTitle("Custom Training")
             titleSubLabel.isHidden = true
             titleSubLabel.text = ""
             titleConstrain.constant = 0

@@ -95,12 +95,12 @@ class BuzzerTrainingViewController: UIViewController {
     
     var targetRR: Double = 0 {
         didSet {
-            lblTargetRespirationRate.text = "Target Respiration Rate:\(targetRR) Actual:\(actualRR)"
+            lblTargetRespirationRate.text = "Target/Actual Respiration Rate:\(targetRR)/\(actualRR) bpm"
         }
     }
     var actualRR: Double = 0 {
         didSet {
-            lblTargetRespirationRate.text = "Target Respiration Rate:\(targetRR) Actual:\(actualRR)"
+            lblTargetRespirationRate.text = "Target/Actual Respiration Rate:\(targetRR)/\(actualRR) bpm"
         }
     }
     
@@ -544,7 +544,7 @@ extension BuzzerTrainingViewController: BuzzerDelegate {
     func buzzerNewUprightTime(_ uprightTime: Int, ofElapsed elapsed: Int) {
         uprightDuration = uprightTime
         DispatchQueue.main.async {
-            self.lblUprightPosture.text = "Upright Posture: \(Int(uprightTime*100/elapsed))% (\(uprightTime) of \(elapsed) seconds)"
+            self.lblUprightPosture.text = "Upright Posture: \(Int(uprightTime*100/elapsed))% (\(uprightTime) of \(elapsed) s)"
         }
     }
     

@@ -42,7 +42,23 @@ class TabTrainViewController: UIViewController {
         
         lblTitle.text = "Today's Achievements"
         
-        
+        if let titleFont = UIFont(name: "Quicksand-Bold", size: 24.0)  {
+            let shadow : NSShadow = NSShadow()
+            shadow.shadowOffset = CGSize(width: 0, height: 2)
+            shadow.shadowColor = UIColor(hexString: "#910c5274")
+            shadow.shadowBlurRadius = 4
+            
+            let attributes = [
+                NSAttributedString.Key.font : titleFont,
+                NSAttributedString.Key.foregroundColor : UIColor.white,
+                NSAttributedString.Key.strokeWidth : -1.0,
+                .strokeColor : UIColor.black,
+                NSAttributedString.Key.shadow : shadow] as [NSAttributedString.Key : Any]
+            
+            var title = NSAttributedString(string: "Today's Achievements", attributes: attributes) //1
+            
+            lblTitle.attributedText = title //3
+        }
 //        getTrainSummary()
     }
     

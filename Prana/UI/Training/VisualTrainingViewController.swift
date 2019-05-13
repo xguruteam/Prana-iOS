@@ -92,16 +92,22 @@ class VisualTrainingViewController: UIViewController {
     var targetRR: Double = 0 {
         didSet {
             if targetRR < 0 {
-                lblStatus2.text = "Target Respiration Rate:"
+                lblStatus2.text = "Target/Actual Respiration Rate:"
             }
             else {
-                lblStatus2.text = "Target Respiration Rate: \(roundDouble(double: targetRR))"
+                lblStatus2.text = "Target/Actual Respiration Rate: \(roundDouble(double: targetRR))/\(roundDouble(double: actualRR)) bpm"
             }
         }
     }
     
     var actualRR: Double = 0 {
         didSet {
+            if targetRR < 0 {
+                lblStatus2.text = "Target/Actual Respiration Rate:"
+            }
+            else {
+                lblStatus2.text = "Target/Actual Respiration Rate: \(roundDouble(double: targetRR))/\(roundDouble(double: actualRR)) bpm"
+            }
             if targetRR < 0 {
                 lblStatus5.text = "Actual:"
             }
