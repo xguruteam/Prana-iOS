@@ -3,7 +3,7 @@
 //  CircleTest
 //
 //  Created by Luccas on 4/30/19.
-//  Copyright © 2019 Guru. All rights reserved.
+//  Copyright © 2019 Luccas. All rights reserved.
 //
 
 import Foundation

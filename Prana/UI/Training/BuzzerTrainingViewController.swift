@@ -87,6 +87,13 @@ class BuzzerTrainingViewController: UIViewController {
     
     var currentSessionObject: Session?
     
+    var whichPattern: Int = 0
+    var subPattern: Int = 0
+    var startSubPattern: Int = 5
+    var maxSubPattern: Int = 8
+    
+    var patternTitle: String = ""
+    
     var timeRemaining: Int = 0 {
         didSet {
             lblTimeRemaining.text = "\(styledTime(v: timeRemaining))"
@@ -156,8 +163,11 @@ class BuzzerTrainingViewController: UIViewController {
         
         lblWearing.text = "Wearing: " + (sessionWearing == 0 ? "Lower Back" : "Upper Chest")
         
+        lblBreathingPattern.text = "Breathing Pattern: \(self.patternTitle)"
         
-        objBuzzer = Buzzer(pattern: 0, subPattern: 5, duration: timeRemaining, live: objLive!)
+        
+        objBuzzer = Buzzer(pattern: whichPattern, subPattern: subPattern, duration: timeRemaining, live: objLive!)
+        objBuzzer?.maxSubPattern = maxSubPattern
         objBuzzer?.delegate = self
         
         setBreathSensitivity(val: 2)

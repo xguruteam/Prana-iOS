@@ -52,6 +52,11 @@ class TutorialBuzzerViewController: UIViewController {
         vc.sessionKind = 0
         vc.sessionWearing = 0
         vc.sessionDuration = 1
+        vc.whichPattern = 0
+        vc.subPattern = 5
+        vc.startSubPattern = 5
+        vc.maxSubPattern = 8
+        vc.patternTitle = patternNames[vc.whichPattern].0
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

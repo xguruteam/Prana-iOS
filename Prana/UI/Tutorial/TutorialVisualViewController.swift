@@ -86,6 +86,7 @@ class TutorialVisualViewController: UIViewController {
         vc.whichPattern = 0
         vc.subPattern = 0
         vc.skipCalibration = 0
+        vc.maxSubPattern = 34
         UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
         self.present(vc, animated: false, completion: nil)
     }

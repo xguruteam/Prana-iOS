@@ -2,7 +2,7 @@
 //  PranaExpandableCell.swift
 //  Prana
 //
-//  Created by Guru on 4/22/19.
+//  Created by Luccas on 4/22/19.
 //  Copyright © 2019 Prana. All rights reserved.
 //
 

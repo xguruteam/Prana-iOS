@@ -2,7 +2,7 @@
 //  ProgramParentCell.swift
 //  Prana
 //
-//  Created by Guru on 4/24/19.
+//  Created by Luccas on 4/24/19.
 //  Copyright © 2019 Prana. All rights reserved.
 //
 

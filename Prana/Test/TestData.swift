@@ -2,7 +2,7 @@
 //  TestData.swift
 //  Prana
 //
-//  Created by Guru on 3/25/19.
+//  Created by Luccas on 3/25/19.
 //  Copyright © 2019 Prana. All rights reserved.
 //
 

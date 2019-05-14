@@ -76,6 +76,8 @@ class Buzzer {
     
     var delegate: BuzzerDelegate?
     
+    var maxSubPattern:Int = 8
+    
     init(pattern: Int, subPattern subPatt: Int, duration: Int, live: Live) {
         useBuzzerForPosture = 1;
         
@@ -268,8 +270,8 @@ class Buzzer {
                     if (breathsOnCurrentLevel == 5) {
                         if (goodBreaths >= 4) {
                             subPattern+=1;
-                            if (subPattern > 34) {
-                                subPattern = 34;
+                            if (subPattern > maxSubPattern) {
+                                subPattern = maxSubPattern;
                             }
                         }
                         else {

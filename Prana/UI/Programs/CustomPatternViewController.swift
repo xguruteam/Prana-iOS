@@ -2,7 +2,7 @@
 //  CustomPatternViewController.swift
 //  Prana
 //
-//  Created by Guru on 5/13/19.
+//  Created by Luccas on 5/13/19.
 //  Copyright © 2019 Prana. All rights reserved.
 //
 
@@ -26,10 +26,10 @@ class CustomPatternViewController: UIViewController {
     
     var subType: Int = 0
     
-    var startResp: Int = 20
+    var startResp: Int = 0
     var tempStartResp: Int = 0
     
-    var minimumResp: Int = 1
+    var minimumResp: Int = 0
     var tempMinimumResp: Int = 0
     
     var ratio: Float = 0.5
@@ -211,7 +211,7 @@ class CustomPatternViewController: UIViewController {
         
         let alert = UIAlertController(style: .actionSheet, title: "Minimum Respiration Rate", message: nil)
         
-        let frameSizes: [Int] = (1...bpms.count).map { Int($0) }
+        let frameSizes: [Int] = (0...bpms.count).map { Int($0) }
         let pickerViewValues: [[String]] = [bpms.map { "\($0) b/m" }]
         
         let pickerViewSelectedValue: PickerViewViewController.Index = (column: 0, row: frameSizes.index(of: tempMinimumResp) ?? 1)
@@ -274,6 +274,7 @@ class CustomPatternViewController: UIViewController {
         alert.addAction(title: "Done", style: .default) { (_) in
             self.inhalationTime = self.tempInhalationTime
             self.drop4.title = "\(self.inhalationTime)"
+            self.calculateResultRespirationRate()
         }
         alert.addAction(title: "Cancel", style: .cancel) { (_) in
             
@@ -299,6 +300,7 @@ class CustomPatternViewController: UIViewController {
         alert.addAction(title: "Done", style: .default) { (_) in
             self.exhalationTime = self.tempExhalationTime
             self.drop5.title = "\(self.exhalationTime)"
+            self.calculateResultRespirationRate()
         }
         alert.addAction(title: "Cancel", style: .cancel) { (_) in
             
@@ -324,6 +326,7 @@ class CustomPatternViewController: UIViewController {
         alert.addAction(title: "Done", style: .default) { (_) in
             self.retentionTime = self.tempRetentionTime
             self.drop6.title = "\(self.retentionTime)"
+            self.calculateResultRespirationRate()
         }
         alert.addAction(title: "Cancel", style: .cancel) { (_) in
             
@@ -349,6 +352,7 @@ class CustomPatternViewController: UIViewController {
         alert.addAction(title: "Done", style: .default) { (_) in
             self.timeBetweenBreaths = self.tempTimeBetweenBreaths
             self.drop7.title = "\(self.timeBetweenBreaths)"
+            self.calculateResultRespirationRate()
         }
         alert.addAction(title: "Cancel", style: .cancel) { (_) in
             

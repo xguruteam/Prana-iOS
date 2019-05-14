@@ -2,7 +2,7 @@
 //  SessionStartStopCell.swift
 //  Prana
 //
-//  Created by Guru on 5/6/19.
+//  Created by Luccas on 5/6/19.
 //  Copyright © 2019 Prana. All rights reserved.
 //
 

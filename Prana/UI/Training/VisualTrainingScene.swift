@@ -379,7 +379,7 @@ class VisualTrainingScene: SKScene {
         }
         //may 8th **************
 
-        if (objLive?.calibrationBreathsDone == 0) && (skipCalibration == 0) {    //may 8th
+        else if (objLive?.calibrationBreathsDone == 0 && skipCalibration == 0) {    //may 8th
             _calibrationRegion!.position.x -= CGFloat(xd)
             
             if (_calibrationRegion?.position.x)! + _calibrationRegion!.frame.size.width/2 < (_birdX - 50) {
@@ -842,7 +842,7 @@ class VisualTrainingScene: SKScene {
         
         targetsHit = 0
         
-        self.visualDelegate?.visualNewBreathDone(total: mindfulBreathCount, mindful: totalBreaths)
+        self.visualDelegate?.visualNewBreathDone(total: totalBreaths, mindful: mindfulBreathCount)
     }
     
     func assessBreathForDynamicPattern() {
@@ -923,8 +923,8 @@ class VisualTrainingScene: SKScene {
         
         if (skipCalibration == 0) { //may 8th
             addChild(_calibrationRegion!)
+            lastX += Double(_calibrationRegion!.size.width)
         } //may 8th
-        lastX += Double(_calibrationRegion!.size.width)
         
         if whichPattern != 0 {
             createInitialSetOfBreathPatterns()

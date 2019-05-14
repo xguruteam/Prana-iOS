@@ -108,9 +108,9 @@ class ConnectViewController: UIViewController {
         
         isConnected = true
         
-        if level < 60 {
-            return
-        }
+//        if level < 60 {
+//            return
+//        }
         
         self.btn_next.isEnabled = true
     }
@@ -152,9 +152,7 @@ extension ConnectViewController: PranaDeviceManagerDelegate {
     
     func PranaDeviceManagerDidDiscover(_ device: PranaDevice) {
         print(device.name)
-        if device.name.contains("iPhone")
-            || device.name.contains("iPod touch")
-            || device.name.contains("Prana Tech") {
+        if device.name.contains("Prana Tech") {
             stopScanPrana()
             connectPrana(device)
         }

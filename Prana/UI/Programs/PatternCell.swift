@@ -2,7 +2,7 @@
 //  PatternCell.swift
 //  Prana
 //
-//  Created by Guru on 5/10/19.
+//  Created by Luccas on 5/10/19.
 //  Copyright © 2019 Prana. All rights reserved.
 //
 

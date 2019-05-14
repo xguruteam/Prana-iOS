@@ -2,7 +2,7 @@
 //  SavedPattern.swift
 //  Prana
 //
-//  Created by Guru on 5/13/19.
+//  Created by Luccas on 5/13/19.
 //  Copyright © 2019 Prana. All rights reserved.
 //
 
@@ -13,8 +13,8 @@ struct SavedPattern: Codable {
     
     var sub: Int = 0
     
-    var startResp: Int = 20
-    var minResp: Int = 1
+    var startResp: Int = 0
+    var minResp: Int = 0
     var ratio: Float = 1
     
     var inhalationTime: Float = 0.5

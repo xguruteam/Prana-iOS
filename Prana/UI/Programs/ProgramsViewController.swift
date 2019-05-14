@@ -2,7 +2,7 @@
 //  ProgramsViewController.swift
 //  Prana
 //
-//  Created by Guru on 4/18/19.
+//  Created by Luccas on 4/18/19.
 //  Copyright © 2019 Prana. All rights reserved.
 //
 
@@ -344,6 +344,50 @@ class ProgramsViewController: UIViewController {
             vc.sessionWearing = sessionPosition
             vc.sessionDuration = sessionDuration
             vc.sessionKind = sessionKind
+            
+            if programType == 0 {
+                vc.whichPattern = 0
+                vc.subPattern = 5
+                vc.maxSubPattern = 34
+                vc.patternTitle = patternNames[0].0
+            }
+            else {
+                if let savedPattern = dataController?.btPattern {
+                    if savedPattern.type == 16 {
+                        if savedPattern.sub == 0 {
+                            vc.whichPattern = 0
+                            vc.subPattern = savedPattern.startResp
+                            vc.startSubPattern = savedPattern.startResp
+                            vc.maxSubPattern = savedPattern.minResp
+                            vc.patternTitle = patternNames[savedPattern.type].0
+                        }
+                        else {
+                            Pattern.patternSequence[16][0] = [savedPattern.inhalationTime, savedPattern.retentionTime, savedPattern.exhalationTime, savedPattern.timeBetweenBreaths, "Custom"]
+                            vc.whichPattern = 16
+                            vc.subPattern = 0
+                            vc.maxSubPattern = 34
+                            vc.patternTitle = patternNames[savedPattern.type].0
+                        }
+                    }
+                    else {
+                        vc.whichPattern = patternNumbers[savedPattern.type]
+                        if vc.whichPattern == 0 {
+                            vc.subPattern = 5
+                            vc.maxSubPattern = 34
+                            vc.patternTitle = patternNames[savedPattern.type].0
+                        }
+                        else {
+                            vc.subPattern = 0
+                            vc.maxSubPattern = 34
+                            vc.patternTitle = patternNames[savedPattern.type].0
+                        }
+                    }
+                }
+                else {
+                    fatalError()
+                }
+            }
+            
             self.present(vc, animated: true) {
                 
             }
@@ -364,6 +408,8 @@ class ProgramsViewController: UIViewController {
                     vc.whichPattern = 0
                     vc.subPattern = 0
                     vc.skipCalibration = 0
+                    vc.startSubPattern = 0
+                    vc.maxSubPattern = 34
                 }
                 else {
                     if let savedPattern = dataController?.vtPattern {
@@ -380,12 +426,24 @@ class ProgramsViewController: UIViewController {
                                 vc.whichPattern = 16
                                 vc.subPattern = 0
                                 vc.skipCalibration = 1
+                                vc.startSubPattern = 0
+                                vc.maxSubPattern = 34
                             }
                         }
                         else {
                             vc.whichPattern = patternNumbers[savedPattern.type]
-                            vc.subPattern = 0
-                            vc.skipCalibration = 0
+                            if vc.whichPattern == 0 {
+                                vc.skipCalibration = 0
+                                vc.subPattern = 0
+                                vc.startSubPattern = 0
+                                vc.maxSubPattern = 34
+                            }
+                            else {
+                                vc.skipCalibration = 1
+                                vc.subPattern = 0
+                                vc.startSubPattern = 0
+                                vc.maxSubPattern = 34
+                            }
                         }
                     }
                     else {
