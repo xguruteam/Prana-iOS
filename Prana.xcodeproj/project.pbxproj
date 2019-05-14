@@ -20,6 +20,7 @@
 		CA48E58C22671D93002CFA19 /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48E58A22671D93002CFA19 /* UIColor+Utils.swift */; };
 		CA603B7A228053860019A648 /* SessionStartStopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA603B79228053860019A648 /* SessionStartStopCell.swift */; };
 		CA69E8442278977900984324 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA69E8432278977900984324 /* Session.swift */; };
+		CA8F3F092289A9E600EBC02B /* SavedPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8F3F082289A9E600EBC02B /* SavedPattern.swift */; };
 		CA97DB0F22296163002C5592 /* SessionTemp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA97DB0E22296163002C5592 /* SessionTemp.swift */; };
 		CA97DB112229893F002C5592 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA97DB102229893F002C5592 /* Constants.swift */; };
 		CA97DB1322298BF1002C5592 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA97DB1222298BF1002C5592 /* HistoryTableViewController.swift */; };
@@ -103,6 +104,7 @@
 		CAD502FB2231C0B200F97B31 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502FA2231C0B200F97B31 /* Log.swift */; };
 		CAD7D34E2229364D00F3C805 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD7D34D2229364D00F3C805 /* FirstViewController.swift */; };
 		CAE21B00223E818D00CC7A4D /* ChargingGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE21AFF223E818D00CC7A4D /* ChargingGuideViewController.swift */; };
+		CAE2CF3F228985E000DCBAB5 /* CustomPatternViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE2CF3E228985E000DCBAB5 /* CustomPatternViewController.swift */; };
 		CAE670492271FCFB0099D72C /* sit (8).png in Resources */ = {isa = PBXBuildFile; fileRef = CAE6700D2271FCF60099D72C /* sit (8).png */; };
 		CAE6704A2271FCFB0099D72C /* sit (21).png in Resources */ = {isa = PBXBuildFile; fileRef = CAE6700E2271FCF60099D72C /* sit (21).png */; };
 		CAE6704B2271FCFB0099D72C /* stand (13).png in Resources */ = {isa = PBXBuildFile; fileRef = CAE6700F2271FCF60099D72C /* stand (13).png */; };
@@ -212,6 +214,7 @@
 		CA48E58A22671D93002CFA19 /* UIColor+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Utils.swift"; sourceTree = "<group>"; };
 		CA603B79228053860019A648 /* SessionStartStopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStartStopCell.swift; sourceTree = "<group>"; };
 		CA69E8432278977900984324 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		CA8F3F082289A9E600EBC02B /* SavedPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPattern.swift; sourceTree = "<group>"; };
 		CA97DB0E22296163002C5592 /* SessionTemp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTemp.swift; sourceTree = "<group>"; };
 		CA97DB102229893F002C5592 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CA97DB1222298BF1002C5592 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
@@ -295,6 +298,7 @@
 		CAD502FA2231C0B200F97B31 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		CAD7D34D2229364D00F3C805 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		CAE21AFF223E818D00CC7A4D /* ChargingGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingGuideViewController.swift; sourceTree = "<group>"; };
+		CAE2CF3E228985E000DCBAB5 /* CustomPatternViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPatternViewController.swift; sourceTree = "<group>"; };
 		CAE6700D2271FCF60099D72C /* sit (8).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sit (8).png"; sourceTree = "<group>"; };
 		CAE6700E2271FCF60099D72C /* sit (21).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sit (21).png"; sourceTree = "<group>"; };
 		CAE6700F2271FCF60099D72C /* stand (13).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stand (13).png"; sourceTree = "<group>"; };
@@ -529,6 +533,7 @@
 				CAA21A16227780F10004F5E0 /* DataController.swift */,
 				CA69E8432278977900984324 /* Session.swift */,
 				CAC52F672282F8C1000CFF96 /* Program.swift */,
+				CA8F3F082289A9E600EBC02B /* SavedPattern.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -915,6 +920,7 @@
 				CA603B79228053860019A648 /* SessionStartStopCell.swift */,
 				CAA782E12285D20600EB5122 /* PatternsViewController.swift */,
 				CAA782E32285F28A00EB5122 /* PatternCell.swift */,
+				CAE2CF3E228985E000DCBAB5 /* CustomPatternViewController.swift */,
 			);
 			path = Programs;
 			sourceTree = "<group>";
@@ -1224,6 +1230,7 @@
 				D71D37462253527300D98376 /* PranaDesignableView.swift in Sources */,
 				CAAF9D3622737952003232C4 /* Label.swift in Sources */,
 				CAAF9D1F22737952003232C4 /* CountryCell.swift in Sources */,
+				CA8F3F092289A9E600EBC02B /* SavedPattern.swift in Sources */,
 				CAAF9D1422737951003232C4 /* Common+Extensions.swift in Sources */,
 				D701F4DE223B998800D19574 /* TutorialUpperchestViewController.swift in Sources */,
 				D73610002239C70700CCAD48 /* TutorialStartViewController.swift in Sources */,
@@ -1277,6 +1284,7 @@
 				D70C2FE7223452EF00EE6A22 /* PostureIndicator.swift in Sources */,
 				D7BA349D22565D9100B4689E /* TutorialVisualViewController.swift in Sources */,
 				CAC191C2226E592F009E04B5 /* PranaExpandableCell.swift in Sources */,
+				CAE2CF3F228985E000DCBAB5 /* CustomPatternViewController.swift in Sources */,
 				D7172B7822596179007AA168 /* VisualTrainingViewController.swift in Sources */,
 				CA97DB0F22296163002C5592 /* SessionTemp.swift in Sources */,
 				CAAF9D0F22737951003232C4 /* UIImage+Extensions.swift in Sources */,
@@ -1431,8 +1439,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = U37J473DVK;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = D4J7AW2S69;
 				INFOPLIST_FILE = Prana/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1441,7 +1449,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.prana.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = All_Dev_160129;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1453,8 +1461,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = U37J473DVK;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Prana/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (

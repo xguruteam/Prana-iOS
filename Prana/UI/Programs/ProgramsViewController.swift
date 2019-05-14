@@ -360,6 +360,38 @@ class ProgramsViewController: UIViewController {
                 vc.sessionKind = sessionKind
                 vc.sessionDuration = sessionDuration
                 vc.sessionWearing = sessionPosition
+                if programType == 0 {
+                    vc.whichPattern = 0
+                    vc.subPattern = 0
+                    vc.skipCalibration = 0
+                }
+                else {
+                    if let savedPattern = dataController?.vtPattern {
+                        if savedPattern.type == 16 {
+                            if savedPattern.sub == 0 {
+                                vc.whichPattern = 0
+                                vc.subPattern = 0
+                                vc.skipCalibration = 1
+                                vc.startSubPattern = savedPattern.startResp
+                                vc.maxSubPattern = savedPattern.minResp
+                            }
+                            else {
+                                Pattern.patternSequence[16][0] = [savedPattern.inhalationTime, savedPattern.retentionTime, savedPattern.exhalationTime, savedPattern.timeBetweenBreaths, "Custom"]
+                                vc.whichPattern = 16
+                                vc.subPattern = 0
+                                vc.skipCalibration = 1
+                            }
+                        }
+                        else {
+                            vc.whichPattern = patternNumbers[savedPattern.type]
+                            vc.subPattern = 0
+                            vc.skipCalibration = 0
+                        }
+                    }
+                    else {
+                        fatalError()
+                    }
+                }
                 self.present(vc, animated: false) {
                     
                 }
@@ -558,7 +590,7 @@ class ProgramsViewController: UIViewController {
             cell.changeType(sessionType)
 //            cell.changePosition(sessionPosition)
             cell.sessionDuration = sessionDuration
-            cell.sessionPattern = sessionPattern
+//            cell.sessionPattern = sessionPattern
             
             return cell
         case 4:
@@ -917,7 +949,7 @@ extension ProgramsViewController: ExpandableDelegate {
             cell.changeType(sessionType)
             cell.changePosition(sessionPosition)
             cell.sessionDuration = sessionDuration
-            cell.sessionPattern = sessionPattern
+//            cell.sessionPattern = sessionPattern
             
             return [cell]
         default:

@@ -26,6 +26,9 @@ class DataController {
     var breathingGoals: Int = 0
     var postureGoals: Int = 0
     
+    var vtPattern: SavedPattern?
+    var btPattern: SavedPattern?
+    
     
     // Instant variable
     var currentDay: Int {
@@ -82,6 +85,12 @@ class DataController {
                 dailyNotification = settings.value(forKey: "dailyNotification") as? Date
                 breathingGoals = settings.value(forKey: "breathingGoals") as! Int
                 postureGoals = settings.value(forKey: "postureGoals") as! Int
+                if let vtString = settings.value(forKey: "vtPattern") as? String {
+                    vtPattern = try JSONDecoder().decode(SavedPattern.self, from: vtString.data(using: .utf8)!)
+                }
+                if let btString = settings.value(forKey: "btPattern") as? String {
+                    btPattern = try JSONDecoder().decode(SavedPattern.self, from: btString.data(using: .utf8)!)
+                }
             }
             else {
                 let settingsEntity = NSEntityDescription.entity(forEntityName: "Settings", in: managedContext)!
@@ -93,6 +102,15 @@ class DataController {
                 settings.setValue(dailyNotification, forKey: "dailyNotification")
                 settings.setValue(breathingGoals, forKey: "breathingGoals")
                 settings.setValue(postureGoals, forKey: "postureGoals")
+                
+                vtPattern = SavedPattern(type: 0)
+                btPattern = SavedPattern(type: 0)
+                
+                let vtString = try JSONEncoder().encode(vtPattern)
+                settings.setValue(String(data:vtString, encoding: .utf8)!, forKey: "vtPattern")
+                
+                let btString = try JSONEncoder().encode(btPattern)
+                settings.setValue(String(data:btString, encoding: .utf8)!, forKey: "btPattern")
                 
                 do {
                     try managedContext.save()
@@ -120,6 +138,12 @@ class DataController {
                 settings.setValue(dailyNotification, forKey: "dailyNotification")
                 settings.setValue(breathingGoals, forKey: "breathingGoals")
                 settings.setValue(postureGoals, forKey: "postureGoals")
+                
+                let vtString = try JSONEncoder().encode(vtPattern)
+                settings.setValue(String(data:vtString, encoding: .utf8)!, forKey: "vtPattern")
+                
+                let btString = try JSONEncoder().encode(btPattern)
+                settings.setValue(String(data:btString, encoding: .utf8)!, forKey: "btPattern")
                 
                 do {
                     try managedContext.save()

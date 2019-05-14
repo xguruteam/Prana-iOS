@@ -20,6 +20,18 @@ class PranaDropDown: UIView {
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var titleButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var arrowImage: UIImageView!
+    
+    @IBInspectable var isBoth: Bool = false {
+        didSet {
+            if isBoth {
+                arrowImage.image = UIImage(named: "ic_arrow_both_white")
+            }
+            else {
+                arrowImage.image = UIImage(named: "ic_arrow_down_white")
+            }
+        }
+    }
     
     var clickListener: (() -> Void)?
     
@@ -49,6 +61,13 @@ class PranaDropDown: UIView {
         layer.shadowRadius = 7.0
         
         contentView.fixInView(self)
+        
+        if isBoth {
+            arrowImage.image = UIImage(named: "ic_arrow_both_white")
+        }
+        else {
+            arrowImage.image = UIImage(named: "ic_arrow_down_white")
+        }
     }
     
     @IBAction func onClick(_ sender: Any) {

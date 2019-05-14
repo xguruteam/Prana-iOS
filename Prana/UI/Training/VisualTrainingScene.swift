@@ -149,6 +149,11 @@ class VisualTrainingScene: SKScene {
     
     var _calibrationRegionWidth: Double = 600
     
+    var skipCalibration:Int = 1;  //may 8th  For visual training, if this is set to 1, it causes the function addCalibrationBreathRegion() not to run, which skips the initial 15 second respiration assessment. If whichPattern = 0 (Slowing pattern), and skipCalibration is 1, then startSubPattern and maxSubPattern determine the initial respiration rate and minimum respiration rate
+    var startSubPattern:Int = 5; //may 8th  The example value 5 here corresponds to 12bpm. Note, for Buzzer Training, if the non-custom Slowing pattern is used, then this value should be set to 5
+    var maxSubPattern:Int = 8; //may 8th  SET THIS TO THE INDEX VALUE found under //Dynamic slow breathing pattern below, between 0-34. This value corresponds TO THE MINIMUM RESPIRATION RATE SELECTED ON THE CUSTOM BREATH PATTERN PAGE. This value should be 34 if skipCalibration = 0. The example value 8 here corresponds to 9.2bpm
+
+    
     convenience init(_ trainingDuration: Int, isBreathingOnly: Bool = false) {
         self.init()
         self.trainingDuration = trainingDuration
@@ -220,7 +225,6 @@ class VisualTrainingScene: SKScene {
         _calibrationRegionLabel?.position = CGPoint(x: 0, y: 0)
         _calibrationRegionLabel?.horizontalAlignmentMode = .center
         _calibrationRegionLabel?.verticalAlignmentMode = .center
-
         _calibrationRegion?.addChild(_calibrationRegionLabel!)
 
         
@@ -355,7 +359,27 @@ class VisualTrainingScene: SKScene {
             }
         }
         
-        if objLive?.calibrationBreathsDone == 0 {
+        //may 8th **************
+        if (objLive?.calibrationBreathsDone == 0 && skipCalibration == 1) {
+            
+            objLive?.calibrationBreathsDone = 1;
+            
+            if (whichPattern == 0) {
+                
+                lastX = Double(size.width / 4.0)
+                
+                initialFadeIn = 1; //fade in initial patterns
+                
+                subPattern = startSubPattern;
+                createInitialSetOfBreathPatterns();
+                
+                self.visualDelegate?.visualNewTargetRateCalculated(rate: flyingObjects[0].rate)
+            }
+            
+        }
+        //may 8th **************
+
+        if (objLive?.calibrationBreathsDone == 0) && (skipCalibration == 0) {    //may 8th
             _calibrationRegion!.position.x -= CGFloat(xd)
             
             if (_calibrationRegion?.position.x)! + _calibrationRegion!.frame.size.width/2 < (_birdX - 50) {
@@ -839,8 +863,8 @@ class VisualTrainingScene: SKScene {
         if breathsOnCurrentLevel == 5 {
             if goodBreaths >= 4 {
                 subPattern += 1
-                if subPattern > 34 {
-                    subPattern = 34
+                if subPattern > maxSubPattern { //may 8th  maxSubPattern is representing the minimum target respiration rate
+                    subPattern = maxSubPattern  //may 8th
                 } else {
                     updateBreathPatterns = 1
                 }
@@ -897,11 +921,14 @@ class VisualTrainingScene: SKScene {
         
         self._playOrPause = true
         
-        addChild(_calibrationRegion!)
+        if (skipCalibration == 0) { //may 8th
+            addChild(_calibrationRegion!)
+        } //may 8th
         lastX += Double(_calibrationRegion!.size.width)
         
         if whichPattern != 0 {
             createInitialSetOfBreathPatterns()
+            self.visualDelegate?.visualNewTargetRateCalculated(rate: flyingObjects[0].rate)
         }
         
         objLive?.stuckBreathsThreshold = 2

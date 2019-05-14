@@ -37,6 +37,26 @@ class SessionChildCell: UITableViewCell {
     var positionChangeListener: ((Int) -> Void)?
     var sessionStartListener: (() -> Void)?
     
+    var sessionKind: Int = 0
+    var sessionType: Int = 0 {
+        didSet {
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                return
+            }
+            let dataController = appDelegate.dataController
+            
+            let isVT = (sessionType == 0)
+            if isVT {
+                let savedPattern = dataController!.vtPattern!
+                sessionPattern = savedPattern.type
+            }
+            else {
+                let savedPattern = dataController!.btPattern!
+                sessionPattern = savedPattern.type
+            }
+        }
+    }
+    
     var sessionDuration: Int = 0 {
         didSet {
             ddSessionDuration.title = "\(sessionDuration) Minutes"
@@ -47,7 +67,7 @@ class SessionChildCell: UITableViewCell {
     
     var sessionPattern: Int = 0 {
         didSet {
-            ddSessionPattern.title = "Focus"
+            ddSessionPattern.title = patternNames[sessionPattern].0
         }
     }
     var tempSessionPattern: Int = 0
@@ -65,6 +85,22 @@ class SessionChildCell: UITableViewCell {
         ddSessionPattern.clickListener = { [weak self] in
             self?.openSessionPatternPicker()
         }
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        let dataController = appDelegate.dataController
+        
+        let isVT = (sessionType == 0)
+        if isVT {
+            let savedPattern = dataController!.vtPattern!
+            sessionPattern = savedPattern.type
+        }
+        else {
+            let savedPattern = dataController!.btPattern!
+            sessionPattern = savedPattern.type
+        }
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -110,6 +146,7 @@ class SessionChildCell: UITableViewCell {
         default:
             break
         }
+        sessionKind = kind
     }
     
     func changeType(_ type: Int) {
@@ -128,6 +165,7 @@ class SessionChildCell: UITableViewCell {
         default:
             break
         }
+        sessionType = type
     }
     
     func changePosition(_ position: Int) {
@@ -173,9 +211,37 @@ class SessionChildCell: UITableViewCell {
     }
     
     func openSessionPatternPicker() {
-        let vc = Utils.getStoryboardWithIdentifier(identifier: "PatternsViewController")
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        let dataController = appDelegate.dataController
+        
+        let isVT = (sessionType == 0)
+        let vc = Utils.getStoryboardWithIdentifier(identifier: "PatternsViewController") as! PatternsViewController
+        vc.isVT = isVT
+        if isVT {
+            vc.savedPattern = dataController?.vtPattern
+        }
+        else {
+            vc.savedPattern = dataController?.btPattern
+        }
+        vc.changeListener = { [weak self] (savedPattern) in
+            if self?.sessionType == 0 {
+                dataController?.vtPattern = savedPattern
+            }
+            else {
+                dataController?.btPattern = savedPattern
+            }
+            dataController?.saveSettings()
+            
+            self?.sessionPattern = savedPattern.type
+        }
+        
+        let nav = UINavigationController(rootViewController: vc)
+        
         let topVC = self.topViewControllerWithRootViewController(rootViewController: UIApplication.shared.keyWindow?.rootViewController)
-        topVC?.present(vc, animated: true, completion: nil)
+        topVC?.present(nav, animated: true, completion: nil)
+        
 //        tempSessionPattern = sessionPattern
 //        let alert = UIAlertController(style: .actionSheet, title: "Posture Goal", message: nil)
 //

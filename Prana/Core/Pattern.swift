@@ -8,6 +8,50 @@
 
 import Foundation
 
+let patterns: [(String, String)] = [
+    ("Slow Your\nBreathing",    "pattern_slow"),
+    ("Focus\n15 bpm",           "pattern_focus"),
+    ("Focus\n12 bpm",           "pattern_focus"),
+    ("Focus\n10 bpm",           "pattern_focus"),
+    ("Focus\n8 bpm",            "pattern_focus"),
+    ("Focus\n6 bpm",            "pattern_focus"),
+    ("Relax\n15 bpm",           "pattern_relax"),
+    ("Relax\n12 bpm",           "pattern_relax"),
+    ("Relax\n10 bpm",           "pattern_relax"),
+    ("Relax\n8 bpm",            "pattern_relax"),
+    ("Relax\n6 bpm",            "pattern_relax"),
+    ("Sleep\n2-3-4",            "pattern_sleeping"),
+    ("Sleep\n3-4-5",            "pattern_sleeping"),
+    ("Sleep\n4-7-8",            "pattern_sleeping"),
+    ("Meditation\n1",           "pattern_meditation"),
+    ("Meditation\n2",           "pattern_meditation"),
+    ("Custom",                  "pattern_custom"),
+]
+
+let patternNames: [(String, Bool)] = [
+    ("Slow Your Breathing",    false),
+    ("Focus - 15 bpm",           false),
+    ("Focus - 12 bpm",           false),
+    ("Focus - 10 bpm",           false),
+    ("Focus - 8 bpm",            false),
+    ("Focus - 6 bpm",            false),
+    ("Relax - 15 bpm",           false),
+    ("Relax - 12 bpm",           false),
+    ("Relax - 10 bpm",           false),
+    ("Relax - 8 bpm",            false),
+    ("Relax - 6 bpm",            false),
+    ("Sleep: 2-3-4",            true),
+    ("Sleep: 3-4-5",            true),
+    ("Sleep: 4-7-8",            true),
+    ("Meditation 1",           false),
+    ("Meditation 2",           false),
+    ("Custom",                  false),
+]
+
+let patternNumbers: [Int] = [
+    0, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1, 2, 16
+]
+
 class Pattern {
     
     static func getPatternValue(value: Any) -> Double {
@@ -31,7 +75,7 @@ class Pattern {
     
     //the values herein define the # of columns of flowers now!!!! Each column is 0.50 seconds. That's the best reliable granularity.
     
-    static let patternSequence:[[[Any]]] = [
+    static var patternSequence:[[[Any]]] = [
         
         //Dynamic slow breathing pattern
         [
@@ -151,6 +195,13 @@ class Pattern {
         [
             [4,7,8,3,"SLEEP PATTERN 4-7-8"], //10 bpm
         ],
+        
+        // Custom Pattern
+        [
+            [0.5, 0.5, 0.5, 0.5, "Custom"]
+        ]
     ];
     
 }
+
+

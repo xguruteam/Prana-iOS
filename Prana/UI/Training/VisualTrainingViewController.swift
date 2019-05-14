@@ -67,6 +67,12 @@ class VisualTrainingViewController: UIViewController {
     
     var currentSessionObject: Session?
     
+    var whichPattern: Int = 0
+    var subPattern: Int = 0
+    var skipCalibration: Int = 0
+    var startSubPattern: Int = 0
+    var maxSubPattern: Int = 0
+    
     var mindfulBreaths: Int = 0 {
         didSet {
             if mindfulBreaths < 0 {
@@ -195,6 +201,11 @@ class VisualTrainingViewController: UIViewController {
         isCompleted = false
         
         let scene = VisualTrainingScene(sessionDuration * 60, isBreathingOnly: (sessionKind == 1 ? true : false))
+        scene.whichPattern = whichPattern
+        scene.subPattern = subPattern
+        scene.skipCalibration = skipCalibration
+        scene.startSubPattern = startSubPattern
+        scene.maxSubPattern = maxSubPattern
         scene.visualDelegate = self
         
         scene.size = CGSize(width: gameView.bounds.size.height, height: gameView.bounds.size.width)
