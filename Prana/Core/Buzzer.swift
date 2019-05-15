@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 protocol BuzzerDelegate {
     func buzzerNewActualRR(actualRR: Double)
@@ -78,6 +78,10 @@ class Buzzer {
     
     var maxSubPattern:Int = 8
     
+    var isForegroundMode: Bool {
+        return UIApplication.shared.applicationState == .active
+    }
+    
     init(pattern: Int, subPattern subPatt: Int, duration: Int, live: Live) {
         useBuzzerForPosture = 1;
         
@@ -101,6 +105,14 @@ class Buzzer {
         
         objLiveGraph = live
         
+        // register method that be called when the app receive UIApplicationDidEnterBackgroundNotification
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        
+    }
+    
+    //MARK: Application Observers
+    @objc private func applicationEnterBackground() {
+        let _ = BackgroundTaskManager.shared.beginNewBackgroundTask()
     }
     
     deinit {
@@ -116,18 +128,25 @@ class Buzzer {
         takenFirstBreath = 0;
         isBuzzing = 0;
         buzzCount = 0;
-        
-        timer = Timer.scheduledTimer(timeInterval: 1.0 / 60.0, target: self, selector: #selector(enterFrameHandler), userInfo: nil, repeats: true)
+
+        self.timer = Timer.scheduledTimer(timeInterval: 1.0 / 60.0, target: self, selector: #selector(self.enterFrameHandler), userInfo: nil, repeats: true)
     }
     
     func endSession() {
         self.timer?.invalidate()
         clearBuzzerTraining();
+        
+        BackgroundTaskManager.shared.endAllBackgroundTasks()
     }
     
     
     @objc func enterFrameHandler() {
         
+        if self.isForegroundMode == false {
+            let _ = BackgroundTaskManager.shared.beginNewBackgroundTask()
+        }
+        
+        print("timer \(Date().timeIntervalSince1970)")
         //    buzzerTrainingUI.status.text = String(breathTime) + "  " + String(numOfInhales) +  "  " + String(numOfExhales) + "  " + String(whichPattern) + "  " + String(subPattern) + "  " + String(breathsOnCurrentLevel);
         
         buzzerTimerHandler();

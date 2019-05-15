@@ -74,7 +74,7 @@ class VisualTrainingScene: SKScene {
     
     var isBreathingOnly = false
     
-    var _timer: Timer?
+    var _timer: RepeatingTimer?
     
     var label : SKLabelNode?
     var spinnyNode : SKShapeNode?
@@ -908,7 +908,8 @@ class VisualTrainingScene: SKScene {
         self._playOrPause = false
         
         if _timer != nil {
-            _timer!.invalidate()
+            _timer!.suspend()
+            _timer = nil
         }
         
         PranaDeviceManager.shared.stopGettingLiveData()
@@ -935,9 +936,14 @@ class VisualTrainingScene: SKScene {
         objLive?.breathTopExceededThreshold = 1
         objLive?.minBreathRange = objLive!.fullBreathGraphHeight / 16.0 * 2.0
         
-        _timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (_) in
-            self.gameTimerHandler()
-        })
+        _timer = RepeatingTimer(timeInterval: 1.0)
+        _timer?.eventHandler = { [weak self] in
+            self?.gameTimerHandler()
+        }
+        _timer?.resume()
+//        _timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (_) in
+//            self.gameTimerHandler()
+//        })
     }
     
     func clearGame() {

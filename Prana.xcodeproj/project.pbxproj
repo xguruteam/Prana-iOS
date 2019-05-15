@@ -15,6 +15,8 @@
 		AA7FE2D4222720EB0092E8A6 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7FE2D3222720EB0092E8A6 /* WelcomeViewController.swift */; };
 		AA7FE2D6222721130092E8A6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7FE2D5222721130092E8A6 /* LoginViewController.swift */; };
 		AA7FE2D82227213F0092E8A6 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7FE2D72227213F0092E8A6 /* SignupViewController.swift */; };
+		CA017549228C19620085455F /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA017548228C19620085455F /* RepeatingTimer.swift */; };
+		CA01754B228C483C0085455F /* BackgroundTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA01754A228C483C0085455F /* BackgroundTaskManager.swift */; };
 		CA48E58822664A5B002CFA19 /* LiveFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48E58722664A5B002CFA19 /* LiveFeedViewController.swift */; };
 		CA48E58B22671D93002CFA19 /* UIColor+colorFromHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48E58922671D93002CFA19 /* UIColor+colorFromHex.swift */; };
 		CA48E58C22671D93002CFA19 /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48E58A22671D93002CFA19 /* UIColor+Utils.swift */; };
@@ -209,6 +211,8 @@
 		AA7FE2D5222721130092E8A6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		AA7FE2D72227213F0092E8A6 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		AF7503FA2C2D971486D6AB1B /* Pods-Prana.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Prana.release.xcconfig"; path = "Pods/Target Support Files/Pods-Prana/Pods-Prana.release.xcconfig"; sourceTree = "<group>"; };
+		CA017548228C19620085455F /* RepeatingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTimer.swift; sourceTree = "<group>"; };
+		CA01754A228C483C0085455F /* BackgroundTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTaskManager.swift; sourceTree = "<group>"; };
 		CA48E58722664A5B002CFA19 /* LiveFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveFeedViewController.swift; sourceTree = "<group>"; };
 		CA48E58922671D93002CFA19 /* UIColor+colorFromHex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+colorFromHex.swift"; sourceTree = "<group>"; };
 		CA48E58A22671D93002CFA19 /* UIColor+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Utils.swift"; sourceTree = "<group>"; };
@@ -946,6 +950,8 @@
 				D71D37452253527200D98376 /* PranaDesignableView.swift */,
 				D79A36D5222827E50085D3FA /* Utils.swift */,
 				CAD502FA2231C0B200F97B31 /* Log.swift */,
+				CA017548228C19620085455F /* RepeatingTimer.swift */,
+				CA01754A228C483C0085455F /* BackgroundTaskManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1284,10 +1290,12 @@
 				D70C2FE7223452EF00EE6A22 /* PostureIndicator.swift in Sources */,
 				D7BA349D22565D9100B4689E /* TutorialVisualViewController.swift in Sources */,
 				CAC191C2226E592F009E04B5 /* PranaExpandableCell.swift in Sources */,
+				CA01754B228C483C0085455F /* BackgroundTaskManager.swift in Sources */,
 				CAE2CF3F228985E000DCBAB5 /* CustomPatternViewController.swift in Sources */,
 				D7172B7822596179007AA168 /* VisualTrainingViewController.swift in Sources */,
 				CA97DB0F22296163002C5592 /* SessionTemp.swift in Sources */,
 				CAAF9D0F22737951003232C4 /* UIImage+Extensions.swift in Sources */,
+				CA017549228C19620085455F /* RepeatingTimer.swift in Sources */,
 				CAC36BCE2249A05E00B4FF1F /* TestData.swift in Sources */,
 				CAAF9D3122737952003232C4 /* ItemWithImage.swift in Sources */,
 				CA9892192240ED9A00D824B0 /* Pattern.swift in Sources */,

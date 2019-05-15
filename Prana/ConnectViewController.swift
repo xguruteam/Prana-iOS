@@ -112,6 +112,8 @@ class ConnectViewController: UIViewController {
 //            return
 //        }
         
+        self.lbl_success_connect.isHidden = false
+        self.btn_next.setBackgroundImage(UIImage(named: "button-green-lg"), for: .normal)
         self.btn_next.isEnabled = true
     }
     
@@ -129,17 +131,15 @@ class ConnectViewController: UIViewController {
 
 extension ConnectViewController: PranaDeviceManagerDelegate {
     func PranaDeviceManagerDidOpenChannel() {
-        DispatchQueue.main.async {
-            self.lbl_success_connect.isHidden = false
-            self.btn_next.setBackgroundImage(UIImage(named: "button-green-lg"), for: .normal)
-        }
-        PranaDeviceManager.shared.startGettingLiveData()
+//        DispatchQueue.main.async {
+            PranaDeviceManager.shared.startGettingLiveData()
+//        }
     }
     
     func PranaDeviceManagerDidReceiveLiveData(_ data: String!) {
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
             self.onNewLiveData(data)
-        }
+//        }
     }
     
     func PranaDeviceManagerDidStartScan() {
@@ -152,7 +152,8 @@ extension ConnectViewController: PranaDeviceManagerDelegate {
     
     func PranaDeviceManagerDidDiscover(_ device: PranaDevice) {
         print(device.name)
-        if device.name.contains("Prana Tech") {
+        if device.name.contains("Prana Tech")
+        || device.name.contains("iPod touch") {
             stopScanPrana()
             connectPrana(device)
         }
@@ -163,11 +164,11 @@ extension ConnectViewController: PranaDeviceManagerDelegate {
     }
     
     func PranaDeviceManagerFailConnect() {
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
 //            self.lblSuccessMessage.textColor = UIColor.black
             self.lbl_success_connect.text = "Failed to connect Prana!"
             self.lbl_success_connect.isHidden = false
-        }
+//        }
     }
     
     func PranaDeviceManagerDidReceiveData(_ parameter: CBCharacteristic) {
