@@ -152,11 +152,18 @@ extension ConnectViewController: PranaDeviceManagerDelegate {
     
     func PranaDeviceManagerDidDiscover(_ device: PranaDevice) {
         print(device.name)
+        #if TEST_MODE
         if device.name.contains("Prana Tech")
-        || device.name.contains("iPod touch") {
+            || device.name.contains("iPod touch") {
             stopScanPrana()
             connectPrana(device)
         }
+        #else
+        if device.name.contains("Prana Tech") {
+            stopScanPrana()
+            connectPrana(device)
+        }
+        #endif
     }
     
     func PranaDeviceManagerDidConnect(_ deviceName: String) {

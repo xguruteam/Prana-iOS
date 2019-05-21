@@ -47,6 +47,7 @@ class ProgramsViewController: UIViewController {
         }
         dataController = appDelegate.dataController
         
+        
         let dayNumber = dataController?.currentDay ?? 0
         if let currentProgram = dataController?.currentProgram, dayNumber > 14 {
             if currentProgram.type == .fourteen {
@@ -75,7 +76,14 @@ class ProgramsViewController: UIViewController {
             isSessionCellOpen = false
             //            tableView.reloadData()
             
-            notificationTime = dataController?.dailyNotification ?? Date()
+            if let time = dataController?.dailyNotification {
+                notificationTime = time
+                isNotificationEnable = true
+            }
+            else {
+//                notificationTime = Date()
+                isNotificationEnable = false
+            }
             
             if programType == 0 {
                 let dayNumber = dataController?.currentDay ?? 0
@@ -110,6 +118,9 @@ class ProgramsViewController: UIViewController {
             setTitle("Training")
             
             onProgramTypeChange(0)
+            
+            appDelegate.notifications.requestAllowNotification()
+            isNotificationEnable = true
         }
         
         let savedProgramType = dataController?.programType ?? 100
@@ -202,13 +213,72 @@ class ProgramsViewController: UIViewController {
     
     func onNotificationTime(_ time: Date) {
         notificationTime = time
+        if !isTrainingStarted {
+            return
+        }
         
-        dataController?.dailyNotification = notificationTime
-        dataController?.saveSettings()
+        if !isNotificationEnable {
+            return
+        }
+        
+        // reschedule notifications
+        scheduleNotifications()
     }
     
     func onNotificationEnableChange(_ isEnable: Bool) {
         isNotificationEnable = isEnable
+        
+        if !isTrainingStarted {
+            return
+        }
+        
+        if isNotificationEnable {
+            // schedule notifications
+            scheduleNotifications()
+        }
+        else {
+            // remove notifications
+            removeNotifications()
+        }
+    }
+    
+    func removeNotifications() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let center = appDelegate.notifications
+        
+        center.removeAllNotifications()
+        dataController?.dailyNotification = nil
+        dataController?.saveSettings()
+    }
+    
+    func scheduleNotifications() {
+        removeNotifications()
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let center = appDelegate.notifications
+        
+        let title = "Prana Reminder"
+        let body = "Do a quick training session to help meet your breathing and posture goals today."
+        
+        center.scheduleDailyNotification(title: title, body: body, date: notificationTime)
+        
+        let calendar = Calendar.current
+        
+        for i in 1...4 {
+            let nextTime = Date(timeInterval: 5 * 3 * Double(i), since: notificationTime)
+            let components = calendar.dateComponents([.day], from: notificationTime, to: nextTime)
+            if components.day > 0 { break }
+            center.scheduleDailyNotification(title: title, body: body, date: nextTime)
+        }
+        
+        dataController?.dailyNotification = notificationTime
+        dataController?.saveSettings()
     }
     
     func cancelTraining() {
@@ -242,6 +312,8 @@ class ProgramsViewController: UIViewController {
         dataController?.postureGoals = 0
         dataController?.dailyNotification = nil
         dataController?.saveSettings()
+        
+        removeNotifications()
     }
     
     func onTrainingStart() {
@@ -282,7 +354,13 @@ class ProgramsViewController: UIViewController {
         dataController?.startProgram(program)
         
         dataController?.programType = programType
-        dataController?.dailyNotification = notificationTime
+        if isNotificationEnable {
+//            dataController?.dailyNotification = notificationTime
+            scheduleNotifications()
+        }
+        else {
+            dataController?.dailyNotification = nil
+        }
         
         if programType == 0 {
 //            titleLabel.text = "14 Days Training"

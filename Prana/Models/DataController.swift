@@ -65,9 +65,11 @@ class DataController {
             return
         }
         managedObjectContext = appDelegate.persistentContainer.viewContext
+        #if TEST_MODE
 //        clearSettings()
 //        clearPrograms()
 //        clearSessions()
+        #endif
         loadSettings()
     }
     

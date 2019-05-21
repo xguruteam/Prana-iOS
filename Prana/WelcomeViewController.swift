@@ -35,6 +35,12 @@ class WelcomeViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(onConnectViewControllerNext), name: .connectViewControllerDidNext, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onTutorialDidEnd), name: .tutorialDidEnd, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didLogIn), name: .didLogIn, object: nil)
+        
+        #if TEST_MODE && !DEBUG
+        let alert = UIAlertController(title: "Warning", message: "Test mode is enabled currently. The app may not work properly. Please contact developer. Or you can continue using.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+        #endif
     }
     
     func initView() {
