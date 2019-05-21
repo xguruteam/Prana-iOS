@@ -96,7 +96,7 @@
 		var breathTopExceededThreshold:int = 1;
 		var smoothBreathingCoefBaseLevel:Number = 0.40;
 		var postureIsGood:int = 1;
-		var minBreathRange:Number = 25;
+		var minBreathRange:Number;  //***March16Change
 		var reversalThreshold:int = 6;
 		var birdIncrements:int = 20;
 		var avgRespRate:Number = 0;	
@@ -458,7 +458,7 @@
 									
 			}		
 				
-			else if (relativeInhaleLevelSG < 0.05 && !((breathSensor[count] > breathSensor[count-1]) && (breathSensor[count-1] > breathSensor[count-2]) && (breathSensor[count-2] > breathSensor[count-3]) && (breathSensor[count-3] > breathSensor[count-4]) && (breathSensor[count-4] > breathSensor[count-5]) && (breathSensor[count-5] > breathSensor[count-6]) && (breathSensor[count-6] > breathSensor[count-7]) ) ) {
+			else if (relativeInhaleLevelSG < 0.05 && !((breathSensor[count] > breathSensor[count-1]) && (breathSensor[count-1] > breathSensor[count-2]) && (breathSensor[count-2] > breathSensor[count-3]) && (breathSensor[count-3] > breathSensor[count-4]) && (breathSensor[count-4] > breathSensor[count-5]) && (breathSensor[count-5] > breathSensor[count-6]) ) ) { //***March16Change
 
 			//else if (relativeInhaleLevelSG < 0.05 && !((breathSensor[count] > breathSensor[count-1]) && (breathSensor[count-1] > breathSensor[count-2]) && (breathSensor[count-2] > breathSensor[count-3]) && (breathSensor[count-3] > breathSensor[count-4]) && (breathSensor[count-4] > breathSensor[count-5]) ) ) {
 	
@@ -897,7 +897,7 @@
 					}			
 					
 					//if (DC.appMode != 3) {
-						if ( ((bottomReversalY - topReversalY < minBreathRange) && stuckBreaths > 0) || (yStartPos - topReversalY < (minBreathRange/2)) ) {
+						if ( ((bottomReversalY - topReversalY < minBreathRange) && stuckBreaths > 0) || (yStartPos - topReversalY < (minBreathRange/3)) ) { //***March16Change Just changed to divided by 3 here from 2 to allow smaller breaths from baseline to be detected
 							return; // Require a min breath range when breath is stuck, otherwise breath holding does not work and breath range sensitivity can artificially spike due to noise
 						}
 					//}
@@ -908,15 +908,18 @@
 					
 					topReversalLine.y = topReversalY;					
 										
-					if (bottomReversalFound == 1 || breathCount == 0) {							
+					if (bottomReversalFound == 1 || breathCount < 2) {						
 						
 						bottomReversalFound = 0;						
 						breathEnding = 1;	
 						//DC.objStartConnection.socket.writeUTFBytes("Buzz,0.2" + "\n");			
 						//DC.objStartConnection.socket.flush();
 						
+						if (breathCount < 2) { //***March16Change	
+							endBreathY = bottomReversalY - 0.95*(bottomReversalY - topReversalY); //***March16Change, This addresses scnenario if user plugs in belt AFTER starting LiveGraph which can cause strainGauge value to suddenly greatly jump, and create situation where breath graph is stuck far above the yellow line	
+						} //***March16Change	
 						
-						if (DC.appMode == 2) {
+						else if (DC.appMode == 2) { //***March16Change  (else added)
 							
 							if (DC.objGame.calibrationBreathsDone == 1) {
 								endBreathY = yStartPos + int(0.20*(-fullBreathGraphHeight));
@@ -1138,7 +1141,7 @@
 			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 			stuckBreathsThreshold = 1; 
 			breathTopExceededThreshold = 1;		
-			minBreathRange = 25;
+			minBreathRange = fullBreathGraphHeight/16; //***March16Change This is important because resolutions on devices are different. Previously it was set to 25, which is an absolute value. Now it is set relative to the fullBreathGraphHeight (whatever that is set to for the particular device, it was 400 on desktop)
 					
 		}			
 
