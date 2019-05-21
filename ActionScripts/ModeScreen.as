@@ -220,7 +220,7 @@
 			
 			DC.objGame.whichPattern = 0;
 			if (DC.appMode == 3) {
-				DC.objGame.subPattern = 5; //This is for buzzer training, to start the slowing pattern at 12 bpm
+				DC.objGame.subPattern = DC.objGame.startSubPattern; //may 8th
 			}
 			else {
 				DC.objGame.subPattern = 0;

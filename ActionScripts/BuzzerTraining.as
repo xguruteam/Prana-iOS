@@ -66,6 +66,8 @@
 		var goodBreaths:int = 0;
 		
 		var useBuzzerForPosture:int = 1;
+		
+		var buzzerTrainingForPostureOnly:int = 0; //****** May 8th 2019 changes
 	
 		
 		public function BuzzerTraining(main:Main) {
@@ -107,10 +109,10 @@
 		
 		function startMode():void  {		
 			
-			//addChild(DC.objLiveGraph);
-			//DC.objLiveGraph.scaleX = 0.5;
-			//DC.objLiveGraph.scaleY = 0.5;
-			//DC.objLiveGraph.postureUI.visible = false;
+			addChild(DC.objLiveGraph); //***march19
+			DC.objLiveGraph.scaleX = 0.5;  //***march19
+			DC.objLiveGraph.scaleY = 0.5;  //***march19
+			DC.objLiveGraph.postureUI.visible = false;  //***march19
 			
 			DC.objLiveGraph.startMode(); //Need this here because user needs to be able set posture before timer starts!
 			
@@ -255,9 +257,9 @@
 					DC.objLiveGraph.postureAttenuatorLevel = 0;
 				}		
 				
-			}	
-						
-			breathTime++;			
+			}						
+			
+			breathTime++;					
 			
 			if (breathTime < 0) {
 				
@@ -288,6 +290,16 @@
 				}
 				return; // if breath was bad, breatTime is set to -90, and needs time to clear bad breath buzzer indicator before proceeding
 			}
+			
+			if (buzzerTrainingForPostureOnly == 1) {
+				if (DC.objLiveGraph.postureIsGood == 0 && useBuzzerForPosture == 1)  {   //****** May 8th 2019 changes
+					buzzerTrainingUI.buzzerReason.text = "Slouching Posture";	//****** May 8th 2019 changes				
+					badPosture();	//****** May 8th 2019 changes					
+				}   //****** May 8th 2019 changes	
+				return;  //****** May 8th 2019 changes	
+			}   //****** May 8th 2019 changes	
+			
+			
 			
 			if (breathTime >= timeBetweenBreathsEnd) {		
 				
@@ -373,9 +385,9 @@
 						if (breathsOnCurrentLevel == 5) {				
 							if (goodBreaths >= 4) {				
 								subPattern++;
-								if (subPattern > 34) {
-									subPattern = 34;
-								}				
+								if (subPattern > DC.objGame.maxSubPattern) { //may 8th  maxSubPattern is representing the minimum target respiration rate
+									subPattern = DC.objGame.maxSubPattern;  //may 8th
+								}	//may 8th		
 							}
 							else {					
 								subPattern--;
@@ -599,7 +611,7 @@
 		}
 		
 		
-		function clearBuzzerTraining():void  {				
+		function clearBuzzerTraining():void  {		 		
 			
 			removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
 			
@@ -614,6 +626,8 @@
 			
 			buzzerTrainingUI.startBuzzerTrainingButton.visible = false;
 			buzzerTrainingUI.backToBreathingAndPostureMenu.visible = true; 
+			
+			DC.objLiveGraph.saveData(); //***march19
 		}
 		
 		

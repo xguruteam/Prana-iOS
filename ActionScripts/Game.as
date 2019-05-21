@@ -60,8 +60,11 @@
 		var enterFrameCount:int = 0;
 		var secondCounter:int = 0;
 		var xd:int = 2;
-		var whichBirdFrame:int = 0;
-			
+		var whichBirdFrame:int = 0;		
+		var skipCalibration:int = 1;  //may 8th  For visual training, if this is set to 1, it causes the function addCalibrationBreathRegion() not to run, which skips the initial 15 second respiration assessment. If whichPattern = 0 (Slowing pattern), and skipCalibration is 1, then startSubPattern and maxSubPattern determine the initial respiration rate and minimum respiration rate
+		var startSubPattern:Number = 5; //may 8th  The example value 5 here corresponds to 12bpm. Note, for Buzzer Training, if the non-custom Slowing pattern is used, then this value should be set to 5
+		var maxSubPattern:int = 8; //may 8th  SET THIS TO THE INDEX VALUE found under //Dynamic slow breathing pattern below, between 0-34. This value corresponds TO THE MINIMUM RESPIRATION RATE SELECTED ON THE CUSTOM BREATH PATTERN PAGE. This value should be 34 if skipCalibration = 0. The example value 8 here corresponds to 9.2bpm
+		
 		public function Game(main:Main) {			
 		
 			DC = main;					
@@ -827,8 +830,28 @@
 				targetLayer.getChildAt(i).x -= xd;
 			}			
 			
+			//may 8th **************
+			if (calibrationBreathsDone == 0 && skipCalibration == 1) {
+				
+				calibrationBreathsDone = 1;		
+				
+				if (whichPattern == 0) {						
+						
+						lastX = 500;
+						
+						initialFadeIn = 1; //fade in initial patterns					
+						
+						subPattern = startSubPattern;
+						createInitialSetOfBreathPatterns();										
+						
+						gamePanel.targetRate.text = String(flyingObjects[0][1]);
+				}
+				
+			} 
+			//may 8th **************
 			
-			if (calibrationBreathsDone == 0) {	
+			
+			else if (calibrationBreathsDone == 0 && skipCalibration == 0) {	//may 8th
 				
 				if (targetLayer.getChildAt(0).x <= -1130) {  //accounting for 70 width of bird
 					targetLayer.removeChildAt(0);
@@ -933,8 +956,8 @@
 				if (goodBreaths >= 4) {
 					
 					subPattern++;
-					if (subPattern > 34) {
-						subPattern = 34;
+					if (subPattern > maxSubPattern) { //may 8th  maxSubPattern is representing the minimum target respiration rate
+						subPattern = maxSubPattern;  //may 8th
 					}
 					else {
 						updateBreathPatterns = 1;
@@ -1148,12 +1171,15 @@
 				
 				gamePanel.startGameButton.gotoAndStop(2);			
 				
-				addCalibrationBreathRegion();
+				if (skipCalibration == 0) { //may 8th
+					addCalibrationBreathRegion(); //may 8th
+				} //may 8th
 				
 				gamePanel.backButton.visible = false; //You MUST end the session first before the back button re-appears.
 				
 				if (whichPattern != 0) {
 					createInitialSetOfBreathPatterns(); //This may be called at other times, so there is a separate flag for that
+					gamePanel.targetRate.text = String(flyingObjects[0][1]); // may 8th
 				}										
 				
 				addEventListener(Event.ENTER_FRAME, enterFrameHandler);
@@ -1174,6 +1200,8 @@
 				
 				gamePanel.startGameButton.visible = false;
 				gamePanel.backButton.visible = true; 
+				
+				DC.objLiveGraph.saveData(); //***march20
 				
 				clearGame();
 				
