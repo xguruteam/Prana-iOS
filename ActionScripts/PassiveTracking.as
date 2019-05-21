@@ -23,7 +23,7 @@
 		
 		var DC:Main;	
 		var passiveTrackingUI:PassiveTrackingUI = new PassiveTrackingUI();		
-		var isBuzzing:int = 0;
+		//var isBuzzing:int = 0; May 19th  REMOVE (we are now using isBuzzing in BuzzerTraining class as a global variable)
 		var buzzCount:int = 0;		
 		var hasUprightBeenSet:int = 0;
 		var trainingDuration:int = 0;
@@ -34,6 +34,7 @@
 		var enterFrameCount:int = 0;		
 		var totalBreaths:int = 0;			
 		var useBuzzerForPosture:int = 1;
+		var isPassiveTrackingActive:int = 0;  // May 19th, ADDED THIS LINE
 	
 		
 		public function PassiveTracking(main:Main) {
@@ -145,9 +146,10 @@
 				
 				passiveTrackingUI.startPassiveTrackingButton.gotoAndStop(2);	
 								
-				isBuzzing = 0;
+				DC.objBuzzerTraining.isBuzzing = 0; //May 19th Changed
 				buzzCount = 0;
-				addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+				//addEventListener(Event.ENTER_FRAME, enterFrameHandler);  // May 19th, REMOVED THIS LINE
+				isPassiveTrackingActive = 1; // May 19th, ADDED THIS LINE
 				
 				DC.objLiveGraph.whenBreathsEnd = [];
 				DC.objLiveGraph.whenBreathsEnd[0] = 0;
@@ -166,7 +168,8 @@
 		}		
 		
 		
-		function enterFrameHandler(e:Event):void {			
+		//function enterFrameHandler(e:Event):void {   May 19th, REMOVED THIS LINE
+		  function passiveTrackingMainLoop():void { //May 19th, ADDED THIS LINE
 			
 			passiveTrackingUI.currentRR.text = String(DC.objLiveGraph.respRate);	
 			
@@ -177,24 +180,37 @@
 			
 			if (buzzCount > 0) {
 				
-				buzzCount--;
+				buzzCount--; 
 				
-				if (buzzCount == 0) {
-					isBuzzing = 0;
-					DC.objLiveGraph.dampingLevel = 0;
-					DC.objLiveGraph.postureAttenuatorLevel = 0;
-				}		
+				//if (buzzCount == 0) { //May 19th REMOVED
+					//DC.objBuzzerTraining.isBuzzing = 0; May 19th REMOVED
+					//DC.objLiveGraph.dampingLevel = 0;  May 19th REMOVED
+					//DC.objLiveGraph.postureAttenuatorLevel = 0;  May 19th REMOVED
+				//}		
 				
 			}					
 						
 			
-			if (DC.objLiveGraph.postureIsGood == 0 && useBuzzerForPosture == 1 && isBuzzing == 0)  {
+			if (buzzCount == 0 && DC.objLiveGraph.postureIsGood == 0 && useBuzzerForPosture == 1 && DC.objBuzzerTraining.isBuzzing == 0)  { //May 19th Changed
 				
-				DC.objStartConnection.socket.writeUTFBytes("Buzz,0.5" + "\n");			
+				DC.objStartConnection.socket.writeUTFBytes("Buzz,1" + "\n"); //May 19th Changed			
 				DC.objStartConnection.socket.flush();	
-				isBuzzing = 1;
-				buzzCount = 300;
+				DC.objBuzzerTraining.isBuzzing = 1; //May 19th Changed
+				buzzCount = 150; //May 19th Change
 			}
+			
+			if (buzzCount == 120) { //May 19th ADDED LINE				
+			
+				DC.objStartConnection.socket.writeUTFBytes("Buzz,1" + "\n"); //May 19th ADDED LINE				
+				DC.objStartConnection.socket.flush(); //May 19th ADDED LINE		
+				
+			} //May 19th ADDED LINE	
+				
+			if (buzzCount == 90) { //May 19th ADDED LINE	
+				DC.objBuzzerTraining.isBuzzing = 0; //May 19th ADDED LINE
+				DC.objLiveGraph.dampingLevel = 0; //May 19th ADDED LINE
+				DC.objLiveGraph.postureAttenuatorLevel = 0; //May 19th ADDED LINE
+			} //May 19th ADDED LINE
 										
 		}	
 		
@@ -228,7 +244,7 @@
 			
 			enterFrameCount++;
 			
-			if (enterFrameCount < 60) {
+			if (enterFrameCount < 20) {  //May 19th, changed from 60 to 20
 				return;				
 			}
 			
@@ -292,9 +308,10 @@
 		
 		function clearPassiveTracking():void  {				
 			
-			removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
+			//removeEventListener(Event.ENTER_FRAME, enterFrameHandler);  // May 19th, REMOVED THIS LINE
+			isPassiveTrackingActive = 0; // May 19th, ADDED THIS LINE
 			
-			isBuzzing = 0;
+			DC.objBuzzerTraining.isBuzzing = 0; //May 19th Changed
 			buzzCount = 0;				
 			prevPostureState = 0;
 			DC.objModeScreen.stopData();			

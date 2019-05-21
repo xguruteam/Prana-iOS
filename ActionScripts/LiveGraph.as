@@ -19,6 +19,12 @@
 	
 	public class LiveGraph extends MovieClip {		
 		
+		var storedXSensor:Array = new Array;
+		var storedYSensor:Array = new Array;
+		var storedZSensor:Array = new Array;
+		var storedRSensor:Array = new Array;
+		var storedBSensor:Array = new Array;
+		
 		var DC:Main;
 		var breathGraph:MovieClip = new MovieClip();		
 		var xCoord:int = 840;
@@ -166,11 +172,11 @@
 			
 		}
 		
-		function enterFrameHandler (e:Event):void {					
+		//function enterFrameHandler (e:Event):void {   May 19th, REMOVED THIS LINE					
 			
-			timeElapsed = timeElapsed + (1/60.0);						
+			//timeElapsed = timeElapsed + (1/60.0);	May 19th, REMOVED THIS LINE					
 			
-		}
+		//} May 19th, REMOVED THIS LINE
 		
 		
 		function resetBreathTrackingVariables():void {				
@@ -239,7 +245,7 @@
 		
 		public function resetCount():void
 		{		
-			if (count == 600) {
+			if (count == 12000) { //***march18
 				
 				for (var i:int = 500; i <= 600; i++)  
 				{					
@@ -261,6 +267,16 @@
 			}
 		}
 		
+		public function roundSensorArrays():void { //***march18
+			
+			xSensor[count] = roundNumber(xSensor[count], 1000000000); //***march18
+			ySensor[count] = roundNumber(ySensor[count], 1000000000); //***march18
+			zSensor[count] = roundNumber(zSensor[count], 1000000000); //***march18		 	
+			rotationSensor[count] = roundNumber(rotationSensor[count], 1000000000); //***march18
+			breathSensor[count] = roundNumber(breathSensor[count], 1000000000); //***march18
+			currentPostureAngle[count] = roundNumber(currentPostureAngle[count], 1000000000); //***march18
+			
+		} //***march18
 		
 		
 		public function storeSensorData(sensorData:Array):void  {			
@@ -269,13 +285,19 @@
 				
 			count++;	
 			
+			storedXSensor[count] = Number(dataArray[3]); //***March28
+			storedYSensor[count] = Number(dataArray[2]); //***March28
+			storedZSensor[count] = Number(dataArray[4]); //***March28
+			storedRSensor[count] = Number(dataArray[5]); //***March28
+			storedBSensor[count] = Number(dataArray[1]); //***March28
+			
 			resetCount();
 						
 			if (count < 5) {
 				
 				xSensor[count] = Number(dataArray[3]);
 				ySensor[count] = Number(dataArray[2]);
-				zSensor[count] = Number(dataArray[4]);	
+				zSensor[count] = Number(dataArray[4]);					
 				
 				if (xSensor[count] == 0 && ySensor[count] == 0) {
 					currentPostureAngle[count] = 2*(Math.asin(zSensor[count])/Math.PI);				
@@ -293,6 +315,8 @@
 				currentStrainGaugeLowest = strainGauge;				
 				currentStrainGaugeHighest = currentStrainGaugeLowest + 0.003;
 				currentStrainGaugeHighestPrev = currentStrainGaugeHighest;
+				
+				
 			}
 			
 			else {
@@ -315,6 +339,8 @@
 
 			}	
 			
+			
+			roundSensorArrays(); //***march18
 			
 			strainGauge = breathSensor[count];											
 		
@@ -417,11 +443,11 @@
 			
 			}
 			
-			//else if (DC.objBuzzerTraining.isBuzzing == 1) {
+			else if (DC.objBuzzerTraining.isBuzzing == 1) { //May 19 ADDED
 				
-				//smoothBreathingCoef = smoothBreathingCoef * 0.5;
-				//smoothBreathingCoef = 0;
-			//}
+				smoothBreathingCoef = smoothBreathingCoef * 0.5; //May 19 ADDED
+				
+			} //May 19 ADDED
 
 		
 		}
@@ -664,7 +690,17 @@
 		}
 		
 		
-		public function processBreathingandPosture(sensorData:Array):void  {			
+		public function processBreathingandPosture(sensorData:Array):void  {	
+			
+			timeElapsed = timeElapsed + (1/20.0);	// May 19th, ADDED THIS LINE, note it is 1/20, not 1/60 as previously in enterFrameHandler
+			
+			if (DC.objBuzzerTraining.isBuzzerTrainingActive == 1) {  // May 19th, ADDED THIS LINE
+				DC.objBuzzerTraining.buzzerTrainingMainLoop()  // May 19th, ADDED THIS LINE
+			}  // May 19th, ADDED THIS LINE
+			
+			if (DC.objPassiveTracking.isPassiveTrackingActive == 1) {  // May 19th, ADDED THIS LINE
+				DC.objPassiveTracking.passiveTrackingMainLoop()  // May 19th, ADDED THIS LINE
+			}  // May 19th, ADDED THIS LINE
 					
 			storeSensorData(sensorData);
 			
@@ -1108,7 +1144,8 @@
 			DC.addChild(DC.objModeScreen);	
 			DC.appMode = 0;	
 			//RRtimer.stop();
-			removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
+			//removeEventListener(Event.ENTER_FRAME, enterFrameHandler);  May 19th, REMOVED THIS LINE
+			saveData(); //***march18
 		
 		}	
 		
@@ -1118,6 +1155,25 @@
 			return Math.round(numb*decimal)/decimal;
 		}
 		
+		
+		
+		
+		function saveData():void {	//***march18	 	
+		
+			var myXML:XML = new XML( <objects /> );	//***march18
+			var XMLName:String = "TestData";	//***march18
+			var XMLEntry:XML = new XML( <{XMLName} /> );	//***march18
+			XMLEntry.@xSensor = storedXSensor;	//***march18	
+			XMLEntry.@ySensor = storedYSensor;	//***march18
+			XMLEntry.@zSensor = storedZSensor;	//***march18
+			XMLEntry.@BreathSensor = storedBSensor;	//***march18
+			XMLEntry.@RotationSensor = storedRSensor;	//***march18
+			XMLEntry.@Count = count;	//***march19
+			myXML.appendChild(XMLEntry); 	//***march18
+			var f:FileReference = new FileReference;	//***march18
+			f.save(myXML, "myXML1.xml"); 		//***march18		
+			
+		}	//***march18
 		
 		
 		function startMode():void {			
@@ -1138,7 +1194,7 @@
 			
 			DC.objModeScreen.startData();
 			//RRtimer.start();	
-			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+			//addEventListener(Event.ENTER_FRAME, enterFrameHandler);  May 19th, REMOVED THIS LINE
 			stuckBreathsThreshold = 1; 
 			breathTopExceededThreshold = 1;		
 			minBreathRange = fullBreathGraphHeight/16; //***March16Change This is important because resolutions on devices are different. Previously it was set to 25, which is an absolute value. Now it is set relative to the fullBreathGraphHeight (whatever that is set to for the particular device, it was 400 on desktop)

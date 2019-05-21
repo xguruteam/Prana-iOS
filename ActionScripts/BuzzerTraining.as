@@ -68,6 +68,8 @@
 		var useBuzzerForPosture:int = 1;
 		
 		var buzzerTrainingForPostureOnly:int = 0; //****** May 8th 2019 changes
+		
+		var isBuzzerTrainingActive:int = 0; // May 19th, ADDED THIS LINE
 	
 		
 		public function BuzzerTraining(main:Main) {
@@ -152,10 +154,10 @@
 			whichPattern = DC.objGame.whichPattern;
 			subPattern = DC.objGame.subPattern;			
 			
-			inhalationTimeEnd = DC.objGame.patternSequence[whichPattern][subPattern][0] * 60;
-			retentionTimeEnd = inhalationTimeEnd + DC.objGame.patternSequence[whichPattern][subPattern][1] * 60;
-			exhalationTimeEnd = retentionTimeEnd + DC.objGame.patternSequence[whichPattern][subPattern][2] * 60;
-			timeBetweenBreathsEnd = exhalationTimeEnd + DC.objGame.patternSequence[whichPattern][subPattern][3] * 60;
+			inhalationTimeEnd = DC.objGame.patternSequence[whichPattern][subPattern][0] * 20; //May 19th changed from 60 to 20
+			retentionTimeEnd = inhalationTimeEnd + DC.objGame.patternSequence[whichPattern][subPattern][1] * 20; //May 19th changed from 60 to 20
+			exhalationTimeEnd = retentionTimeEnd + DC.objGame.patternSequence[whichPattern][subPattern][2] * 20; //May 19th changed from 60 to 20
+			timeBetweenBreathsEnd = exhalationTimeEnd + DC.objGame.patternSequence[whichPattern][subPattern][3] * 20; //May 19th changed from 60 to 20
 			
 			slouchesCount = 0;			
 			uprightPostureTime = 0;
@@ -224,7 +226,8 @@
 				takenFirstBreath = 0;
 				isBuzzing = 0;
 				buzzCount = 0;
-				addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+				//addEventListener(Event.ENTER_FRAME, enterFrameHandler); May 19th, REMOVED THIS LINE
+				isBuzzerTrainingActive = 1; // May 19th, ADDED THIS LINE
 				
 			}
 			
@@ -236,7 +239,8 @@
 		}		
 		
 		
-		function enterFrameHandler(e:Event):void {			
+		//function enterFrameHandler(e:Event):void {  May 19th, REMOVED THIS LINE			
+		  function buzzerTrainingMainLoop():void { // May 19th, ADDED THIS LINE	
 			
 			buzzerTrainingUI.status.text = String(breathTime) + "  " + String(numOfInhales) +  "  " + String(numOfExhales) + "  " + String(whichPattern) + "  " + String(subPattern) + "  " + String(breathsOnCurrentLevel);
 
@@ -244,14 +248,14 @@
 			
 			buzzerTrainingUI.actualRR.text = String(DC.objLiveGraph.respRate);
 			
-			totalElapsedTime++;
+			totalElapsedTime++;  //May 19th, this does NOT seem to be used
 		
 			
 			if (buzzCount > 0) {
 				
-				buzzCount--;
+				buzzCount--;  
 				
-				if (buzzCount == 0) {
+				if (buzzCount == 0) {  
 					isBuzzing = 0;
 					DC.objLiveGraph.dampingLevel = 0;
 					DC.objLiveGraph.postureAttenuatorLevel = 0;
@@ -259,36 +263,36 @@
 				
 			}						
 			
-			breathTime++;					
+			breathTime++; 				
 			
 			if (breathTime < 0) {
 				
 				if (buzzReason == 1) { //due to bad breathing
 					
-					if (breathTime == -160) { //so that any guidance buzzing doesn't interfere with bad breath buzzing. Allows any guidance buzzing time to clear first.
+					if (breathTime == -53) { // May 19th, Changed from -160      so that any guidance buzzing doesn't interfere with bad breath buzzing. Allows any guidance buzzing time to clear first.
 						DC.objStartConnection.socket.writeUTFBytes("Buzz,1.2" + "\n");			
 						DC.objStartConnection.socket.flush();	
 						isBuzzing = 1;
-						buzzCount = 90;
+						buzzCount = 30; //May 19th changed from 90
 					}
 				}
 				
 				else if (buzzReason == 2) { //due to bad posture
 					
-					if (breathTime == -280) { //so that any guidance buzzing doesn't interfere with bad breath buzzing. Allows any guidance buzzing time to clear first.
+					if (breathTime == -93) { // May 19th, Changed from -280         so that any guidance buzzing doesn't interfere with bad breath buzzing. Allows any guidance buzzing time to clear first.
 						DC.objStartConnection.socket.writeUTFBytes("Buzz,1" + "\n");			
 						DC.objStartConnection.socket.flush();	
 						isBuzzing = 1;
-						buzzCount = 190;
+						buzzCount = 63; //May 19th changed from 190
 					}
 					
-					if (breathTime == -190) { //so that any guidance buzzing doesn't interfere with bad breath buzzing. Allows any guidance buzzing time to clear first.
+					if (breathTime == -63) { //May 19th, Changed from -190        so that any guidance buzzing doesn't interfere with bad breath buzzing. Allows any guidance buzzing time to clear first.
 						DC.objStartConnection.socket.writeUTFBytes("Buzz,1" + "\n");			
 						DC.objStartConnection.socket.flush();	
 						
 					}
 				}
-				return; // if breath was bad, breatTime is set to -90, and needs time to clear bad breath buzzer indicator before proceeding
+				return; // May 19th comment change, if breath was bad, breatTime is set to -30, and needs time to clear bad breath buzzer indicator before proceeding
 			}
 			
 			if (buzzerTrainingForPostureOnly == 1) {
@@ -356,17 +360,17 @@
 				DC.objStartConnection.socket.writeUTFBytes("Buzz,0.10" + "\n");			
 				DC.objStartConnection.socket.flush();
 				
-				inhalationTimeEnd = DC.objGame.patternSequence[whichPattern][subPattern][0] * 60;
-				retentionTimeEnd = inhalationTimeEnd + DC.objGame.patternSequence[whichPattern][subPattern][1] * 60;
-				exhalationTimeEnd = retentionTimeEnd + DC.objGame.patternSequence[whichPattern][subPattern][2] * 60;
-				timeBetweenBreathsEnd = exhalationTimeEnd + DC.objGame.patternSequence[whichPattern][subPattern][3] * 60;
+				inhalationTimeEnd = DC.objGame.patternSequence[whichPattern][subPattern][0] * 20; //May 19th changed from 60 to 20
+				retentionTimeEnd = inhalationTimeEnd + DC.objGame.patternSequence[whichPattern][subPattern][1] * 20; //May 19th changed from 60 to 20
+				exhalationTimeEnd = retentionTimeEnd + DC.objGame.patternSequence[whichPattern][subPattern][2] * 20; //May 19th changed from 60 to 20
+				timeBetweenBreathsEnd = exhalationTimeEnd + DC.objGame.patternSequence[whichPattern][subPattern][3] * 20; //May 19th changed from 60 to 20
 				
 				buzzerTrainingUI.buzzerReason.text = "";
 				
-				buzzerTrainingUI.targetRR.text = String(roundNumber(3600/timeBetweenBreathsEnd,10));
+				buzzerTrainingUI.targetRR.text = String(roundNumber((3600/timeBetweenBreathsEnd)/3,10)); //May 19th changed
 				
 				isBuzzing = 1;
-				buzzCount = 30;
+				buzzCount = 10; //May 19th changed from 30
 				numOfInhales = 0;
 				numOfExhales = 0;	
 				
@@ -404,24 +408,24 @@
 				//buzzerTrainingUI.status0.text = "New Breath Start";
 			}
 			
-			if (breathTime == inhalationTimeEnd) {
+			if (breathTime == inhalationTimeEnd) {  
 				DC.objStartConnection.socket.writeUTFBytes("Buzz,0.10" + "\n");			
 				DC.objStartConnection.socket.flush();
 				isBuzzing = 1;
-				buzzCount = 30;
+				buzzCount = 10; //May 19th changed from 30
 				
 
 			}	
 			
 			
-			if (breathTime == exhalationTimeEnd) {
+			if (breathTime == exhalationTimeEnd) { 
 				DC.objStartConnection.socket.writeUTFBytes("Buzz,0.10" + "\n");			
 				DC.objStartConnection.socket.flush();
 				isBuzzing = 1;
-				buzzCount = 40;
+				buzzCount = 14; //May 19th changed from 40
 			}	
 			
-			if (breathTime == exhalationTimeEnd + 20) {
+			if (breathTime == exhalationTimeEnd + 6) { // May 19th, Changed from 20 to 6
 				DC.objStartConnection.socket.writeUTFBytes("Buzz,0.10" + "\n");			
 				DC.objStartConnection.socket.flush();
 				
@@ -493,7 +497,7 @@
 		
 		function badBreath():void {
 						
-			breathTime = -180;
+			breathTime = -60;  //May 19th Changed to -60 from -180
 			hasInhaled = 0;
 			hasExhaled = 0;
 			numOfInhales = 0;
@@ -508,7 +512,7 @@
 		
 		function badPosture():void {			
 			
-			breathTime = -300;
+			breathTime = -100;  //May 19th Changed to -100 from -300
 			hasInhaled = 0;
 			hasExhaled = 0;
 			numOfInhales = 0;
@@ -549,7 +553,7 @@
 			
 			enterFrameCount++;
 			
-			if (enterFrameCount < 60) {
+			if (enterFrameCount < 20) {  // May 19th, changed to 20
 				return;				
 			}
 			
@@ -613,7 +617,8 @@
 		
 		function clearBuzzerTraining():void  {		 		
 			
-			removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
+			//removeEventListener(Event.ENTER_FRAME, enterFrameHandler);  May 19th, REMOVED THIS LINE
+			isBuzzerTrainingActive = 0; //May 19th, ADDED THIS LINE
 			
 			isBuzzing = 0;
 			buzzCount = 0;
