@@ -1008,6 +1008,10 @@ class VisualTrainingScene: SKScene {
 }
 
 extension VisualTrainingScene: LiveDelegate {
+    func liveProcess() {
+        
+    }
+    
     func liveNewBreathingCalculated() {
         
     }

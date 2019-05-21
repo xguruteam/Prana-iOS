@@ -146,6 +146,10 @@ class TutorialUpperchestViewController: UIViewController {
 }
 
 extension TutorialUpperchestViewController: LiveDelegate {
+    func liveProcess() {
+        
+    }
+    
     func liveDebug(para1: String, para2: String, para3: String, para4: String) {
         
     }

@@ -148,6 +148,7 @@ class ProgramChildCell: UITableViewCell {
     }
     
     @IBAction func onNotificationEnableChange(_ sender: UISwitch) {
+        
         notificationEnableChangeListener?(sender.isOn)
     }
     

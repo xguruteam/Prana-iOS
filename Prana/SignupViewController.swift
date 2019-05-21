@@ -11,7 +11,8 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import Crashlytics
-import MBProgressHUD
+//import MBProgressHUD
+import MKProgress
 
 class SignupViewController: UIViewController, UITextFieldDelegate {
     
@@ -119,9 +120,10 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     }
     
     func signup() {
-        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        hud.mode = .indeterminate
-        hud.label.text = "Loading..."
+//        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+//        hud.mode = .indeterminate
+//        hud.label.text = "Loading..."
+        MKProgress.show()
         
         let param: Parameters = [
             "first_name": tf_firstname.text!,
@@ -170,14 +172,16 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                         break
                     }
                 }
-                MBProgressHUD.hide(for: self.view, animated: true)
+//                MBProgressHUD.hide(for: self.view, animated: true)
+                MKProgress.hide()
             }
     }
     
     func login() {
-        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        hud.mode = .indeterminate
-        hud.label.text = "Loading..."
+//        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+//        hud.mode = .indeterminate
+//        hud.label.text = "Loading..."
+        MKProgress.show()
         
         let param: Parameters = [
             "email": tf_email.text!,
@@ -227,7 +231,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                         break
                     }
                 }
-                MBProgressHUD.hide(for: self.view, animated: true)
+//                MBProgressHUD.hide(for: self.view, animated: true)
+                MKProgress.hide()
         }
     }
     

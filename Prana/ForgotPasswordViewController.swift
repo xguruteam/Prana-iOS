@@ -12,6 +12,7 @@ import Alamofire
 import SwiftyJSON
 import Crashlytics
 import MBProgressHUD
+import MKProgress
 
 class ForgotPasswordViewController: UIViewController {
     
@@ -62,9 +63,10 @@ class ForgotPasswordViewController: UIViewController {
     }
     
     func submitRequest() {
-        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        hud.mode = .indeterminate
-        hud.label.text = "Loading..."
+//        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+//        hud.mode = .indeterminate
+//        hud.label.text = "Loading..."
+        MKProgress.show()
         
         let param: Parameters = [
             "email": tf_email.text!
@@ -94,7 +96,8 @@ class ForgotPasswordViewController: UIViewController {
                     }
                     break
                 }
-                MBProgressHUD.hide(for: self.view, animated: true)
+//                MBProgressHUD.hide(for: self.view, animated: true)
+                MKProgress.hide()
         }
     }
 }

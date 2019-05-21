@@ -220,6 +220,10 @@ class LiveGraphViewController: UIViewController {
 }
 
 extension LiveGraphViewController: LiveDelegate {
+    func liveProcess() {
+        
+    }
+    
     func liveDebug(para1: String, para2: String, para3: String, para4: String) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {

@@ -12,6 +12,7 @@ import Alamofire
 import SwiftyJSON
 import Crashlytics
 import MBProgressHUD
+import MKProgress
 
 class LoginViewController: UIViewController {
 
@@ -95,9 +96,10 @@ class LoginViewController: UIViewController {
     }
     
     func login() {
-        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        hud.mode = .indeterminate
-        hud.label.text = "Loading..."
+//        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+//        hud.mode = .indeterminate
+//        hud.label.text = "Loading..."
+        MKProgress.show()
         
         let remember_me = true
         let param: Parameters = [
@@ -142,7 +144,8 @@ class LoginViewController: UIViewController {
                     }
                     break
                 }
-                MBProgressHUD.hide(for: self.view, animated: true)
+//                MBProgressHUD.hide(for: self.view, animated: true)
+                MKProgress.hide()
         }
     }
     

@@ -78,9 +78,7 @@ class Buzzer {
     
     var maxSubPattern:Int = 8
     
-    var isForegroundMode: Bool {
-        return UIApplication.shared.applicationState == .active
-    }
+    var isBuzzerTrainingActive:Int = 0; // May 19th, ADDED THIS LINE
     
     init(pattern: Int, subPattern subPatt: Int, duration: Int, live: Live) {
         useBuzzerForPosture = 1;
@@ -88,10 +86,10 @@ class Buzzer {
         whichPattern = pattern
         subPattern = subPatt
         
-        inhalationTimeEnd = Int(Pattern.getPatternValue(value: Pattern.patternSequence[whichPattern][subPattern][0]) * 60.0)
-        retentionTimeEnd = inhalationTimeEnd + Int(Pattern.getPatternValue(value: Pattern.patternSequence[whichPattern][subPattern][1]) * 60.0)
-        exhalationTimeEnd = retentionTimeEnd + Int(Pattern.getPatternValue(value: Pattern.patternSequence[whichPattern][subPattern][2]) * 60.0)
-        timeBetweenBreathsEnd = exhalationTimeEnd + Int(Pattern.getPatternValue(value: Pattern.patternSequence[whichPattern][subPattern][3]) * 60.0)
+        inhalationTimeEnd = Int(Pattern.getPatternValue(value: Pattern.patternSequence[whichPattern][subPattern][0]) * 20.0)
+        retentionTimeEnd = inhalationTimeEnd + Int(Pattern.getPatternValue(value: Pattern.patternSequence[whichPattern][subPattern][1]) * 20.0)
+        exhalationTimeEnd = retentionTimeEnd + Int(Pattern.getPatternValue(value: Pattern.patternSequence[whichPattern][subPattern][2]) * 20.0)
+        timeBetweenBreathsEnd = exhalationTimeEnd + Int(Pattern.getPatternValue(value: Pattern.patternSequence[whichPattern][subPattern][3]) * 20.0)
         
         slouchesCount = 0;
         uprightPostureTime = 0;
@@ -104,15 +102,8 @@ class Buzzer {
         gameSetTime = trainingDuration;
         
         objLiveGraph = live
+        objLiveGraph.addDelegate(self)
         
-        // register method that be called when the app receive UIApplicationDidEnterBackgroundNotification
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
-        
-    }
-    
-    //MARK: Application Observers
-    @objc private func applicationEnterBackground() {
-        let _ = BackgroundTaskManager.shared.beginNewBackgroundTask()
     }
     
     deinit {
@@ -129,24 +120,21 @@ class Buzzer {
         isBuzzing = 0;
         buzzCount = 0;
 
-        self.timer = Timer.scheduledTimer(timeInterval: 1.0 / 60.0, target: self, selector: #selector(self.enterFrameHandler), userInfo: nil, repeats: true)
+        isBuzzerTrainingActive = 1; // May 19th, ADDED THIS LINE
+        
+//        self.timer = Timer.scheduledTimer(timeInterval: 1.0 / 60.0, target: self, selector: #selector(self.enterFrameHandler), userInfo: nil, repeats: true)
     }
     
     func endSession() {
-        self.timer?.invalidate()
+//        self.timer?.invalidate()
+        isBuzzerTrainingActive = 0; //May 19th, ADDED THIS LINE
         clearBuzzerTraining();
-        
-        BackgroundTaskManager.shared.endAllBackgroundTasks()
     }
     
     
     @objc func enterFrameHandler() {
         
-        if self.isForegroundMode == false {
-            let _ = BackgroundTaskManager.shared.beginNewBackgroundTask()
-        }
-        
-        print("timer \(Date().timeIntervalSince1970)")
+//        print("timer \(Date().timeIntervalSince1970)")
         //    buzzerTrainingUI.status.text = String(breathTime) + "  " + String(numOfInhales) +  "  " + String(numOfExhales) + "  " + String(whichPattern) + "  " + String(subPattern) + "  " + String(breathsOnCurrentLevel);
         
         buzzerTimerHandler();
@@ -174,27 +162,27 @@ class Buzzer {
             
             if (buzzReason == 1) { //due to bad breathing
                 
-                if (breathTime == -160) { //so that any guidance buzzing doesn't interfere with bad breath buzzing. Allows any guidance buzzing time to clear first.
+                if (breathTime == -53) { // May 19th, Changed from -160      so that any guidance buzzing doesn't interfere with bad breath buzzing. Allows any guidance buzzing time to clear first.
                     PranaDeviceManager.shared.sendCommand("Buzz,1.2");
                     isBuzzing = 1;
-                    buzzCount = 90;
+                    buzzCount = 30; //May 19th changed from 90
                 }
             }
                 
             else if (buzzReason == 2) { //due to bad posture
                 
-                if (breathTime == -280) { //so that any guidance buzzing doesn't interfere with bad breath buzzing. Allows any guidance buzzing time to clear first.
+                if (breathTime == -93) { // May 19th, Changed from -280         so that any guidance buzzing doesn't interfere with bad breath buzzing. Allows any guidance buzzing time to clear first.
                     PranaDeviceManager.shared.sendCommand("Buzz,1");
                     isBuzzing = 1;
-                    buzzCount = 190;
+                    buzzCount = 63; //May 19th changed from 190
                 }
                 
-                if (breathTime == -190) { //so that any guidance buzzing doesn't interfere with bad breath buzzing. Allows any guidance buzzing time to clear first.
+                if (breathTime == -63) { //May 19th, Changed from -190        so that any guidance buzzing doesn't interfere with bad breath buzzing. Allows any guidance buzzing time to clear first.
                     PranaDeviceManager.shared.sendCommand("Buzz,1");
                     
                 }
             }
-            return; // if breath was bad, breatTime is set to -90, and needs time to clear bad breath buzzer indicator before proceeding
+            return; // May 19th comment change, if breath was bad, breatTime is set to -30, and needs time to clear bad breath buzzer indicator before proceeding
         }
         
         if (buzzerTrainingForPostureOnly == 1) {
@@ -260,17 +248,17 @@ class Buzzer {
         if (breathTime == 0) {
             PranaDeviceManager.shared.sendCommand("Buzz,0.10");
             
-            inhalationTimeEnd = Int(Pattern.getPatternValue(value: Pattern.patternSequence[whichPattern][subPattern][0]) * 60.0)
-            retentionTimeEnd = inhalationTimeEnd + Int(Pattern.getPatternValue(value: Pattern.patternSequence[whichPattern][subPattern][1]) * 60.0)
-            exhalationTimeEnd = retentionTimeEnd + Int(Pattern.getPatternValue(value: Pattern.patternSequence[whichPattern][subPattern][2]) * 60.0)
-            timeBetweenBreathsEnd = exhalationTimeEnd + Int(Pattern.getPatternValue(value: Pattern.patternSequence[whichPattern][subPattern][3]) * 60.0)
+            inhalationTimeEnd = Int(Pattern.getPatternValue(value: Pattern.patternSequence[whichPattern][subPattern][0]) * 20.0)
+            retentionTimeEnd = inhalationTimeEnd + Int(Pattern.getPatternValue(value: Pattern.patternSequence[whichPattern][subPattern][1]) * 20.0)
+            exhalationTimeEnd = retentionTimeEnd + Int(Pattern.getPatternValue(value: Pattern.patternSequence[whichPattern][subPattern][2]) * 20.0)
+            timeBetweenBreathsEnd = exhalationTimeEnd + Int(Pattern.getPatternValue(value: Pattern.patternSequence[whichPattern][subPattern][3]) * 20.0)
             
             self.delegate?.buzzerNewBuzzerReason("")
             
-            self.delegate?.burzzerNewTargetRR(targetRR: roundNumber(num: 3600.0/Double(timeBetweenBreathsEnd), dec: 10))
+            self.delegate?.burzzerNewTargetRR(targetRR: roundNumber(num: (3600.0/Double(timeBetweenBreathsEnd))/3.0, dec: 10))
             
             isBuzzing = 1;
-            buzzCount = 30;
+            buzzCount = 10; //May 19th changed from 30
             numOfInhales = 0;
             numOfExhales = 0;
             
@@ -311,7 +299,7 @@ class Buzzer {
         if (breathTime == inhalationTimeEnd) {
             PranaDeviceManager.shared.sendCommand("Buzz,0.10");
             isBuzzing = 1;
-            buzzCount = 30;
+            buzzCount = 10; //May 19th changed from 30
             
             
         }
@@ -320,10 +308,10 @@ class Buzzer {
         if (breathTime == exhalationTimeEnd) {
             PranaDeviceManager.shared.sendCommand("Buzz,0.10");
             isBuzzing = 1;
-            buzzCount = 40;
+            buzzCount = 14; //May 19th changed from 40
         }
         
-        if (breathTime == exhalationTimeEnd + 20) {
+        if (breathTime == exhalationTimeEnd + 6) { // May 19th, Changed from 20 to 6
             PranaDeviceManager.shared.sendCommand("Buzz,0.10");
             
         }
@@ -395,7 +383,7 @@ class Buzzer {
         
         enterFrameCount+=1;
         
-        if (enterFrameCount < 60) {
+        if (enterFrameCount < 20) {  // May 19th, changed to 20
             return;
         }
         
@@ -435,7 +423,7 @@ class Buzzer {
     
     func badBreath() {
         
-        breathTime = -180;
+        breathTime = -60;  //May 19th Changed to -60 from -180
         hasInhaled = 0;
         hasExhaled = 0;
         numOfInhales = 0;
@@ -451,7 +439,7 @@ class Buzzer {
     
     func badPosture() {
         
-        breathTime = -300;
+        breathTime = -100;  //May 19th Changed to -100 from -300
         hasInhaled = 0;
         hasExhaled = 0;
         numOfInhales = 0;
@@ -478,4 +466,35 @@ class Buzzer {
     func roundNumber(num:Double, dec:Double) -> Double {
         return round(num*dec)/dec
     }
+}
+
+extension Buzzer: LiveDelegate {
+    func liveNewBreathingCalculated() {
+        
+    }
+    
+    func liveNewPostureCalculated() {
+        
+    }
+    
+    func liveNewRespRateCaclculated() {
+        
+    }
+    
+    func liveDidUprightSet() {
+        
+    }
+    
+    func liveDebug(para1: String, para2: String, para3: String, para4: String) {
+        
+    }
+    
+    func liveProcess() {
+        guard self.isBuzzerTrainingActive == 1 else {
+            return
+        }
+        self.enterFrameHandler()
+    }
+    
+    
 }

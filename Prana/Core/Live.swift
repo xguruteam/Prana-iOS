@@ -16,6 +16,7 @@ protocol LiveDelegate {
     func liveNewRespRateCaclculated()
     func liveDidUprightSet()
     func liveDebug(para1: String, para2: String, para3: String, para4: String)
+    func liveProcess()
 }
 
 class Live: NSObject {
@@ -557,6 +558,10 @@ class Live: NSObject {
     }
     
     func processBreathingPosture(sensorData: [Double]) {
+        
+        for item in self.delegates {
+            item.liveProcess()
+        }
         
         storeSensorData(sensorData: sensorData)
         

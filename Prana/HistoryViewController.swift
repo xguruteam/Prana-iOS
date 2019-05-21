@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import MBProgressHUD
+import MKProgress
 
 class HistoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var tbl_history: UITableView!
@@ -34,9 +35,10 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func getSessions() {
         self.sessionData = []
-        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        hud.mode = .indeterminate
-        hud.label.text = "Loading..."
+//        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+//        hud.mode = .indeterminate
+//        hud.label.text = "Loading..."
+        MKProgress.show()
         
         let userdefaults = UserDefaults.standard
         let token = userdefaults.string(forKey: KEY_TOKEN)
@@ -67,7 +69,8 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
                     self.present(alertController, animated: false, completion: nil)
                     break
                 }
-                MBProgressHUD.hide(for: self.view, animated: true)
+//                MBProgressHUD.hide(for: self.view, animated: true)
+                MKProgress.hide()
         }
     }
     

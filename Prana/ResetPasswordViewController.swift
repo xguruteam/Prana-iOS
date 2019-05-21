@@ -12,6 +12,7 @@ import Alamofire
 import SwiftyJSON
 import Crashlytics
 import MBProgressHUD
+import MKProgress
 
 class ResetPasswordViewController: UIViewController {
     
@@ -59,9 +60,10 @@ class ResetPasswordViewController: UIViewController {
     }
     
     func checkPasswordResetToken() {
-        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        hud.mode = .indeterminate
-        hud.label.text = "Loading..."
+//        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+//        hud.mode = .indeterminate
+//        hud.label.text = "Loading..."
+        MKProgress.show()
         
         APIClient.sessionManager.request(APIClient.BaseURL + "password/find/" + token, method: .get, encoding: JSONEncoding.default, headers: nil)
             .validate(statusCode: 200..<300)
@@ -94,7 +96,8 @@ class ResetPasswordViewController: UIViewController {
                         self.present(alertController, animated: false, completion: nil)
                     }
                 }
-                MBProgressHUD.hide(for: self.view, animated: true)
+//                MBProgressHUD.hide(for: self.view, animated: true)
+                MKProgress.hide()
         }
     }
     
@@ -126,9 +129,10 @@ class ResetPasswordViewController: UIViewController {
     }
     
     func submitRequest() {
-        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        hud.mode = .indeterminate
-        hud.label.text = "Loading..."
+//        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+//        hud.mode = .indeterminate
+//        hud.label.text = "Loading..."
+        MKProgress.show()
         
         let param: Parameters = [
             "token": self.token,
@@ -165,7 +169,8 @@ class ResetPasswordViewController: UIViewController {
                     break
                 }
                 
-                MBProgressHUD.hide(for: self.view, animated: true)
+//                MBProgressHUD.hide(for: self.view, animated: true)
+                MKProgress.hide()
         }
     }
     
