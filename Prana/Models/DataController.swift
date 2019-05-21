@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 import UIKit
+import SwiftyJSON
 
 typealias SettingsManagedObject = NSManagedObject
 typealias SessionManagedObject = NSManagedObject
@@ -28,6 +29,8 @@ class DataController {
     
     var vtPattern: SavedPattern?
     var btPattern: SavedPattern?
+    
+    var sessionSettings: SessionSettings?
     
     
     // Instant variable
@@ -93,6 +96,10 @@ class DataController {
                 if let btString = settings.value(forKey: "btPattern") as? String {
                     btPattern = try JSONDecoder().decode(SavedPattern.self, from: btString.data(using: .utf8)!)
                 }
+                
+                if let sessionSettingsString = settings.value(forKey: "sessionSettings") as? String {
+                    sessionSettings = try JSONDecoder().decode(SessionSettings.self, from: sessionSettingsString.data(using: .utf8)!)
+                }
             }
             else {
                 let settingsEntity = NSEntityDescription.entity(forEntityName: "Settings", in: managedContext)!
@@ -113,6 +120,11 @@ class DataController {
                 
                 let btString = try JSONEncoder().encode(btPattern)
                 settings.setValue(String(data:btString, encoding: .utf8)!, forKey: "btPattern")
+                
+                sessionSettings = SessionSettings()
+                
+                let sessionSettingsString = try JSONEncoder().encode(sessionSettings)
+                settings.setValue(String(data:sessionSettingsString, encoding: .utf8)!, forKey: "sessionSettings")
                 
                 do {
                     try managedContext.save()
@@ -146,6 +158,9 @@ class DataController {
                 
                 let btString = try JSONEncoder().encode(btPattern)
                 settings.setValue(String(data:btString, encoding: .utf8)!, forKey: "btPattern")
+                
+                let sessionSettingsString = try JSONEncoder().encode(sessionSettings)
+                settings.setValue(String(data:sessionSettingsString, encoding: .utf8)!, forKey: "sessionSettings")
                 
                 do {
                     try managedContext.save()

@@ -100,6 +100,8 @@ class VisualTrainingScene: SKScene {
     var _calibrationRegion: SKSpriteNode?
     var _calibrationRegionLabel: SKLabelNode?
     var _messageNode: SKLabelNode!
+    var _patternNameNode: SKLabelNode!
+    var patternName: String!
     
     var _backgrounds: [SKSpriteNode]!
     
@@ -265,6 +267,13 @@ class VisualTrainingScene: SKScene {
         _messageNode.fontSize = 20
         _messageNode.zPosition = 20
         
+        _patternNameNode = SKLabelNode(text: patternName)
+        _patternNameNode.position = CGPoint(x: size.width / 2, y: _messageNode.position.y - 30)
+        _patternNameNode.color = .white
+        _patternNameNode.fontName = "Quicksand-Bold"
+        _patternNameNode.fontSize = 18
+        _patternNameNode.zPosition = 20
+        
         if isBreathingOnly {
             _isUprightSet = true
             // enable start
@@ -273,6 +282,8 @@ class VisualTrainingScene: SKScene {
         else {
             addChild(_messageNode)
         }
+        
+        addChild(_patternNameNode)
     }
     
     func createBird() {
@@ -1031,6 +1042,7 @@ extension VisualTrainingScene: LiveDelegate {
             _isUprightSet = true
             DispatchQueue.main.async {
                 self._messageNode.removeFromParent()
+                self._patternNameNode.removeFromParent()
             }
         }
 

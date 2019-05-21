@@ -133,6 +133,14 @@ class ProgramsViewController: UIViewController {
         else {
             
         }
+        
+        if let sessionSettings = dataController?.sessionSettings {
+            sessionKind = sessionSettings.kind
+            sessionType = sessionSettings.type
+            sessionDuration = sessionSettings.duration
+            sessionPosition = sessionSettings.wearing
+        }
+        
 
     }
     
@@ -286,6 +294,13 @@ class ProgramsViewController: UIViewController {
         isTrainingStarted = false
         isProgramCellOpen = true
         isSessionCellOpen = false
+        
+        
+        sessionKind = 0
+        sessionType = 0
+        sessionDuration = 5
+        sessionPosition = 0
+        
         tableView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(1000)) {
             //            self.tableView.closeAll()
@@ -311,6 +326,9 @@ class ProgramsViewController: UIViewController {
         dataController?.breathingGoals = 0
         dataController?.postureGoals = 0
         dataController?.dailyNotification = nil
+        
+        dataController?.sessionSettings = SessionSettings()
+        
         dataController?.saveSettings()
         
         removeNotifications()
@@ -334,14 +352,12 @@ class ProgramsViewController: UIViewController {
             return
         }
         
+        dataController?.sessionSettings = SessionSettings()
         
         MKProgress.show()
         isTrainingStarted = true
         isProgramCellOpen = false
         isSessionCellOpen = true
-        if programType == 0 {
-            sessionPosition = 0
-        }
         self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         tableView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(1000)) {
@@ -416,10 +432,36 @@ class ProgramsViewController: UIViewController {
             Log("Session Position: \(sessionPosition)")
         }
         
+        var newSessionSettings = SessionSettings()
+        newSessionSettings.kind = sessionKind
+        newSessionSettings.type = sessionType
+        newSessionSettings.duration = sessionDuration
+        newSessionSettings.wearing = sessionPosition
+        
+        let prevLastWearing = dataController?.sessionSettings?.lastWearing ?? 0
+        let prevWearing = dataController?.sessionSettings?.wearing ?? 0
+        
+        if sessionPosition == 2{
+            if prevWearing == 2 {
+                if prevLastWearing == 0 {
+                    newSessionSettings.lastWearing = 1
+                }
+                else {
+                    newSessionSettings.lastWearing = 0
+                }
+            }
+            else {
+                newSessionSettings.lastWearing = 0
+            }
+        }
+        else {
+            newSessionSettings.lastWearing = sessionPosition
+        }
+        
         if sessionType == 1 {
             let vc = Utils.getStoryboardWithIdentifier(identifier: "BuzzerTrainingViewController") as! BuzzerTrainingViewController
             vc.isTutorial = false
-            vc.sessionWearing = sessionPosition
+            vc.sessionWearing = newSessionSettings.lastWearing
             vc.sessionDuration = sessionDuration
             vc.sessionKind = sessionKind
             
@@ -481,13 +523,14 @@ class ProgramsViewController: UIViewController {
                 vc.isTutorial = false
                 vc.sessionKind = sessionKind
                 vc.sessionDuration = sessionDuration
-                vc.sessionWearing = sessionPosition
+                vc.sessionWearing = newSessionSettings.lastWearing
                 if programType == 0 {
                     vc.whichPattern = 0
                     vc.subPattern = 0
                     vc.skipCalibration = 0
                     vc.startSubPattern = 0
                     vc.maxSubPattern = 34
+                    vc.patternTitle = patternNames[0].0
                 }
                 else {
                     if let savedPattern = dataController?.vtPattern {
@@ -523,6 +566,7 @@ class ProgramsViewController: UIViewController {
                                 vc.maxSubPattern = 34
                             }
                         }
+                        vc.patternTitle = patternNames[savedPattern.type].0
                     }
                     else {
                         fatalError()
@@ -532,6 +576,13 @@ class ProgramsViewController: UIViewController {
                     
                 }
             }
+        }
+        
+        dataController?.sessionSettings = newSessionSettings
+        dataController?.saveSettings()
+        
+        if sessionPosition == 2 {
+            onSessionPositionChange(sessionPosition)
         }
     }
     
@@ -724,7 +775,7 @@ class ProgramsViewController: UIViewController {
 //
             cell.changeKind(sessionKind)
             cell.changeType(sessionType)
-//            cell.changePosition(sessionPosition)
+            cell.changePosition(sessionPosition)
             cell.sessionDuration = sessionDuration
 //            cell.sessionPattern = sessionPattern
             
@@ -735,7 +786,18 @@ class ProgramsViewController: UIViewController {
                 self?.onSessionStart()
             }
             
-            cell.changePosition(sessionPosition)
+            if sessionPosition == 2 {
+                let lastWearing = dataController?.sessionSettings?.lastWearing ?? 0
+                if lastWearing == 0 {
+                    cell.changePosition(1)
+                }
+                else {
+                    cell.changePosition(0)
+                }
+            }
+            else {
+                cell.changePosition(sessionPosition)
+            }
             
             return cell
         default:

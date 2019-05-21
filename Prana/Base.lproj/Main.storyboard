@@ -1216,7 +1216,7 @@ For each training session:
                                         <rect key="frame" x="0.0" y="1283" width="375" height="505"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NrF-44-bER" id="OF5-Kr-tuZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="504.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="505"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Jf-VP-Gdl">
@@ -1366,7 +1366,7 @@ For each training session:
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lbA-Gk-AW6" customClass="PranaButton" customModule="Prana" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="91" height="50"/>
-                                                                    <state key="normal" title="Lower Back (sit)"/>
+                                                                    <state key="normal" title="Lower Back Sitting"/>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="isClicked" value="YES"/>
                                                                     </userDefinedRuntimeAttributes>
@@ -1376,7 +1376,7 @@ For each training session:
                                                                 </button>
                                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AQx-Yo-KEb" customClass="PranaButton" customModule="Prana" customModuleProvider="target">
                                                                     <rect key="frame" x="106" y="0.0" width="91" height="50"/>
-                                                                    <state key="normal" title="Upper Chest (sit or stand)"/>
+                                                                    <state key="normal" title="Upper Chest Sit or Stand"/>
                                                                     <connections>
                                                                         <action selector="onPositionChange:" destination="NrF-44-bER" eventType="touchUpInside" id="vAi-hk-z0c"/>
                                                                     </connections>
@@ -1517,15 +1517,15 @@ For each training session:
                                         <rect key="frame" x="0.0" y="1788" width="375" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UWx-i2-waI" id="0fs-fu-QRf">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECd-nl-gTJ">
                                                     <rect key="frame" x="20" y="20" width="335" height="109"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yx6-tK-3vc">
-                                                            <rect key="frame" x="146" y="16" width="43" height="20"/>
-                                                            <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
+                                                            <rect key="frame" x="143.5" y="16" width="48" height="22.5"/>
+                                                            <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="18"/>
                                                             <color key="textColor" red="0.27058823529999998" green="0.28627450980000002" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -1734,6 +1734,14 @@ For each training session:
                                     <action selector="onClose:" destination="qy0-dr-n03" eventType="touchUpInside" id="T24-Ya-QYA"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KrN-1V-oJ4">
+                                <rect key="frame" x="335" y="33.5" width="24" height="24"/>
+                                <state key="normal" image="ic_question"/>
+                                <connections>
+                                    <action selector="onHelp:" destination="qy0-dr-n03" eventType="touchUpInside" id="fMm-1f-4dE"/>
+                                    <action selector="onHelp:" destination="UdP-wR-Snp" eventType="touchUpInside" id="sHt-4c-QGw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -1743,9 +1751,11 @@ For each training session:
                             <constraint firstAttribute="trailing" secondItem="iZz-cQ-Epr" secondAttribute="trailing" constant="30" id="Irj-DX-kwG"/>
                             <constraint firstItem="iZz-cQ-Epr" firstAttribute="top" secondItem="vzl-Ox-S8l" secondAttribute="bottom" constant="16" id="Jrz-az-asI"/>
                             <constraint firstItem="dXV-hK-Chx" firstAttribute="centerY" secondItem="iZz-cQ-Epr" secondAttribute="centerY" id="L6e-aN-5D5"/>
+                            <constraint firstItem="KrN-1V-oJ4" firstAttribute="centerY" secondItem="iZz-cQ-Epr" secondAttribute="centerY" id="NKx-dA-aXy"/>
                             <constraint firstItem="iZz-cQ-Epr" firstAttribute="leading" secondItem="8O0-GP-mBo" secondAttribute="leading" constant="30" id="QrC-h7-pIv"/>
                             <constraint firstItem="dXV-hK-Chx" firstAttribute="leading" secondItem="8O0-GP-mBo" secondAttribute="leading" constant="16" id="bkd-be-iah"/>
                             <constraint firstItem="6f4-VH-b3F" firstAttribute="top" secondItem="I07-C4-zvb" secondAttribute="bottom" constant="60" id="cOH-aF-7ZU"/>
+                            <constraint firstAttribute="trailing" secondItem="KrN-1V-oJ4" secondAttribute="trailing" constant="16" id="h3V-ZA-obn"/>
                             <constraint firstAttribute="trailing" secondItem="MH2-bZ-M9f" secondAttribute="trailing" id="mTN-yA-O9n"/>
                             <constraint firstAttribute="trailing" secondItem="I07-C4-zvb" secondAttribute="trailing" constant="16" id="odb-jG-aZa"/>
                             <constraint firstItem="6f4-VH-b3F" firstAttribute="top" secondItem="MH2-bZ-M9f" secondAttribute="bottom" id="tzr-xm-kNp"/>
@@ -3061,7 +3071,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                         <rect key="frame" x="0.0" y="278" width="375" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7vb-Iy-HPD" id="PAI-Xt-fcQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="129.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iev-E2-fIm">
@@ -7846,7 +7856,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to hide" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zL3-dh-qoV">
                                         <rect key="frame" x="150" y="70" width="59.5" height="14"/>
                                         <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="12"/>
-                                        <color key="textColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.98039215686274506" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>

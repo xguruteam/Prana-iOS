@@ -42,6 +42,29 @@ class PatternsViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func onHelp(_ sender: Any) {
+        let alert = UIAlertController(style: .actionSheet)
+        
+        var text: [AttributedTextBlock] = [
+            .header2("Slow Your Breathing"),
+            .normal("Dynamic pattern changes to gradually slow your breathing. It starts off by measuring your current respiration rate, and then starts the pattern at that rate."),
+            .header2("Focus"),
+            .normal("Inhalation and exhalation times are equal for very consistent breathing to support concentration. BPM numbers indicate breaths per minute. Slower patterns may be more challenging and have a greater effect."),
+            .header2("Relax"),
+            .normal("Exhalation times are extended relative to inhalation to support a calming effect via your parasympathetic nervous system response. BPM numbers indicate breaths per minute. Slower patterns may be more challenging and have a greater effect."),
+            .header2("Sleep and Anxiety"),
+            .normal("These patterns include an interval of breath holding (called Retention) between your inhalation and exhalation. Exhalation times are also extended relative to inhalation to support a calming effect via your parasympathetic nervous system response. The number in the pattern name (like 4-7-8) indicates the time for each stage of your breath: inhalation, retention, and exhalation."),
+            .header2("Meditation"),
+            .normal("Patterns change in a cycle, with inhalation and exhalation times steadily increasing, or just exhalation time."),
+            .header2("Custom"),
+            .normal("Define your own breathing pattern by specifying inhalation, retention, exhalation, and time between breath parameters. Also you can create your own customized Slowing pattern."),
+        ]
+        
+        alert.addTextViewer(text: .attributedText(text))
+        alert.addAction(title: "OK", style: .cancel)
+        alert.show()
+    }
+    
     func shouldGoCustom() {
         if selectedId == 16 {
             let vc = Utils.getStoryboardWithIdentifier(identifier: "CustomPatternViewController") as! CustomPatternViewController

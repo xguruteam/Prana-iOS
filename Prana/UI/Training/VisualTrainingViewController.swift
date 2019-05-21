@@ -73,6 +73,8 @@ class VisualTrainingViewController: UIViewController {
     var startSubPattern: Int = 0
     var maxSubPattern: Int = 0
     
+    var patternTitle: String = ""
+    
     var mindfulBreaths: Int = 0 {
         didSet {
             if mindfulBreaths < 0 {
@@ -207,6 +209,7 @@ class VisualTrainingViewController: UIViewController {
         scene.startSubPattern = startSubPattern
         scene.maxSubPattern = maxSubPattern
         scene.visualDelegate = self
+        scene.patternName = "Breathing Pattern: \(patternTitle)"
         
         scene.size = CGSize(width: gameView.bounds.size.height, height: gameView.bounds.size.width)
         scene.scaleMode = .aspectFill
