@@ -458,6 +458,10 @@ class ProgramsViewController: UIViewController {
             newSessionSettings.lastWearing = sessionPosition
         }
         
+        dataController?.sessionSettings = newSessionSettings
+        dataController?.saveSettings()
+        
+
         if sessionType == 1 {
             let vc = Utils.getStoryboardWithIdentifier(identifier: "BuzzerTrainingViewController") as! BuzzerTrainingViewController
             vc.isTutorial = false
@@ -578,9 +582,6 @@ class ProgramsViewController: UIViewController {
             }
         }
         
-        dataController?.sessionSettings = newSessionSettings
-        dataController?.saveSettings()
-        
         if sessionPosition == 2 {
             onSessionPositionChange(sessionPosition)
         }
@@ -588,19 +589,47 @@ class ProgramsViewController: UIViewController {
     
     func onSessionKindChange(_ kind: Int) {
         sessionKind = kind
+        saveSessionSettings()
     }
     
     func onSessionTypeChange(_ type: Int) {
         sessionType = type
+        saveSessionSettings()
     }
     
     func onSessionPositionChange(_ position: Int) {
         self.sessionPosition = position
+        saveSessionSettings()
         let row = isProgramCellOpen ? 4 : 3
 //        tableView.reloadData()
 //        tableView.beginUpdates()
         tableView.reloadRows(at: [IndexPath(row: row, section: 0)], with: .fade)
 //        tableView.endUpdates()
+    }
+    
+    func saveSessionSettings() {
+        var newSessionSettings = SessionSettings()
+        newSessionSettings.kind = sessionKind
+        newSessionSettings.type = sessionType
+        newSessionSettings.duration = sessionDuration
+        newSessionSettings.wearing = sessionPosition
+        
+        let prevLastWearing = dataController?.sessionSettings?.lastWearing ?? 0
+        let prevWearing = dataController?.sessionSettings?.wearing ?? 0
+        
+        if sessionPosition == 2{
+            if prevWearing == 2 {
+                newSessionSettings.lastWearing = prevLastWearing            }
+            else {
+                newSessionSettings.lastWearing = 1
+            }
+        }
+        else {
+            newSessionSettings.lastWearing = prevLastWearing
+        }
+        
+        dataController?.sessionSettings = newSessionSettings
+        dataController?.saveSettings()
     }
     
     func onCustomBreathingGoalChange(_ duration: Int) {
@@ -617,6 +646,7 @@ class ProgramsViewController: UIViewController {
     
     func onSessionDurationChange(_ duration: Int) {
         sessionDuration = duration
+        saveSessionSettings()
     }
     
     func onSessionPatternChange(_ pattern: Int) {

@@ -136,13 +136,28 @@ class SessionChildCell: UITableViewCell {
         case 0:
             btnKind1.isClicked = true
             btnType1.isEnabled = true
+            
+            btnPosition1.isEnabled = true
+            btnPosition2.isEnabled = true
+            btnPosition3.isEnabled = true
+            
         case 1:
             btnKind2.isClicked = true
             btnType1.isEnabled = true
+            
+            btnPosition1.isEnabled = false
+            btnPosition2.isEnabled = false
+            btnPosition3.isEnabled = false
+            
         case 2:
             btnKind3.isClicked = true
             btnType1.isEnabled = false
             onTypeChange(btnType2)
+            
+            btnPosition1.isEnabled = true
+            btnPosition2.isEnabled = true
+            btnPosition3.isEnabled = true
+            
         default:
             break
         }
