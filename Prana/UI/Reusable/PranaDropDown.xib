@@ -17,6 +17,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
             <connections>
                 <outlet property="arrowImage" destination="1ij-Op-5cN" id="B1B-Jw-DIS"/>
+                <outlet property="button" destination="zMB-Q4-YtJ" id="ZXd-en-QHv"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="bxf-sk-id7"/>
                 <outlet property="titleLabel" destination="wOk-bl-KdP" id="bPn-GB-Wu7"/>
             </connections>

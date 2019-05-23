@@ -22,6 +22,7 @@ class PranaDropDown: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var arrowImage: UIImageView!
     
+    @IBOutlet weak var button: UIButton!
     @IBInspectable var isBoth: Bool = false {
         didSet {
             if isBoth {
@@ -30,6 +31,14 @@ class PranaDropDown: UIView {
             else {
                 arrowImage.image = UIImage(named: "ic_arrow_down_white")
             }
+        }
+    }
+    
+    @IBInspectable var isEnabled: Bool = true {
+        didSet {
+            button.isEnabled = isEnabled
+            titleLabel.isEnabled = isEnabled
+            arrowImage.isHidden = !isEnabled
         }
     }
     

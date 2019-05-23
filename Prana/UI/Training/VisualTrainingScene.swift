@@ -933,6 +933,8 @@ class VisualTrainingScene: SKScene {
         
         self._playOrPause = true
         
+        self._patternNameNode.removeFromParent()
+        
         if (skipCalibration == 0) { //may 8th
             addChild(_calibrationRegion!)
             lastX += Double(_calibrationRegion!.size.width)
