@@ -104,7 +104,6 @@
 		CAC36BCE2249A05E00B4FF1F /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC36BCD2249A05E00B4FF1F /* TestData.swift */; };
 		CAC46CCD223A8E95004691F4 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */; };
 		CAC52F682282F8C1000CFF96 /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC52F672282F8C1000CFF96 /* Program.swift */; };
-		CACC9C87223356D0008C54B7 /* BreathingGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACC9C86223356D0008C54B7 /* BreathingGraph.swift */; };
 		CAD502F52231BCF500F97B31 /* PranaDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502F42231BCF500F97B31 /* PranaDeviceManager.swift */; };
 		CAD502F72231BEB900F97B31 /* PranaDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502F62231BEB900F97B31 /* PranaDevice.swift */; };
 		CAD502F92231C04F00F97B31 /* DevicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502F82231C04F00F97B31 /* DevicesViewController.swift */; };
@@ -175,7 +174,6 @@
 		CAE67086227231A70099D72C /* SessionChildCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE67085227231A70099D72C /* SessionChildCell.swift */; };
 		CAE6B14A2268DBBD00881B18 /* ProgramsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE6B1492268DBBD00881B18 /* ProgramsViewController.swift */; };
 		D701F4DE223B998800D19574 /* TutorialUpperchestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D701F4DD223B998800D19574 /* TutorialUpperchestViewController.swift */; };
-		D70C2FE7223452EF00EE6A22 /* PostureIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70C2FE6223452EF00EE6A22 /* PostureIndicator.swift */; };
 		D70D9E86226084A200BC30F8 /* TapBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D9E85226084A200BC30F8 /* TapBarViewController.swift */; };
 		D71129382236932700145C4B /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71129372236932700145C4B /* ForgotPasswordViewController.swift */; };
 		D7172B762258A026007AA168 /* BuzzerTrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7172B752258A026007AA168 /* BuzzerTrainingViewController.swift */; };
@@ -199,7 +197,6 @@
 		D7BA34A122565DDD00B4689E /* TutorialBuzzerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BA34A022565DDD00B4689E /* TutorialBuzzerViewController.swift */; };
 		D7BA34A32256FBFE00B4689E /* LiveGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BA34A22256FBFE00B4689E /* LiveGraphViewController.swift */; };
 		D7C6AC1722611A77004A4388 /* TabTrainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C6AC1622611A77004A4388 /* TabTrainViewController.swift */; };
-		D7C6AC1B226198F9004A4388 /* GradientArcView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C6AC1A226198F9004A4388 /* GradientArcView.swift */; };
 		D7E145AD2236F50100991D34 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E145AC2236F50100991D34 /* ResetPasswordViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -305,7 +302,6 @@
 		CAC36BCD2249A05E00B4FF1F /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
 		CAC52F672282F8C1000CFF96 /* Program.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
-		CACC9C86223356D0008C54B7 /* BreathingGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingGraph.swift; sourceTree = "<group>"; };
 		CAD502F42231BCF500F97B31 /* PranaDeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranaDeviceManager.swift; sourceTree = "<group>"; };
 		CAD502F62231BEB900F97B31 /* PranaDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranaDevice.swift; sourceTree = "<group>"; };
 		CAD502F82231C04F00F97B31 /* DevicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesViewController.swift; sourceTree = "<group>"; };
@@ -376,7 +372,6 @@
 		CAE67085227231A70099D72C /* SessionChildCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionChildCell.swift; sourceTree = "<group>"; };
 		CAE6B1492268DBBD00881B18 /* ProgramsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramsViewController.swift; sourceTree = "<group>"; };
 		D701F4DD223B998800D19574 /* TutorialUpperchestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialUpperchestViewController.swift; sourceTree = "<group>"; };
-		D70C2FE6223452EF00EE6A22 /* PostureIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureIndicator.swift; sourceTree = "<group>"; };
 		D70D9E85226084A200BC30F8 /* TapBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBarViewController.swift; sourceTree = "<group>"; };
 		D71129372236932700145C4B /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		D7172B752258A026007AA168 /* BuzzerTrainingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuzzerTrainingViewController.swift; sourceTree = "<group>"; };
@@ -400,7 +395,6 @@
 		D7BA34A022565DDD00B4689E /* TutorialBuzzerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialBuzzerViewController.swift; sourceTree = "<group>"; };
 		D7BA34A22256FBFE00B4689E /* LiveGraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveGraphViewController.swift; sourceTree = "<group>"; };
 		D7C6AC1622611A77004A4388 /* TabTrainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabTrainViewController.swift; sourceTree = "<group>"; };
-		D7C6AC1A226198F9004A4388 /* GradientArcView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientArcView.swift; sourceTree = "<group>"; };
 		D7E145AC2236F50100991D34 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -445,41 +439,22 @@
 		AA172019222670420080BD71 /* Prana */ = {
 			isa = PBXGroup;
 			children = (
+				CA9892132240C83800D824B0 /* Core */,
+				CA98921A2241283800D824B0 /* UI */,
+				D79A36D42228279C0085D3FA /* Utils */,
+				CAD502F32231BC9800F97B31 /* Device */,
+				CAB6530F229841E5001EAE37 /* Temp */,
 				CAA21A1222777CEB0004F5E0 /* Models */,
 				CAAF9CB522737951003232C4 /* AlertsAndActionSheets */,
+				CAC36BCC2249A04600B4FF1F /* Test */,
 				D79A36D7222838580085D3FA /* RestAPI */,
 				D7992ACC225C218100C5C8F2 /* Resources */,
-				CAC36BCC2249A04600B4FF1F /* Test */,
-				CA9892132240C83800D824B0 /* Core */,
-				CAD502F32231BC9800F97B31 /* Device */,
-				D79A36D42228279C0085D3FA /* Utils */,
-				CA98921A2241283800D824B0 /* UI */,
 				AA17201A222670420080BD71 /* AppDelegate.swift */,
+				CA97DB102229893F002C5592 /* Constants.swift */,
 				AA172020222670420080BD71 /* Main.storyboard */,
 				AA172025222670450080BD71 /* LaunchScreen.storyboard */,
 				AA172023222670450080BD71 /* Assets.xcassets */,
 				AA172028222670450080BD71 /* Info.plist */,
-				AA7FE2D3222720EB0092E8A6 /* WelcomeViewController.swift */,
-				AA7FE2D5222721130092E8A6 /* LoginViewController.swift */,
-				AA7FE2D72227213F0092E8A6 /* SignupViewController.swift */,
-				D71129372236932700145C4B /* ForgotPasswordViewController.swift */,
-				D7E145AC2236F50100991D34 /* ResetPasswordViewController.swift */,
-				CAE21AFF223E818D00CC7A4D /* ChargingGuideViewController.swift */,
-				CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */,
-				D70D9E85226084A200BC30F8 /* TapBarViewController.swift */,
-				D7C6AC1622611A77004A4388 /* TabTrainViewController.swift */,
-				CAD7D34D2229364D00F3C805 /* FirstViewController.swift */,
-				D7B12F5F2243972A002D2E0F /* PrepareViewController.swift */,
-				D79A36D22227C6DC0085D3FA /* HistoryViewController.swift */,
-				CA97DB1222298BF1002C5592 /* HistoryTableViewController.swift */,
-				CA97DB0E22296163002C5592 /* SessionTemp.swift */,
-				CA97DB102229893F002C5592 /* Constants.swift */,
-				CA97DB142229A546002C5592 /* SesseionRecordCell.swift */,
-				CAD502F82231C04F00F97B31 /* DevicesViewController.swift */,
-				D7BA34A22256FBFE00B4689E /* LiveGraphViewController.swift */,
-				CACC9C86223356D0008C54B7 /* BreathingGraph.swift */,
-				D70C2FE6223452EF00EE6A22 /* PostureIndicator.swift */,
-				D7C6AC1A226198F9004A4388 /* GradientArcView.swift */,
 			);
 			path = Prana;
 			sourceTree = "<group>";
@@ -514,6 +489,8 @@
 			isa = PBXGroup;
 			children = (
 				CAC191C0226E58FB009E04B5 /* Reusable */,
+				CAB6530E229840AE001EAE37 /* Main */,
+				CAB6530D22984090001EAE37 /* Initial */,
 				CAE6B1482268DB7200881B18 /* Programs */,
 				CA48E58622664994002CFA19 /* Tutorial */,
 				CA98922022413B0900D824B0 /* LiveGraph */,
@@ -535,6 +512,7 @@
 		CA98922022413B0900D824B0 /* LiveGraph */ = {
 			isa = PBXGroup;
 			children = (
+				D7BA34A22256FBFE00B4689E /* LiveGraphViewController.swift */,
 				CA98922122413B2300D824B0 /* LiveGraph.swift */,
 			);
 			path = LiveGraph;
@@ -829,6 +807,41 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		CAB6530D22984090001EAE37 /* Initial */ = {
+			isa = PBXGroup;
+			children = (
+				AA7FE2D3222720EB0092E8A6 /* WelcomeViewController.swift */,
+				AA7FE2D5222721130092E8A6 /* LoginViewController.swift */,
+				AA7FE2D72227213F0092E8A6 /* SignupViewController.swift */,
+				D71129372236932700145C4B /* ForgotPasswordViewController.swift */,
+				D7E145AC2236F50100991D34 /* ResetPasswordViewController.swift */,
+			);
+			path = Initial;
+			sourceTree = "<group>";
+		};
+		CAB6530E229840AE001EAE37 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				D70D9E85226084A200BC30F8 /* TapBarViewController.swift */,
+				D7C6AC1622611A77004A4388 /* TabTrainViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		CAB6530F229841E5001EAE37 /* Temp */ = {
+			isa = PBXGroup;
+			children = (
+				CAD7D34D2229364D00F3C805 /* FirstViewController.swift */,
+				D7B12F5F2243972A002D2E0F /* PrepareViewController.swift */,
+				D79A36D22227C6DC0085D3FA /* HistoryViewController.swift */,
+				CA97DB1222298BF1002C5592 /* HistoryTableViewController.swift */,
+				CA97DB0E22296163002C5592 /* SessionTemp.swift */,
+				CA97DB142229A546002C5592 /* SesseionRecordCell.swift */,
+				CAD502F82231C04F00F97B31 /* DevicesViewController.swift */,
+			);
+			path = Temp;
+			sourceTree = "<group>";
+		};
 		CAB966302267880900D0E904 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
@@ -922,6 +935,8 @@
 		CAD502F32231BC9800F97B31 /* Device */ = {
 			isa = PBXGroup;
 			children = (
+				CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */,
+				CAE21AFF223E818D00CC7A4D /* ChargingGuideViewController.swift */,
 				CAD502F42231BCF500F97B31 /* PranaDeviceManager.swift */,
 				CAD502F62231BEB900F97B31 /* PranaDevice.swift */,
 			);
@@ -1233,7 +1248,6 @@
 				CAAF9D3422737952003232C4 /* ItemWithPhoto.swift in Sources */,
 				CAC46CCD223A8E95004691F4 /* ConnectViewController.swift in Sources */,
 				CAAF9D3222737952003232C4 /* PhotoLayout.swift in Sources */,
-				CACC9C87223356D0008C54B7 /* BreathingGraph.swift in Sources */,
 				CAAF9D1322737951003232C4 /* Optional+Extensions.swift in Sources */,
 				D79A36D6222827E50085D3FA /* Utils.swift in Sources */,
 				CAAF9D1522737952003232C4 /* Locale+Extensions.swift in Sources */,
@@ -1247,7 +1261,6 @@
 				CA9892152240C86D00D824B0 /* Live.swift in Sources */,
 				CAAF9D3522737952003232C4 /* LikeButtonCell.swift in Sources */,
 				CAA626BA229717BE0036FC31 /* BatteryStateView.swift in Sources */,
-				D7C6AC1B226198F9004A4388 /* GradientArcView.swift in Sources */,
 				CAAB4ED5226E7FF9000C8802 /* ProgramChildCell.swift in Sources */,
 				CAAF9D2722737952003232C4 /* Location.swift in Sources */,
 				CAAF9D1A22737952003232C4 /* LocaleStore.swift in Sources */,
@@ -1307,7 +1320,6 @@
 				D732BDB02255FC86008AFF76 /* TutorialWearLowerbackViewController.swift in Sources */,
 				CAAF9D2D22737952003232C4 /* ContactCell.swift in Sources */,
 				CAAF9D1022737951003232C4 /* UISearchBar+Extensions.swift in Sources */,
-				D70C2FE7223452EF00EE6A22 /* PostureIndicator.swift in Sources */,
 				D7BA349D22565D9100B4689E /* TutorialVisualViewController.swift in Sources */,
 				CAC191C2226E592F009E04B5 /* PranaExpandableCell.swift in Sources */,
 				CA01754B228C483C0085455F /* BackgroundTaskManager.swift in Sources */,

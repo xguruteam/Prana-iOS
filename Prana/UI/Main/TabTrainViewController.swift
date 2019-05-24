@@ -234,14 +234,6 @@ class TabTrainViewController: UIViewController {
         self.present(navVC, animated: true, completion: nil)
     }
     
-    func getTrainSummary() {
-        let gradientRingLayer = WCGraintCircleLayer(bounds: CGRect(origin: CGPoint.zero,size:CGSize(width: 126, height: 126)), position:CGPoint(x: 63, y: 63),fromColor:UIColor.blue, toColor:UIColor.white, linewidth:6.0, toValue:0)
-        breathCircle.layer.addSublayer(gradientRingLayer)
-        let duration = 1.0
-        gradientRingLayer.animateCircle(duration: duration)
-    }
-
-    
     func applyButtonGradient(button: UIButton, colors: [UIColor], locations: [NSNumber]) {
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.frame = button.bounds
