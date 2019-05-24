@@ -49,6 +49,7 @@ class VisualTrainingViewController: UIViewController {
     
     @IBOutlet weak var btnStart: UIButton!
     @IBOutlet weak var btnHelp: UIButton!
+    @IBOutlet weak var batteryView: BatteryStateView!
     
     var isShowControls: Bool = true
     var isShowButton = true
@@ -196,6 +197,8 @@ class VisualTrainingViewController: UIViewController {
         
 //        lblPostureValue.isHidden = true
         controlPanel.isHidden = false
+        
+//        batteryView.progress = 0
         
         isStarted = false
         isShowControls = true
@@ -485,6 +488,12 @@ class VisualTrainingViewController: UIViewController {
 }
 
 extension VisualTrainingViewController: VisualDelegate {
+    func visualBattery(battery: Int) {
+        DispatchQueue.main.async {
+            self.batteryView.progress = CGFloat(battery) / 100.0
+        }
+    }
+    
     
     func visualUprightHasBeenSet() {
         DispatchQueue.main.async {

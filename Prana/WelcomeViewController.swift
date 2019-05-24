@@ -97,6 +97,15 @@ class WelcomeViewController: UIViewController {
     }
     
     func afterLogin() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        if appDelegate.dataController.isTutorialPassed {
+            gotoMainPage()
+            return
+        }
+        
+
         let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ChargingGuideViewController")
         let navVC = UINavigationController(rootViewController: firstVC)
         self.present(navVC, animated: true, completion: nil)

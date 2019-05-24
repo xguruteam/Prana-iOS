@@ -21,6 +21,7 @@ protocol VisualDelegate {
     func visualPostureFrameCalculated(frameIndex: Int)
     func visualUprightTime(uprightPostureTime: Int, elapsedTime: Int)
     func visualNewSlouches(slouches: Int)
+    func visualBattery(battery: Int)
 }
 
 public class Flower {
@@ -1021,8 +1022,8 @@ class VisualTrainingScene: SKScene {
 }
 
 extension VisualTrainingScene: LiveDelegate {
-    func liveProcess() {
-        
+    func liveProcess(sensorData: [Double]) {
+        self.visualDelegate?.visualBattery(battery: Int(sensorData[6]))
     }
     
     func liveNewBreathingCalculated() {

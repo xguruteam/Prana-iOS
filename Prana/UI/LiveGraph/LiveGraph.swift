@@ -107,7 +107,7 @@ class LiveGraph: UIView {
 }
 
 extension LiveGraph: LiveDelegate {
-    func liveProcess() {
+    func liveProcess(sensorData: [Double]) {
         
     }
     

@@ -9,7 +9,7 @@
 import UIKit
 import ExpandableCell
 import MKProgress
-
+import CoreBluetooth
 
 class ProgramsViewController: UIViewController {
     
@@ -32,6 +32,7 @@ class ProgramsViewController: UIViewController {
     @IBOutlet weak var titleSubLabel: UILabel!
     
     @IBOutlet weak var titleConstrain: NSLayoutConstraint!
+    @IBOutlet weak var bluetoothView: BluetoothStateView!
     
     var programType: Int = 0
     
@@ -41,6 +42,8 @@ class ProgramsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onConnectViewControllerNextToSession), name: .connectViewControllerDidNextToSession, object: nil)
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
@@ -168,7 +171,16 @@ class ProgramsViewController: UIViewController {
         UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
         
         
+        PranaDeviceManager.shared.addDelegate(self)
+        
+        bluetoothView.isEnabled = PranaDeviceManager.shared.isConnected
+        
 //        tableView.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        PranaDeviceManager.shared.removeDelegate(self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -405,6 +417,33 @@ class ProgramsViewController: UIViewController {
     }
     
     func onSessionStart() {
+        
+        if PranaDeviceManager.shared.isConnected {
+            startSession()
+            return
+        }
+        
+        let alert = UIAlertController(style: .alert, message: "Press and hold the button on Prana for at least 2 seconds to wirelessly connect to the app. Then wear the device as indicated.")
+        alert.addAction(title: "Ok", style: .default) { action in
+            self.gotoChargingGuide()
+        }
+        alert.addAction(title: "Cancel", style: .cancel)
+        alert.show()
+    }
+    
+    func gotoChargingGuide() {
+        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ChargingGuideViewController") as! ChargingGuideViewController
+        firstVC.isTutorial = false
+        let navVC = UINavigationController(rootViewController: firstVC)
+        self.present(navVC, animated: true, completion: nil)
+    }
+    
+    @objc func onConnectViewControllerNextToSession() {
+        startSession()
+    }
+        
+    func startSession() {
+            
         Log("Program: \(programType == 0 ? "14 day" : "Custom")")
         Log("Notification: \(notificationTime)")
         if programType == 1 {
@@ -1304,4 +1343,44 @@ extension ProgramsViewController: ExpandableDelegate {
         //        cell?.contentView.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
         //        cell?.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
     }
+}
+
+extension ProgramsViewController: PranaDeviceManagerDelegate {
+    func PranaDeviceManagerDidStartScan() {
+        
+    }
+    
+    func PranaDeviceManagerDidStopScan(with error: String?) {
+        
+    }
+    
+    func PranaDeviceManagerDidDiscover(_ device: PranaDevice) {
+        
+    }
+    
+    func PranaDeviceManagerDidConnect(_ deviceName: String) {
+        DispatchQueue.main.async {
+            self.bluetoothView.isEnabled = true
+        }
+    }
+    
+    func PranaDeviceManagerFailConnect() {
+        DispatchQueue.main.async {
+            self.bluetoothView.isEnabled = false
+        }
+    }
+    
+    func PranaDeviceManagerDidOpenChannel() {
+        
+    }
+    
+    func PranaDeviceManagerDidReceiveData(_ parameter: CBCharacteristic) {
+        
+    }
+    
+    func PranaDeviceManagerDidReceiveLiveData(_ data: String!) {
+        
+    }
+    
+    
 }

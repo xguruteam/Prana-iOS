@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreBluetooth
 
 class TabTrainViewController: UIViewController {
 
@@ -27,6 +28,8 @@ class TabTrainViewController: UIViewController {
     @IBOutlet weak var btnLiveGraph: UIButton!
     
     @IBOutlet weak var lblTitle: UILabel!
+    
+    @IBOutlet weak var bluetoothView: BluetoothStateView!
     
     var dataController: DataController?
     
@@ -64,6 +67,10 @@ class TabTrainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        
+        PranaDeviceManager.shared.addDelegate(self)
+        bluetoothView.isEnabled = PranaDeviceManager.shared.isConnected
         
         let dayNumber = dataController?.currentDay ?? 0
         if let currentProgram = dataController?.currentProgram, dayNumber > 14 {
@@ -106,6 +113,11 @@ class TabTrainViewController: UIViewController {
             breathCircle.progress = 0.0
             postureCircle.progress = 0.0
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        PranaDeviceManager.shared.removeDelegate(self)
     }
     
     func calculateSummary() {
@@ -238,5 +250,45 @@ class TabTrainViewController: UIViewController {
         
         button.layer.addSublayer(gradient)
     }
+    
+}
+
+extension TabTrainViewController: PranaDeviceManagerDelegate {
+    func PranaDeviceManagerDidStartScan() {
+        
+    }
+    
+    func PranaDeviceManagerDidStopScan(with error: String?) {
+        
+    }
+    
+    func PranaDeviceManagerDidDiscover(_ device: PranaDevice) {
+        
+    }
+    
+    func PranaDeviceManagerDidConnect(_ deviceName: String) {
+        DispatchQueue.main.async {
+            self.bluetoothView.isEnabled = true
+        }
+    }
+    
+    func PranaDeviceManagerFailConnect() {
+        DispatchQueue.main.async {
+            self.bluetoothView.isEnabled = false
+        }
+    }
+    
+    func PranaDeviceManagerDidOpenChannel() {
+        
+    }
+    
+    func PranaDeviceManagerDidReceiveData(_ parameter: CBCharacteristic) {
+        
+    }
+    
+    func PranaDeviceManagerDidReceiveLiveData(_ data: String!) {
+        
+    }
+    
     
 }

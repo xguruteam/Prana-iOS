@@ -265,7 +265,8 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
         // try to re-connect
         if isConnected == true {
             if peripheral.isEqual(currentDevice) {
-                tryReconnect()
+                failConnect()
+//                tryReconnect()
             }
         }
     }

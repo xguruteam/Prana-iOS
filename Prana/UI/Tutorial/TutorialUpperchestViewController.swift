@@ -146,7 +146,7 @@ class TutorialUpperchestViewController: UIViewController {
 }
 
 extension TutorialUpperchestViewController: LiveDelegate {
-    func liveProcess() {
+    func liveProcess(sensorData: [Double]) {
         
     }
     

@@ -12,6 +12,8 @@ class ChargingGuideViewController: UIViewController {
 
     @IBOutlet weak var btn_next: UIButton!
     
+    var isTutorial = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,15 +23,21 @@ class ChargingGuideViewController: UIViewController {
         initView()
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if let vc = segue.destination as? ConnectViewController {
+            vc.isTutorial = isTutorial
+        }
     }
-    */
+    
+    @IBAction func onBack(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     func initView() {
         let background = UIImage(named: "app-background")

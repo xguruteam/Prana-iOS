@@ -16,6 +16,7 @@ class ConnectViewController: UIViewController {
     
     var isScanning = false
     var isConnected = false
+    var isTutorial = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,8 +63,17 @@ class ConnectViewController: UIViewController {
         PranaDeviceManager.shared.removeDelegate(self)
         PranaDeviceManager.shared.delegate = nil
         self.dismiss(animated: false) {
-            NotificationCenter.default.post(name: .connectViewControllerDidNext, object: nil)
+            if self.isTutorial {
+                NotificationCenter.default.post(name: .connectViewControllerDidNext, object: nil)
+            }
+            else {
+                NotificationCenter.default.post(name: .connectViewControllerDidNextToSession, object: nil)
+            }
         }
+    }
+    
+    @IBAction func onBack(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     func startScanPrana() {
@@ -108,9 +118,9 @@ class ConnectViewController: UIViewController {
         
         isConnected = true
         
-//        if level < 60 {
-//            return
-//        }
+        if level < 50 {
+            return
+        }
         
         self.lbl_success_connect.isHidden = false
         self.btn_next.setBackgroundImage(UIImage(named: "button-green-lg"), for: .normal)

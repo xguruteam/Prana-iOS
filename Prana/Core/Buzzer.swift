@@ -489,7 +489,7 @@ extension Buzzer: LiveDelegate {
         
     }
     
-    func liveProcess() {
+    func liveProcess(sensorData: [Double]) {
         guard self.isBuzzerTrainingActive == 1 else {
             return
         }

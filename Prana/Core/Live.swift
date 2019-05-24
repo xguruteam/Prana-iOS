@@ -16,7 +16,7 @@ protocol LiveDelegate {
     func liveNewRespRateCaclculated()
     func liveDidUprightSet()
     func liveDebug(para1: String, para2: String, para3: String, para4: String)
-    func liveProcess()
+    func liveProcess(sensorData: [Double])
 }
 
 class Live: NSObject {
@@ -560,7 +560,7 @@ class Live: NSObject {
     func processBreathingPosture(sensorData: [Double]) {
         
         for item in self.delegates {
-            item.liveProcess()
+            item.liveProcess(sensorData: sensorData)
         }
         
         storeSensorData(sensorData: sensorData)
@@ -969,7 +969,7 @@ extension Live: PranaDeviceManagerDelegate {
             paras.append(Double(raw[3])!)
             paras.append(Double(raw[4])!)
             paras.append(Double(raw[5])!)
-            paras.append(0.0)
+            paras.append(Double(raw[6])!)
             
             liveQueue.async { [weak self] in
                 

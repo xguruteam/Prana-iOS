@@ -35,6 +35,9 @@
 		CAA21A1522777D090004F5E0 /* Prana.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CAA21A1322777D090004F5E0 /* Prana.xcdatamodeld */; };
 		CAA21A17227780F10004F5E0 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA21A16227780F10004F5E0 /* DataController.swift */; };
 		CAA44A31224425EF0050D619 /* ConnectionTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA44A30224425EF0050D619 /* ConnectionTestViewController.swift */; };
+		CAA626B822970B010036FC31 /* BluetoothStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA626B722970B010036FC31 /* BluetoothStateView.swift */; };
+		CAA626BA229717BE0036FC31 /* BatteryStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA626B9229717BE0036FC31 /* BatteryStateView.swift */; };
+		CAA626BC229717D50036FC31 /* BatteryStateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAA626BB229717D50036FC31 /* BatteryStateView.xib */; };
 		CAA782E22285D20600EB5122 /* PatternsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA782E12285D20600EB5122 /* PatternsViewController.swift */; };
 		CAA782E42285F28A00EB5122 /* PatternCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA782E32285F28A00EB5122 /* PatternCell.swift */; };
 		CAAB4ED5226E7FF9000C8802 /* ProgramChildCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAB4ED4226E7FF9000C8802 /* ProgramChildCell.swift */; };
@@ -233,6 +236,9 @@
 		CAA21A1422777D090004F5E0 /* Prana.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Prana.xcdatamodel; sourceTree = "<group>"; };
 		CAA21A16227780F10004F5E0 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		CAA44A30224425EF0050D619 /* ConnectionTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionTestViewController.swift; sourceTree = "<group>"; };
+		CAA626B722970B010036FC31 /* BluetoothStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothStateView.swift; sourceTree = "<group>"; };
+		CAA626B9229717BE0036FC31 /* BatteryStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryStateView.swift; sourceTree = "<group>"; };
+		CAA626BB229717D50036FC31 /* BatteryStateView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BatteryStateView.xib; sourceTree = "<group>"; };
 		CAA782E12285D20600EB5122 /* PatternsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternsViewController.swift; sourceTree = "<group>"; };
 		CAA782E32285F28A00EB5122 /* PatternCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternCell.swift; sourceTree = "<group>"; };
 		CAAB4ED4226E7FF9000C8802 /* ProgramChildCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramChildCell.swift; sourceTree = "<group>"; };
@@ -897,6 +903,9 @@
 				CAC191C1226E592F009E04B5 /* PranaExpandableCell.swift */,
 				CAAC19812270D2EF001DC02D /* PranaDropDown.swift */,
 				CAAC19832270D309001DC02D /* PranaDropDown.xib */,
+				CAA626B722970B010036FC31 /* BluetoothStateView.swift */,
+				CAA626B9229717BE0036FC31 /* BatteryStateView.swift */,
+				CAA626BB229717D50036FC31 /* BatteryStateView.xib */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -1091,6 +1100,7 @@
 				CAE670832271FCFB0099D72C /* sit (25).png in Resources */,
 				CAE670742271FCFB0099D72C /* sit (1).png in Resources */,
 				D7992AD3225C21D100C5C8F2 /* Quicksand 300.ttf in Resources */,
+				CAA626BC229717D50036FC31 /* BatteryStateView.xib in Resources */,
 				CAE6705F2271FCFB0099D72C /* sit (24).png in Resources */,
 				CAE670562271FCFB0099D72C /* stand (18).png in Resources */,
 				CAE6705E2271FCFB0099D72C /* stand (16).png in Resources */,
@@ -1198,6 +1208,7 @@
 				D7B12F5E22438B19002D2E0F /* VisualTrainingScene.swift in Sources */,
 				CAAF9D2522737952003232C4 /* LocationPickerViewController.swift in Sources */,
 				CAAF9D2422737952003232C4 /* LocationSearchResultsViewController.swift in Sources */,
+				CAA626B822970B010036FC31 /* BluetoothStateView.swift in Sources */,
 				AA7FE2D82227213F0092E8A6 /* SignupViewController.swift in Sources */,
 				CAAF9D0622737951003232C4 /* Array+Extensions.swift in Sources */,
 				D7BA34A122565DDD00B4689E /* TutorialBuzzerViewController.swift in Sources */,
@@ -1235,6 +1246,7 @@
 				CAA44A31224425EF0050D619 /* ConnectionTestViewController.swift in Sources */,
 				CA9892152240C86D00D824B0 /* Live.swift in Sources */,
 				CAAF9D3522737952003232C4 /* LikeButtonCell.swift in Sources */,
+				CAA626BA229717BE0036FC31 /* BatteryStateView.swift in Sources */,
 				D7C6AC1B226198F9004A4388 /* GradientArcView.swift in Sources */,
 				CAAB4ED5226E7FF9000C8802 /* ProgramChildCell.swift in Sources */,
 				CAAF9D2722737952003232C4 /* Location.swift in Sources */,

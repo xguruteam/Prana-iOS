@@ -203,7 +203,7 @@ class LiveFeedViewController: UIViewController {
 }
 
 extension LiveFeedViewController: LiveDelegate {
-    func liveProcess() {
+    func liveProcess(sensorData: [Double]) {
         
     }
     

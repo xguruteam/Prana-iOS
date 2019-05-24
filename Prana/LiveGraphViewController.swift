@@ -41,6 +41,8 @@ class LiveGraphViewController: UIViewController {
     @IBOutlet weak var btnWearLowerBack: UIButton!
     @IBOutlet weak var btnWearUpperChest: UIButton!
     
+    @IBOutlet weak var batteryView: BatteryStateView!
+    
     var isLive = false
     var objLive: Live?
     var isLowerBack = true
@@ -67,6 +69,8 @@ class LiveGraphViewController: UIViewController {
         setWearPosition(val: 0)
         
         startLive()
+        
+        batteryView.isGray = true
     }
     
     func initView() {
@@ -220,8 +224,10 @@ class LiveGraphViewController: UIViewController {
 }
 
 extension LiveGraphViewController: LiveDelegate {
-    func liveProcess() {
-        
+    func liveProcess(sensorData: [Double]) {
+        DispatchQueue.main.async {
+            self.batteryView.progress = CGFloat(sensorData[6]) / 100.0
+        }
     }
     
     func liveDebug(para1: String, para2: String, para3: String, para4: String) {

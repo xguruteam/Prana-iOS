@@ -12,6 +12,7 @@ import IQKeyboardManagerSwift
 
 extension Notification.Name {
     static let connectViewControllerDidNext = Notification.Name("connectViewControllerDidNext")
+    static let connectViewControllerDidNextToSession = Notification.Name("connectViewControllerDidNextToSession")
     static let tutorialDidEnd = Notification.Name("tutorialDidEnd")
     static let didLogIn = Notification.Name("didLogIn")
     static let landscapeViewControllerDidDismiss = Notification.Name("landscapeViewControllerDidDismiss")
