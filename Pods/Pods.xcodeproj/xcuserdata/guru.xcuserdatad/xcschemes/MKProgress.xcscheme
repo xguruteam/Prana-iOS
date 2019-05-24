@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A463AA8AA784C311D4A01EE866457E92"
+               BlueprintIdentifier = "19B5ADBD128C6BA0B378AE01ABE62A71"
                BuildableName = "MKProgress.framework"
                BlueprintName = "MKProgress"
                ReferencedContainer = "container:Pods.xcodeproj">

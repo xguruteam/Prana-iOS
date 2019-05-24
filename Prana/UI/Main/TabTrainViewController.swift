@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreBluetooth
+import Toaster
 
 class TabTrainViewController: UIViewController {
 
@@ -289,6 +290,11 @@ extension TabTrainViewController: PranaDeviceManagerDelegate {
     func PranaDeviceManagerFailConnect() {
         DispatchQueue.main.async {
             self.bluetoothView.isEnabled = false
+            let toast  = Toast(text: "Prana is disconnected.", duration: Delay.short)
+            ToastView.appearance().backgroundColor = UIColor(hexString: "#995ad598")
+            ToastView.appearance().textColor = .white
+            ToastView.appearance().font = UIFont(name: "Quicksand-Medium", size: 14)
+            toast.show()
         }
     }
     
