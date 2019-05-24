@@ -36,6 +36,8 @@ class TabTrainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NotificationCenter.default.addObserver(self, selector: #selector(onConnectViewControllerNextToSession), name: .connectViewControllerDidNextToSession, object: nil)
+        
         // Do any additional setup after loading the view.
         initView()
         
@@ -229,7 +231,27 @@ class TabTrainViewController: UIViewController {
     }
     
     @IBAction func onLiveGraphClick(_ sender: UIButton) {
+        if PranaDeviceManager.shared.isConnected {
+            gotoLiveGraph()
+            return
+        }
+        
+        gotoConnectViewController()
+    }
+    
+    func gotoLiveGraph() {
         let firstVC = Utils.getStoryboardWithIdentifier(identifier: "LiveGraphViewController")
+        let navVC = UINavigationController(rootViewController: firstVC)
+        self.present(navVC, animated: true, completion: nil)
+    }
+    
+    @objc func onConnectViewControllerNextToSession() {
+        gotoLiveGraph()
+    }
+    
+    func gotoConnectViewController() {
+        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ConnectViewController") as! ConnectViewController
+        firstVC.isTutorial = false
         let navVC = UINavigationController(rootViewController: firstVC)
         self.present(navVC, animated: true, completion: nil)
     }

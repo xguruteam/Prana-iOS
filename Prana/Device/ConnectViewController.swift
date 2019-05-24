@@ -23,6 +23,8 @@ class ConnectViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        self.navigationController?.isNavigationBarHidden = true
+        
         initView()
         
         PranaDeviceManager.shared.delegate = self
@@ -73,7 +75,12 @@ class ConnectViewController: UIViewController {
     }
     
     @IBAction func onBack(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        if self.isTutorial {
+            self.navigationController?.popViewController(animated: true)
+        }
+        else {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     func startScanPrana() {

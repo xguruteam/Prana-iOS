@@ -423,16 +423,25 @@ class ProgramsViewController: UIViewController {
             return
         }
         
-        let alert = UIAlertController(style: .alert, message: "Press and hold the button on Prana for at least 2 seconds to wirelessly connect to the app. Then wear the device as indicated.")
-        alert.addAction(title: "Ok", style: .default) { action in
-            self.gotoChargingGuide()
-        }
-        alert.addAction(title: "Cancel", style: .cancel)
-        alert.show()
+//        let alert = UIAlertController(style: .alert, message: "Press and hold the button on Prana for at least 2 seconds to wirelessly connect to the app. Then wear the device as indicated.")
+//        alert.addAction(title: "Ok", style: .default) { action in
+//            self.gotoChargingGuide()
+//        }
+//        alert.addAction(title: "Cancel", style: .cancel)
+//        alert.show()
+        
+        self.gotoConnectViewController()
     }
     
     func gotoChargingGuide() {
         let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ChargingGuideViewController") as! ChargingGuideViewController
+        firstVC.isTutorial = false
+        let navVC = UINavigationController(rootViewController: firstVC)
+        self.present(navVC, animated: true, completion: nil)
+    }
+    
+    func gotoConnectViewController() {
+        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ConnectViewController") as! ConnectViewController
         firstVC.isTutorial = false
         let navVC = UINavigationController(rootViewController: firstVC)
         self.present(navVC, animated: true, completion: nil)
