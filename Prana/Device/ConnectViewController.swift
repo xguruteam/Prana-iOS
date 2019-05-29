@@ -62,6 +62,7 @@ class ConnectViewController: UIViewController {
     }
     
     @IBAction func onNext(_ sender: Any) {
+        PranaDeviceManager.shared.stopGettingLiveData()
         PranaDeviceManager.shared.removeDelegate(self)
         PranaDeviceManager.shared.delegate = nil
         self.dismiss(animated: false) {
@@ -111,7 +112,7 @@ class ConnectViewController: UIViewController {
                 return
             }
             
-            PranaDeviceManager.shared.stopGettingLiveData()
+//            PranaDeviceManager.shared.stopGettingLiveData()
             
             let level = Int(paras[6])!
             processFinal(level)
@@ -123,12 +124,12 @@ class ConnectViewController: UIViewController {
             return
         }
         
-        isConnected = true
-        
         if level < 50 {
             return
         }
         
+        isConnected = true
+
         self.lbl_success_connect.isHidden = false
         self.btn_next.setBackgroundImage(UIImage(named: "button-green-lg"), for: .normal)
         self.btn_next.isEnabled = true
@@ -154,9 +155,9 @@ extension ConnectViewController: PranaDeviceManagerDelegate {
     }
     
     func PranaDeviceManagerDidReceiveLiveData(_ data: String!) {
-//        DispatchQueue.main.async {
+        DispatchQueue.main.async {
             self.onNewLiveData(data)
-//        }
+        }
     }
     
     func PranaDeviceManagerDidStartScan() {
@@ -188,11 +189,11 @@ extension ConnectViewController: PranaDeviceManagerDelegate {
     }
     
     func PranaDeviceManagerFailConnect() {
-//        DispatchQueue.main.async {
+        DispatchQueue.main.async {
 //            self.lblSuccessMessage.textColor = UIColor.black
             self.lbl_success_connect.text = "Failed to connect Prana!"
             self.lbl_success_connect.isHidden = false
-//        }
+        }
     }
     
     func PranaDeviceManagerDidReceiveData(_ parameter: CBCharacteristic) {

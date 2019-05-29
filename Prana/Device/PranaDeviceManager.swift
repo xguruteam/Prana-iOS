@@ -47,7 +47,7 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     
     override init() {
         
-        self.centralManager = CBCentralManager(delegate: nil, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true])
+        self.centralManager = CBCentralManager(delegate: nil, queue: concurrentQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true])
         super.init()
         self.centralManager.delegate = self
     }
@@ -334,11 +334,11 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
         
         if characteristic.isNotifying {
 //            Log.d("start subscribing from - \(characteristic.uuid.uuidString)")
-//            concurrentQueue.asyncAfter(deadline: DispatchTime.now() + .seconds(0)) {
+            concurrentQueue.asyncAfter(deadline: DispatchTime.now() + .seconds(4)) {
                 for item in self.delegates {
                     item.PranaDeviceManagerDidOpenChannel()
                 }
-//            }
+            }
         }
         else {
 //            Log.d("end subscribing from - \(characteristic.uuid.uuidString)")

@@ -292,7 +292,7 @@ class ProgramsViewController: UIViewController {
         let calendar = Calendar.current
         
         for i in 1...4 {
-            let nextTime = Date(timeInterval: 5 * 3 * Double(i), since: notificationTime)
+            let nextTime = Date(timeInterval: 600 * 3 * Double(i), since: notificationTime)
             let components = calendar.dateComponents([.day], from: notificationTime, to: nextTime)
             if components.day > 0 { break }
             center.scheduleDailyNotification(title: title, body: body, date: nextTime)
