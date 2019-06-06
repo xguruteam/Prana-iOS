@@ -8,15 +8,21 @@
 
 import UIKit
 import CoreBluetooth
+import Toaster
 
 class ConnectViewController: UIViewController {
 
     @IBOutlet weak var lbl_success_connect: UILabel!
     @IBOutlet weak var btn_next: UIButton!
+    @IBOutlet weak var lblBatteryWarining: UILabel!
+    @IBOutlet weak var lblGuide: UILabel!
+    @IBOutlet weak var lblBatteryLevel: UILabel!
     
     var isScanning = false
     var isConnected = false
     var isTutorial = true
+    
+    var tryingTimer: Timer? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +35,11 @@ class ConnectViewController: UIViewController {
         
         PranaDeviceManager.shared.delegate = self
         PranaDeviceManager.shared.addDelegate(self)
+        
+        lblBatteryWarining.isHidden = true
+        lbl_success_connect.isHidden = true
+        lblBatteryLevel.isHidden = true
+        lblGuide.isHidden = false
         
         startScanPrana()
     }
@@ -52,6 +63,7 @@ class ConnectViewController: UIViewController {
         
         if self.isMovingFromParent {
             stopScanPrana()
+            stopTryingTimer()
             if PranaDeviceManager.shared.isConnected {
                 PranaDeviceManager.shared.stopGettingLiveData()
                 PranaDeviceManager.shared.disconnect()
@@ -104,6 +116,20 @@ class ConnectViewController: UIViewController {
         PranaDeviceManager.shared.connectTo(device.peripheral)
     }
     
+    func startTryingTimer() {
+        tryingTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true, block: { (_) in
+            PranaDeviceManager.shared.stopGettingLiveData()
+            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false, block: { (_) in
+                PranaDeviceManager.shared.startGettingLiveData()
+            })
+        })
+    }
+    
+    func stopTryingTimer() {
+        tryingTimer?.invalidate()
+        PranaDeviceManager.shared.stopGettingLiveData()
+    }
+    
     func onNewLiveData(_ raw: String) {
         let paras = raw.split(separator: ",")
         
@@ -112,6 +138,7 @@ class ConnectViewController: UIViewController {
                 return
             }
             
+            stopTryingTimer()
 //            PranaDeviceManager.shared.stopGettingLiveData()
             
             let level = Int(paras[6])!
@@ -124,13 +151,29 @@ class ConnectViewController: UIViewController {
             return
         }
         
+        lblGuide.isHidden = true
+        lbl_success_connect.isHidden = false
+        lblBatteryLevel.isHidden = false
+        lblBatteryLevel.text = "Battery Level \(level)%"
+        
+        
         if level < 50 {
-            return
+            lblBatteryLevel.textColor = UIColor(hexString: "#DE0000")
+            lblBatteryWarining.isHidden = false
+        }
+        else {
+            lblBatteryWarining.isHidden = true
         }
         
         isConnected = true
+        
+//        let toast  = Toast(text: "Now Prana is ready to use.", duration: Delay.short)
+//        ToastView.appearance().backgroundColor = UIColor(hexString: "#995ad598")
+//        ToastView.appearance().textColor = .white
+//        ToastView.appearance().font = UIFont(name: "Quicksand-Medium", size: 14)
+//        toast.show()
 
-        self.lbl_success_connect.isHidden = false
+//        self.lbl_success_connect.isHidden = false
         self.btn_next.setBackgroundImage(UIImage(named: "button-green-lg"), for: .normal)
         self.btn_next.isEnabled = true
     }
@@ -149,9 +192,9 @@ class ConnectViewController: UIViewController {
 
 extension ConnectViewController: PranaDeviceManagerDelegate {
     func PranaDeviceManagerDidOpenChannel() {
-//        DispatchQueue.main.async {
-            PranaDeviceManager.shared.startGettingLiveData()
-//        }
+        DispatchQueue.main.async {
+            self.startTryingTimer()
+        }
     }
     
     func PranaDeviceManagerDidReceiveLiveData(_ data: String!) {
@@ -185,7 +228,13 @@ extension ConnectViewController: PranaDeviceManagerDelegate {
     }
     
     func PranaDeviceManagerDidConnect(_ deviceName: String) {
-        
+//        DispatchQueue.main.async {
+//            let toast  = Toast(text: "Prana is connected successfully.", duration: Delay.short)
+//            ToastView.appearance().backgroundColor = UIColor(hexString: "#995ad598")
+//            ToastView.appearance().textColor = .white
+//            ToastView.appearance().font = UIFont(name: "Quicksand-Medium", size: 14)
+//            toast.show()
+//        }
     }
     
     func PranaDeviceManagerFailConnect() {
