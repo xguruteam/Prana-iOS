@@ -104,6 +104,7 @@
 		CAC36BCE2249A05E00B4FF1F /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC36BCD2249A05E00B4FF1F /* TestData.swift */; };
 		CAC46CCD223A8E95004691F4 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */; };
 		CAC52F682282F8C1000CFF96 /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC52F672282F8C1000CFF96 /* Program.swift */; };
+		CAC7F51422AA35C3004230C0 /* PassiveTrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC7F51322AA35C3004230C0 /* PassiveTrackingViewController.swift */; };
 		CAD502F52231BCF500F97B31 /* PranaDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502F42231BCF500F97B31 /* PranaDeviceManager.swift */; };
 		CAD502F72231BEB900F97B31 /* PranaDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502F62231BEB900F97B31 /* PranaDevice.swift */; };
 		CAD502F92231C04F00F97B31 /* DevicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502F82231C04F00F97B31 /* DevicesViewController.swift */; };
@@ -173,6 +174,7 @@
 		CAE670842271FCFB0099D72C /* sit (23).png in Resources */ = {isa = PBXBuildFile; fileRef = CAE670482271FCFB0099D72C /* sit (23).png */; };
 		CAE67086227231A70099D72C /* SessionChildCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE67085227231A70099D72C /* SessionChildCell.swift */; };
 		CAE6B14A2268DBBD00881B18 /* ProgramsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE6B1492268DBBD00881B18 /* ProgramsViewController.swift */; };
+		CAFA5BE022AA788900AB4046 /* Passive.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFA5BDF22AA788900AB4046 /* Passive.swift */; };
 		D701F4DE223B998800D19574 /* TutorialUpperchestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D701F4DD223B998800D19574 /* TutorialUpperchestViewController.swift */; };
 		D70D9E86226084A200BC30F8 /* TapBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D9E85226084A200BC30F8 /* TapBarViewController.swift */; };
 		D71129382236932700145C4B /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71129372236932700145C4B /* ForgotPasswordViewController.swift */; };
@@ -302,6 +304,7 @@
 		CAC36BCD2249A05E00B4FF1F /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
 		CAC52F672282F8C1000CFF96 /* Program.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
+		CAC7F51322AA35C3004230C0 /* PassiveTrackingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassiveTrackingViewController.swift; sourceTree = "<group>"; };
 		CAD502F42231BCF500F97B31 /* PranaDeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranaDeviceManager.swift; sourceTree = "<group>"; };
 		CAD502F62231BEB900F97B31 /* PranaDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranaDevice.swift; sourceTree = "<group>"; };
 		CAD502F82231C04F00F97B31 /* DevicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesViewController.swift; sourceTree = "<group>"; };
@@ -371,6 +374,7 @@
 		CAE670482271FCFB0099D72C /* sit (23).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sit (23).png"; sourceTree = "<group>"; };
 		CAE67085227231A70099D72C /* SessionChildCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionChildCell.swift; sourceTree = "<group>"; };
 		CAE6B1492268DBBD00881B18 /* ProgramsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramsViewController.swift; sourceTree = "<group>"; };
+		CAFA5BDF22AA788900AB4046 /* Passive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Passive.swift; sourceTree = "<group>"; };
 		D701F4DD223B998800D19574 /* TutorialUpperchestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialUpperchestViewController.swift; sourceTree = "<group>"; };
 		D70D9E85226084A200BC30F8 /* TapBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBarViewController.swift; sourceTree = "<group>"; };
 		D71129372236932700145C4B /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
@@ -479,6 +483,7 @@
 			isa = PBXGroup;
 			children = (
 				CA9892142240C86D00D824B0 /* Live.swift */,
+				CAFA5BDF22AA788900AB4046 /* Passive.swift */,
 				CA9892162240EB1000D824B0 /* Buzzer.swift */,
 				CA9892182240ED9A00D824B0 /* Pattern.swift */,
 			);
@@ -495,6 +500,7 @@
 				CA48E58622664994002CFA19 /* Tutorial */,
 				CA98922022413B0900D824B0 /* LiveGraph */,
 				CA98921D2241286100D824B0 /* Training */,
+				CAC7F51222AA3567004230C0 /* Tracking */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -932,6 +938,14 @@
 			path = Test;
 			sourceTree = "<group>";
 		};
+		CAC7F51222AA3567004230C0 /* Tracking */ = {
+			isa = PBXGroup;
+			children = (
+				CAC7F51322AA35C3004230C0 /* PassiveTrackingViewController.swift */,
+			);
+			path = Tracking;
+			sourceTree = "<group>";
+		};
 		CAD502F32231BC9800F97B31 /* Device */ = {
 			isa = PBXGroup;
 			children = (
@@ -1276,6 +1290,7 @@
 				D7BA34A32256FBFE00B4689E /* LiveGraphViewController.swift in Sources */,
 				CAAF9D0E22737951003232C4 /* UIColor+Extensions.swift in Sources */,
 				CA603B7A228053860019A648 /* SessionStartStopCell.swift in Sources */,
+				CAFA5BE022AA788900AB4046 /* Passive.swift in Sources */,
 				CA9892172240EB1000D824B0 /* Buzzer.swift in Sources */,
 				CA97DB112229893F002C5592 /* Constants.swift in Sources */,
 				CAAF9D0A22737951003232C4 /* UIView+Extensions.swift in Sources */,
@@ -1308,6 +1323,7 @@
 				D7172B7822596179007AA168 /* VisualTrainingViewController.swift in Sources */,
 				CA97DB0F22296163002C5592 /* SessionTemp.swift in Sources */,
 				CAAF9D0F22737951003232C4 /* UIImage+Extensions.swift in Sources */,
+				CAC7F51422AA35C3004230C0 /* PassiveTrackingViewController.swift in Sources */,
 				CA017549228C19620085455F /* RepeatingTimer.swift in Sources */,
 				CAC36BCE2249A05E00B4FF1F /* TestData.swift in Sources */,
 				CAAF9D3122737952003232C4 /* ItemWithImage.swift in Sources */,

@@ -107,6 +107,7 @@ class Buzzer {
     }
     
     deinit {
+        objLiveGraph.removeDelegate(self)
     }
     
     func startSession() {

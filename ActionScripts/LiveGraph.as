@@ -107,6 +107,15 @@
 		var birdIncrements:int = 20;
 		var avgRespRate:Number = 0;	
 		
+		var EIRatio:Array = new Array; // May31st ADDED
+		var exhaleCorrectionFactor:Number = 0; // May31st ADDED
+		var inhaleStartTime:Number = 0; // May31st ADDED
+		var inhaleEndTime:Number = 0; // May31st ADDED
+		var exhaleEndTime:Number = 0; // May31st ADDED
+		var EIAvgSessionRatio:Number = 0; // May31st ADDED
+		var EIRatioCount:int = 0; // May31st ADDED
+		var EIGoodToMeasure:int = 0; // May31st ADDED
+		
 		public function LiveGraph(main:Main) {
 			
 			DC = main; //to have access to the document class				
@@ -419,7 +428,7 @@
 				
 				smoothBreathingCoef = smoothBreathingCoefBaseLevel;
 			}				
-			else {					
+			else {						
 				
 				smoothBreathingCoef = smoothBreathingCoefBaseLevel - 0.05;
 			}
@@ -717,8 +726,19 @@
 			
 			if (breathEnding == 1) {				
 				
-				if (graphYSeries[count] > endBreathY) {
+				if (graphYSeries[count] > endBreathY) { 
 					
+					if (EIGoodToMeasure == 1 && exhaleCorrectionFactor < 1.3) {  // May 31st ADDED, only when this is low, can E/I be accurate
+						
+						exhaleEndTime = timeElapsed; //May 31st ADDED						
+						EIRatio[EIRatioCount] = [(exhaleCorrectionFactor*(exhaleEndTime - inhaleEndTime))/((1-(0.05/smoothBreathingCoefBaseLevel))*(inhaleEndTime - inhaleStartTime)),timeElapsed]; // May 31st ADDED
+						EIRatio[EIRatioCount][0] = roundNumber(EIRatio[EIRatioCount][0],10); // May 31st ADDED
+						EIAvgSessionRatio = EIAvgSessionRatio + EIRatio[EIRatioCount][0]; // May 31st ADDED
+						EIRatioCount++;  // May 31st ADDED	
+						EIGoodToMeasure = 0; //May31st ADDED
+						
+					}  // May 31st ADDED
+				
 					endBreathLine.y = 5000;	
 					stuckBreaths = 0;					
 					breathEnding = 0;						
@@ -733,6 +753,36 @@
 			}												
 	
 		}
+		
+		
+			
+		public function calculateOneMinuteEI():Number { // May 31st ADDED
+			
+			var EI1Minute:Number = 0;  // May 31st ADDED
+			var breathsInLastMinute:int = 0; // May 31st ADDED
+			
+			for (var i:int = EIRatio.length-1; i > 0; i--)  { // May 31st ADDED
+				
+				if (EIRatio[i][1] >= (timeElapsed - 60)) { // May 31st ADDED
+					EI1Minute = EI1Minute + EIRatio[i][0]; // May 31st ADDED
+					breathsInLastMinute++; // May 31st ADDED
+				} // May 31st ADDED
+				else { // May 31st ADDED
+					break; // May 31st ADDED
+				} // May 31st ADDED
+			} // May 31st ADDED
+			
+			if (breathsInLastMinute > 0) { // May 31st ADDED
+				EI1Minute = roundNumber(EI1Minute / breathsInLastMinute,10); // May 31st ADDED
+			} // May 31st ADDED
+			else { // May 31st ADDED
+				EI1Minute = 1; // May 31st ADDED
+			} // May 31st ADDED
+			
+			return(EI1Minute); // May 31st ADDED
+			
+		} // May 31st ADDED
+		
 		
 		
 		public function calculateRespRate():void {
@@ -839,6 +889,7 @@
 			var i:int = 0;			
 			
 			
+			
 						
 			if (upStreak == 0) {
 			
@@ -877,6 +928,7 @@
 					
 					downStreak = 0;
 					bottomReversalFound = 1;	
+					inhaleStartTime = timeElapsed - (reversalThreshold+1)*(1/20); //May 31st ADDED
 					//DC.objStartConnection.socket.writeUTFBytes("Buzz,2" + "\n");			
 					//DC.objStartConnection.socket.flush();
 					bottomReversalY = graphYSeries[downStreakStart];					
@@ -942,34 +994,47 @@
 					
 					currentStrainGaugeHighestNew = breathSensor[count-(reversalThreshold+2)];
 					
-					topReversalLine.y = topReversalY;					
+					topReversalLine.y = topReversalY;	
+					
+					
 										
-					if (bottomReversalFound == 1 || breathCount < 2) {						
+					if (bottomReversalFound == 1 || breathCount < 2) {	
+						
+						if (bottomReversalFound == 1 && breathCount >= 2 ) { //May 31st ADDED
+							inhaleEndTime = timeElapsed - (reversalThreshold+1)*(1/20); //May 31st ADDED
+							EIGoodToMeasure = 1; //May 31st ADDED
+						} //May 31st ADDED
 						
 						bottomReversalFound = 0;						
 						breathEnding = 1;	
+						exhaleCorrectionFactor = 1; //May 31st ADDED
 						//DC.objStartConnection.socket.writeUTFBytes("Buzz,0.2" + "\n");			
 						//DC.objStartConnection.socket.flush();
 						
-						if (breathCount < 2) { //***March16Change	
+						if (breathCount < 2 && DC.appMode != 2) { //***March16Change	May 30th Change
 							endBreathY = bottomReversalY - 0.95*(bottomReversalY - topReversalY); //***March16Change, This addresses scnenario if user plugs in belt AFTER starting LiveGraph which can cause strainGauge value to suddenly greatly jump, and create situation where breath graph is stuck far above the yellow line	
+							exhaleCorrectionFactor = 1/(1-0.95); //May 31st ADDED
 						} //***March16Change	
 						
 						else if (DC.appMode == 2) { //***March16Change  (else added)
 							
 							if (DC.objGame.calibrationBreathsDone == 1) {
 								endBreathY = yStartPos + int(0.20*(-fullBreathGraphHeight));
+								exhaleCorrectionFactor = 1/(1-0.20); //May 31st ADDED
 							}
 							else if (DC.objGame.calibrationBreathsDone == 0) {
 								endBreathY = bottomReversalY - 0.60*(bottomReversalY - topReversalY); //end breath line	
+								exhaleCorrectionFactor = 1/(1-0.60); //May 31st ADDED
 							}
 								
 							if (noisyMovements == 1 && stuckBreaths > 0) {	
 								endBreathY = bottomReversalY - 0.50*(bottomReversalY - topReversalY); //end breath line	
+								exhaleCorrectionFactor = 1/(1-0.50); //May 31st ADDED
 							}	
 							
 							if (stuckBreaths >= stuckBreathsThreshold) {								
-								endBreathY = bottomReversalY - 0.50*(bottomReversalY - topReversalY); //end breath line													
+								endBreathY = bottomReversalY - 0.50*(bottomReversalY - topReversalY); //end breath line	
+								exhaleCorrectionFactor = 1/(1-0.50); //May 31st ADDED
 							}
 							
 						}												
@@ -977,13 +1042,16 @@
 						else if (DC.appMode == 1 || DC.appMode == 3) {
 							
 							endBreathY = bottomReversalY - 0.20*(bottomReversalY - topReversalY); //end breath line	
+							exhaleCorrectionFactor = 1/(1-0.20); //May 31st ADDED
 							
 							if (noisyMovements == 1) {	
 								endBreathY = bottomReversalY - 0.50*(bottomReversalY - topReversalY); //end breath line	
+								exhaleCorrectionFactor = 1/(1-0.50); //May 31st ADDED
 							}
 							
 							if (stuckBreaths >= stuckBreathsThreshold) {								
-								endBreathY = bottomReversalY - 0.50*(bottomReversalY - topReversalY); //end breath line													
+								endBreathY = bottomReversalY - 0.50*(bottomReversalY - topReversalY); //end breath line	
+								exhaleCorrectionFactor = 1/(1-0.50); //May 31st ADDED
 							}
 						}				
 					
@@ -1178,6 +1246,13 @@
 		
 		function startMode():void {			
 			
+			exhaleCorrectionFactor = 0; //May 31st ADDED
+			EIAvgSessionRatio = 0; //May 31st ADDED
+			EIRatio = [];  //May 31st ADDED
+			inhaleStartTime = 0; //May 31st ADDED
+			inhaleEndTime = 0; //May 31st ADDED
+			exhaleEndTime = 0; //May 31st ADDED
+			EIRatioCount = 0; //May 31st ADDED
 			whenBreathsEnd = [];
 			whenBreathsEnd[0] = 0;
 			breathCount = 0;

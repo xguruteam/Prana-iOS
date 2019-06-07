@@ -35,6 +35,9 @@
 		var totalBreaths:int = 0;			
 		var useBuzzerForPosture:int = 1;
 		var isPassiveTrackingActive:int = 0;  // May 19th, ADDED THIS LINE
+		var currentSlouchPostureTime:int = 0; // May 31st ADDED THIS LINE
+		var buzzTimeTrigger:int = 0;  // May 31st ADDED THIS LINE
+		var secondsElapsed:int = 0; // May 31st ADDED THIS LINE
 	
 		
 		public function PassiveTracking(main:Main) {
@@ -65,18 +68,40 @@
 			passiveTrackingUI.buzzerForPosture.level1.addEventListener(MouseEvent.CLICK,buzzerForPostureHandler);
 			passiveTrackingUI.buzzerForPosture.level2.addEventListener(MouseEvent.CLICK,buzzerForPostureHandler);
 						
+			passiveTrackingUI.buzzTimeSelector.buzz0.addEventListener(MouseEvent.CLICK,buzzTimeSelectorHandler);  // May 31st ADDED THIS LINE
+			passiveTrackingUI.buzzTimeSelector.buzz3.addEventListener(MouseEvent.CLICK,buzzTimeSelectorHandler);  // May 31st ADDED THIS LINE
+			passiveTrackingUI.buzzTimeSelector.buzz5.addEventListener(MouseEvent.CLICK,buzzTimeSelectorHandler);  // May 31st ADDED THIS LINE
+			passiveTrackingUI.buzzTimeSelector.buzz10.addEventListener(MouseEvent.CLICK,buzzTimeSelectorHandler);  // May 31st ADDED THIS LINE
+			passiveTrackingUI.buzzTimeSelector.buzz15.addEventListener(MouseEvent.CLICK,buzzTimeSelectorHandler);  // May 31st ADDED THIS LINE
+			passiveTrackingUI.buzzTimeSelector.buzz20.addEventListener(MouseEvent.CLICK,buzzTimeSelectorHandler);  // May 31st ADDED THIS LINE
+			passiveTrackingUI.buzzTimeSelector.buzz30.addEventListener(MouseEvent.CLICK,buzzTimeSelectorHandler);  // May 31st ADDED THIS LINE
+						
 			addChild(passiveTrackingUI);		
 			
 			passiveTrackingUI.postureState.gotoAndStop(1);
 		}		
 			
 		
-		function startMode():void  {				
+		function startMode():void  {			
+			
+			addChild(DC.objLiveGraph); //***May 31st ADDED
+			DC.objLiveGraph.scaleX = 0.5;  //***May 31st ADDED
+			DC.objLiveGraph.scaleY = 0.5;  //***May 31st ADDED
+			DC.objLiveGraph.postureUI.visible = false;  //***May 31st ADDED
+			
+			currentSlouchPostureTime = 0; //***May 31st ADDED
+			secondsElapsed = 0; //***May 31st ADDED
+			passiveTrackingUI.lastMinuteEI.text = ""; //***May 31st ADDED
+			passiveTrackingUI.realTimeEI.text = "";//***May 31st ADDED
+			passiveTrackingUI.sessionAvgEI.text = "";//***May 31st ADDED			
 					
 			DC.objLiveGraph.startMode(); //Need this here because user needs to be able set posture before timer starts!
 			
 			passiveTrackingUI.buzzerForPosture.level1.selected = true;
 			useBuzzerForPosture = 1;
+			
+			passiveTrackingUI.buzzTimeSelector.buzz5.selected = true; // May 31st ADDED THIS LINE
+			buzzTimeTrigger = 5; // May 31st ADDED THIS LINE
 			
 			passiveTrackingUI.averageRR.text = "";
 			passiveTrackingUI.currentRR.text = "";
@@ -191,7 +216,7 @@
 			}					
 						
 			
-			if (buzzCount == 0 && DC.objLiveGraph.postureIsGood == 0 && useBuzzerForPosture == 1 && DC.objBuzzerTraining.isBuzzing == 0)  { //May 19th Changed
+			if (buzzCount == 0 && DC.objLiveGraph.postureIsGood == 0 && useBuzzerForPosture == 1 && DC.objBuzzerTraining.isBuzzing == 0 && currentSlouchPostureTime >= buzzTimeTrigger)  { //May 31st Changed
 				
 				DC.objStartConnection.socket.writeUTFBytes("Buzz,1" + "\n"); //May 19th Changed			
 				DC.objStartConnection.socket.flush();	
@@ -217,6 +242,11 @@
 
 		
 		function backToBreathingAndPostureMenuHandler(evt:MouseEvent):void  {	
+			
+			DC.objLiveGraph.postureUI.visible = true;  //May 31st ADDED, YOU may not need this Luccas, in BT and PT, I hide the postureUI when displaying the live graph (because the postureUI component is part of Live graph but unecessary when viewed in BT and PT, because those already separately display the posture details), but you probably organized the structure differently
+			DC.objLiveGraph.scaleX = 1;  //***May 31st ADDED  YOU may not need this Luccas
+			DC.objLiveGraph.scaleY = 1;  //***May 31st ADDED  YOU may not need this Luccas
+			
 			
 			DC.removeChild(DC.objPassiveTracking);
 			DC.addChild(DC.objModeScreen);	
@@ -249,7 +279,20 @@
 			}
 			
 			enterFrameCount = 0;
-					
+			
+			if (DC.objLiveGraph.EIRatio.length > 0) {  //May 31st ADDED
+				passiveTrackingUI.realTimeEI.text = String(DC.objLiveGraph.EIRatio[DC.objLiveGraph.EIRatio.length-1][0]);   //May 31st ADDED
+				passiveTrackingUI.sessionAvgEI.text = String(roundNumber(DC.objLiveGraph.EIAvgSessionRatio/DC.objLiveGraph.EIRatio.length,10));   //May 31st ADDED
+			}
+			
+			secondsElapsed++;  //May 31st ADDED
+			
+			if (secondsElapsed >= 60) {  //May 31st ADDED
+				secondsElapsed = 0;  //May 31st ADDED
+				passiveTrackingUI.lastMinuteEI.text = String(DC.objLiveGraph.calculateOneMinuteEI()); //May 31st ADDED
+			} //May 31st ADDED
+			
+					 
 			trainingDuration--;
 			
 			passiveTrackingUI.elapsedTime.text = DC.objGame.convertTime(trainingDuration);			
@@ -257,7 +300,12 @@
 				
 			if (DC.objLiveGraph.postureIsGood == 1) {
 				uprightPostureTime++;
+				currentSlouchPostureTime = 0; // May 31st ADDED THIS 
 			}
+			else {  // May 31st ADDED THIS 
+				currentSlouchPostureTime++;  // May 31st ADDED THIS 
+			}  // May 31st ADDED THIS 
+			
 			
 			if (prevPostureState == 1) {
 				if (DC.objLiveGraph.postureIsGood == 0) {
@@ -339,6 +387,40 @@
 			}
 			
 		}
+		
+		
+		function buzzTimeSelectorHandler(evt:MouseEvent)  {  // May 31st ADDED THIS LINE
+			
+			if (passiveTrackingUI.buzzTimeSelector.buzz0.selected == true) {  // May 31st ADDED THIS LINE				
+				buzzTimeTrigger = 0; // May 31st ADDED THIS LINE
+			}	 // May 31st ADDED THIS LINE
+			
+			else if (passiveTrackingUI.buzzTimeSelector.buzz3.selected == true) {	 // May 31st ADDED THIS LINE			
+				buzzTimeTrigger = 3; // May 31st ADDED THIS LINE
+			}	 // May 31st ADDED THIS LINE
+			
+			else if (passiveTrackingUI.buzzTimeSelector.buzz5.selected == true) { // May 31st ADDED THIS LINE				
+				buzzTimeTrigger = 5; // May 31st ADDED THIS LINE
+			}	 // May 31st ADDED THIS LINE
+			
+			else if (passiveTrackingUI.buzzTimeSelector.buzz10.selected == true) {	 // May 31st ADDED THIS LINE			
+				buzzTimeTrigger = 10; // May 31st ADDED THIS LINE
+			}	 // May 31st ADDED THIS LINE
+			
+			else if (passiveTrackingUI.buzzTimeSelector.buzz15.selected == true) {	 // May 31st ADDED THIS LINE			
+				buzzTimeTrigger = 15; // May 31st ADDED THIS LINE
+			}	 // May 31st ADDED THIS LINE
+			
+			else if (passiveTrackingUI.buzzTimeSelector.buzz20.selected == true) {	 // May 31st ADDED THIS LINE			
+				buzzTimeTrigger = 20; // May 31st ADDED THIS LINE
+			}	 // May 31st ADDED THIS LINE
+			
+			else if (passiveTrackingUI.buzzTimeSelector.buzz30.selected == true) {	 // May 31st ADDED THIS LINE			
+				buzzTimeTrigger = 30; // May 31st ADDED THIS LINE
+			}	 // May 31st ADDED THIS LINE			
+			
+		}	 // May 31st ADDED THIS LINE	
+		
 		
 		function buzzerForPostureHandler(evt:MouseEvent)  {
 			

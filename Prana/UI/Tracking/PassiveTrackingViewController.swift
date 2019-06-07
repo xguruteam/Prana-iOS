@@ -42,7 +42,76 @@ class PassiveTrackingViewController: UIViewController {
     @IBOutlet weak var breathSenseGroup: UIView!
     @IBOutlet weak var postureSenseGroup: UIView!
     
+    @IBOutlet weak var lblGuide: UILabel!
+    @IBOutlet weak var btnStartStop: UIButton!
+    
+    var currentRR: Float = 0 {
+        didSet {
+            lblStatus1.text = "Current Resp Rate: \(currentRR)"
+        }
+    }
+    
+    var avgRR: Float = 0 {
+        didSet {
+            lblStatus2.text = "Session Avg Resp Rate: \(avgRR)"
+        }
+    }
+    
+    var breathCount: Int = 0 {
+        didSet {
+            lblStatus3.text = "Breath Count: \(breathCount)"
+        }
+    }
+    
+    var realTimeEI: Float = 0 {
+        didSet {
+            lblStatus4.text = "Real-Time E/I: \(realTimeEI)"
+        }
+    }
+    
+    var avgEI: Float = 0 {
+        didSet {
+            lblStatus5.text = "Session Avg E/I: \(avgEI)"
+        }
+    }
+    
+    var lastEI: Float = 0 {
+        didSet {
+            lblStatus6.text = "Last Minute E/I: \(lastEI)"
+        }
+    }
+    
+    var timeElapsed: Int = 0 {
+        didSet {
+            lblTimeElapsed.text = "\(styledTime(v: timeElapsed))"
+        }
+    }
+    
+    var uprightSeconds: Int = 0 {
+        didSet {
+            guard timeElapsed > 0 else { return }
+            lblStatus7.text = "Upright Posture: \(Int(Float(uprightSeconds)/Float(timeElapsed)))% (\(uprightSeconds) of \(timeElapsed) s)"
+        }
+    }
+    
+    var slouches: Int = 0 {
+        didSet {
+            lblStatus8.text = "Slouches: \(slouches)"
+        }
+    }
+    
+    var buzzIn: Int = 5 {
+        didSet {
+            ddBuzzIn.title = buzzIn == 0 ? "Immediate" : "\(buzzIn) Minutes"
+        }
+    }
+    var tempBuzzIn: Int = 0
+    var sessionWearing: Int = 0
+    
     var objLive: Live?
+    var objPassive: Passive?
+    
+    var isLive = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,12 +124,30 @@ class PassiveTrackingViewController: UIViewController {
         objLive?.addDelegate(self)
         liveGraph.objLive = objLive
         
+        objPassive = Passive(live: objLive!)
+        objPassive?.delegate = self
+        
         setBreathSensitivity(val: 2)
         setPostureSensitivity(val: 2)
 
         displayPostureAnimation(1)
+        
+        lblGuide.isHidden = false
+        btnStartStop.isHidden = true
+        
+        ddBuzzIn.clickListener = { [weak self] in
+            self?.openBuzzInPicker()
+        }
+        
+        PranaDeviceManager.shared.startGettingLiveData()
 
-
+    }
+    
+    func styledTime(v: Int) -> String {
+        let m = Int(v / 60)
+        let s = v - m * 60
+        
+        return String(format: "%d:%02d", m, s)
     }
     
     func initView() {
@@ -79,10 +166,13 @@ class PassiveTrackingViewController: UIViewController {
         
         switchSlouching.tintColor = UIColor(hexString: "#2bb7b8")
         switchSlouching.onTintColor = UIColor(hexString: "#2bb7b8")
+        
+        btnStartStop.setTitle("START TRACKING", for: .normal)
     }
     
 
     @IBAction func onBack(_ sender: Any) {
+        objLive?.removeDelegate(self)
         self.dismiss(animated: true) {
             
         }
@@ -91,7 +181,7 @@ class PassiveTrackingViewController: UIViewController {
     @IBAction func onHelp(_ sender: Any) {
         let alert = UIAlertController(style: .actionSheet)
         
-        var text: [AttributedTextBlock] = [
+        let text: [AttributedTextBlock] = [
             .list("Tracking allows you to track both your breathing and posture in the background, not requiring your attention. Tracking is recommended only while sitting or standing, not walking or running. You can track for as long as you wish."),
             .list("Tracking is useful to learn how your breathing and posture are working unconsciously (what your average respiration rate is and how often you are slouching). A higher non-active respiration rate can be linked to more stressed situations."),
             .list("You can opt to get buzzes when slouching in this mode. You can set the buzz times to be less frequent/strict than in training mode."),
@@ -112,12 +202,49 @@ class PassiveTrackingViewController: UIViewController {
     }
     
     @IBAction func onUpright(_ sender: Any) {
+        objLive?.learnUprightAngleHandler()
     }
     
     @IBAction func onStartStop(_ sender: Any) {
+        if isLive {
+            stopLiving()
+        }
+        else {
+            startLiving()
+        }
     }
     
     @IBAction func onEnableSlouchBuzzChange(_ sender: Any) {
+        objPassive?.useBuzzerForPosture = switchSlouching.isOn ? 1 : 0
+    }
+    
+    @IBAction func onWearingChange(_ sender: UIButton) {
+        if sender.tag == 0 {
+            btWearing1.isClicked = true
+            btWearing2.isClicked = false
+            sessionWearing = 0
+        }
+        else {
+            btWearing1.isClicked = false
+            btWearing2.isClicked = true
+            
+            sessionWearing = 1
+        }
+        
+        displayPostureAnimation(1)
+    }
+    
+    func uprightHasBeenSetHandler() {
+        if objPassive?.hasUprightBeenSet == 0 {
+            objPassive?.hasUprightBeenSet = 1
+            DispatchQueue.main.async {
+                //                self.btnStartStop.isEnabled = true
+                //                self.btnStartStop.alpha = 1.0
+                self.btnStartStop.isHidden = false
+                self.lblGuide.isHidden = true
+                
+            }
+        }
     }
     
     func setBreathSensitivity(val: Int) {
@@ -159,13 +286,64 @@ class PassiveTrackingViewController: UIViewController {
     }
     
     func displayPostureAnimation(_ whichFrame: Int) {
-//        var frame = whichFrame
-//        if sessionWearing == 0 {
-//            imgPosture.image = UIImage(named: "sit (\(frame))")
-//        }
-//        else {
-//            imgPosture.image = UIImage(named: "stand (\(frame))")
-//        }
+        var frame = whichFrame
+        if sessionWearing == 0 {
+            imgPosture.image = UIImage(named: "sit (\(frame))")
+        }
+        else {
+            imgPosture.image = UIImage(named: "stand (\(frame))")
+        }
+    }
+    
+    func openBuzzInPicker() {
+        tempBuzzIn = buzzIn
+        let alert = UIAlertController(style: .actionSheet, title: "Buzz In", message: nil)
+        
+        let frameSizes: [Int] = [0, 3, 5, 10, 15, 20, 30]
+        let pickerViewValues: [[String]] = [frameSizes.map { $0 == 0 ? "Immediate" : "\($0) Minutes" }]
+        let pickerViewSelectedValue: PickerViewViewController.Index = (column: 0, row: frameSizes.index(of: tempBuzzIn) ?? 0)
+        
+        alert.addPickerView(values: pickerViewValues, initialSelection: pickerViewSelectedValue) { vc, picker, index, values in
+            DispatchQueue.main.async {
+                self.tempBuzzIn = frameSizes[index.row]
+            }
+        }
+        alert.addAction(title: "Done", style: .default) { (_) in
+            self.buzzIn = self.tempBuzzIn
+        }
+        alert.addAction(title: "Cancel", style: .cancel) { (_) in
+            
+        }
+        alert.show(style: .prominent)
+    }
+    
+    func startLiving() {
+        isLive = true
+        btnStartStop.setTitle("END TRACKING", for: .normal)
+        
+        
+        self.switchSlouching.isEnabled = false
+        self.ddBuzzIn.isEnabled = false
+        self.btWearing1.isEnabled = false
+        self.btWearing2.isEnabled = false
+
+        objPassive?.useBuzzerForPosture = switchSlouching.isOn ? 1 : 0
+        objPassive?.buzzTimeTrigger = buzzIn
+        
+        objPassive?.start()
+        btnBack.isHidden = true
+        btnHelp.isHidden = true
+    }
+    
+    func stopLiving() {
+        isLive = false
+        btnStartStop.setTitle("TRACKING ENDED", for: .normal)
+        btnStartStop.isEnabled = false
+        objPassive?.stop()
+        PranaDeviceManager.shared.stopGettingLiveData()
+        btnBack.isHidden = false
+        btnHelp.isHidden = false
+        
     }
     
     
@@ -207,7 +385,53 @@ extension PassiveTrackingViewController: LiveDelegate {
     }
     
     func liveDidUprightSet() {
-//        uprightHasBeenSetHandler()
+        uprightHasBeenSetHandler()
     }
+    
+}
+
+extension PassiveTrackingViewController: PassiveDelegate {
+    func passiveDidRespRate(currentRR: Double, avgRR: Double, breathCount: Int) {
+        DispatchQueue.main.async {
+            self.breathCount = breathCount
+            self.currentRR = Float(currentRR)
+            self.avgRR = Float(avgRR)
+        }
+
+    }
+    
+    func passiveDidEI(realtimeEI: Double, avgEI: Double) {
+        DispatchQueue.main.async {
+            self.realTimeEI = Float(realtimeEI)
+            self.avgEI = Float(avgEI)
+        }
+
+    }
+    
+    func passiveDidCalculateOneMinuteEI(lastEI: Double) {
+        DispatchQueue.main.async {
+            self.lastEI = Float(lastEI)
+        }
+
+    }
+    
+    func passiveUprightTime(seconds: Int) {
+        DispatchQueue.main.async {
+            self.uprightSeconds = seconds
+        }
+    }
+    
+    func passiveSlouches(slouches: Int) {
+        DispatchQueue.main.async {
+            self.slouches = slouches
+        }
+    }
+    
+    func passiveTimeElapsed(elapsed: Int) {
+        DispatchQueue.main.async {
+            self.timeElapsed = elapsed
+        }
+    }
+    
     
 }

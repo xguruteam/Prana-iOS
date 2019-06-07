@@ -161,6 +161,15 @@ class Live: NSObject {
     var avgRespRate: Double = 0
     
     var calibrationBreathsDone: Int = 0 // used by Game
+    
+    var EIRatio: [[String: Any]] = []; // May31st ADDED
+    var exhaleCorrectionFactor:Double = 0; // May31st ADDED
+    var inhaleStartTime:Double = 0; // May31st ADDED
+    var inhaleEndTime:Double = 0; // May31st ADDED
+    var exhaleEndTime:Double = 0; // May31st ADDED
+    var EIAvgSessionRatio:Double = 0; // May31st ADDED
+    var EIRatioCount:Int = 0; // May31st ADDED
+    var EIGoodToMeasure:Int = 0; // May31st ADDED
 
     override init() {
         super.init()
@@ -252,6 +261,14 @@ class Live: NSObject {
         stuckBreathsThreshold = 1
         breathTopExceededThreshold = 1
         minBreathRange = fullBreathGraphHeight/16.0
+        
+        exhaleCorrectionFactor = 0; //May 31st ADDED
+        EIAvgSessionRatio = 0; //May 31st ADDED
+        EIRatio = [];  //May 31st ADDED
+        inhaleStartTime = 0; //May 31st ADDED
+        inhaleEndTime = 0; //May 31st ADDED
+        exhaleEndTime = 0; //May 31st ADDED
+        EIRatioCount = 0; //May 31st ADDED
         
         PranaDeviceManager.shared.addDelegate(self)
     }
@@ -578,6 +595,25 @@ class Live: NSObject {
 
         if (breathEnding == 1) {
             if (graphYSeries[count] > endBreathY) {
+                if (EIGoodToMeasure == 1 && exhaleCorrectionFactor < 1.3) {  // May 31st ADDED, only when this is low, can E/I be accurate
+                    
+                    exhaleEndTime = timeElapsed; //May 31st ADDED
+                    
+                    var ratio = (exhaleCorrectionFactor*(exhaleEndTime - inhaleEndTime))/((1-(0.05/smoothBreathingCoefBaseLevel))*(inhaleEndTime - inhaleStartTime))
+                    
+                    ratio = roundNumber(num: ratio, dec: 10)
+                    
+                    let ratioDic = [
+                        "time": Int(timeElapsed) as Any,
+                        "ratio": ratio]
+                    
+                    EIRatio.append(ratioDic); // May 31st ADDED
+//                    EIRatio[EIRatioCount][0] = roundNumber(EIRatio[EIRatioCount][0],10); // May 31st ADDED
+                    EIAvgSessionRatio = EIAvgSessionRatio + ratio; // May 31st ADDED
+                    EIRatioCount+=1;  // May 31st ADDED
+                    EIGoodToMeasure = 0; //May31st ADDED
+                    
+                }
                 //                endBreathLine
                 stuckBreaths = 0
                 breathEnding = 0
@@ -590,6 +626,37 @@ class Live: NSObject {
             }
         }
     }
+    
+    func calculateOneMinuteEI() -> Double { // May 31st ADDED
+        
+        var EI1Minute:Double = 0;  // May 31st ADDED
+        var breathsInLastMinute:Int = 0; // May 31st ADDED
+        
+        guard EIRatio.count > 1 else { return 1 }
+        
+        for i in (1...(EIRatio.count-1)).reversed() {
+            let ratioDic = EIRatio[i]
+            let timestamp = ratioDic["time"] as! Int
+            let ratio = ratioDic["ratio"] as! Double
+            if (timestamp >= Int(timeElapsed - 60)) { // May 31st ADDED
+                EI1Minute = EI1Minute + ratio; // May 31st ADDED
+                breathsInLastMinute+=1; // May 31st ADDED
+            } // May 31st ADDED
+            else { // May 31st ADDED
+                break; // May 31st ADDED
+            } // May 31st ADDED
+        }
+        
+        if (breathsInLastMinute > 0) { // May 31st ADDED
+            EI1Minute = roundNumber(num: EI1Minute / Double(breathsInLastMinute),dec: 10); // May 31st ADDED
+        } // May 31st ADDED
+        else { // May 31st ADDED
+            EI1Minute = 1; // May 31st ADDED
+        } // May 31st ADDED
+        
+        return(EI1Minute); // May 31st ADDED
+        
+    } // May 31st ADDED
     
     func calculateRespRate() {
         let now = Date().timeIntervalSince1970
@@ -715,6 +782,7 @@ class Live: NSObject {
             if (downStreak == 1) {
                 downStreak = 0
                 bottomReversalFound = 1
+                inhaleStartTime = timeElapsed - (Double(reversalThreshold)+1.0)*(1.0/20.0); //May 31st ADDED
                 bottomReversalY = graphYSeries[downStreakStart]
                 
                 currentStrainGaugeLowestNew = breathSensor[count - (reversalThreshold+2)]
@@ -772,36 +840,50 @@ class Live: NSObject {
                 isDrawTop = true
                 
                 if (bottomReversalFound == 1 || breathCount < 2) {
+                    if (bottomReversalFound == 1 && breathCount >= 2 ) { //May 31st ADDED
+                        inhaleEndTime = timeElapsed - (Double(reversalThreshold)+1.0)*(1.0/20.0); //May 31st ADDED
+                        EIGoodToMeasure = 1; //May 31st ADDED
+                    } //May 31st ADDED
                     bottomReversalFound = 0
                     breathEnding = 1
                     
-                    if breathCount < 2 {
+                    exhaleCorrectionFactor = 1; //May 31st ADDED
+                    
+                    if breathCount < 2 && appMode != 2 { //***March16Change    May 30th Change
                         endBreathY = bottomReversalY - 0.95 * (bottomReversalY - topReversalY)
+                        exhaleCorrectionFactor = 1/(1-0.95); //May 31st ADDED
                     } else if (appMode == 2) {
                         if (calibrationBreathsDone == 1) {
                             endBreathY = yStartPos + (0.20*(-fullBreathGraphHeight));
+                            exhaleCorrectionFactor = 1/(1-0.20); //May 31st ADDED
                         }
                         else if (calibrationBreathsDone == 0) {
                             endBreathY = bottomReversalY - 0.60*(bottomReversalY - topReversalY); //end breath line
+                            exhaleCorrectionFactor = 1/(1-0.60); //May 31st ADDED
                         }
                         
                         if (noisyMovements == 1 && stuckBreaths > 0) {
                             endBreathY = bottomReversalY - 0.50*(bottomReversalY - topReversalY); //end breath line
+                            exhaleCorrectionFactor = 1/(1-0.50); //May 31st ADDED
                         }
                         
                         if (stuckBreaths >= stuckBreathsThreshold) {
                             endBreathY = bottomReversalY - 0.50*(bottomReversalY - topReversalY); //end breath line
+                            exhaleCorrectionFactor = 1/(1-0.50); //May 31st ADDED
                         }
 
                     } else if (appMode == 1 || appMode == 3) {
                         endBreathY = bottomReversalY - 0.2*(bottomReversalY-topReversalY)
+                        exhaleCorrectionFactor = 1/(1-0.20); //May 31st ADDED
                         
                         if (noisyMovements == 1) {
                             endBreathY = bottomReversalY - 0.5*(bottomReversalY - topReversalY)
+                            exhaleCorrectionFactor = 1/(1-0.50); //May 31st ADDED
                         }
                         
                         if (stuckBreaths >= stuckBreathsThreshold) {
                             endBreathY = bottomReversalY - 0.5*(bottomReversalY - topReversalY)
+                            exhaleCorrectionFactor = 1/(1-0.50); //May 31st ADDED
                         }
                     }
                     
