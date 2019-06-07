@@ -34,6 +34,8 @@ class TabTrainViewController: UIViewController {
     
     var dataController: DataController?
     
+    var requestCode: Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -231,11 +233,30 @@ class TabTrainViewController: UIViewController {
         self.present(firstVC, animated: true, completion: nil)
     }
     
+    @IBAction func onTracking(_ sender: Any) {
+        if PranaDeviceManager.shared.isConnected {
+            gotoTracking()
+            return
+        }
+        
+        requestCode = 0
+        
+        gotoConnectViewController()
+    }
+    
+    func gotoTracking() {
+        let vc = Utils.getStoryboardWithIdentifier(identifier: "PassiveTrackingViewController") as! PassiveTrackingViewController
+        
+        self.present(vc, animated: true, completion: nil)
+    }
+    
     @IBAction func onLiveGraphClick(_ sender: UIButton) {
         if PranaDeviceManager.shared.isConnected {
             gotoLiveGraph()
             return
         }
+        
+        requestCode = 1
         
         gotoConnectViewController()
     }
@@ -247,7 +268,12 @@ class TabTrainViewController: UIViewController {
     }
     
     @objc func onConnectViewControllerNextToSession() {
-        gotoLiveGraph()
+        if requestCode == 0 {
+            gotoTracking()
+        }
+        else {
+            gotoLiveGraph()
+        }
     }
     
     func gotoConnectViewController() {
