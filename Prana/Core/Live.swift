@@ -240,7 +240,7 @@ class Live: NSObject {
         strainGaugeMinRange = 0.0005
         birdDeltaY = 0
         birdVelocity = 0
-        timeElapsed = Date().timeIntervalSince1970
+        timeElapsed = 0
         respRate = 0
         breathCount = 0
         stuckBreathsThreshold = 1
@@ -576,6 +576,8 @@ class Live: NSObject {
     
     func processBreathingPosture(sensorData: [Double]) {
         
+        timeElapsed = timeElapsed + (1/20.0);    // May 19th, ADDED THIS LINE, note it is 1/20, not 1/60 as previously in enterFrameHandler
+        
         for item in self.delegates {
             item.liveProcess(sensorData: sensorData)
         }
@@ -663,13 +665,13 @@ class Live: NSObject {
         
         let elapsed = now - timeElapsed
         
-        whenBreathsEnd.append(elapsed)
+        whenBreathsEnd.append(timeElapsed)
         
         if (breathCount > 2 && breathCount < 5) {
             respRate = 2 * (60.0 / (whenBreathsEnd[breathCount] - whenBreathsEnd[breathCount-2]))
         } else if (breathCount >= 5) {
             respRate = 4 * (60.0 / (whenBreathsEnd[breathCount] - whenBreathsEnd[breathCount-4]))
-            avgRespRate = 60*(Double(breathCount)/elapsed)
+            avgRespRate = 60*(Double(breathCount)/timeElapsed)
         }
         
         respRate = roundNumber(num:respRate, dec:10.0)

@@ -119,6 +119,13 @@ class PassiveTrackingViewController: UIViewController {
         // Do any additional setup after loading the view.
         initView()
         
+        currentRR = 0
+        avgRR = 0
+        breathCount = 0
+        realTimeEI = 0
+        avgEI = 0
+        lastEI = 0
+        
         objLive = Live()
         objLive?.appMode = 1
         objLive?.addDelegate(self)
