@@ -74,12 +74,12 @@ class Passive {
         //addEventListener(Event.ENTER_FRAME, enterFrameHandler);  // May 19th, REMOVED THIS LINE
         isPassiveTrackingActive = 1; // May 19th, ADDED THIS LINE
         
-//        objLiveGraph.whenBreathsEnd = [];
-//        objLiveGraph.whenBreathsEnd.append(0);
         objLiveGraph.breathCount = 0;
         objLiveGraph.timeElapsed = 0;
         objLiveGraph.respRate = 0;
         objLiveGraph.avgRespRate = 0;
+        objLiveGraph.whenBreathsEnd = [];
+        objLiveGraph.whenBreathsEnd.append(0);
     }
     
     func stop() {

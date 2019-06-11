@@ -90,7 +90,7 @@ class PassiveTrackingViewController: UIViewController {
     var uprightSeconds: Int = 0 {
         didSet {
             guard timeElapsed > 0 else { return }
-            lblStatus7.text = "Upright Posture: \(Int(Float(uprightSeconds)/Float(timeElapsed)))% (\(uprightSeconds) of \(timeElapsed) s)"
+            lblStatus7.text = "Upright Posture: \(Int(100.0 * Float(uprightSeconds)/Float(timeElapsed)))% (\(uprightSeconds) of \(timeElapsed) s)"
         }
     }
     
@@ -102,7 +102,8 @@ class PassiveTrackingViewController: UIViewController {
     
     var buzzIn: Int = 5 {
         didSet {
-            ddBuzzIn.title = buzzIn == 0 ? "Immediate" : "\(buzzIn) Minutes"
+            ddBuzzIn.title = buzzIn == 0 ? "Immediate" : "\(buzzIn) Seconds"
+            objPassive?.buzzTimeTrigger = buzzIn
         }
     }
     var tempBuzzIn: Int = 0
@@ -125,6 +126,7 @@ class PassiveTrackingViewController: UIViewController {
         realTimeEI = 0
         avgEI = 0
         lastEI = 0
+        buzzIn = 5
         
         objLive = Live()
         objLive?.appMode = 1
@@ -307,7 +309,7 @@ class PassiveTrackingViewController: UIViewController {
         let alert = UIAlertController(style: .actionSheet, title: "Buzz In", message: nil)
         
         let frameSizes: [Int] = [0, 3, 5, 10, 15, 20, 30]
-        let pickerViewValues: [[String]] = [frameSizes.map { $0 == 0 ? "Immediate" : "\($0) Minutes" }]
+        let pickerViewValues: [[String]] = [frameSizes.map { $0 == 0 ? "Immediate" : "\($0) Seconds" }]
         let pickerViewSelectedValue: PickerViewViewController.Index = (column: 0, row: frameSizes.index(of: tempBuzzIn) ?? 0)
         
         alert.addPickerView(values: pickerViewValues, initialSelection: pickerViewSelectedValue) { vc, picker, index, values in
@@ -329,8 +331,8 @@ class PassiveTrackingViewController: UIViewController {
         btnStartStop.setTitle("END TRACKING", for: .normal)
         
         
-        self.switchSlouching.isEnabled = false
-        self.ddBuzzIn.isEnabled = false
+//        self.switchSlouching.isEnabled = false
+//        self.ddBuzzIn.isEnabled = false
         self.btWearing1.isEnabled = false
         self.btWearing2.isEnabled = false
 
