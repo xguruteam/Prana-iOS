@@ -9,6 +9,8 @@
 import UIKit
 import CoreBluetooth
 import Toaster
+import Crashlytics
+import Fabric
 
 class TabTrainViewController: UIViewController {
 

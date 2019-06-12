@@ -32,6 +32,7 @@
 		CA9892192240ED9A00D824B0 /* Pattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9892182240ED9A00D824B0 /* Pattern.swift */; };
 		CA98921F2241353B00D824B0 /* TSCDesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98921E2241353A00D824B0 /* TSCDesignableView.swift */; };
 		CA98922222413B2300D824B0 /* LiveGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98922122413B2300D824B0 /* LiveGraph.swift */; };
+		CA9C4D5B22B0FDFD001A7A9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CA9C4D5A22B0FDFD001A7A9C /* GoogleService-Info.plist */; };
 		CAA21A1522777D090004F5E0 /* Prana.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CAA21A1322777D090004F5E0 /* Prana.xcdatamodeld */; };
 		CAA21A17227780F10004F5E0 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA21A16227780F10004F5E0 /* DataController.swift */; };
 		CAA44A31224425EF0050D619 /* ConnectionTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA44A30224425EF0050D619 /* ConnectionTestViewController.swift */; };
@@ -232,6 +233,7 @@
 		CA9892182240ED9A00D824B0 /* Pattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pattern.swift; sourceTree = "<group>"; };
 		CA98921E2241353A00D824B0 /* TSCDesignableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSCDesignableView.swift; sourceTree = "<group>"; };
 		CA98922122413B2300D824B0 /* LiveGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveGraph.swift; sourceTree = "<group>"; };
+		CA9C4D5A22B0FDFD001A7A9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CAA21A1422777D090004F5E0 /* Prana.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Prana.xcdatamodel; sourceTree = "<group>"; };
 		CAA21A16227780F10004F5E0 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		CAA44A30224425EF0050D619 /* ConnectionTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionTestViewController.swift; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 				AA172025222670450080BD71 /* LaunchScreen.storyboard */,
 				AA172023222670450080BD71 /* Assets.xcassets */,
 				AA172028222670450080BD71 /* Info.plist */,
+				CA9C4D5A22B0FDFD001A7A9C /* GoogleService-Info.plist */,
 			);
 			path = Prana;
 			sourceTree = "<group>";
@@ -1029,6 +1032,7 @@
 				AA172014222670420080BD71 /* Frameworks */,
 				AA172015222670420080BD71 /* Resources */,
 				122A92EE06BB0A3BB8FAC308 /* [CP] Embed Pods Frameworks */,
+				CA9C4D5C22B0FFAD001A7A9C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1132,6 +1136,7 @@
 				CAA626BC229717D50036FC31 /* BatteryStateView.xib in Resources */,
 				CAE6705F2271FCFB0099D72C /* sit (24).png in Resources */,
 				CAE670562271FCFB0099D72C /* stand (18).png in Resources */,
+				CA9C4D5B22B0FDFD001A7A9C /* GoogleService-Info.plist in Resources */,
 				CAE6705E2271FCFB0099D72C /* stand (16).png in Resources */,
 				CAE6704B2271FCFB0099D72C /* stand (13).png in Resources */,
 				CAE670762271FCFB0099D72C /* stand (21).png in Resources */,
@@ -1177,6 +1182,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Prana/Pods-Prana-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		CA9C4D5C22B0FFAD001A7A9C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\"\n";
 		};
 		ED730F460B63841C53224EB5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1388,7 +1411,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import IQKeyboardManagerSwift
+import Firebase
 
 extension Notification.Name {
     static let connectViewControllerDidNext = Notification.Name("connectViewControllerDidNext")
@@ -32,6 +33,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let notifications = Notifications()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        FirebaseApp.configure()
+        Fabric.sharedSDK().debug = true
+
         // Override point for customization after application launch.
         dataController = DataController()
         
