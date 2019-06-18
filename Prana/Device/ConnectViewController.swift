@@ -62,14 +62,6 @@ class ConnectViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         if self.isMovingFromParent {
-            stopScanPrana()
-            stopTryingTimer()
-            if PranaDeviceManager.shared.isConnected {
-                PranaDeviceManager.shared.stopGettingLiveData()
-                PranaDeviceManager.shared.disconnect()
-                PranaDeviceManager.shared.removeDelegate(self)
-                PranaDeviceManager.shared.delegate = nil
-            }
         }
     }
     
@@ -88,6 +80,15 @@ class ConnectViewController: UIViewController {
     }
     
     @IBAction func onBack(_ sender: Any) {
+        stopScanPrana()
+        stopTryingTimer()
+        if PranaDeviceManager.shared.isConnected {
+            PranaDeviceManager.shared.stopGettingLiveData()
+            PranaDeviceManager.shared.disconnect()
+        }
+        PranaDeviceManager.shared.removeDelegate(self)
+        PranaDeviceManager.shared.delegate = nil
+        
         if self.isTutorial {
             self.navigationController?.popViewController(animated: true)
         }

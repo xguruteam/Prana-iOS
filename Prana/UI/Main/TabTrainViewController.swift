@@ -125,6 +125,8 @@ class TabTrainViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         PranaDeviceManager.shared.removeDelegate(self)
+        
+        NotificationCenter.default.removeObserver(self, name: .connectViewControllerDidNextToSession, object: nil)
     }
     
     func calculateSummary() {

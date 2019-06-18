@@ -108,6 +108,7 @@
 		CAC52F682282F8C1000CFF96 /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC52F672282F8C1000CFF96 /* Program.swift */; };
 		CAC7F51422AA35C3004230C0 /* PassiveTrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC7F51322AA35C3004230C0 /* PassiveTrackingViewController.swift */; };
 		CAD207E622B8DF4100589BC0 /* BMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD207E522B8DF4100589BC0 /* BMButton.swift */; };
+		CAD207E822B91BAC00589BC0 /* Body.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD207E722B91BAC00589BC0 /* Body.swift */; };
 		CAD502F52231BCF500F97B31 /* PranaDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502F42231BCF500F97B31 /* PranaDeviceManager.swift */; };
 		CAD502F72231BEB900F97B31 /* PranaDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502F62231BEB900F97B31 /* PranaDevice.swift */; };
 		CAD502F92231C04F00F97B31 /* DevicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD502F82231C04F00F97B31 /* DevicesViewController.swift */; };
@@ -311,6 +312,7 @@
 		CAC52F672282F8C1000CFF96 /* Program.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
 		CAC7F51322AA35C3004230C0 /* PassiveTrackingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassiveTrackingViewController.swift; sourceTree = "<group>"; };
 		CAD207E522B8DF4100589BC0 /* BMButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMButton.swift; sourceTree = "<group>"; };
+		CAD207E722B91BAC00589BC0 /* Body.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Body.swift; sourceTree = "<group>"; };
 		CAD502F42231BCF500F97B31 /* PranaDeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranaDeviceManager.swift; sourceTree = "<group>"; };
 		CAD502F62231BEB900F97B31 /* PranaDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranaDevice.swift; sourceTree = "<group>"; };
 		CAD502F82231C04F00F97B31 /* DevicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesViewController.swift; sourceTree = "<group>"; };
@@ -493,6 +495,7 @@
 				CAFA5BDF22AA788900AB4046 /* Passive.swift */,
 				CA9892162240EB1000D824B0 /* Buzzer.swift */,
 				CA9892182240ED9A00D824B0 /* Pattern.swift */,
+				CAD207E722B91BAC00589BC0 /* Body.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -1253,6 +1256,7 @@
 				CAAF9D0D22737951003232C4 /* UITextView+Extensions.swift in Sources */,
 				CAAC198622710471001DC02D /* ProgramParentCell.swift in Sources */,
 				D7B12F5E22438B19002D2E0F /* VisualTrainingScene.swift in Sources */,
+				CAD207E822B91BAC00589BC0 /* Body.swift in Sources */,
 				CAAF9D2522737952003232C4 /* LocationPickerViewController.swift in Sources */,
 				CAAF9D2422737952003232C4 /* LocationSearchResultsViewController.swift in Sources */,
 				CAA626B822970B010036FC31 /* BluetoothStateView.swift in Sources */,
@@ -1516,8 +1520,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = D4J7AW2S69;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U37J473DVK;
 				INFOPLIST_FILE = Prana/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1526,7 +1530,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.prana.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = All_Dev_160129;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1538,8 +1542,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U37J473DVK;
 				INFOPLIST_FILE = Prana/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
