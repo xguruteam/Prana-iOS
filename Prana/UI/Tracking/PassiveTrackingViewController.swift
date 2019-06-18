@@ -182,6 +182,9 @@ class PassiveTrackingViewController: UIViewController {
 
     @IBAction func onBack(_ sender: Any) {
         objLive?.removeDelegate(self)
+        if isLive {
+            PranaDeviceManager.shared.stopGettingLiveData()
+        }
         self.dismiss(animated: true) {
             
         }
