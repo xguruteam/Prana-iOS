@@ -192,7 +192,9 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
             return
         }
         
-        if data.starts(with: "20hz,") || data.starts(with: "Upright,") {
+        if data.starts(with: "20hz,")
+            || data.starts(with: "Upright,")
+            || data.starts(with: "EndSessionEarly") {
             if let raw = buff {
                 if !needStopLive {
                     for item in self.delegates {
@@ -201,7 +203,9 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
                 }
             }
             
-            buff = data
+            if !data.starts(with: "EndSessionEarly") {
+                buff = data
+            }
         }
         else {
             if let _ = buff {
