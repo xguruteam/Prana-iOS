@@ -24,6 +24,8 @@ class ConnectViewController: UIViewController {
     
     var tryingTimer: Timer? = nil
     
+    var completionHandler: (() -> ())?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -69,7 +71,10 @@ class ConnectViewController: UIViewController {
         PranaDeviceManager.shared.stopGettingLiveData()
         PranaDeviceManager.shared.removeDelegate(self)
         PranaDeviceManager.shared.delegate = nil
-        self.dismiss(animated: false) {
+        self.dismiss(animated: false) { [unowned self] in
+            
+            self.completionHandler?()
+            
             if self.isTutorial {
                 NotificationCenter.default.post(name: .connectViewControllerDidNext, object: nil)
             }

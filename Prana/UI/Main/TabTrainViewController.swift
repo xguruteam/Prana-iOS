@@ -36,12 +36,12 @@ class TabTrainViewController: UIViewController {
     
     var dataController: DataController?
     
-    var requestCode: Int = 0
+    var requestCode: Int = 3
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(onConnectViewControllerNextToSession), name: .connectViewControllerDidNextToSession, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(onConnectViewControllerNextToSession), name: .connectViewControllerDidNextToSession, object: nil)
         
         // Do any additional setup after loading the view.
         initView()
@@ -126,7 +126,7 @@ class TabTrainViewController: UIViewController {
         super.viewWillDisappear(animated)
         PranaDeviceManager.shared.removeDelegate(self)
         
-        NotificationCenter.default.removeObserver(self, name: .connectViewControllerDidNextToSession, object: nil)
+//        NotificationCenter.default.removeObserver(self, name: .connectViewControllerDidNextToSession, object: nil)
     }
     
     func calculateSummary() {
@@ -283,6 +283,18 @@ class TabTrainViewController: UIViewController {
     func gotoConnectViewController() {
         let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ConnectViewController") as! ConnectViewController
         firstVC.isTutorial = false
+        
+        if requestCode == 0 {
+            firstVC.completionHandler = { [unowned self] in
+                self.gotoTracking()
+            }
+        }
+        else {
+            firstVC.completionHandler = { [unowned self] in
+                self.gotoLiveGraph()
+            }
+        }
+        
         let navVC = UINavigationController(rootViewController: firstVC)
         self.present(navVC, animated: true, completion: nil)
     }

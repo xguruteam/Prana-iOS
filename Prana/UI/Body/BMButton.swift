@@ -73,7 +73,7 @@ class BMButton: UIButton {
         
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        self.titleLabel?.font = UIFont(name: "Quicksand-Medium", size: 8)
+        self.titleLabel?.font = UIFont(name: "Quicksand-Medium", size: 11)
         self.titleLabel?.textAlignment = .center
         self.titleLabel?.numberOfLines = 2
     }

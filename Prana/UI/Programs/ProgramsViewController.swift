@@ -44,7 +44,7 @@ class ProgramsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(onConnectViewControllerNextToSession), name: .connectViewControllerDidNextToSession, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(onConnectViewControllerNextToSession), name: .connectViewControllerDidNextToSession, object: nil)
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
@@ -444,6 +444,9 @@ class ProgramsViewController: UIViewController {
     func gotoConnectViewController() {
         let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ConnectViewController") as! ConnectViewController
         firstVC.isTutorial = false
+        firstVC.completionHandler = { [unowned self] in
+            self.startSession()
+        }
         let navVC = UINavigationController(rootViewController: firstVC)
         self.present(navVC, animated: true, completion: nil)
     }

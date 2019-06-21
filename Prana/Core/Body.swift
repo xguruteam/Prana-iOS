@@ -39,10 +39,12 @@ class Body {
     }
     
     func start() {
+        guard dataArray.count == 7 else { return }
         startAngle = dataArray[5]
     }
     
     func stop() {
+        guard dataArray.count == 7 else { return }
         finalAngle = dataArray[5] - startAngle;
         
         linearDistance = -1234;
@@ -55,6 +57,8 @@ class Body {
                 }
             }
         }
+        
+        linearDistance = linearDistance / 2.54;
         
         delegate?.bodyDidCalculateDistance(distance: linearDistance)
     }

@@ -22,10 +22,10 @@ enum BMPosition: String {
     case chest = "CHEST"
     case waist = "WAIST"
     case hips = "HIPS"
-    case larm = "LEFT ARM"
+    case larm = "L ARM"
     case lfarm = "L FOREARM"
     case lwrist = "L WRIST"
-    case rarm = "RIGHT ARM"
+    case rarm = "R ARM"
     case rfarm = "R FOREARM"
     case rwrist = "R WRIST"
     case lthigh = "L THIGH"
@@ -96,11 +96,12 @@ class BodyMeasurementsViewController: UIViewController {
             case .ready:
                 btnStart.isHidden = false
                 btnTake.isHidden = true
-                status = 0
             case .select:
                 btnStart.isHidden = true
+                btnTake.isHidden = true
+            case .take:
+                btnStart.isHidden = true
                 btnTake.isHidden = false
-                status = 1
             default:
                 break
             }
@@ -110,8 +111,8 @@ class BodyMeasurementsViewController: UIViewController {
     let statuses = [
         "Fully retract the belt, then tap Start Measurement.",
         "Tap the body area to measure.",
-        "Wrap and lock belt around chosen body area.",
-        "Tap Take Measurement.",
+        "Wrap belt around body area and tap Take Measurement.",
+        "To change body area, tap Restart.",
     ]
     
     var status: Int = 0 {
@@ -119,7 +120,6 @@ class BodyMeasurementsViewController: UIViewController {
             updateStatus()
         }
     }
-    
 
     
     override func viewDidLoad() {
@@ -133,7 +133,7 @@ class BodyMeasurementsViewController: UIViewController {
         button = buttons[.shoulders]!
         setupButton(button: button)
         button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 92.0).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 90.0).isActive = true
         
         button = buttons[.chest]!
         setupButton(button: button)
@@ -148,11 +148,11 @@ class BodyMeasurementsViewController: UIViewController {
         button = buttons[.hips]!
         setupButton(button: button)
         button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 216.0).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 226.0).isActive = true
         
         button = buttons[.larm]!
         setupButton(button: button)
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -60.0).isActive = true
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -66.0).isActive = true
         button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 140.0).isActive = true
         
         button = buttons[.lfarm]!
@@ -163,11 +163,11 @@ class BodyMeasurementsViewController: UIViewController {
         button = buttons[.lwrist]!
         setupButton(button: button)
         button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -76.0).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 220.0).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 230.0).isActive = true
         
         button = buttons[.rarm]!
         setupButton(button: button)
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: 60.0).isActive = true
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: 66.0).isActive = true
         button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 140.0).isActive = true
         
         button = buttons[.rfarm]!
@@ -178,26 +178,26 @@ class BodyMeasurementsViewController: UIViewController {
         button = buttons[.rwrist]!
         setupButton(button: button)
         button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: 76.0).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 220.0).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 230.0).isActive = true
         
         button = buttons[.lthigh]!
         setupButton(button: button)
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -26.0).isActive = true
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -32.0).isActive = true
         button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 280.0).isActive = true
         
         button = buttons[.lcalf]!
         setupButton(button: button)
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -30.0).isActive = true
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -35.0).isActive = true
         button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 358.0).isActive = true
         
         button = buttons[.rthigh]!
         setupButton(button: button)
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: 26.0).isActive = true
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: 32.0).isActive = true
         button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 280.0).isActive = true
         
         button = buttons[.rcalf]!
         setupButton(button: button)
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: 30.0).isActive = true
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: 35.0).isActive = true
         button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 358.0).isActive = true
         
         button = buttons[.custom1]!
@@ -220,8 +220,14 @@ class BodyMeasurementsViewController: UIViewController {
     }
     
     func setupButton(button: BMButton) {
-        let buttonWidth: CGFloat = 50.0
-        let buttonHeight: CGFloat = 25.0
+        var buttonWidth: CGFloat = 60.0
+        var buttonHeight: CGFloat = 25.0
+        
+        let title = button.position
+        
+        if title.count > 7 {
+            buttonWidth = 70
+        }
         
         bodyContainer.addSubview(button)
         button.addTarget(self, action: #selector(onButtonClick(_:)), for: .touchUpInside)
@@ -233,10 +239,13 @@ class BodyMeasurementsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+//        NotificationCenter.default.addObserver(self, selector: #selector(onConnectViewControllerNextToSession), name: .connectViewControllerDidNextToSession, object: nil)
+        
         PranaDeviceManager.shared.addDelegate(self)
         batteryStatus.isEnabled = PranaDeviceManager.shared.isConnected
         
         reset()
+        status = 0
         
         initLive()
         
@@ -248,6 +257,8 @@ class BodyMeasurementsViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
+//        NotificationCenter.default.removeObserver(self, name: .connectViewControllerDidNextToSession, object: nil)
+        
         if isLive {
             stopLive()
         }
@@ -328,21 +339,36 @@ class BodyMeasurementsViewController: UIViewController {
     }
     
     func applyUnit(original: Float) -> Float {
-        let newValue = (unit == 0) ? original : (original / 2.54)
+        let newValue = ((unit == 0) ? original : (original * 2.54))
         return Float(round(newValue * 100) / 100.0)
     }
     
     func gotoConnectViewController() {
         let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ConnectViewController") as! ConnectViewController
         firstVC.isTutorial = false
+        firstVC.completionHandler = { [unowned self] in
+            self.gotoSelectStep()
+        }
         let navVC = UINavigationController(rootViewController: firstVC)
         self.present(navVC, animated: true, completion: nil)
     }
     
+    @objc func onConnectViewControllerNextToSession() {
+        gotoSelectStep()
+    }
+    
     @objc func onButtonClick(_ sender: BMButton) {
+        
+        switch step {
+        case .ready:
+            status = 0
+        case .select:
+            status = 2
+        case .take:
+            status = 3
+        }
+        
         guard step == .select else {
-            
-            updateStatus()
             
 //            var message = ""
 //            if step == .take {
@@ -362,7 +388,8 @@ class BodyMeasurementsViewController: UIViewController {
         
         let title = sender.position
         self.position = BMPosition(rawValue: title)
-        status = 2
+        btnStart.isHidden = true
+        btnTake.isHidden = false
     }
     
     @IBAction func onStart(_ sender: Any) {
@@ -371,17 +398,25 @@ class BodyMeasurementsViewController: UIViewController {
             gotoConnectViewController()
             return
         }
+        
+        gotoSelectStep()
+    }
+    
+    func gotoSelectStep() {
         guard step == .ready else { return }
         
         objBody?.start()
         
         step = .select
+        
+        status = 1
     }
     
     @IBAction func onTake(_ sender: Any) {
         guard let position = position else {
             
-            updateStatus()
+            status = 1
+            
 //            let alert = UIAlertController(title: nil, message: "Please select Position.", preferredStyle: .alert)
 //
 //            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
@@ -391,12 +426,13 @@ class BodyMeasurementsViewController: UIViewController {
             return
         }
         
-        guard step == .select else { return }
-
         let button = buttons[position]
         button?.value = 0
         
         step = .take
+        if status != 2 {
+            status = 2
+        }
         
         objBody?.stop()
     }
@@ -407,6 +443,7 @@ class BodyMeasurementsViewController: UIViewController {
     
     @IBAction func onReset(_ sender: Any) {
         reset()
+        status = 0
     }
     
     @IBAction func onEdit(_ sender: Any) {
