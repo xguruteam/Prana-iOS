@@ -80,7 +80,7 @@ class BMButton: UIButton {
     
     func updateTitle() {
         if value == 0 {
-            self.setTitle("\(position)\nX", for: .normal)
+            self.setTitle("\(position)\n--", for: .normal)
         }
         else {
             self.setTitle("\(position)\n\(value)", for: .normal)

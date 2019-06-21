@@ -752,7 +752,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             <rect key="frame" x="0.0" y="20" width="375" height="22"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwl-j5-7L9" userLabel="Back">
-                                                    <rect key="frame" x="16" y="2" width="16" height="18"/>
+                                                    <rect key="frame" x="16" y="2" width="24.500000000000007" height="18"/>
                                                     <state key="normal" backgroundImage="ic-back"/>
                                                     <connections>
                                                         <action selector="onBack:" destination="uhC-ne-xZr" eventType="touchUpInside" id="dhf-4e-shV"/>
@@ -1803,7 +1803,7 @@ For each training session:
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yo-g5-BF4">
-                                            <rect key="frame" x="16" y="51" width="343" height="679"/>
+                                            <rect key="frame" x="16" y="51.5" width="343" height="678.5"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner-nature" translatesAutoresizingMaskIntoConstraints="NO" id="P4q-EC-KF4">
                                                     <rect key="frame" x="0.0" y="0.0" width="343" height="90"/>
@@ -1812,7 +1812,7 @@ For each training session:
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6k1-jN-ZBT">
-                                                    <rect key="frame" x="16" y="106" width="311" height="19"/>
+                                                    <rect key="frame" x="16" y="106" width="311" height="20"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                                     <state key="normal" title="Slow down respiration rate over the session" image="radio-blue-normal">
                                                         <color key="titleColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
@@ -1823,13 +1823,13 @@ For each training session:
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Starting down respiration rate over the session" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AlO-3X-9n9">
-                                                    <rect key="frame" x="16" y="151.5" width="176" height="30.5"/>
+                                                    <rect key="frame" x="16" y="152" width="160.5" height="32.5"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                     <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NYD-1u-Zhg" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
-                                                    <rect key="frame" x="220" y="145" width="107" height="44"/>
+                                                    <rect key="frame" x="220" y="146" width="107" height="44"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="107" id="foI-ta-YmU"/>
@@ -1837,13 +1837,13 @@ For each training session:
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minimum" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MNM-ks-vw2">
-                                                    <rect key="frame" x="16" y="219" width="54" height="15.5"/>
+                                                    <rect key="frame" x="16" y="220" width="56" height="16.5"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                     <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b51-GP-Wio" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
-                                                    <rect key="frame" x="220" y="205" width="107" height="44"/>
+                                                    <rect key="frame" x="220" y="206" width="107" height="44"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="107" id="GqP-Jk-BRM"/>
@@ -1851,13 +1851,13 @@ For each training session:
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exhalation to inhalation ratio" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BGs-O1-ezc">
-                                                    <rect key="frame" x="16" y="279" width="164.5" height="15.5"/>
+                                                    <rect key="frame" x="16" y="280" width="177.5" height="16.5"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                     <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Ai-NA-PbG" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
-                                                    <rect key="frame" x="237" y="265" width="90" height="44"/>
+                                                    <rect key="frame" x="237" y="266" width="90" height="44"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="90" id="L1E-1R-cG3"/>
@@ -1868,7 +1868,7 @@ For each training session:
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b5o-FR-APs">
-                                                    <rect key="frame" x="16" y="339" width="311" height="19"/>
+                                                    <rect key="frame" x="16" y="340" width="311" height="20"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                                     <state key="normal" title="Define a fixed breath pattern" image="radio-blue-normal">
                                                         <color key="titleColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -1879,13 +1879,13 @@ For each training session:
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inhalation time" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NXF-mc-TR2">
-                                                    <rect key="frame" x="16" y="392" width="85.5" height="15.5"/>
+                                                    <rect key="frame" x="16" y="394" width="92.5" height="16.5"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                     <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hdO-dU-jTJ" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
-                                                    <rect key="frame" x="237" y="378" width="90" height="44"/>
+                                                    <rect key="frame" x="237" y="380" width="90" height="44"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="90" id="UcG-Hg-1Jl"/>
@@ -1896,13 +1896,13 @@ For each training session:
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exhalation time" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AZN-9W-Aoj">
-                                                    <rect key="frame" x="16" y="452" width="89.5" height="15.5"/>
+                                                    <rect key="frame" x="16" y="454" width="95" height="16.5"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                     <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="buz-Pl-hib" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
-                                                    <rect key="frame" x="237" y="438" width="90" height="44"/>
+                                                    <rect key="frame" x="237" y="440" width="90" height="44"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="B8s-X7-j8A"/>
@@ -1913,13 +1913,13 @@ For each training session:
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Retention time (breath holding after inhalation)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0P8-9I-YOF">
-                                                    <rect key="frame" x="16" y="504.5" width="180" height="30.5"/>
+                                                    <rect key="frame" x="16" y="506" width="198.5" height="32.5"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                     <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AIM-GW-KRa" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
-                                                    <rect key="frame" x="237" y="498" width="90" height="44"/>
+                                                    <rect key="frame" x="237" y="500" width="90" height="44"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="YeE-Sc-XKs"/>
@@ -1930,13 +1930,13 @@ For each training session:
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time between Breaths" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1o3-DO-Ifp">
-                                                    <rect key="frame" x="16" y="572" width="130.5" height="15.5"/>
+                                                    <rect key="frame" x="16" y="574" width="138.5" height="16.5"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                     <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ij-uZ-bYp" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
-                                                    <rect key="frame" x="237" y="558" width="90" height="44"/>
+                                                    <rect key="frame" x="237" y="560" width="90" height="44"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="90" id="cZE-ce-gQA"/>
@@ -1947,7 +1947,7 @@ For each training session:
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Resulting Respiration Rate" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SFw-LC-fUO">
-                                                    <rect key="frame" x="16" y="622" width="311" height="19"/>
+                                                    <rect key="frame" x="16" y="624" width="311" height="20"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                                     <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -2018,7 +2018,7 @@ For each training session:
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aR5-iR-Reu">
-                                            <rect key="frame" x="16" y="15" width="20" height="20"/>
+                                            <rect key="frame" x="16" y="15.5" width="20" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="20" id="XXL-I2-rrF"/>
                                                 <constraint firstAttribute="height" constant="20" id="hqR-iJ-GgF"/>
@@ -2029,7 +2029,7 @@ For each training session:
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breathing Pattern" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RuK-s4-HqT">
-                                            <rect key="frame" x="128.5" y="16" width="118" height="17.5"/>
+                                            <rect key="frame" x="124" y="16" width="127" height="19"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="15"/>
                                             <color key="textColor" red="0.25490196078431371" green="0.31764705882352939" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -2456,7 +2456,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             <rect key="frame" x="0.0" y="16" width="375" height="48"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lhx-St-H1l" userLabel="Back">
-                                                    <rect key="frame" x="16" y="2.5" width="16" height="18"/>
+                                                    <rect key="frame" x="16" y="2.5" width="24.500000000000007" height="18"/>
                                                     <state key="normal" backgroundImage="ic-back"/>
                                                     <connections>
                                                         <action selector="onBack:" destination="uhC-ne-xZr" eventType="touchUpInside" id="LyO-6x-ueB"/>
@@ -2476,14 +2476,14 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="usc-Lr-AVp">
-                                                    <rect key="frame" x="339" y="0.5" width="16" height="22"/>
+                                                    <rect key="frame" x="331" y="-0.5" width="24" height="24"/>
                                                     <state key="normal" image="ic_question"/>
                                                     <connections>
                                                         <action selector="onHelp:" destination="UdP-wR-Snp" eventType="touchUpInside" id="ZJM-s6-ayE"/>
                                                     </connections>
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b41-eZ-XLb" customClass="BatteryStateView" customModule="Prana" customModuleProvider="target">
-                                                    <rect key="frame" x="299" y="-3.5" width="30" height="30"/>
+                                                    <rect key="frame" x="291" y="-3.5" width="30" height="30"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="297-53-0LZ"/>
@@ -3177,7 +3177,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             <rect key="frame" x="0.0" y="16" width="375" height="22"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NoR-1Z-web" userLabel="Back">
-                                                    <rect key="frame" x="16" y="2" width="16" height="18"/>
+                                                    <rect key="frame" x="16" y="2" width="24.500000000000007" height="18"/>
                                                     <state key="normal" backgroundImage="ic-back"/>
                                                     <connections>
                                                         <action selector="onBack:" destination="uhC-ne-xZr" eventType="touchUpInside" id="CLl-q7-c2a"/>
@@ -4867,35 +4867,35 @@ MY UPPER CHEST</string>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Live Feedback" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c91-k1-hGC">
-                                            <rect key="frame" x="138.5" y="20" width="98" height="17.5"/>
+                                            <rect key="frame" x="136.5" y="20" width="102" height="19"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="15"/>
                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can adjust sensitivity and belt position if needed to better personalize your breath and posture tracking." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wMm-vT-ejg">
-                                            <rect key="frame" x="16" y="57.5" width="343" height="33"/>
+                                            <rect key="frame" x="16" y="59" width="343" height="52.5"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="14"/>
                                             <color key="textColor" red="0.27058823529999998" green="0.28627450980000002" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lYh-3M-Sr7" customClass="LiveGraph" customModule="Prana" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="102.5" width="343" height="130"/>
+                                            <rect key="frame" x="16" y="123.5" width="343" height="130"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="130" id="ARV-kq-iVI"/>
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OU1-pB-CLw">
-                                            <rect key="frame" x="16" y="232.5" width="343" height="36"/>
+                                            <rect key="frame" x="16" y="253.5" width="343" height="36"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breath Responsiveness: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qo0-NB-IVy">
-                                                    <rect key="frame" x="0.0" y="10.5" width="144" height="15.5"/>
+                                                    <rect key="frame" x="0.0" y="10" width="149" height="16.5"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                     <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="huz-Ko-hbn">
-                                                    <rect key="frame" x="183" y="4" width="32" height="28"/>
+                                                    <rect key="frame" x="188" y="3.5" width="32" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="32" id="nxU-3j-Zdm"/>
                                                     </constraints>
@@ -4905,7 +4905,7 @@ MY UPPER CHEST</string>
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FMc-KT-q3G">
-                                                    <rect key="frame" x="142.5" y="0.0" width="50" height="36"/>
+                                                    <rect key="frame" x="147.5" y="0.0" width="50" height="36"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="Ewn-5E-0Or"/>
                                                     </constraints>
@@ -4914,7 +4914,7 @@ MY UPPER CHEST</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qkz-Vb-OBh">
-                                                    <rect key="frame" x="160" y="10.5" width="15" height="15"/>
+                                                    <rect key="frame" x="165" y="10.5" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="PKV-t8-0Ea"/>
                                                         <constraint firstAttribute="width" constant="15" id="bIe-Yq-4pP"/>
@@ -4925,7 +4925,7 @@ MY UPPER CHEST</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cnh-HH-onZ">
-                                                    <rect key="frame" x="246" y="4" width="32" height="28"/>
+                                                    <rect key="frame" x="251" y="3.5" width="32" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="32" id="IhR-UP-uml"/>
                                                     </constraints>
@@ -4935,7 +4935,7 @@ MY UPPER CHEST</string>
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4yS-c7-i0W">
-                                                    <rect key="frame" x="205.5" y="0.0" width="50" height="36"/>
+                                                    <rect key="frame" x="210.5" y="0.0" width="50" height="36"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="VuZ-PI-uAo"/>
                                                     </constraints>
@@ -4944,7 +4944,7 @@ MY UPPER CHEST</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7qZ-Ld-iea">
-                                                    <rect key="frame" x="223" y="10.5" width="15" height="15"/>
+                                                    <rect key="frame" x="228" y="10.5" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="15" id="e8t-z2-HA6"/>
                                                         <constraint firstAttribute="height" constant="15" id="n55-cs-Re4"/>
@@ -4955,7 +4955,7 @@ MY UPPER CHEST</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GqG-m7-d3D">
-                                                    <rect key="frame" x="309" y="4" width="32" height="28"/>
+                                                    <rect key="frame" x="314" y="3.5" width="32" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="32" id="Qh8-ME-jsl"/>
                                                     </constraints>
@@ -4965,7 +4965,7 @@ MY UPPER CHEST</string>
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Cn-Qi-NdO">
-                                                    <rect key="frame" x="268.5" y="0.0" width="50" height="36"/>
+                                                    <rect key="frame" x="273.5" y="0.0" width="50" height="36"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="wwf-Da-Uuu"/>
                                                     </constraints>
@@ -4974,7 +4974,7 @@ MY UPPER CHEST</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R5p-6d-Vri">
-                                                    <rect key="frame" x="286" y="10.5" width="15" height="15"/>
+                                                    <rect key="frame" x="291" y="10.5" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="1sL-Gp-QFW"/>
                                                         <constraint firstAttribute="width" constant="15" id="b7U-5E-hVM"/>
@@ -5027,7 +5027,7 @@ MY UPPER CHEST</string>
                                             </constraints>
                                         </view>
                                         <view hidden="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="T8k-Do-Rbi">
-                                            <rect key="frame" x="127.5" y="283.5" width="120" height="120"/>
+                                            <rect key="frame" x="127.5" y="304.5" width="120" height="120"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="120" id="gBy-74-Ztt"/>
@@ -5035,19 +5035,19 @@ MY UPPER CHEST</string>
                                             </constraints>
                                         </view>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sit (1).png" translatesAutoresizingMaskIntoConstraints="NO" id="rXB-IV-rZk">
-                                            <rect key="frame" x="127.5" y="283.5" width="120" height="120"/>
+                                            <rect key="frame" x="127.5" y="304.5" width="120" height="120"/>
                                         </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="322-oJ-RH2">
-                                            <rect key="frame" x="16" y="408.5" width="343" height="32"/>
+                                            <rect key="frame" x="16" y="429.5" width="343" height="32"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posture Sensitivity: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ndf-iF-7DL">
-                                                    <rect key="frame" x="0.0" y="8.5" width="115" height="15.5"/>
+                                                    <rect key="frame" x="0.0" y="8" width="119.5" height="16.5"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                     <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Za5-Kn-xL2">
-                                                    <rect key="frame" x="184" y="2" width="32" height="28"/>
+                                                    <rect key="frame" x="188.5" y="1.5" width="32" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="32" id="S4P-oW-k1z"/>
                                                     </constraints>
@@ -5057,7 +5057,7 @@ MY UPPER CHEST</string>
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abw-Zr-fGp">
-                                                    <rect key="frame" x="143.5" y="0.0" width="50" height="32"/>
+                                                    <rect key="frame" x="148" y="0.0" width="50" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="3c0-9X-Tvs"/>
                                                     </constraints>
@@ -5066,7 +5066,7 @@ MY UPPER CHEST</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y05-sI-OsV">
-                                                    <rect key="frame" x="161" y="8.5" width="15" height="15"/>
+                                                    <rect key="frame" x="165.5" y="8.5" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="15" id="eGN-Nd-6ty"/>
                                                         <constraint firstAttribute="height" constant="15" id="gpk-Bw-El6"/>
@@ -5077,7 +5077,7 @@ MY UPPER CHEST</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AY3-X9-qqo">
-                                                    <rect key="frame" x="247" y="2" width="32" height="28"/>
+                                                    <rect key="frame" x="251.5" y="1.5" width="32" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="32" id="Npr-at-avi"/>
                                                     </constraints>
@@ -5087,7 +5087,7 @@ MY UPPER CHEST</string>
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fqz-k5-2JK">
-                                                    <rect key="frame" x="206.5" y="0.0" width="50" height="32"/>
+                                                    <rect key="frame" x="211" y="0.0" width="50" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="VyV-qg-2kU"/>
                                                     </constraints>
@@ -5096,7 +5096,7 @@ MY UPPER CHEST</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NVE-3s-C3A">
-                                                    <rect key="frame" x="224" y="8.5" width="15" height="15"/>
+                                                    <rect key="frame" x="228.5" y="8.5" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="iEl-JB-d9d"/>
                                                         <constraint firstAttribute="width" constant="15" id="xIb-ZR-i0J"/>
@@ -5107,7 +5107,7 @@ MY UPPER CHEST</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4K-r2-swz">
-                                                    <rect key="frame" x="310" y="2" width="32" height="28"/>
+                                                    <rect key="frame" x="314.5" y="1.5" width="32" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="32" id="XRU-hO-6rE"/>
                                                     </constraints>
@@ -5117,7 +5117,7 @@ MY UPPER CHEST</string>
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="szh-rh-SGq">
-                                                    <rect key="frame" x="269.5" y="0.0" width="50" height="32"/>
+                                                    <rect key="frame" x="274" y="0.0" width="50" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="af8-pg-Kw2"/>
                                                     </constraints>
@@ -5126,7 +5126,7 @@ MY UPPER CHEST</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5iz-pp-mQL">
-                                                    <rect key="frame" x="287" y="8.5" width="15" height="15"/>
+                                                    <rect key="frame" x="291.5" y="8.5" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="15" id="Cs3-da-Rqf"/>
                                                         <constraint firstAttribute="height" constant="15" id="dkV-1N-sHi"/>
@@ -5179,13 +5179,13 @@ MY UPPER CHEST</string>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sit upright and tap below to set your upright posture. You can also double-press the device button." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="45C-h6-5f9">
-                                            <rect key="frame" x="16" y="450.5" width="343" height="33"/>
+                                            <rect key="frame" x="16" y="471.5" width="343" height="35"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="14"/>
                                             <color key="textColor" red="0.27058823529999998" green="0.28627450980000002" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="cra-zc-rmj">
-                                            <rect key="frame" x="40" y="503.5" width="295" height="56"/>
+                                            <rect key="frame" x="40" y="526.5" width="295" height="56"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="56" id="3cq-AG-wlk"/>
@@ -5202,7 +5202,7 @@ MY UPPER CHEST</string>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eu7-AJ-x8W">
-                                            <rect key="frame" x="162" y="579.5" width="51" height="36"/>
+                                            <rect key="frame" x="161.5" y="602.5" width="52" height="37"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="20"/>
                                             <state key="normal" title="NEXT">
                                                 <color key="titleColor" red="0.16078431372549018" green="0.70588235294117641" blue="0.71764705882352942" alpha="1" colorSpace="calibratedRGB"/>
@@ -6904,6 +6904,16 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             <color key="textColor" red="0.25490196079999999" green="0.31764705879999999" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vN3-gT-aFD">
+                                            <rect key="frame" x="8" y="39" width="359" height="25"/>
+                                            <color key="backgroundColor" red="0.16862745098039217" green="0.71764705882352942" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25" id="boD-ed-mfl"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eNU-ev-VXZ">
                                             <rect key="frame" x="114" y="552" width="147" height="28"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -6923,7 +6933,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             </connections>
                                         </button>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cYn-tR-oT7">
-                                            <rect key="frame" x="37.5" y="70.5" width="300" height="459"/>
+                                            <rect key="frame" x="37.5" y="80" width="300" height="459"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="body_male" translatesAutoresizingMaskIntoConstraints="NO" id="OSI-hL-fwV">
                                                     <rect key="frame" x="65.5" y="0.0" width="169" height="459"/>
@@ -6968,7 +6978,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             </constraints>
                                             <state key="normal" image="ic_question"/>
                                             <connections>
-                                                <action selector="onHelp:" destination="GU2-sS-09A" eventType="touchUpInside" id="HhV-1x-EuB"/>
+                                                <segue destination="MS9-Uh-wOS" kind="show" id="QZ4-Xo-giZ"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bfs-bO-uTe">
@@ -6993,12 +7003,6 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                 <action selector="onEdit:" destination="GU2-sS-09A" eventType="touchUpInside" id="GGo-so-h9r"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RtW-aS-JGL">
-                                            <rect key="frame" x="309.5" y="480" width="27" height="18"/>
-                                            <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="14"/>
-                                            <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lv9-Qo-P94" customClass="PranaButton" customModule="Prana" customModuleProvider="target">
                                             <rect key="frame" x="291" y="506" width="64" height="30"/>
                                             <constraints>
@@ -7013,26 +7017,40 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                 <action selector="onChangeUnit:" destination="GU2-sS-09A" eventType="touchUpInside" id="Ena-eq-FYi"/>
                                             </connections>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h1D-Cd-5RI">
+                                            <rect key="frame" x="298" y="553.5" width="25" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25" id="0dC-kY-feB"/>
+                                                <constraint firstAttribute="width" constant="25" id="Dla-nP-iS5"/>
+                                            </constraints>
+                                            <state key="normal" image="ic_bell"/>
+                                            <connections>
+                                                <action selector="onEdit:" destination="GU2-sS-09A" eventType="touchUpInside" id="lLX-Qe-ziW"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstItem="RtW-aS-JGL" firstAttribute="centerX" secondItem="Lv9-Qo-P94" secondAttribute="centerX" id="2Kk-cX-Ynf"/>
                                         <constraint firstItem="f3o-J6-Qdg" firstAttribute="leading" secondItem="Pdg-dS-uzr" secondAttribute="trailing" constant="8" id="2n0-Po-PAK"/>
                                         <constraint firstItem="POY-jJ-Xlx" firstAttribute="centerY" secondItem="zuN-wt-iNM" secondAttribute="centerY" id="4vW-4l-kUt"/>
-                                        <constraint firstItem="Lv9-Qo-P94" firstAttribute="top" secondItem="RtW-aS-JGL" secondAttribute="bottom" constant="8" id="E3c-ib-6SE"/>
-                                        <constraint firstItem="cYn-tR-oT7" firstAttribute="centerY" secondItem="Whj-Bx-TVY" secondAttribute="centerY" id="G7u-Ah-t4c"/>
+                                        <constraint firstItem="vN3-gT-aFD" firstAttribute="leading" secondItem="Whj-Bx-TVY" secondAttribute="leading" constant="8" id="Amc-Kn-BfD"/>
                                         <constraint firstItem="cYn-tR-oT7" firstAttribute="centerX" secondItem="Whj-Bx-TVY" secondAttribute="centerX" id="Glh-7a-yfC"/>
                                         <constraint firstItem="Bfs-bO-uTe" firstAttribute="centerY" secondItem="zuN-wt-iNM" secondAttribute="centerY" id="H1m-gd-wS7"/>
+                                        <constraint firstItem="h1D-Cd-5RI" firstAttribute="centerY" secondItem="POY-jJ-Xlx" secondAttribute="centerY" id="KkW-cO-omp"/>
                                         <constraint firstItem="f3o-J6-Qdg" firstAttribute="centerY" secondItem="8eP-D7-e7g" secondAttribute="centerY" id="Klc-6C-ifP"/>
                                         <constraint firstItem="8eP-D7-e7g" firstAttribute="centerX" secondItem="Whj-Bx-TVY" secondAttribute="centerX" id="L0Y-f9-w9h"/>
                                         <constraint firstAttribute="bottom" secondItem="eNU-ev-VXZ" secondAttribute="bottom" constant="20" id="NS5-sG-Rfd"/>
                                         <constraint firstItem="Pdg-dS-uzr" firstAttribute="centerY" secondItem="8eP-D7-e7g" secondAttribute="centerY" id="QmU-mh-9Vw"/>
                                         <constraint firstItem="8eP-D7-e7g" firstAttribute="top" secondItem="Whj-Bx-TVY" secondAttribute="top" constant="12" id="R7L-MU-KdH"/>
+                                        <constraint firstAttribute="trailing" secondItem="vN3-gT-aFD" secondAttribute="trailing" constant="8" id="ZeD-nM-ARb"/>
+                                        <constraint firstItem="cYn-tR-oT7" firstAttribute="top" secondItem="vN3-gT-aFD" secondAttribute="bottom" constant="16" id="cgg-6O-479"/>
                                         <constraint firstAttribute="trailing" secondItem="POY-jJ-Xlx" secondAttribute="trailing" constant="20" id="djC-6J-1in"/>
+                                        <constraint firstItem="POY-jJ-Xlx" firstAttribute="leading" secondItem="h1D-Cd-5RI" secondAttribute="trailing" constant="12" id="ii9-rV-env"/>
                                         <constraint firstItem="POY-jJ-Xlx" firstAttribute="top" secondItem="Lv9-Qo-P94" secondAttribute="bottom" constant="20" id="mHx-2k-yg1"/>
                                         <constraint firstAttribute="trailing" secondItem="f3o-J6-Qdg" secondAttribute="trailing" constant="16" id="mXZ-nU-nGM"/>
                                         <constraint firstItem="eNU-ev-VXZ" firstAttribute="centerX" secondItem="Whj-Bx-TVY" secondAttribute="centerX" id="mZB-cH-gb0"/>
                                         <constraint firstAttribute="trailing" secondItem="Lv9-Qo-P94" secondAttribute="trailing" constant="20" id="o4K-O3-Kdq"/>
+                                        <constraint firstItem="vN3-gT-aFD" firstAttribute="top" secondItem="8eP-D7-e7g" secondAttribute="bottom" constant="8" id="rrn-Ge-SSs"/>
                                         <constraint firstAttribute="bottom" secondItem="zuN-wt-iNM" secondAttribute="bottom" constant="20" id="wU4-Dt-opc"/>
                                         <constraint firstItem="Bfs-bO-uTe" firstAttribute="leading" secondItem="Whj-Bx-TVY" secondAttribute="leading" constant="20" id="wla-Ef-d7X"/>
                                         <constraint firstItem="zuN-wt-iNM" firstAttribute="centerX" secondItem="Whj-Bx-TVY" secondAttribute="centerX" id="wzj-9s-Kjc"/>
@@ -7056,11 +7074,139 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                         <outlet property="btnStart" destination="zuN-wt-iNM" id="QjM-D5-3Qf"/>
                         <outlet property="btnTake" destination="eNU-ev-VXZ" id="d3L-Fa-c9u"/>
                         <outlet property="btnUnit" destination="Lv9-Qo-P94" id="eEp-Q5-U5h"/>
+                        <outlet property="lblStatus" destination="vN3-gT-aFD" id="DpX-6O-lQ0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X2T-Yx-j9c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1672.8" y="-761.46926536731644"/>
+            <point key="canvasLocation" x="1673" y="-797"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="3QE-9O-Dox">
+            <objects>
+                <viewController storyboardIdentifier="HelpBodyMeasurementsViewController" id="MS9-Uh-wOS" customClass="HelpBodyMeasurementsViewController" customModule="Prana" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bmo-4i-Rhl"/>
+                        <viewControllerLayoutGuide type="bottom" id="6gx-iJ-ENs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gw6-cN-72V">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app-background" translatesAutoresizingMaskIntoConstraints="NO" id="1ES-SW-bsL">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ifW-Vk-mV4">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="je9-zZ-TjL">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="645"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H4T-PI-7OT" userLabel="Back">
+                                            <rect key="frame" x="18" y="16.5" width="24.500000000000007" height="18"/>
+                                            <state key="normal" backgroundImage="ic-back"/>
+                                            <connections>
+                                                <action selector="onBack:" destination="uhC-ne-xZr" eventType="touchUpInside" id="NQb-oN-buX"/>
+                                                <action selector="onBack:" destination="UdP-wR-Snp" eventType="touchUpInside" id="lPC-LY-Ysn"/>
+                                                <action selector="onBack:" destination="MS9-Uh-wOS" eventType="touchUpInside" id="oWw-ew-Dfu"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Body Measurements" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K6I-pe-XCk">
+                                            <rect key="frame" x="114.5" y="16" width="146" height="19"/>
+                                            <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="15"/>
+                                            <color key="textColor" red="0.25490196079999999" green="0.31764705879999999" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yst-qe-l1f">
+                                            <rect key="frame" x="18" y="85" width="339" height="460"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="video-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="7s9-8H-Hpg">
+                                                    <rect key="frame" x="0.0" y="0.0" width="339" height="208"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="208" id="E0u-lF-1r8"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select body area to view the measuring technique" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A9M-US-veo">
+                                                    <rect key="frame" x="16" y="235.5" width="199" height="30"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="12"/>
+                                                    <color key="textColor" red="0.39205139880000001" green="0.39667910340000001" blue="0.41570192579999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oDp-cr-qYi" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
+                                                    <rect key="frame" x="223" y="228" width="100" height="45"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="140" id="nmc-5H-H8R"/>
+                                                        <constraint firstAttribute="height" constant="45" id="rmc-aD-Rz0"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="title" value="Arms"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3vj-zh-UOc">
+                                                    <rect key="frame" x="157.5" y="80" width="24" height="32"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="24" id="5Jm-sm-Kmg"/>
+                                                        <constraint firstAttribute="height" constant="32" id="tW0-cD-zVn"/>
+                                                    </constraints>
+                                                    <state key="normal" backgroundImage="ic-triangle"/>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="7s9-8H-Hpg" firstAttribute="top" secondItem="Yst-qe-l1f" secondAttribute="top" id="5sY-wz-xft"/>
+                                                <constraint firstItem="oDp-cr-qYi" firstAttribute="top" secondItem="7s9-8H-Hpg" secondAttribute="bottom" constant="20" id="Ljl-8p-hkN"/>
+                                                <constraint firstItem="oDp-cr-qYi" firstAttribute="leading" secondItem="A9M-US-veo" secondAttribute="trailing" constant="8" id="Mgj-BF-K3e"/>
+                                                <constraint firstItem="3vj-zh-UOc" firstAttribute="centerX" secondItem="Yst-qe-l1f" secondAttribute="centerX" id="SBe-3W-Qze"/>
+                                                <constraint firstItem="A9M-US-veo" firstAttribute="leading" secondItem="Yst-qe-l1f" secondAttribute="leading" constant="16" id="TUG-aK-dee"/>
+                                                <constraint firstAttribute="trailing" secondItem="oDp-cr-qYi" secondAttribute="trailing" constant="16" id="boM-Zm-iMK"/>
+                                                <constraint firstItem="7s9-8H-Hpg" firstAttribute="centerX" secondItem="Yst-qe-l1f" secondAttribute="centerX" id="fvF-rx-lng"/>
+                                                <constraint firstItem="7s9-8H-Hpg" firstAttribute="width" secondItem="Yst-qe-l1f" secondAttribute="width" id="kq2-Lw-DYf"/>
+                                                <constraint firstItem="3vj-zh-UOc" firstAttribute="top" secondItem="Yst-qe-l1f" secondAttribute="top" constant="80" id="mTL-a2-GlW"/>
+                                                <constraint firstItem="A9M-US-veo" firstAttribute="centerY" secondItem="oDp-cr-qYi" secondAttribute="centerY" id="xeS-jd-F5Y"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="16"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="H4T-PI-7OT" firstAttribute="centerY" secondItem="K6I-pe-XCk" secondAttribute="centerY" id="Abv-d4-jjs"/>
+                                        <constraint firstItem="Yst-qe-l1f" firstAttribute="top" secondItem="K6I-pe-XCk" secondAttribute="bottom" constant="50" id="BhX-Ar-QNX"/>
+                                        <constraint firstItem="K6I-pe-XCk" firstAttribute="centerX" secondItem="je9-zZ-TjL" secondAttribute="centerX" id="dhO-0w-zQ3"/>
+                                        <constraint firstItem="Yst-qe-l1f" firstAttribute="leading" secondItem="je9-zZ-TjL" secondAttribute="leading" constant="18" id="h6O-2Z-MNz"/>
+                                        <constraint firstItem="K6I-pe-XCk" firstAttribute="top" secondItem="je9-zZ-TjL" secondAttribute="top" constant="16" id="hH3-Ky-HOY"/>
+                                        <constraint firstAttribute="trailing" secondItem="Yst-qe-l1f" secondAttribute="trailing" constant="18" id="kY0-kN-r8X"/>
+                                        <constraint firstAttribute="bottom" secondItem="Yst-qe-l1f" secondAttribute="bottom" constant="100" id="qZ6-Pg-XPa"/>
+                                        <constraint firstItem="H4T-PI-7OT" firstAttribute="leading" secondItem="je9-zZ-TjL" secondAttribute="leading" constant="18" id="vTf-7p-E61"/>
+                                    </constraints>
+                                </view>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="1ES-SW-bsL" firstAttribute="top" secondItem="gw6-cN-72V" secondAttribute="top" id="7zi-iF-Brf"/>
+                            <constraint firstItem="ifW-Vk-mV4" firstAttribute="top" secondItem="gw6-cN-72V" secondAttribute="top" id="EJ4-FE-0ig"/>
+                            <constraint firstAttribute="trailing" secondItem="ifW-Vk-mV4" secondAttribute="trailing" id="Ejg-CR-46s"/>
+                            <constraint firstItem="1ES-SW-bsL" firstAttribute="leading" secondItem="gw6-cN-72V" secondAttribute="leading" id="KdH-0e-dh4"/>
+                            <constraint firstItem="ifW-Vk-mV4" firstAttribute="leading" secondItem="gw6-cN-72V" secondAttribute="leading" id="WAP-dF-RlH"/>
+                            <constraint firstAttribute="trailing" secondItem="1ES-SW-bsL" secondAttribute="trailing" id="jKz-C8-Fqb"/>
+                            <constraint firstAttribute="bottom" secondItem="1ES-SW-bsL" secondAttribute="bottom" id="raO-DB-tZ5"/>
+                            <constraint firstItem="6gx-iJ-ENs" firstAttribute="top" secondItem="ifW-Vk-mV4" secondAttribute="bottom" id="xzW-br-PqF"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="bT1-qz-isp"/>
+                    <connections>
+                        <outlet property="ddBodyArea" destination="oDp-cr-qYi" id="BqS-0j-PVn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s7u-1W-tMG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2564" y="-797"/>
         </scene>
         <!--History-->
         <scene sceneID="g2p-Db-Ju6">
@@ -7570,9 +7716,9 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                     <connections>
                         <outlet property="_tabBar" destination="sFN-F3-XEg" id="AiK-C8-uQe"/>
                         <segue destination="TXw-IM-hTY" kind="relationship" relationship="viewControllers" id="t1k-t0-kTv"/>
-                        <segue destination="GU2-sS-09A" kind="relationship" relationship="viewControllers" id="V2j-cT-hZe"/>
-                        <segue destination="oTN-Ko-BWb" kind="relationship" relationship="viewControllers" id="kVF-SF-X3g"/>
-                        <segue destination="x56-aR-vF3" kind="relationship" relationship="viewControllers" id="tjL-LZ-NI8"/>
+                        <segue destination="GU2-sS-09A" kind="relationship" relationship="viewControllers" id="Xaw-GC-rIx"/>
+                        <segue destination="oTN-Ko-BWb" kind="relationship" relationship="viewControllers" id="l7u-Dn-l2A"/>
+                        <segue destination="x56-aR-vF3" kind="relationship" relationship="viewControllers" id="9oB-ig-bNN"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AXj-S2-QGd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -7712,7 +7858,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EYJ-kB-qtV">
-                                        <rect key="frame" x="41" y="0.0" width="104" height="32"/>
+                                        <rect key="frame" x="41" y="0.0" width="104.00000000000003" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="VPa-AY-N8q"/>
                                             <constraint firstAttribute="width" constant="104" id="sx5-dk-Y16"/>
@@ -8159,7 +8305,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="v3v-D7-khE">
-                                <rect key="frame" x="69.5" y="305.5" width="236" height="56"/>
+                                <rect key="frame" x="35.5" y="305.5" width="304" height="56"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="6Ok-xF-6Xd"/>
@@ -8377,33 +8523,33 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             <rect key="frame" x="0.0" y="8" width="375" height="48"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0d8-Y8-Rsm" userLabel="Back">
-                                                    <rect key="frame" x="16" y="2" width="16" height="18"/>
+                                                    <rect key="frame" x="16" y="2.5" width="24.500000000000007" height="18"/>
                                                     <state key="normal" backgroundImage="ic-back"/>
                                                     <connections>
                                                         <action selector="onBack:" destination="DJr-9k-JTd" eventType="touchUpInside" id="IOA-x3-pr6"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breathing and Posture" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MBx-86-4xm">
-                                                    <rect key="frame" x="112.5" y="2" width="150" height="17.5"/>
+                                                    <rect key="frame" x="108" y="2" width="159" height="19"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="15"/>
                                                     <color key="textColor" red="0.25490196079999999" green="0.31764705879999999" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tracking" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hK3-Kh-k5t">
-                                                    <rect key="frame" x="159.5" y="28.5" width="56.5" height="17.5"/>
+                                                    <rect key="frame" x="157" y="27" width="61.5" height="19"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="15"/>
                                                     <color key="textColor" red="0.25490196079999999" green="0.31764705879999999" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t4O-9S-i9A">
-                                                    <rect key="frame" x="339" y="0.0" width="16" height="22"/>
+                                                    <rect key="frame" x="331" y="-0.5" width="24" height="24"/>
                                                     <state key="normal" image="ic_question"/>
                                                     <connections>
                                                         <action selector="onHelp:" destination="DJr-9k-JTd" eventType="touchUpInside" id="OJv-uH-dPg"/>
                                                     </connections>
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vOM-mj-xPl" customClass="BatteryStateView" customModule="Prana" customModuleProvider="target">
-                                                    <rect key="frame" x="299" y="-4" width="30" height="30"/>
+                                                    <rect key="frame" x="291" y="-3.5" width="30" height="30"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="MED-mq-dL5"/>
@@ -8430,7 +8576,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6lj-xe-ajn">
-                                            <rect key="frame" x="147.5" y="60" width="80" height="35"/>
+                                            <rect key="frame" x="147.5" y="60" width="80" height="37.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="qwt-o6-FpG"/>
                                             </constraints>
@@ -8439,14 +8585,14 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pcD-UG-hC7">
-                                            <rect key="frame" x="16" y="103" width="343" height="1"/>
+                                            <rect key="frame" x="16" y="105.5" width="343" height="1"/>
                                             <color key="backgroundColor" red="0.59215686270000001" green="0.59215686270000001" blue="0.59215686270000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="1" id="g1Z-58-7RX"/>
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YqQ-yA-Fnd" customClass="LiveGraph" customModule="Prana" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="128" width="343" height="100"/>
+                                            <rect key="frame" x="16" y="131.5" width="343" height="100"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="100" id="gr3-8P-5ta"/>
@@ -8456,58 +8602,58 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breathing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4E-Kt-A2j">
-                                            <rect key="frame" x="16" y="109" width="69" height="19"/>
+                                            <rect key="frame" x="16" y="111.5" width="76" height="20"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Resp Rate: 0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ys8-ZF-Kl9">
-                                            <rect key="frame" x="16" y="236" width="123" height="14"/>
+                                            <rect key="frame" x="16" y="239.5" width="128" height="15"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Session Avg Resp Rate: 0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PWa-GZ-9UC">
-                                            <rect key="frame" x="16" y="258" width="149" height="14"/>
+                                            <rect key="frame" x="16" y="262.5" width="152.5" height="15"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breath Count: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2PO-21-gnv">
-                                            <rect key="frame" x="16" y="280" width="85" height="14"/>
+                                            <rect key="frame" x="16" y="285.5" width="89" height="15"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Real-Time E/I: 0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6HZ-nv-3xY">
-                                            <rect key="frame" x="263" y="236" width="96" height="14"/>
+                                            <rect key="frame" x="257.5" y="239.5" width="101.5" height="15"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Minute E/I: 0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="52P-Fe-MhB">
-                                            <rect key="frame" x="254.5" y="258" width="104.5" height="14"/>
+                                            <rect key="frame" x="250" y="262.5" width="109" height="15"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Session Avg E/I: 0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1yx-Ze-98Y">
-                                            <rect key="frame" x="251.5" y="280" width="107.5" height="14"/>
+                                            <rect key="frame" x="248.5" y="285.5" width="110.5" height="15"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FZc-pk-zvk">
-                                            <rect key="frame" x="16" y="302" width="343" height="30"/>
+                                            <rect key="frame" x="16" y="308.5" width="343" height="30"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breath Responsiveness: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYC-yB-dgi">
-                                                    <rect key="frame" x="0.0" y="7.5" width="144" height="15.5"/>
+                                                    <rect key="frame" x="0.0" y="7" width="149" height="16.5"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                     <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AHx-I0-MbF">
-                                                    <rect key="frame" x="183" y="1" width="16" height="28"/>
+                                                    <rect key="frame" x="188" y="0.5" width="16" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="16" id="xoH-Da-WTY"/>
                                                     </constraints>
@@ -8517,7 +8663,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H2I-eP-ecl">
-                                                    <rect key="frame" x="142.5" y="0.0" width="50" height="30"/>
+                                                    <rect key="frame" x="147.5" y="0.0" width="50" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="dP5-5u-aWl"/>
                                                     </constraints>
@@ -8526,7 +8672,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f3G-0H-kmn">
-                                                    <rect key="frame" x="160" y="7.5" width="15" height="15"/>
+                                                    <rect key="frame" x="165" y="7.5" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="15" id="ZTk-Jl-HIE"/>
                                                         <constraint firstAttribute="height" constant="15" id="aYW-rl-wYw"/>
@@ -8537,7 +8683,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gDM-QZ-0Qr">
-                                                    <rect key="frame" x="246" y="1" width="16" height="28"/>
+                                                    <rect key="frame" x="251" y="0.5" width="16" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="16" id="fxq-7E-fJy"/>
                                                     </constraints>
@@ -8547,7 +8693,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rdZ-mO-N5z">
-                                                    <rect key="frame" x="205.5" y="0.0" width="50" height="30"/>
+                                                    <rect key="frame" x="210.5" y="0.0" width="50" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="KMX-Fd-Ab9"/>
                                                     </constraints>
@@ -8556,7 +8702,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B2E-8o-0aF">
-                                                    <rect key="frame" x="223" y="7.5" width="15" height="15"/>
+                                                    <rect key="frame" x="228" y="7.5" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="15" id="BTQ-Y7-WEH"/>
                                                         <constraint firstAttribute="height" constant="15" id="gLO-7R-bEf"/>
@@ -8567,7 +8713,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IoJ-9i-Au2">
-                                                    <rect key="frame" x="309" y="1" width="16" height="28"/>
+                                                    <rect key="frame" x="314" y="0.5" width="16" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="16" id="DdL-Mh-xWd"/>
                                                     </constraints>
@@ -8577,7 +8723,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UmV-W3-TLP">
-                                                    <rect key="frame" x="268.5" y="0.0" width="50" height="30"/>
+                                                    <rect key="frame" x="273.5" y="0.0" width="50" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="CmY-0a-NuB"/>
                                                     </constraints>
@@ -8586,7 +8732,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0V2-Ta-9Jz">
-                                                    <rect key="frame" x="286" y="7.5" width="15" height="15"/>
+                                                    <rect key="frame" x="291" y="7.5" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="15" id="V3m-r1-a37"/>
                                                         <constraint firstAttribute="height" constant="15" id="nKn-YM-uV3"/>
@@ -8629,7 +8775,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posture" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qod-ti-zkG">
-                                            <rect key="frame" x="16" y="342" width="60" height="19"/>
+                                            <rect key="frame" x="16" y="348.5" width="60" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="NjR-x5-Or7"/>
                                             </constraints>
@@ -8638,49 +8784,49 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stand (1).png" translatesAutoresizingMaskIntoConstraints="NO" id="AIg-Lp-Jhm">
-                                            <rect key="frame" x="16" y="366" width="120" height="120"/>
+                                            <rect key="frame" x="16" y="373.5" width="120" height="120"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="120" id="Nmq-GG-Kvg"/>
                                                 <constraint firstAttribute="height" constant="120" id="cOV-LP-iLW"/>
                                             </constraints>
                                         </imageView>
                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I9o-PW-Kqt">
-                                            <rect key="frame" x="16" y="366" width="120" height="120"/>
+                                            <rect key="frame" x="16" y="373.5" width="120" height="120"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upright Posture:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3sN-R9-E6G" userLabel="Upright Posture:  100%">
-                                            <rect key="frame" x="152" y="340" width="203" height="14"/>
+                                            <rect key="frame" x="152" y="346.5" width="203" height="15"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slouches:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTr-lO-o3k" userLabel="Upright Posture:  100%">
-                                            <rect key="frame" x="152" y="359" width="203" height="14"/>
+                                            <rect key="frame" x="152" y="366.5" width="203" height="15"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buzz when Slouching:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="buh-Ok-2Zu" userLabel="Upright Posture:  100%">
-                                            <rect key="frame" x="152" y="378" width="119" height="14"/>
+                                            <rect key="frame" x="152" y="386.5" width="120.5" height="15"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="49a-DG-igz">
-                                            <rect key="frame" x="310" y="369.5" width="51" height="31"/>
+                                            <rect key="frame" x="310" y="378.5" width="51" height="31"/>
                                             <color key="tintColor" red="0.090196078430000007" green="0.62745098040000002" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
                                                 <action selector="onEnableSlouchBuzzChange:" destination="DJr-9k-JTd" eventType="valueChanged" id="9a5-yM-5cJ"/>
                                             </connections>
                                         </switch>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buzz in:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BOS-ri-lk9" userLabel="Upright Posture:  100%">
-                                            <rect key="frame" x="152" y="424" width="42.5" height="14"/>
+                                            <rect key="frame" x="152" y="432.5" width="42.5" height="15"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RsI-y4-RzP" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
-                                            <rect key="frame" x="239" y="408.5" width="120" height="45"/>
+                                            <rect key="frame" x="239" y="417.5" width="120" height="45"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="45" id="FEi-kU-5Bi"/>
@@ -8691,13 +8837,13 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wearing:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zge-Kf-olF" userLabel="Upright Posture:  100%">
-                                            <rect key="frame" x="152" y="479.5" width="47" height="14"/>
+                                            <rect key="frame" x="152" y="488" width="51" height="15"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cm5-RU-cf3" customClass="PranaButton" customModule="Prana" customModuleProvider="target">
-                                            <rect key="frame" x="289" y="461.5" width="70" height="50"/>
+                                            <rect key="frame" x="289" y="470.5" width="70" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="572-Ic-6JK"/>
                                                 <constraint firstAttribute="width" constant="70" id="Z9M-tM-i5B"/>
@@ -8708,7 +8854,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iIh-95-6zL" customClass="PranaButton" customModule="Prana" customModuleProvider="target">
-                                            <rect key="frame" x="211" y="461.5" width="70" height="50"/>
+                                            <rect key="frame" x="211" y="470.5" width="70" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="Exv-BG-pbv"/>
                                                 <constraint firstAttribute="width" constant="70" id="NfO-sc-L8w"/>
@@ -8722,16 +8868,16 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             </connections>
                                         </button>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Svk-2R-lAi">
-                                            <rect key="frame" x="16" y="536" width="343" height="30"/>
+                                            <rect key="frame" x="16" y="543.5" width="343" height="30"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posture Sensitivity: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YqE-AA-pdS">
-                                                    <rect key="frame" x="0.0" y="7.5" width="115" height="15.5"/>
+                                                    <rect key="frame" x="0.0" y="7" width="119.5" height="16.5"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                     <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K0N-uq-yCa">
-                                                    <rect key="frame" x="182" y="1" width="16" height="28"/>
+                                                    <rect key="frame" x="186.5" y="0.5" width="16" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="16" id="TlM-Mg-4vb"/>
                                                     </constraints>
@@ -8741,7 +8887,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cFs-Rk-J0X">
-                                                    <rect key="frame" x="141.5" y="0.0" width="50" height="30"/>
+                                                    <rect key="frame" x="146" y="0.0" width="50" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="WBA-mn-65t"/>
                                                     </constraints>
@@ -8750,7 +8896,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vrI-I8-3Is">
-                                                    <rect key="frame" x="159" y="7.5" width="15" height="15"/>
+                                                    <rect key="frame" x="163.5" y="7.5" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="G7v-tz-joV"/>
                                                         <constraint firstAttribute="width" constant="15" id="HgV-O8-zBj"/>
@@ -8761,7 +8907,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v8w-Fv-dwX">
-                                                    <rect key="frame" x="245" y="0.0" width="16" height="30"/>
+                                                    <rect key="frame" x="249.5" y="0.0" width="16" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="16" id="YOl-mQ-1yc"/>
                                                     </constraints>
@@ -8770,7 +8916,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N0n-0h-fnE">
-                                                    <rect key="frame" x="204.5" y="0.0" width="50" height="30"/>
+                                                    <rect key="frame" x="209" y="0.0" width="50" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="jEp-Ic-aCP"/>
                                                     </constraints>
@@ -8779,7 +8925,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PlR-L1-El4">
-                                                    <rect key="frame" x="222" y="7.5" width="15" height="15"/>
+                                                    <rect key="frame" x="226.5" y="7.5" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="ea2-LA-OcX"/>
                                                         <constraint firstAttribute="width" constant="15" id="yzd-IZ-9bJ"/>
@@ -8790,7 +8936,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xky-Ot-5yZ">
-                                                    <rect key="frame" x="308" y="1" width="16" height="28"/>
+                                                    <rect key="frame" x="312.5" y="0.5" width="16" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="16" id="lBh-CE-Ukc"/>
                                                     </constraints>
@@ -8800,7 +8946,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lzl-tv-dns">
-                                                    <rect key="frame" x="267.5" y="0.0" width="50" height="30"/>
+                                                    <rect key="frame" x="272" y="0.0" width="50" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="kWy-7N-EbE"/>
                                                     </constraints>
@@ -8809,7 +8955,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="djw-yW-wB8">
-                                                    <rect key="frame" x="285" y="7.5" width="15" height="15"/>
+                                                    <rect key="frame" x="289.5" y="7.5" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="J85-gC-21s"/>
                                                         <constraint firstAttribute="width" constant="15" id="Xun-W7-nev"/>
@@ -8852,7 +8998,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             </constraints>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WFK-zY-62t">
-                                            <rect key="frame" x="26" y="502" width="100" height="24"/>
+                                            <rect key="frame" x="26" y="509.5" width="100" height="24"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="24" id="6cl-BR-MA1"/>
                                                 <constraint firstAttribute="width" constant="100" id="ZvJ-B9-XJP"/>
@@ -8871,7 +9017,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="axs-zj-bxy">
-                                            <rect key="frame" x="40" y="576" width="295" height="50"/>
+                                            <rect key="frame" x="40" y="583.5" width="295" height="50"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="vQf-NH-CsI"/>
@@ -8888,7 +9034,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First tap Set Upright to set your upright posture" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUp-2R-b2Y">
-                                            <rect key="frame" x="16" y="591.5" width="343" height="19"/>
+                                            <rect key="frame" x="16" y="588.5" width="343" height="40"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -9034,6 +9180,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
         <image name="ic-lock" width="11" height="15"/>
         <image name="ic-track" width="23" height="24"/>
         <image name="ic-triangle" width="23" height="30"/>
+        <image name="ic_bell" width="400" height="400"/>
         <image name="ic_bluetooth" width="42.666667938232422" height="42.666667938232422"/>
         <image name="ic_close" width="42.666667938232422" height="42.666667938232422"/>
         <image name="ic_doctor" width="18" height="24"/>
