@@ -37,6 +37,7 @@
 		CAA21A1522777D090004F5E0 /* Prana.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CAA21A1322777D090004F5E0 /* Prana.xcdatamodeld */; };
 		CAA21A17227780F10004F5E0 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA21A16227780F10004F5E0 /* DataController.swift */; };
 		CAA44A31224425EF0050D619 /* ConnectionTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA44A30224425EF0050D619 /* ConnectionTestViewController.swift */; };
+		CAA51F1822BD397A00D12DED /* NotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA51F1722BD397A00D12DED /* NotificationSettingViewController.swift */; };
 		CAA626B822970B010036FC31 /* BluetoothStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA626B722970B010036FC31 /* BluetoothStateView.swift */; };
 		CAA626BA229717BE0036FC31 /* BatteryStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA626B9229717BE0036FC31 /* BatteryStateView.swift */; };
 		CAA626BC229717D50036FC31 /* BatteryStateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAA626BB229717D50036FC31 /* BatteryStateView.xib */; };
@@ -179,6 +180,8 @@
 		CAE670842271FCFB0099D72C /* sit (23).png in Resources */ = {isa = PBXBuildFile; fileRef = CAE670482271FCFB0099D72C /* sit (23).png */; };
 		CAE67086227231A70099D72C /* SessionChildCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE67085227231A70099D72C /* SessionChildCell.swift */; };
 		CAE6B14A2268DBBD00881B18 /* ProgramsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE6B1492268DBBD00881B18 /* ProgramsViewController.swift */; };
+		CAEA71CC22BE1FD1002A8B66 /* BodyCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEA71CB22BE1FD1002A8B66 /* BodyCellTableViewCell.swift */; };
+		CAEA71CE22BE255F002A8B66 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEA71CD22BE255F002A8B66 /* DiaryViewController.swift */; };
 		CAFA5BE022AA788900AB4046 /* Passive.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFA5BDF22AA788900AB4046 /* Passive.swift */; };
 		D701F4DE223B998800D19574 /* TutorialUpperchestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D701F4DD223B998800D19574 /* TutorialUpperchestViewController.swift */; };
 		D70D9E86226084A200BC30F8 /* TapBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D9E85226084A200BC30F8 /* TapBarViewController.swift */; };
@@ -242,6 +245,7 @@
 		CAA21A1422777D090004F5E0 /* Prana.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Prana.xcdatamodel; sourceTree = "<group>"; };
 		CAA21A16227780F10004F5E0 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		CAA44A30224425EF0050D619 /* ConnectionTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionTestViewController.swift; sourceTree = "<group>"; };
+		CAA51F1722BD397A00D12DED /* NotificationSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewController.swift; sourceTree = "<group>"; };
 		CAA626B722970B010036FC31 /* BluetoothStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothStateView.swift; sourceTree = "<group>"; };
 		CAA626B9229717BE0036FC31 /* BatteryStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryStateView.swift; sourceTree = "<group>"; };
 		CAA626BB229717D50036FC31 /* BatteryStateView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BatteryStateView.xib; sourceTree = "<group>"; };
@@ -384,6 +388,8 @@
 		CAE670482271FCFB0099D72C /* sit (23).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sit (23).png"; sourceTree = "<group>"; };
 		CAE67085227231A70099D72C /* SessionChildCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionChildCell.swift; sourceTree = "<group>"; };
 		CAE6B1492268DBBD00881B18 /* ProgramsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramsViewController.swift; sourceTree = "<group>"; };
+		CAEA71CB22BE1FD1002A8B66 /* BodyCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyCellTableViewCell.swift; sourceTree = "<group>"; };
+		CAEA71CD22BE255F002A8B66 /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
 		CAFA5BDF22AA788900AB4046 /* Passive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Passive.swift; sourceTree = "<group>"; };
 		D701F4DD223B998800D19574 /* TutorialUpperchestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialUpperchestViewController.swift; sourceTree = "<group>"; };
 		D70D9E85226084A200BC30F8 /* TapBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBarViewController.swift; sourceTree = "<group>"; };
@@ -832,6 +838,9 @@
 				CAB1062922B8D2EB00A7D8A1 /* BodyMeasurementsViewController.swift */,
 				CAD207E522B8DF4100589BC0 /* BMButton.swift */,
 				CA0D604922BC4B270057DCF7 /* HelpBodyMeasurementsViewController.swift */,
+				CAA51F1722BD397A00D12DED /* NotificationSettingViewController.swift */,
+				CAEA71CB22BE1FD1002A8B66 /* BodyCellTableViewCell.swift */,
+				CAEA71CD22BE255F002A8B66 /* DiaryViewController.swift */,
 			);
 			path = Body;
 			sourceTree = "<group>";
@@ -1257,6 +1266,7 @@
 				CAAF9D2A22737952003232C4 /* ContactsPickerViewController.swift in Sources */,
 				CAAF9D0822737951003232C4 /* UIImageView+Extensions.swift in Sources */,
 				CAA21A1522777D090004F5E0 /* Prana.xcdatamodeld in Sources */,
+				CAEA71CC22BE1FD1002A8B66 /* BodyCellTableViewCell.swift in Sources */,
 				CAAF9D0D22737951003232C4 /* UITextView+Extensions.swift in Sources */,
 				CAAC198622710471001DC02D /* ProgramParentCell.swift in Sources */,
 				D7B12F5E22438B19002D2E0F /* VisualTrainingScene.swift in Sources */,
@@ -1295,6 +1305,7 @@
 				CAAF9D3822737952003232C4 /* GradientSlider.swift in Sources */,
 				CAA782E22285D20600EB5122 /* PatternsViewController.swift in Sources */,
 				CAAF9D1B22737952003232C4 /* LocaleInfo.swift in Sources */,
+				CAEA71CE22BE255F002A8B66 /* DiaryViewController.swift in Sources */,
 				CAAF9D2322737952003232C4 /* PhotoLibraryPickerViewController.swift in Sources */,
 				D7E145AD2236F50100991D34 /* ResetPasswordViewController.swift in Sources */,
 				CA69E8442278977900984324 /* Session.swift in Sources */,
@@ -1327,6 +1338,7 @@
 				AA7FE2D4222720EB0092E8A6 /* WelcomeViewController.swift in Sources */,
 				D7172B762258A026007AA168 /* BuzzerTrainingViewController.swift in Sources */,
 				CAE6B14A2268DBBD00881B18 /* ProgramsViewController.swift in Sources */,
+				CAA51F1822BD397A00D12DED /* NotificationSettingViewController.swift in Sources */,
 				CAAF9D1122737951003232C4 /* UIApplication+Extensions.swift in Sources */,
 				CAAF9D2122737952003232C4 /* OneTextFieldViewController.swift in Sources */,
 				CAD502F72231BEB900F97B31 /* PranaDevice.swift in Sources */,
