@@ -130,7 +130,9 @@ class TabTrainViewController: UIViewController {
     }
     
     func calculateSummary() {
-        if let sessions = dataController?.fetchSessions(), let _ = sessions.first {
+        if let sessions = dataController?.fetchDailySessions(date: Date()).filter({ (object) -> Bool in
+            return object is TrainingSession
+        }) as? [TrainingSession], let _ = sessions.first {
             let (breathingElapsed, postureElapsed, mindfulDuration, uprightDuration) = sessions.reduce((0, 0, 0, 0)) { (acc, session) -> (Int, Int, Int, Int) in
                 var result = acc
                 
@@ -148,8 +150,24 @@ class TabTrainViewController: UIViewController {
                     result.0 += session.duration
                     result.1 += session.duration
                 }
-                result.2 += session.mindful
-                result.3 += session.upright
+                let (mindfulDuration, _) = session.breaths.reduce((0, 0), { (result, breath) -> (Int, Int) in
+                    var (mindfulDuration, totalElapsed) = result
+                    let breathDuration = breath.timeStamp - totalElapsed
+                    if breathDuration > 0, breath.isMindful {
+                        mindfulDuration += breathDuration
+                    }
+                    totalElapsed = breath.timeStamp
+                    return (mindfulDuration, totalElapsed)
+                })
+                result.2 += mindfulDuration
+                
+                let slouchDuration = session.slouches.reduce(0, { (slouchDuration, slouch) -> Int in
+                    return slouchDuration + slouch.duration
+                })
+                let uprightDuration = session.duration - slouchDuration
+                if uprightDuration > 0 {
+                    result.3 += uprightDuration
+                }
                 
                 return result
             }

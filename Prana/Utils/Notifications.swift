@@ -36,11 +36,11 @@ class Notifications: NSObject {
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
     
-    func removeAllNotifications() {
-        center.removeAllPendingNotificationRequests()
+    func removeNotifications(identifiers: [String]) {
+        center.removePendingNotificationRequests(withIdentifiers: identifiers)
     }
     
-    func scheduleDailyNotification(title: String, body: String, date: Date) {
+    func scheduleDailyNotification(title: String, body: String, date: Date, identifier: String) {
         
         let content = UNMutableNotificationContent()
 //        let userActions = "User Actions"
@@ -54,7 +54,6 @@ class Notifications: NSObject {
         let triggerDaily = Calendar.current.dateComponents([.hour,.minute,.second,], from: date)
         let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDaily, repeats: true)
         
-        let identifier = "Prana Notification at \(date)"
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
         
         center.add(request) { (error) in
@@ -68,6 +67,26 @@ class Notifications: NSObject {
 //        let category = UNNotificationCategory(identifier: userActions, actions: [snoozeAction, deleteAction], intentIdentifiers: [], options: [])
 //
 //        center.setNotificationCategories([category])
+    }
+    
+    func scheduleIntervalNotification(title: String, body: String, interval: TimeInterval, identifier: String) {
+        
+        let content = UNMutableNotificationContent()
+        
+        content.title = title
+        content.body = body
+        content.sound = UNNotificationSound.default
+        content.badge = 1
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: true)
+        
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        
+        center.add(request) { (error) in
+            if let error = error {
+                print("Error \(error.localizedDescription)")
+            }
+        }
     }
     
 }

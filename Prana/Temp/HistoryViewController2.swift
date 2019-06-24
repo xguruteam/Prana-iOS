@@ -11,7 +11,7 @@ import Alamofire
 import MBProgressHUD
 import MKProgress
 
-class HistoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class HistoryViewController2: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var tbl_history: UITableView!
     
     @IBOutlet weak var lblValues: UILabel!

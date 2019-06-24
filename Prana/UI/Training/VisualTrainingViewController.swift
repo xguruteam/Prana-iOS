@@ -66,7 +66,7 @@ class VisualTrainingViewController: UIViewController {
     var sessionDuration: Int = 0
     var sessionKind: Int = 0 // 0: Breathing and Posture, 1: Breathing Only, 2: Posture Only
     
-    var currentSessionObject: Session?
+    var currentSessionObject: TrainingSession?
     
     var whichPattern: Int = 0
     var subPattern: Int = 0
@@ -75,6 +75,8 @@ class VisualTrainingViewController: UIViewController {
     var maxSubPattern: Int = 0
     
     var patternTitle: String = ""
+    
+    var slouchStartSeconds: Int = 0
     
     var mindfulBreaths: Int = 0 {
         didSet {
@@ -423,7 +425,7 @@ class VisualTrainingViewController: UIViewController {
     @IBAction func onStart(_ sender: UIButton) {
         if (objVisual?._isUprightSet)! && !isStarted {
             objVisual?.startMode()
-            self.currentSessionObject = Session(startedAt: Date(), kind: sessionKind)
+            self.currentSessionObject = TrainingSession(startedAt: Date(), type: 1, kind: sessionKind, pattern: whichPattern, wearing: sessionWearing)
             
             isStarted = true
             
@@ -442,7 +444,7 @@ class VisualTrainingViewController: UIViewController {
         
         if let session = currentSessionObject {
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
-                dataController.addSessionRecord(session)
+                dataController.addRecord(training: session)
             }
         }
         
@@ -481,8 +483,8 @@ class VisualTrainingViewController: UIViewController {
             }
             
             currentSessionObject?.duration = duration
-            currentSessionObject?.mindful = mindful
-            currentSessionObject?.upright = upright
+//            currentSessionObject?.mindful = mindful
+//            currentSessionObject?.upright = upright
         }
     }
 }
@@ -508,6 +510,15 @@ extension VisualTrainingViewController: VisualDelegate {
     }
 
     func visualUprightTime(uprightPostureTime: Int, elapsedTime: Int) {
+        if uprightDuration < uprightPostureTime {
+            // end slouch
+            let slouchDuration = (self.sessionDuration * 60 - self.timeRemaining) - slouchStartSeconds
+            if slouchDuration > 0 {
+                self.currentSessionObject?.addSlouch(timeStamp: slouchStartSeconds, duration: slouchDuration)
+            }
+            slouchStartSeconds = 0
+        }
+        
         DispatchQueue.main.async {
             self.postureDuration = elapsedTime
             self.uprightDuration = uprightPostureTime
@@ -527,18 +538,23 @@ extension VisualTrainingViewController: VisualDelegate {
     }
 
     func visualNewBreathDone(total: Int, mindful: Int) {
-        DispatchQueue.main.async {
+        if breathCount < total {
+            // new breath
             let isMindful = (self.mindfulBreaths != mindful)
+            self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: isMindful, respRate: actualRR, eiRatio: 0)
+        }
+        DispatchQueue.main.async {
             self.breathCount = total
             self.mindfulBreaths = mindful
-            self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: isMindful)
         }
     }
 
     func visualNewSlouches(slouches: Int) {
+        slouchStartSeconds = self.sessionDuration * 60 - self.timeRemaining
+        
         DispatchQueue.main.async {
             self.slouches = slouches
-            self.currentSessionObject?.addSlouch(timeStamp: self.sessionDuration * 60 - self.timeRemaining)
+//            self.currentSessionObject?.addSlouch(timeStamp: self.sessionDuration * 60 - self.timeRemaining)
         }
     }
 
@@ -551,9 +567,9 @@ extension VisualTrainingViewController: VisualDelegate {
     func visualOnTimer(v: Int) {
         DispatchQueue.main.async {
             self.timeRemaining = v
-            if v % 60 == 0 {
+//            if v % 60 == 0 {
                 self.makeSessionObject()
-            }
+//            }
         }
     }
 }

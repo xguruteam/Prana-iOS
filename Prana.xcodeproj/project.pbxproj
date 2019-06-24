@@ -22,7 +22,7 @@
 		CA48E58B22671D93002CFA19 /* UIColor+colorFromHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48E58922671D93002CFA19 /* UIColor+colorFromHex.swift */; };
 		CA48E58C22671D93002CFA19 /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48E58A22671D93002CFA19 /* UIColor+Utils.swift */; };
 		CA603B7A228053860019A648 /* SessionStartStopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA603B79228053860019A648 /* SessionStartStopCell.swift */; };
-		CA69E8442278977900984324 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA69E8432278977900984324 /* Session.swift */; };
+		CA69E8442278977900984324 /* TrainingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA69E8432278977900984324 /* TrainingSession.swift */; };
 		CA8F3F092289A9E600EBC02B /* SavedPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8F3F082289A9E600EBC02B /* SavedPattern.swift */; };
 		CA97DB0F22296163002C5592 /* SessionTemp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA97DB0E22296163002C5592 /* SessionTemp.swift */; };
 		CA97DB112229893F002C5592 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA97DB102229893F002C5592 /* Constants.swift */; };
@@ -107,6 +107,9 @@
 		CAC191C2226E592F009E04B5 /* PranaExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC191C1226E592F009E04B5 /* PranaExpandableCell.swift */; };
 		CAC36BCE2249A05E00B4FF1F /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC36BCD2249A05E00B4FF1F /* TestData.swift */; };
 		CAC46CCD223A8E95004691F4 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */; };
+		CAC4B96B22C03971006DD7E8 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC4B96A22C03971006DD7E8 /* HistoryViewController.swift */; };
+		CAC4B96D22C03AEC006DD7E8 /* SuperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC4B96C22C03AEC006DD7E8 /* SuperViewController.swift */; };
+		CAC4B96F22C03CAF006DD7E8 /* History.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAC4B96E22C03CAF006DD7E8 /* History.storyboard */; };
 		CAC52F682282F8C1000CFF96 /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC52F672282F8C1000CFF96 /* Program.swift */; };
 		CAC7F51422AA35C3004230C0 /* PassiveTrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC7F51322AA35C3004230C0 /* PassiveTrackingViewController.swift */; };
 		CAD207E622B8DF4100589BC0 /* BMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD207E522B8DF4100589BC0 /* BMButton.swift */; };
@@ -182,6 +185,9 @@
 		CAE6B14A2268DBBD00881B18 /* ProgramsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE6B1492268DBBD00881B18 /* ProgramsViewController.swift */; };
 		CAEA71CC22BE1FD1002A8B66 /* BodyCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEA71CB22BE1FD1002A8B66 /* BodyCellTableViewCell.swift */; };
 		CAEA71CE22BE255F002A8B66 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEA71CD22BE255F002A8B66 /* DiaryViewController.swift */; };
+		CAEEB01022C0F290002C3139 /* PassiveSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEEB00F22C0F290002C3139 /* PassiveSession.swift */; };
+		CAEEB01222C11321002C3139 /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEEB01122C11321002C3139 /* Measurement.swift */; };
+		CAEEB01422C13A6C002C3139 /* SavedBodyNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEEB01322C13A6C002C3139 /* SavedBodyNotification.swift */; };
 		CAFA5BE022AA788900AB4046 /* Passive.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFA5BDF22AA788900AB4046 /* Passive.swift */; };
 		D701F4DE223B998800D19574 /* TutorialUpperchestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D701F4DD223B998800D19574 /* TutorialUpperchestViewController.swift */; };
 		D70D9E86226084A200BC30F8 /* TapBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D9E85226084A200BC30F8 /* TapBarViewController.swift */; };
@@ -197,7 +203,7 @@
 		D7992AD2225C21D100C5C8F2 /* Quicksand 500.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7992ACE225C21CF00C5C8F2 /* Quicksand 500.ttf */; };
 		D7992AD3225C21D100C5C8F2 /* Quicksand 300.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7992ACF225C21D000C5C8F2 /* Quicksand 300.ttf */; };
 		D7992AD4225C21D100C5C8F2 /* Quicksand 700.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7992AD0225C21D000C5C8F2 /* Quicksand 700.ttf */; };
-		D79A36D32227C6DD0085D3FA /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79A36D22227C6DC0085D3FA /* HistoryViewController.swift */; };
+		D79A36D32227C6DD0085D3FA /* HistoryViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79A36D22227C6DC0085D3FA /* HistoryViewController2.swift */; };
 		D79A36D6222827E50085D3FA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79A36D5222827E50085D3FA /* Utils.swift */; };
 		D79A36D9222838820085D3FA /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79A36D8222838820085D3FA /* APIClient.swift */; };
 		D7A6AC9F22559A44001DD8F9 /* TutorialWearUpperchestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A6AC9E22559A44001DD8F9 /* TutorialWearUpperchestViewController.swift */; };
@@ -230,7 +236,7 @@
 		CA48E58922671D93002CFA19 /* UIColor+colorFromHex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+colorFromHex.swift"; sourceTree = "<group>"; };
 		CA48E58A22671D93002CFA19 /* UIColor+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Utils.swift"; sourceTree = "<group>"; };
 		CA603B79228053860019A648 /* SessionStartStopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStartStopCell.swift; sourceTree = "<group>"; };
-		CA69E8432278977900984324 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		CA69E8432278977900984324 /* TrainingSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingSession.swift; sourceTree = "<group>"; };
 		CA8F3F082289A9E600EBC02B /* SavedPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPattern.swift; sourceTree = "<group>"; };
 		CA97DB0E22296163002C5592 /* SessionTemp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTemp.swift; sourceTree = "<group>"; };
 		CA97DB102229893F002C5592 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -315,6 +321,9 @@
 		CAC191C1226E592F009E04B5 /* PranaExpandableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranaExpandableCell.swift; sourceTree = "<group>"; };
 		CAC36BCD2249A05E00B4FF1F /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
+		CAC4B96A22C03971006DD7E8 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		CAC4B96C22C03AEC006DD7E8 /* SuperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperViewController.swift; sourceTree = "<group>"; };
+		CAC4B96E22C03CAF006DD7E8 /* History.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = History.storyboard; sourceTree = "<group>"; };
 		CAC52F672282F8C1000CFF96 /* Program.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
 		CAC7F51322AA35C3004230C0 /* PassiveTrackingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassiveTrackingViewController.swift; sourceTree = "<group>"; };
 		CAD207E522B8DF4100589BC0 /* BMButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMButton.swift; sourceTree = "<group>"; };
@@ -390,6 +399,9 @@
 		CAE6B1492268DBBD00881B18 /* ProgramsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramsViewController.swift; sourceTree = "<group>"; };
 		CAEA71CB22BE1FD1002A8B66 /* BodyCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyCellTableViewCell.swift; sourceTree = "<group>"; };
 		CAEA71CD22BE255F002A8B66 /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
+		CAEEB00F22C0F290002C3139 /* PassiveSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassiveSession.swift; sourceTree = "<group>"; };
+		CAEEB01122C11321002C3139 /* Measurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Measurement.swift; sourceTree = "<group>"; };
+		CAEEB01322C13A6C002C3139 /* SavedBodyNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedBodyNotification.swift; sourceTree = "<group>"; };
 		CAFA5BDF22AA788900AB4046 /* Passive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Passive.swift; sourceTree = "<group>"; };
 		D701F4DD223B998800D19574 /* TutorialUpperchestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialUpperchestViewController.swift; sourceTree = "<group>"; };
 		D70D9E85226084A200BC30F8 /* TapBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBarViewController.swift; sourceTree = "<group>"; };
@@ -405,7 +417,7 @@
 		D7992ACE225C21CF00C5C8F2 /* Quicksand 500.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand 500.ttf"; sourceTree = "<group>"; };
 		D7992ACF225C21D000C5C8F2 /* Quicksand 300.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand 300.ttf"; sourceTree = "<group>"; };
 		D7992AD0225C21D000C5C8F2 /* Quicksand 700.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand 700.ttf"; sourceTree = "<group>"; };
-		D79A36D22227C6DC0085D3FA /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		D79A36D22227C6DC0085D3FA /* HistoryViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController2.swift; sourceTree = "<group>"; };
 		D79A36D5222827E50085D3FA /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		D79A36D8222838820085D3FA /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		D7A6AC9E22559A44001DD8F9 /* TutorialWearUpperchestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialWearUpperchestViewController.swift; sourceTree = "<group>"; };
@@ -472,6 +484,7 @@
 				AA17201A222670420080BD71 /* AppDelegate.swift */,
 				CA97DB102229893F002C5592 /* Constants.swift */,
 				AA172020222670420080BD71 /* Main.storyboard */,
+				CAC4B96E22C03CAF006DD7E8 /* History.storyboard */,
 				AA172025222670450080BD71 /* LaunchScreen.storyboard */,
 				AA172023222670450080BD71 /* Assets.xcassets */,
 				AA172028222670450080BD71 /* Info.plist */,
@@ -520,6 +533,7 @@
 				CA98921D2241286100D824B0 /* Training */,
 				CAC7F51222AA3567004230C0 /* Tracking */,
 				CAB1062822B8D2CF00A7D8A1 /* Body */,
+				CAC4B96922C03951006DD7E8 /* History */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -548,10 +562,13 @@
 			children = (
 				CAA21A1322777D090004F5E0 /* Prana.xcdatamodeld */,
 				CAA21A16227780F10004F5E0 /* DataController.swift */,
-				CA69E8432278977900984324 /* Session.swift */,
+				CA69E8432278977900984324 /* TrainingSession.swift */,
+				CAEEB00F22C0F290002C3139 /* PassiveSession.swift */,
 				CAC52F672282F8C1000CFF96 /* Program.swift */,
 				CA8F3F082289A9E600EBC02B /* SavedPattern.swift */,
 				CAADAFAE22947D5000518444 /* SessionSettings.swift */,
+				CAEEB01122C11321002C3139 /* Measurement.swift */,
+				CAEEB01322C13A6C002C3139 /* SavedBodyNotification.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -862,6 +879,7 @@
 			children = (
 				D70D9E85226084A200BC30F8 /* TapBarViewController.swift */,
 				D7C6AC1622611A77004A4388 /* TabTrainViewController.swift */,
+				CAC4B96C22C03AEC006DD7E8 /* SuperViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -871,7 +889,7 @@
 			children = (
 				CAD7D34D2229364D00F3C805 /* FirstViewController.swift */,
 				D7B12F5F2243972A002D2E0F /* PrepareViewController.swift */,
-				D79A36D22227C6DC0085D3FA /* HistoryViewController.swift */,
+				D79A36D22227C6DC0085D3FA /* HistoryViewController2.swift */,
 				CA97DB1222298BF1002C5592 /* HistoryTableViewController.swift */,
 				CA97DB0E22296163002C5592 /* SessionTemp.swift */,
 				CA97DB142229A546002C5592 /* SesseionRecordCell.swift */,
@@ -968,6 +986,14 @@
 				CAC36BCD2249A05E00B4FF1F /* TestData.swift */,
 			);
 			path = Test;
+			sourceTree = "<group>";
+		};
+		CAC4B96922C03951006DD7E8 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				CAC4B96A22C03971006DD7E8 /* HistoryViewController.swift */,
+			);
+			path = History;
 			sourceTree = "<group>";
 		};
 		CAC7F51222AA3567004230C0 /* Tracking */ = {
@@ -1153,6 +1179,7 @@
 				CAE670572271FCFB0099D72C /* stand (5).png in Resources */,
 				CAE670652271FCFB0099D72C /* sit (13).png in Resources */,
 				CAE6705B2271FCFB0099D72C /* sit (10).png in Resources */,
+				CAC4B96F22C03CAF006DD7E8 /* History.storyboard in Resources */,
 				CAE6704E2271FCFB0099D72C /* sit (14).png in Resources */,
 				CAE6706A2271FCFB0099D72C /* stand (30).png in Resources */,
 				CAE670512271FCFB0099D72C /* stand (17).png in Resources */,
@@ -1302,16 +1329,19 @@
 				CAAF9D1322737951003232C4 /* Optional+Extensions.swift in Sources */,
 				D79A36D6222827E50085D3FA /* Utils.swift in Sources */,
 				CAAF9D1522737952003232C4 /* Locale+Extensions.swift in Sources */,
+				CAC4B96B22C03971006DD7E8 /* HistoryViewController.swift in Sources */,
 				CAAF9D3822737952003232C4 /* GradientSlider.swift in Sources */,
 				CAA782E22285D20600EB5122 /* PatternsViewController.swift in Sources */,
 				CAAF9D1B22737952003232C4 /* LocaleInfo.swift in Sources */,
 				CAEA71CE22BE255F002A8B66 /* DiaryViewController.swift in Sources */,
 				CAAF9D2322737952003232C4 /* PhotoLibraryPickerViewController.swift in Sources */,
 				D7E145AD2236F50100991D34 /* ResetPasswordViewController.swift in Sources */,
-				CA69E8442278977900984324 /* Session.swift in Sources */,
+				CAEEB01022C0F290002C3139 /* PassiveSession.swift in Sources */,
+				CA69E8442278977900984324 /* TrainingSession.swift in Sources */,
 				CAA44A31224425EF0050D619 /* ConnectionTestViewController.swift in Sources */,
 				CA9892152240C86D00D824B0 /* Live.swift in Sources */,
 				CAAF9D3522737952003232C4 /* LikeButtonCell.swift in Sources */,
+				CAEEB01222C11321002C3139 /* Measurement.swift in Sources */,
 				CAA626BA229717BE0036FC31 /* BatteryStateView.swift in Sources */,
 				CAAB4ED5226E7FF9000C8802 /* ProgramChildCell.swift in Sources */,
 				CAAF9D2722737952003232C4 /* Location.swift in Sources */,
@@ -1354,6 +1384,7 @@
 				CA97DB112229893F002C5592 /* Constants.swift in Sources */,
 				CAAF9D0A22737951003232C4 /* UIView+Extensions.swift in Sources */,
 				CAAF9D1D22737952003232C4 /* PhoneCodeCell.swift in Sources */,
+				CAEEB01422C13A6C002C3139 /* SavedBodyNotification.swift in Sources */,
 				CAAF9D2E22737952003232C4 /* ColorPickerViewController.swift in Sources */,
 				CA98922222413B2300D824B0 /* LiveGraph.swift in Sources */,
 				CAD502F52231BCF500F97B31 /* PranaDeviceManager.swift in Sources */,
@@ -1369,7 +1400,7 @@
 				AA17201B222670420080BD71 /* AppDelegate.swift in Sources */,
 				AA7FE2D6222721130092E8A6 /* LoginViewController.swift in Sources */,
 				D71129382236932700145C4B /* ForgotPasswordViewController.swift in Sources */,
-				D79A36D32227C6DD0085D3FA /* HistoryViewController.swift in Sources */,
+				D79A36D32227C6DD0085D3FA /* HistoryViewController2.swift in Sources */,
 				D7A6AC9F22559A44001DD8F9 /* TutorialWearUpperchestViewController.swift in Sources */,
 				CAA782E42285F28A00EB5122 /* PatternCell.swift in Sources */,
 				D732BDB02255FC86008AFF76 /* TutorialWearLowerbackViewController.swift in Sources */,
@@ -1377,6 +1408,7 @@
 				CAAF9D1022737951003232C4 /* UISearchBar+Extensions.swift in Sources */,
 				D7BA349D22565D9100B4689E /* TutorialVisualViewController.swift in Sources */,
 				CAC191C2226E592F009E04B5 /* PranaExpandableCell.swift in Sources */,
+				CAC4B96D22C03AEC006DD7E8 /* SuperViewController.swift in Sources */,
 				CA01754B228C483C0085455F /* BackgroundTaskManager.swift in Sources */,
 				CAE2CF3F228985E000DCBAB5 /* CustomPatternViewController.swift in Sources */,
 				D7172B7822596179007AA168 /* VisualTrainingViewController.swift in Sources */,

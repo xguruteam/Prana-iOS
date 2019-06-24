@@ -12,7 +12,7 @@ import Alamofire
 
 class FirstViewController: UIViewController {
 
-    var currentSession: Session?
+    var currentSession: TrainingSession?
     var timer: Timer?
     
     var sessionElapsed: Int = 0

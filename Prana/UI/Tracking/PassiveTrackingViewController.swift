@@ -112,6 +112,10 @@ class PassiveTrackingViewController: UIViewController {
     var objLive: Live?
     var objPassive: Passive?
     
+    var currentSessionObject: PassiveSession?
+    
+    var slouchStartSeconds: Int = 0
+    
     var isLive = false
 
     override func viewDidLoad() {
@@ -185,6 +189,15 @@ class PassiveTrackingViewController: UIViewController {
         if isLive {
             PranaDeviceManager.shared.stopGettingLiveData()
         }
+        
+        currentSessionObject?.floorSessionDuration()
+        
+        if let session = currentSessionObject {
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
+                dataController.addRecord(passive: session)
+            }
+        }
+        
         self.dismiss(animated: true) {
             
         }
@@ -339,6 +352,8 @@ class PassiveTrackingViewController: UIViewController {
         self.btWearing1.isEnabled = false
         self.btWearing2.isEnabled = false
 
+        currentSessionObject = PassiveSession(startedAt: Date(), wearing: sessionWearing)
+        
         objPassive?.useBuzzerForPosture = switchSlouching.isOn ? 1 : 0
         objPassive?.buzzTimeTrigger = buzzIn
         
@@ -358,6 +373,12 @@ class PassiveTrackingViewController: UIViewController {
         
     }
     
+    func makeSessionObject() {
+        var duration = timeElapsed
+        if duration > 0, breathCount > 0 {
+            currentSessionObject?.duration = duration
+        }
+    }
     
     /*
     // MARK: - Navigation
@@ -404,6 +425,10 @@ extension PassiveTrackingViewController: LiveDelegate {
 
 extension PassiveTrackingViewController: PassiveDelegate {
     func passiveDidRespRate(currentRR: Double, avgRR: Double, breathCount: Int) {
+        if breathCount < breathCount {
+            // new breath
+            currentSessionObject?.addBreath(timeStamp: timeElapsed, isMindful: false, respRate: currentRR, eiRatio: Double(realTimeEI))
+        }
         DispatchQueue.main.async {
             self.breathCount = breathCount
             self.currentRR = Float(currentRR)
@@ -428,6 +453,20 @@ extension PassiveTrackingViewController: PassiveDelegate {
     }
     
     func passiveUprightTime(seconds: Int) {
+        if uprightSeconds == seconds {
+            // new slouch start
+            slouchStartSeconds = timeElapsed
+        }
+        else {
+            if uprightSeconds < seconds {
+                let slouchDuration = timeElapsed - slouchStartSeconds
+                if slouchStartSeconds > 0, slouchDuration > 0 {
+                    currentSessionObject?.addSlouch(timeStamp: slouchStartSeconds, duration: slouchDuration)
+                    // slouch end
+                }
+            }
+            slouchStartSeconds = 0
+        }
         DispatchQueue.main.async {
             self.uprightSeconds = seconds
         }
@@ -442,6 +481,7 @@ extension PassiveTrackingViewController: PassiveDelegate {
     func passiveTimeElapsed(elapsed: Int) {
         DispatchQueue.main.async {
             self.timeElapsed = elapsed
+            self.makeSessionObject()
         }
     }
     

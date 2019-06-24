@@ -16,7 +16,7 @@ enum BMSteps {
     case take
 }
 
-enum BMPosition: String {
+enum BMPosition: String, Codable {
     case neck = "NECK"
     case shoulders = "SHOULDERS"
     case chest = "CHEST"
@@ -37,7 +37,7 @@ enum BMPosition: String {
     case custom3 = "CUSTOM 3"
 }
 
-class BodyMeasurementsViewController: UIViewController {
+class BodyMeasurementsViewController: SuperViewController {
 
     @IBOutlet weak var bodyContainer: UIView!
     @IBOutlet weak var batteryStatus: BluetoothStateView!
@@ -75,6 +75,7 @@ class BodyMeasurementsViewController: UIViewController {
     ]
     
     var measurements: [BMPosition: Float] = [:]
+    var note: String?
     
     var position: BMPosition? {
         didSet {
@@ -241,6 +242,12 @@ class BodyMeasurementsViewController: UIViewController {
         
 //        NotificationCenter.default.addObserver(self, selector: #selector(onConnectViewControllerNextToSession), name: .connectViewControllerDidNextToSession, object: nil)
         
+        if let todayMeasurement = dataController.fetchDailyMeasurement(date: Date()) {
+            measurements = todayMeasurement.data
+            note = todayMeasurement.note
+            updateMeasurementValues()
+        }
+        
         PranaDeviceManager.shared.addDelegate(self)
         batteryStatus.isEnabled = PranaDeviceManager.shared.isConnected
         
@@ -318,7 +325,7 @@ class BodyMeasurementsViewController: UIViewController {
         }
     }
     
-    func changeMeasurementUnit() {
+    func updateMeasurementValues() {
         buttons.forEach { (key, button) in
             guard let measurement = measurements[key] else { return }
             button.value = applyUnit(original: measurement)
@@ -336,6 +343,13 @@ class BodyMeasurementsViewController: UIViewController {
         button?.value = applyUnit(original: measurement)
         
         measurements[position] = measurement
+
+        saveToLocalDB()
+    }
+    
+    func saveToLocalDB() {
+        let object = Measurement(date: Date(), note: note, data: measurements)
+        dataController.addRecord(body: object)
     }
     
     func applyUnit(original: Float) -> Float {
@@ -459,18 +473,24 @@ class BodyMeasurementsViewController: UIViewController {
             btnUnit.setTitle("Inches", for: .normal)
         }
         
-        changeMeasurementUnit()
+        updateMeasurementValues()
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if let target = segue.destination as? DiaryViewController {
+            target.note = note
+            target.noteChangeHandler = { [unowned self] newNote in
+                self.note = newNote
+                self.saveToLocalDB()
+            }
+        }
     }
-    */
 
 }
 

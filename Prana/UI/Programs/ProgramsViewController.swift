@@ -270,7 +270,7 @@ class ProgramsViewController: UIViewController {
         
         let center = appDelegate.notifications
         
-        center.removeAllNotifications()
+        center.removeNotifications(identifiers: ["ptrn0", "ptrn1", "ptrn2", "ptrn3", "ptrn4"])
         dataController?.dailyNotification = nil
         dataController?.saveSettings()
     }
@@ -287,7 +287,7 @@ class ProgramsViewController: UIViewController {
         let title = "Prana Reminder"
         let body = "Do a quick training session to help meet your breathing and posture goals today."
         
-        center.scheduleDailyNotification(title: title, body: body, date: notificationTime)
+        center.scheduleDailyNotification(title: title, body: body, date: notificationTime, identifier: "ptrn0")
         
         let calendar = Calendar.current
         
@@ -295,7 +295,7 @@ class ProgramsViewController: UIViewController {
             let nextTime = Date(timeInterval: 600 * 3 * Double(i), since: notificationTime)
             let components = calendar.dateComponents([.day], from: notificationTime, to: nextTime)
             if components.day > 0 { break }
-            center.scheduleDailyNotification(title: title, body: body, date: nextTime)
+            center.scheduleDailyNotification(title: title, body: body, date: nextTime, identifier: "ptrn\(i)")
         }
         
         dataController?.dailyNotification = notificationTime

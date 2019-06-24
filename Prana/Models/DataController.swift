@@ -10,6 +10,9 @@ import Foundation
 import CoreData
 import UIKit
 import SwiftyJSON
+import Firebase
+import Crashlytics
+import Fabric
 
 typealias SettingsManagedObject = NSManagedObject
 typealias SessionManagedObject = NSManagedObject
@@ -29,6 +32,7 @@ class DataController {
     
     var vtPattern: SavedPattern?
     var btPattern: SavedPattern?
+    var savedBodyNotification: SavedBodyNotification?
     
     var sessionSettings: SessionSettings?
     
@@ -72,6 +76,7 @@ class DataController {
 //        clearSettings()
 //        clearPrograms()
 //        clearSessions()
+//        clearLocalDB()
         #endif
         loadSettings()
     }
@@ -96,7 +101,11 @@ class DataController {
                 if let btString = settings.value(forKey: "btPattern") as? String {
                     btPattern = try JSONDecoder().decode(SavedPattern.self, from: btString.data(using: .utf8)!)
                 }
-                
+
+                if let bnString = settings.value(forKey: "savedBodyNotification") as? String {
+                    savedBodyNotification = try JSONDecoder().decode(SavedBodyNotification.self, from: bnString.data(using: .utf8)!)
+                }
+
                 if let sessionSettingsString = settings.value(forKey: "sessionSettings") as? String {
                     sessionSettings = try JSONDecoder().decode(SessionSettings.self, from: sessionSettingsString.data(using: .utf8)!)
                 }
@@ -115,11 +124,16 @@ class DataController {
                 vtPattern = SavedPattern(type: 0)
                 btPattern = SavedPattern(type: 0)
                 
+                savedBodyNotification = SavedBodyNotification()
+                
                 let vtString = try JSONEncoder().encode(vtPattern)
                 settings.setValue(String(data:vtString, encoding: .utf8)!, forKey: "vtPattern")
                 
                 let btString = try JSONEncoder().encode(btPattern)
                 settings.setValue(String(data:btString, encoding: .utf8)!, forKey: "btPattern")
+                
+                let bnString = try JSONEncoder().encode(savedBodyNotification)
+                settings.setValue(String(data:bnString, encoding: .utf8)!, forKey: "savedBodyNotification")
                 
                 sessionSettings = SessionSettings()
                 
@@ -159,6 +173,9 @@ class DataController {
                 let btString = try JSONEncoder().encode(btPattern)
                 settings.setValue(String(data:btString, encoding: .utf8)!, forKey: "btPattern")
                 
+                let bnString = try JSONEncoder().encode(savedBodyNotification)
+                settings.setValue(String(data:bnString, encoding: .utf8)!, forKey: "savedBodyNotification")
+                
                 let sessionSettingsString = try JSONEncoder().encode(sessionSettings)
                 settings.setValue(String(data:sessionSettingsString, encoding: .utf8)!, forKey: "sessionSettings")
                 
@@ -195,72 +212,171 @@ class DataController {
         }
     }
     
-    func addSessionRecord(_ session: Session) {
+    func addRecord(training session: TrainingSession) {
         guard let managedContext = managedObjectContext else { return }
-        let sessionEntity = NSEntityDescription.entity(forEntityName: "Sessions", in: managedContext)!
-        
-        let result = SessionMO(entity: sessionEntity, insertInto: managedContext)
-        result.startedAt = session.startedAt
-        result.kind = Int32(session.kind)
-        result.duration = Int32(session.duration)
-        result.mindful = Int32(session.mindful)
-        result.upright = Int32(session.upright)
-        result.slouches = session.slouches.map {
-            ["timeStamp" : $0.timeStamp]
-        }
-        
-        result.breaths = session.breaths.map {
-            ["timeStamp" : $0.timeStamp,
-             "isMindful": $0.isMindful]
-        }
-        
         do {
+            let sessionEntity = NSEntityDescription.entity(forEntityName: "LocalDB", in: managedContext)!
+            
+            let result = LocalDB(entity: sessionEntity, insertInto: managedContext)
+            result.id = UUID().uuidString
+            result.type = "TS"
+            result.time = session.startedAt
+            
+            let data = try JSONEncoder().encode(session)
+            result.data = String(data:data, encoding: .utf8)!
+            
+            result.flag = true
+            
             try managedContext.save()
         }
         catch {
+            Crashlytics.sharedInstance().recordError(error)
             print(error)
         }
     }
     
-    func fetchSessions() -> [Session] {
-        guard let managedContext = managedObjectContext else { return [] }
-        let fetchRequest = NSFetchRequest<SessionMO>(entityName: "Sessions")
+    func addRecord(passive session: PassiveSession) {
+        guard let managedContext = managedObjectContext else { return }
+        do {
+            let sessionEntity = NSEntityDescription.entity(forEntityName: "LocalDB", in: managedContext)!
+            
+            let result = LocalDB(entity: sessionEntity, insertInto: managedContext)
+            result.id = UUID().uuidString
+            result.type = "PS"
+            result.time = session.startedAt
+            
+            let data = try JSONEncoder().encode(session)
+            result.data = String(data:data, encoding: .utf8)!
+            
+            result.flag = true
+            
+            try managedContext.save()
+        }
+        catch {
+            Crashlytics.sharedInstance().recordError(error)
+            print(error)
+        }
+    }
+    
+    func addRecord(body measurement: Measurement) {
+        guard let managedContext = managedObjectContext else { return }
+        let fetchRequest = NSFetchRequest<LocalDB>(entityName: "LocalDB")
+        let date = measurement.date
         
         do {
             let result = try managedContext.fetch(fetchRequest)
-            let sessions = result.map(self.toSession)
             
-            return sessions as! [Session]
+            let todayMeasurement = result.filter { (object) -> Bool in
+                guard object.type == "BM" else { return false }
+                
+                guard let createdAt = object.time else { return false }
+                let diffInDays = Calendar.current.dateComponents([.day], from: createdAt, to: date).day
+                guard diffInDays == 0 else { return false }
+                return true
+            }.first
+            
+            if let object = todayMeasurement {
+                object.time = date
+                let data = try JSONEncoder().encode(measurement)
+                object.data = String(data:data, encoding: .utf8)!
+                object.flag = true
+            }
+            else {
+                let sessionEntity = NSEntityDescription.entity(forEntityName: "LocalDB", in: managedContext)!
+                
+                let result = LocalDB(entity: sessionEntity, insertInto: managedContext)
+                result.id = UUID().uuidString
+                result.type = "BM"
+                result.time = measurement.date
+                
+                let data = try JSONEncoder().encode(measurement)
+                result.data = String(data:data, encoding: .utf8)!
+                
+                result.flag = true
+            }
+            
+            
+            try managedContext.save()
+        }
+        catch {
+            Crashlytics.sharedInstance().recordError(error)
+            print(error)
+        }
+    }
+    
+    func fetchDailySessions(date: Date) -> [AnyObject] {
+        guard let managedContext = managedObjectContext else { return [] }
+        let fetchRequest = NSFetchRequest<LocalDB>(entityName: "LocalDB")
+        
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            let sessions = result.filter { (object) -> Bool in
+                guard object.type == "TS" || object.type == "PS" else { return false }
+                
+                guard let createdAt = object.time else { return false }
+                let diffInDays = Calendar.current.dateComponents([.day], from: createdAt, to: date).day
+                guard diffInDays == 0 else { return false }
+                return true
+                }.map { (object) -> AnyObject in
+                    let data = object.data!
+                    do {
+                        if object.type == "TS" {
+                            let session = try JSONDecoder().decode(TrainingSession.self, from: data.data(using: .utf8)!)
+                            return session
+                        } else {
+                            let session = try JSONDecoder().decode(PassiveSession.self, from: data.data(using: .utf8)!)
+                            return session
+                        }
+                    } catch {
+                        Crashlytics.sharedInstance().recordError(error)
+                    }
+                    return TrainingSession(startedAt: Date(), type: 0, kind: 0, pattern: 0, wearing: 0)
+            }
+            return sessions
+            
         } catch let error as NSError {
             NSLog("Could not fetch readings. \(error), \(error.userInfo)")
         }
+        
         return []
     }
     
-    func toSession(_ object: SessionMO) -> Session? {
-        if let duration = object.value(forKey: "duration") as? Int,
-            let mindful = object.value(forKey: "mindful") as? Int,
-            let upright = object.value(forKey: "upright") as? Int,
-            let kind = object.value(forKey: "kind") as? Int,
-        let startedAt = object.startedAt {
-            let session = Session(startedAt: startedAt, kind: kind)
-            session.duration = duration
-            session.mindful = mindful
-            session.upright = upright
-            session.slouches = object.slouches!.map({ (item) -> SlouchRecord in
-                return SlouchRecord(item["timeStamp"] as! Int)
-            })
-            session.breaths = object.breaths!.map({ (item) -> BreathRecord in
-                return BreathRecord(timeStamp: item["timeStamp"] as! Int, isMindful: item["isMindful"] as! Bool)
-            })
-            return session
+    func fetchDailyMeasurement(date: Date) -> Measurement? {
+        guard let managedContext = managedObjectContext else { return nil }
+        let fetchRequest = NSFetchRequest<LocalDB>(entityName: "LocalDB")
+        
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            let sessions = result.filter { (object) -> Bool in
+                guard object.type == "BM" else { return false }
+                
+                guard let createdAt = object.time else { return false }
+                let diffInDays = Calendar.current.dateComponents([.day], from: createdAt, to: date).day
+                guard diffInDays == 0 else { return false }
+                return true
+                }.map { (object) -> Measurement? in
+                    let data = object.data!
+                    do {
+                        let measurement = try JSONDecoder().decode(Measurement.self, from: data.data(using: .utf8)!)
+                        return measurement
+                    } catch {
+                        Crashlytics.sharedInstance().recordError(error)
+                    }
+                    return nil
+            }
+            guard let last = sessions.last else { return nil }
+            return last
+            
+        } catch let error as NSError {
+            NSLog("Could not fetch readings. \(error), \(error.userInfo)")
         }
+        
         return nil
     }
     
-    func clearSessions() {
+    func clearLocalDB() {
         guard let managedContext = managedObjectContext else { return }
-        let fetchRequest = NSFetchRequest<SessionManagedObject>(entityName: "Sessions")
+        let fetchRequest = NSFetchRequest<LocalDB>(entityName: "LocalDB")
         do {
             let result = try managedContext.fetch(fetchRequest)
             
