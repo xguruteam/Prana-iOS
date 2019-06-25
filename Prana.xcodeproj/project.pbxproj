@@ -188,6 +188,10 @@
 		CAEEB01022C0F290002C3139 /* PassiveSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEEB00F22C0F290002C3139 /* PassiveSession.swift */; };
 		CAEEB01222C11321002C3139 /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEEB01122C11321002C3139 /* Measurement.swift */; };
 		CAEEB01422C13A6C002C3139 /* SavedBodyNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEEB01322C13A6C002C3139 /* SavedBodyNotification.swift */; };
+		CAEEB01622C15BF4002C3139 /* SessionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEEB01522C15BF4002C3139 /* SessionHistoryViewController.swift */; };
+		CAEEB01822C15C27002C3139 /* DailyCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEEB01722C15C27002C3139 /* DailyCell1.swift */; };
+		CAEEB01A22C15C39002C3139 /* DailyCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEEB01922C15C39002C3139 /* DailyCell2.swift */; };
+		CAEEB01C22C18F98002C3139 /* SessionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEEB01B22C18F98002C3139 /* SessionDetailViewController.swift */; };
 		CAFA5BE022AA788900AB4046 /* Passive.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFA5BDF22AA788900AB4046 /* Passive.swift */; };
 		D701F4DE223B998800D19574 /* TutorialUpperchestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D701F4DD223B998800D19574 /* TutorialUpperchestViewController.swift */; };
 		D70D9E86226084A200BC30F8 /* TapBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D9E85226084A200BC30F8 /* TapBarViewController.swift */; };
@@ -402,6 +406,10 @@
 		CAEEB00F22C0F290002C3139 /* PassiveSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassiveSession.swift; sourceTree = "<group>"; };
 		CAEEB01122C11321002C3139 /* Measurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Measurement.swift; sourceTree = "<group>"; };
 		CAEEB01322C13A6C002C3139 /* SavedBodyNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedBodyNotification.swift; sourceTree = "<group>"; };
+		CAEEB01522C15BF4002C3139 /* SessionHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHistoryViewController.swift; sourceTree = "<group>"; };
+		CAEEB01722C15C27002C3139 /* DailyCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCell1.swift; sourceTree = "<group>"; };
+		CAEEB01922C15C39002C3139 /* DailyCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCell2.swift; sourceTree = "<group>"; };
+		CAEEB01B22C18F98002C3139 /* SessionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailViewController.swift; sourceTree = "<group>"; };
 		CAFA5BDF22AA788900AB4046 /* Passive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Passive.swift; sourceTree = "<group>"; };
 		D701F4DD223B998800D19574 /* TutorialUpperchestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialUpperchestViewController.swift; sourceTree = "<group>"; };
 		D70D9E85226084A200BC30F8 /* TapBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBarViewController.swift; sourceTree = "<group>"; };
@@ -992,6 +1000,10 @@
 			isa = PBXGroup;
 			children = (
 				CAC4B96A22C03971006DD7E8 /* HistoryViewController.swift */,
+				CAEEB01522C15BF4002C3139 /* SessionHistoryViewController.swift */,
+				CAEEB01722C15C27002C3139 /* DailyCell1.swift */,
+				CAEEB01922C15C39002C3139 /* DailyCell2.swift */,
+				CAEEB01B22C18F98002C3139 /* SessionDetailViewController.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -1289,6 +1301,7 @@
 				CA0D604A22BC4B270057DCF7 /* HelpBodyMeasurementsViewController.swift in Sources */,
 				CAADAFAD229460EE00518444 /* Notifications.swift in Sources */,
 				CAAF9D1722737952003232C4 /* AttributedTextBlock.swift in Sources */,
+				CAEEB01622C15BF4002C3139 /* SessionHistoryViewController.swift in Sources */,
 				CAAF9D2622737952003232C4 /* SearchHistoryManager.swift in Sources */,
 				CAAF9D2A22737952003232C4 /* ContactsPickerViewController.swift in Sources */,
 				CAAF9D0822737951003232C4 /* UIImageView+Extensions.swift in Sources */,
@@ -1349,6 +1362,7 @@
 				D7B12F602243972A002D2E0F /* PrepareViewController.swift in Sources */,
 				D71D37462253527300D98376 /* PranaDesignableView.swift in Sources */,
 				CAAF9D3622737952003232C4 /* Label.swift in Sources */,
+				CAEEB01C22C18F98002C3139 /* SessionDetailViewController.swift in Sources */,
 				CAAF9D1F22737952003232C4 /* CountryCell.swift in Sources */,
 				CA8F3F092289A9E600EBC02B /* SavedPattern.swift in Sources */,
 				CAAF9D1422737951003232C4 /* Common+Extensions.swift in Sources */,
@@ -1356,6 +1370,7 @@
 				D73610002239C70700CCAD48 /* TutorialStartViewController.swift in Sources */,
 				CAAF9D0C22737951003232C4 /* String+Extensions.swift in Sources */,
 				CAAF9D1622737952003232C4 /* UITextField+Extensions.swift in Sources */,
+				CAEEB01822C15C27002C3139 /* DailyCell1.swift in Sources */,
 				CAAF9D1822737952003232C4 /* TextViewController.swift in Sources */,
 				CAAF9D2022737952003232C4 /* TwoTextFieldsViewController.swift in Sources */,
 				CA97DB152229A546002C5592 /* SesseionRecordCell.swift in Sources */,
@@ -1400,6 +1415,7 @@
 				AA17201B222670420080BD71 /* AppDelegate.swift in Sources */,
 				AA7FE2D6222721130092E8A6 /* LoginViewController.swift in Sources */,
 				D71129382236932700145C4B /* ForgotPasswordViewController.swift in Sources */,
+				CAEEB01A22C15C39002C3139 /* DailyCell2.swift in Sources */,
 				D79A36D32227C6DD0085D3FA /* HistoryViewController2.swift in Sources */,
 				D7A6AC9F22559A44001DD8F9 /* TutorialWearUpperchestViewController.swift in Sources */,
 				CAA782E42285F28A00EB5122 /* PatternCell.swift in Sources */,

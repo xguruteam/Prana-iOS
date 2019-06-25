@@ -30,6 +30,12 @@ class SuperViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    func getViewController(storyboard: String, identifier: String) -> UIViewController {
+        let storyboard = UIStoryboard(name: storyboard, bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: identifier)
+        return controller;
+    }
+    
 
     /*
     // MARK: - Navigation
