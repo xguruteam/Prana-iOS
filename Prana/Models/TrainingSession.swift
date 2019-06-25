@@ -11,6 +11,14 @@ import Foundation
 class TrainingSession: Codable {
     var startedAt: Date
     var type: Int // 0: Visual, 1: Buzzer
+    var typeString: String {
+        switch type {
+        case 0:
+            return "Visual Training"
+        default:
+            return "Buzzer Training"
+        }
+    }
     var kind: Int // 0: Breath & Posture, 1: Breath Only, 2: Posture Only
     var kindString: String {
         switch kind {

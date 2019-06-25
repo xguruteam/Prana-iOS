@@ -425,7 +425,7 @@ extension PassiveTrackingViewController: LiveDelegate {
 
 extension PassiveTrackingViewController: PassiveDelegate {
     func passiveDidRespRate(currentRR: Double, avgRR: Double, breathCount: Int) {
-        if breathCount < breathCount {
+        if self.breathCount < breathCount {
             // new breath
             currentSessionObject?.addBreath(timeStamp: timeElapsed, isMindful: false, respRate: currentRR, eiRatio: Double(realTimeEI))
         }

@@ -104,6 +104,11 @@
 		CAAF9D3A22737952003232C4 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF9D0522737951003232C4 /* Button.swift */; };
 		CAB1062A22B8D2EB00A7D8A1 /* BodyMeasurementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB1062922B8D2EB00A7D8A1 /* BodyMeasurementsViewController.swift */; };
 		CAB2AFDD227AAE570085146C /* PranaCircleProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2AFDC227AAE570085146C /* PranaCircleProgressView.swift */; };
+		CAC1250D22C2463B008D6C7D /* RRGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1250C22C2463B008D6C7D /* RRGraph.swift */; };
+		CAC1250F22C247F2008D6C7D /* PostureBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1250E22C247F2008D6C7D /* PostureBar.swift */; };
+		CAC1251422C2588A008D6C7D /* ChartSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1251122C25889008D6C7D /* ChartSeries.swift */; };
+		CAC1251522C2588A008D6C7D /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1251222C25889008D6C7D /* Chart.swift */; };
+		CAC1251622C2588A008D6C7D /* ChartColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1251322C25889008D6C7D /* ChartColors.swift */; };
 		CAC191C2226E592F009E04B5 /* PranaExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC191C1226E592F009E04B5 /* PranaExpandableCell.swift */; };
 		CAC36BCE2249A05E00B4FF1F /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC36BCD2249A05E00B4FF1F /* TestData.swift */; };
 		CAC46CCD223A8E95004691F4 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */; };
@@ -322,6 +327,11 @@
 		CAAF9D0522737951003232C4 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		CAB1062922B8D2EB00A7D8A1 /* BodyMeasurementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyMeasurementsViewController.swift; sourceTree = "<group>"; };
 		CAB2AFDC227AAE570085146C /* PranaCircleProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PranaCircleProgressView.swift; sourceTree = "<group>"; };
+		CAC1250C22C2463B008D6C7D /* RRGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRGraph.swift; sourceTree = "<group>"; };
+		CAC1250E22C247F2008D6C7D /* PostureBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureBar.swift; sourceTree = "<group>"; };
+		CAC1251122C25889008D6C7D /* ChartSeries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartSeries.swift; sourceTree = "<group>"; };
+		CAC1251222C25889008D6C7D /* Chart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
+		CAC1251322C25889008D6C7D /* ChartColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartColors.swift; sourceTree = "<group>"; };
 		CAC191C1226E592F009E04B5 /* PranaExpandableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranaExpandableCell.swift; sourceTree = "<group>"; };
 		CAC36BCD2249A05E00B4FF1F /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
@@ -973,6 +983,16 @@
 			path = Animation;
 			sourceTree = "<group>";
 		};
+		CAC1251022C25889008D6C7D /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				CAC1251122C25889008D6C7D /* ChartSeries.swift */,
+				CAC1251222C25889008D6C7D /* Chart.swift */,
+				CAC1251322C25889008D6C7D /* ChartColors.swift */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
 		CAC191C0226E58FB009E04B5 /* Reusable */ = {
 			isa = PBXGroup;
 			children = (
@@ -999,11 +1019,14 @@
 		CAC4B96922C03951006DD7E8 /* History */ = {
 			isa = PBXGroup;
 			children = (
+				CAC1251022C25889008D6C7D /* Chart */,
 				CAC4B96A22C03971006DD7E8 /* HistoryViewController.swift */,
 				CAEEB01522C15BF4002C3139 /* SessionHistoryViewController.swift */,
 				CAEEB01722C15C27002C3139 /* DailyCell1.swift */,
 				CAEEB01922C15C39002C3139 /* DailyCell2.swift */,
 				CAEEB01B22C18F98002C3139 /* SessionDetailViewController.swift */,
+				CAC1250C22C2463B008D6C7D /* RRGraph.swift */,
+				CAC1250E22C247F2008D6C7D /* PostureBar.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -1303,6 +1326,7 @@
 				CAAF9D1722737952003232C4 /* AttributedTextBlock.swift in Sources */,
 				CAEEB01622C15BF4002C3139 /* SessionHistoryViewController.swift in Sources */,
 				CAAF9D2622737952003232C4 /* SearchHistoryManager.swift in Sources */,
+				CAC1250D22C2463B008D6C7D /* RRGraph.swift in Sources */,
 				CAAF9D2A22737952003232C4 /* ContactsPickerViewController.swift in Sources */,
 				CAAF9D0822737951003232C4 /* UIImageView+Extensions.swift in Sources */,
 				CAA21A1522777D090004F5E0 /* Prana.xcdatamodeld in Sources */,
@@ -1333,6 +1357,7 @@
 				CA48E58822664A5B002CFA19 /* LiveFeedViewController.swift in Sources */,
 				CAAF9D3722737952003232C4 /* SegmentedControl.swift in Sources */,
 				D77D3BF1223AA17E0022E86C /* TutorialEndViewController.swift in Sources */,
+				CAC1251422C2588A008D6C7D /* ChartSeries.swift in Sources */,
 				CAAF9D2222737952003232C4 /* Assets.swift in Sources */,
 				CA98921F2241353B00D824B0 /* TSCDesignableView.swift in Sources */,
 				CAAC19822270D2EF001DC02D /* PranaDropDown.swift in Sources */,
@@ -1343,6 +1368,8 @@
 				D79A36D6222827E50085D3FA /* Utils.swift in Sources */,
 				CAAF9D1522737952003232C4 /* Locale+Extensions.swift in Sources */,
 				CAC4B96B22C03971006DD7E8 /* HistoryViewController.swift in Sources */,
+				CAC1250F22C247F2008D6C7D /* PostureBar.swift in Sources */,
+				CAC1251522C2588A008D6C7D /* Chart.swift in Sources */,
 				CAAF9D3822737952003232C4 /* GradientSlider.swift in Sources */,
 				CAA782E22285D20600EB5122 /* PatternsViewController.swift in Sources */,
 				CAAF9D1B22737952003232C4 /* LocaleInfo.swift in Sources */,
@@ -1424,6 +1451,7 @@
 				CAAF9D1022737951003232C4 /* UISearchBar+Extensions.swift in Sources */,
 				D7BA349D22565D9100B4689E /* TutorialVisualViewController.swift in Sources */,
 				CAC191C2226E592F009E04B5 /* PranaExpandableCell.swift in Sources */,
+				CAC1251622C2588A008D6C7D /* ChartColors.swift in Sources */,
 				CAC4B96D22C03AEC006DD7E8 /* SuperViewController.swift in Sources */,
 				CA01754B228C483C0085455F /* BackgroundTaskManager.swift in Sources */,
 				CAE2CF3F228985E000DCBAB5 /* CustomPatternViewController.swift in Sources */,

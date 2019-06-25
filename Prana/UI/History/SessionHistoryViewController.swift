@@ -225,6 +225,14 @@ extension SessionHistoryViewController: UITableViewDelegate, UITableViewDataSour
         if rangeType == .daily {
             if indexPath.section != 0 {
                 let vc = getViewController(storyboard: "History", identifier: "SessionDetailViewController") as! SessionDetailViewController
+                if let session = currentSessions[indexPath.row] as? TrainingSession {
+                    vc.type = .session
+                    vc.session = session
+                } else {
+                    let passive = currentSessions[indexPath.row] as! PassiveSession
+                    vc.type = .passive
+                    vc.passive = passive
+                }
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
