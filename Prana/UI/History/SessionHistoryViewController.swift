@@ -42,19 +42,16 @@ class SessionHistoryViewController: SuperViewController {
         case weekly
     }
     
-    enum SessionType {
-        case session
-        case passive
-    }
-    
     var rangeType: RangeType = .daily {
         didSet {
             if rangeType == .daily {
                 btnRangeType1.isClicked = true
                 btnRangeType2.isClicked = false
+                reloadDailySessionData()
             } else {
                 btnRangeType1.isClicked = false
                 btnRangeType2.isClicked = true
+                reloadWeeklySessionData()
             }
         }
     }
@@ -63,7 +60,11 @@ class SessionHistoryViewController: SuperViewController {
 
     var currentDate: Date = Date() {
         didSet {
-            reloadDailySessionData()
+            if rangeType == .daily {
+                reloadDailySessionData()
+            } else {
+                reloadWeeklySessionData()
+            }
         }
     }
     
@@ -175,6 +176,24 @@ class SessionHistoryViewController: SuperViewController {
     }
     
     
+    var type: SessionType = .session {
+        didSet {
+            if rangeType == .weekly {
+                reloadWeeklySessionData()
+            }
+        }
+    }
+    
+    func reloadWeeklySessionData() {
+        guard rangeType == .weekly else { return }
+        if type == .session {
+            currentSessions = dataController.fetchWeeklySessions(date: currentDate, type: "TS")
+        } else {
+            currentSessions = dataController.fetchWeeklySessions(date: currentDate, type: "PS")
+        }
+        
+        tableView.reloadData()
+    }
     /*
     // MARK: - Navigation
 
@@ -193,7 +212,7 @@ extension SessionHistoryViewController: UITableViewDelegate, UITableViewDataSour
         if rangeType == .daily {
             return 2
         }
-        return 0
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -202,7 +221,7 @@ extension SessionHistoryViewController: UITableViewDelegate, UITableViewDataSour
             return currentSessions.count
         }
         
-        return 0
+        return 2
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -218,7 +237,10 @@ extension SessionHistoryViewController: UITableViewDelegate, UITableViewDataSour
             return 120
         }
         
-        return 40
+        if indexPath.row == 0 {
+            return 67
+        }
+        return 576
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -267,6 +289,53 @@ extension SessionHistoryViewController: UITableViewDelegate, UITableViewDataSour
             cell.lblTime.text = passive.startedAt.timeString()
 //            cell.summaryView.text = passive.summary
             cell.lblSummary.text = passive.summary
+            return cell
+        }
+        
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "WeeklyCell1") as! WeeklyCell1
+            
+            if type == .session {
+                cell.btnTraining.isClicked = true
+                cell.btnTracking.isClicked = false
+            } else  {
+                cell.btnTraining.isClicked = false
+                cell.btnTracking.isClicked = true
+            }
+            cell.typeChangeHandler = { [unowned self] type in
+                self.type = (type == 0 ? .session : .passive)
+            }
+            
+            return cell
+        }
+        
+        if type == .session {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "WeeklyCell2") as! WeeklyCell2
+            cell.type = .session
+            cell.date = currentDate
+            cell.sessions = currentSessions as! [TrainingSession]
+            cell.weekChangeHandler = { [unowned self] direction in
+                if direction < 0 {
+                    self.currentDate = self.currentDate.adding(.day, value: -7)
+                } else {
+                    self.currentDate = self.currentDate.adding(.day, value: 7)
+                }
+            }
+            
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "WeeklyCell2") as! WeeklyCell2
+            cell.type = .passive
+            cell.date = currentDate
+            cell.passives = currentSessions as! [PassiveSession]
+            cell.weekChangeHandler = { [unowned self] direction in
+                if direction < 0 {
+                    self.currentDate = self.currentDate.adding(.day, value: -7)
+                } else {
+                    self.currentDate = self.currentDate.adding(.day, value: 7)
+                }
+            }
+            
             return cell
         }
         

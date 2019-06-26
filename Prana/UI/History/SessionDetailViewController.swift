@@ -295,11 +295,6 @@ class SessionDetailViewController: SuperViewController {
         renderSessionData()
     }
     
-    enum SessionType {
-        case session
-        case passive
-    }
-    
     var type: SessionType = .session
     
     var session: TrainingSession!

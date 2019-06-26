@@ -88,22 +88,22 @@ class TrainingSession: Codable {
         
         if kind == 0 {
             breathTime += duration
-            let sum = sumMindfulTime(breaths)
+            let sum = sumMindfulTime()
             mindfulTime += sum.0
             rrSum += sum.1
             
             postureTime += duration
-            slouchTime += sumSlouchTime(slouches)
+            slouchTime += sumSlouchTime()
             sessionCount += 1
         } else if kind == 1 {
             breathTime += duration
-            let sum = sumMindfulTime(breaths)
+            let sum = sumMindfulTime()
             mindfulTime += sum.0
             rrSum += sum.1
             sessionCount += 1
         } else {
             postureTime += duration
-            slouchTime += sumSlouchTime(slouches)
+            slouchTime += sumSlouchTime()
         }
         
         if sessionCount > 0 {
@@ -141,7 +141,7 @@ class TrainingSession: Codable {
         """
     }
     
-    func sumMindfulTime(_ breaths: [BreathRecord]) -> (Int, Double) {
+    func sumMindfulTime() -> (Int, Double) {
         var mindfulTime = 0
         var avgRR: Double = 0
         for i in 0..<breaths.count {
@@ -156,13 +156,13 @@ class TrainingSession: Codable {
             avgRR += breath.respRate
         }
         if breaths.count > 0 {
-            avgRR += (avgRR / Double(breaths.count))
+            avgRR = (avgRR / Double(breaths.count))
         }
         
         return (mindfulTime, avgRR)
     }
     
-    func sumSlouchTime(_ slouches: [SlouchRecord]) -> Int {
+    func sumSlouchTime() -> Int {
         var slouchTime = 0
         for i in 0..<slouches.count {
             let slouch = slouches[i]

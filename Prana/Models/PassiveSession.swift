@@ -51,7 +51,6 @@ class PassiveSession: Codable {
     
     var summary: String {
         var breathTime = 0
-        var mindfulTime = 0
         var rrSum: Double = 0
         var sessionCount = 0
         
@@ -60,12 +59,11 @@ class PassiveSession: Codable {
         var slouchTime = 0
         
         breathTime += duration
-        let sum = sumMindfulTime(breaths)
-        mindfulTime += sum.0
+        let sum = sumEIRatio()
         rrSum += sum.1
         
         postureTime += duration
-        slouchTime += sumSlouchTime(slouches)
+        slouchTime += sumSlouchTime()
         sessionCount += 1
 
         
@@ -83,28 +81,23 @@ class PassiveSession: Codable {
         """
     }
     
-    func sumMindfulTime(_ breaths: [BreathRecord]) -> (Int, Double) {
-        var mindfulTime = 0
+    func sumEIRatio() -> (Double, Double) {
+        var avgEI: Double = 0
         var avgRR: Double = 0
         for i in 0..<breaths.count {
             let breath = breaths[i]
-            if breath.isMindful {
-                if i == 0 {
-                    mindfulTime += breath.timeStamp
-                } else {
-                    mindfulTime += (breath.timeStamp - breaths[i - 1].timeStamp)
-                }
-            }
+            avgEI += breath.eiRatio
             avgRR += breath.respRate
         }
         if breaths.count > 0 {
+            avgEI += (avgEI / Double(breaths.count))
             avgRR += (avgRR / Double(breaths.count))
         }
         
-        return (mindfulTime, avgRR)
+        return (avgEI, avgRR)
     }
     
-    func sumSlouchTime(_ slouches: [SlouchRecord]) -> Int {
+    func sumSlouchTime() -> Int {
         var slouchTime = 0
         for i in 0..<slouches.count {
             let slouch = slouches[i]

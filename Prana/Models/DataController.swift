@@ -341,6 +341,51 @@ class DataController {
         return []
     }
     
+    func fetchWeeklySessions(date: Date, type: String) -> [AnyObject] {
+        guard let managedContext = managedObjectContext else { return [] }
+        let fetchRequest = NSFetchRequest<LocalDB>(entityName: "LocalDB")
+        
+        let begin = date.previous(.monday, considerToday: true)
+        let end = date.next(.sunday, considerToday: true)
+        
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            let sessions = result.filter { (object) -> Bool in
+                guard object.type == type else { return false }
+                
+                guard let createdAt = object.time else { return false }
+                return (begin...end).contains(createdAt)
+                
+                }.map { (object) -> AnyObject in
+                    let data = object.data!
+                    do {
+                        if object.type == "TS" {
+                            let session = try JSONDecoder().decode(TrainingSession.self, from: data.data(using: .utf8)!)
+                            return session
+                        } else {
+                            let session = try JSONDecoder().decode(PassiveSession.self, from: data.data(using: .utf8)!)
+                            return session
+                        }
+                    } catch {
+                        Crashlytics.sharedInstance().recordError(error)
+                    }
+                    
+                    if object.type == "TS" {
+                        return TrainingSession(startedAt: Date(), type: 0, kind: 0, pattern: 0, wearing: 0)
+                    } else {
+                        return PassiveSession(startedAt: Date(), wearing: 0)
+                    }
+                    
+            }
+            return sessions
+            
+        } catch let error as NSError {
+            NSLog("Could not fetch readings. \(error), \(error.userInfo)")
+        }
+        
+        return []
+    }
+    
     func fetchDailyMeasurement(date: Date) -> Measurement? {
         guard let managedContext = managedObjectContext else { return nil }
         let fetchRequest = NSFetchRequest<LocalDB>(entityName: "LocalDB")

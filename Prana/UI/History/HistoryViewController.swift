@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum SessionType {
+    case session
+    case passive
+}
+
 class HistoryViewController: SuperViewController {
 
     override func viewDidLoad() {
@@ -18,11 +23,6 @@ class HistoryViewController: SuperViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        DispatchQueue.main.async {
-            let todaySession = self.dataController.fetchDailySessions(date: Date())
-            
-            print(todaySession)
-        }
     }
     
 

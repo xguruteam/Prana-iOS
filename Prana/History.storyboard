@@ -241,6 +241,9 @@
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bCX-92-rDZ" customClass="PranaButton" customModule="Prana" customModuleProvider="target">
                                                     <rect key="frame" x="192.5" y="0.0" width="162.5" height="45"/>
                                                     <state key="normal" title="Weekly"/>
+                                                    <connections>
+                                                        <action selector="onChangeRangeType:" destination="As6-wB-63z" eventType="touchUpInside" id="IVc-EV-rZF"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -384,6 +387,168 @@ Upright Posture: 88%, Slouches: 5, Lower Back</string>
                                             <outlet property="summaryView" destination="dCA-No-eCL" id="Ztp-9B-XJD"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WeeklyCell1" rowHeight="67" id="ciX-Mx-LEL" customClass="WeeklyCell1" customModule="Prana" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="510" width="375" height="67"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ciX-Mx-LEL" id="pic-tr-2tN">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="66.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mht-n5-s5e">
+                                                    <rect key="frame" x="0.0" y="10" width="375" height="45"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KM7-Ky-0XF" customClass="PranaButton" customModule="Prana" customModuleProvider="target">
+                                                            <rect key="frame" x="20" y="0.0" width="162.5" height="45"/>
+                                                            <state key="normal" title="Training"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isClicked" value="YES"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="onButtonClick:" destination="ciX-Mx-LEL" eventType="touchUpInside" id="Xeb-qJ-Y9f"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ttx-f9-n4S" customClass="PranaButton" customModule="Prana" customModuleProvider="target">
+                                                            <rect key="frame" x="192.5" y="0.0" width="162.5" height="45"/>
+                                                            <state key="normal" title="Tracking"/>
+                                                            <connections>
+                                                                <action selector="onButtonClick:" destination="ciX-Mx-LEL" eventType="touchUpInside" id="9bd-kG-nQB"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="KM7-Ky-0XF" firstAttribute="leading" secondItem="Mht-n5-s5e" secondAttribute="leading" constant="20" id="AU3-au-70t"/>
+                                                        <constraint firstItem="ttx-f9-n4S" firstAttribute="width" secondItem="KM7-Ky-0XF" secondAttribute="width" id="Afk-FL-30r"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="Ild-3r-ojG"/>
+                                                        <constraint firstItem="KM7-Ky-0XF" firstAttribute="centerY" secondItem="Mht-n5-s5e" secondAttribute="centerY" id="KZI-PD-4ri"/>
+                                                        <constraint firstAttribute="trailing" secondItem="ttx-f9-n4S" secondAttribute="trailing" constant="20" id="LF4-zu-DiB"/>
+                                                        <constraint firstAttribute="height" constant="45" id="MOi-tW-8rC"/>
+                                                        <constraint firstItem="ttx-f9-n4S" firstAttribute="leading" secondItem="KM7-Ky-0XF" secondAttribute="trailing" constant="10" id="TPd-0S-fuI"/>
+                                                        <constraint firstItem="ttx-f9-n4S" firstAttribute="height" secondItem="Mht-n5-s5e" secondAttribute="height" id="hVh-On-4CI"/>
+                                                        <constraint firstItem="KM7-Ky-0XF" firstAttribute="height" secondItem="Mht-n5-s5e" secondAttribute="height" id="iLs-uY-SbK"/>
+                                                        <constraint firstItem="ttx-f9-n4S" firstAttribute="centerY" secondItem="Mht-n5-s5e" secondAttribute="centerY" id="u7n-y1-lxH"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="Mht-n5-s5e" secondAttribute="trailing" id="IcL-Eo-ebJ"/>
+                                                <constraint firstItem="Mht-n5-s5e" firstAttribute="leading" secondItem="pic-tr-2tN" secondAttribute="leading" id="fso-ee-3mo"/>
+                                                <constraint firstItem="Mht-n5-s5e" firstAttribute="top" secondItem="pic-tr-2tN" secondAttribute="top" constant="10" id="hYB-sb-HDn"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="btnTracking" destination="ttx-f9-n4S" id="4vV-HA-mGV"/>
+                                            <outlet property="btnTraining" destination="KM7-Ky-0XF" id="bOx-L0-GVb"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WeeklyCell2" rowHeight="576" id="O3x-oT-PHT" customClass="WeeklyCell2" customModule="Prana" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="577" width="375" height="576"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O3x-oT-PHT" id="Gyf-OX-kDc">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="575.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ogw-uh-ZcB">
+                                                    <rect key="frame" x="31" y="21" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="SkK-a3-FOL"/>
+                                                        <constraint firstAttribute="height" constant="30" id="oig-AI-YQH"/>
+                                                    </constraints>
+                                                    <state key="normal" image="ic_left_arrow"/>
+                                                    <connections>
+                                                        <action selector="onLeft:" destination="O3x-oT-PHT" eventType="touchUpInside" id="wjJ-Q3-5nN"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LLg-oE-dvi">
+                                                    <rect key="frame" x="314" y="21" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="LQt-j6-uAB"/>
+                                                        <constraint firstAttribute="height" constant="30" id="VFV-GB-h2A"/>
+                                                    </constraints>
+                                                    <state key="normal" image="ic_right_arrow"/>
+                                                    <connections>
+                                                        <action selector="onRight:" destination="O3x-oT-PHT" eventType="touchUpInside" id="575-sh-Eki"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aIw-r2-Fhi">
+                                                    <rect key="frame" x="166" y="26" width="43" height="20"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
+                                                    <color key="textColor" red="0.54117647059999996" green="0.6588235294" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mindful Breathing Minutes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeV-xx-KKZ">
+                                                    <rect key="frame" x="99.5" y="62" width="176" height="17.5"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="14"/>
+                                                    <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RhD-FE-YLJ" customClass="WeeklyGraph" customModule="Prana" customModuleProvider="target">
+                                                    <rect key="frame" x="15" y="87.5" width="345" height="128"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="128" id="MnA-Qu-0X9"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Daily Respiration Rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaD-Ky-SsV">
+                                                    <rect key="frame" x="82" y="225.5" width="211" height="17.5"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="14"/>
+                                                    <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2fF-fv-tBf" customClass="WeeklyGraph" customModule="Prana" customModuleProvider="target">
+                                                    <rect key="frame" x="15" y="251" width="345" height="128"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="128" id="u2G-Z8-22S"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upright Posture Minutes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5hH-6H-nSp">
+                                                    <rect key="frame" x="106.5" y="387" width="162" height="17.5"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="14"/>
+                                                    <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dWM-o9-y2z" customClass="WeeklyGraph" customModule="Prana" customModuleProvider="target">
+                                                    <rect key="frame" x="15" y="414.5" width="345" height="128"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="128" id="TjK-kX-aXX"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="aIw-r2-Fhi" firstAttribute="centerY" secondItem="Ogw-uh-ZcB" secondAttribute="centerY" id="2ZS-Dj-XdT"/>
+                                                <constraint firstItem="dWM-o9-y2z" firstAttribute="leading" secondItem="Gyf-OX-kDc" secondAttribute="leading" constant="15" id="4w7-DU-dIr"/>
+                                                <constraint firstItem="5hH-6H-nSp" firstAttribute="top" secondItem="2fF-fv-tBf" secondAttribute="bottom" constant="8" id="7Hb-eq-wKW"/>
+                                                <constraint firstItem="oeV-xx-KKZ" firstAttribute="top" secondItem="aIw-r2-Fhi" secondAttribute="bottom" constant="16" id="9qd-Ij-7Ik"/>
+                                                <constraint firstItem="oeV-xx-KKZ" firstAttribute="centerX" secondItem="Gyf-OX-kDc" secondAttribute="centerX" id="DQ0-Q3-bX9"/>
+                                                <constraint firstAttribute="trailing" secondItem="dWM-o9-y2z" secondAttribute="trailing" constant="15" id="Fbo-yj-aWC"/>
+                                                <constraint firstItem="eaD-Ky-SsV" firstAttribute="centerX" secondItem="Gyf-OX-kDc" secondAttribute="centerX" id="GXz-AU-S2G"/>
+                                                <constraint firstItem="Ogw-uh-ZcB" firstAttribute="leading" secondItem="Gyf-OX-kDc" secondAttribute="leadingMargin" constant="16" id="IWh-Vb-Fdf"/>
+                                                <constraint firstItem="5hH-6H-nSp" firstAttribute="centerX" secondItem="Gyf-OX-kDc" secondAttribute="centerX" id="JhX-jh-GDj"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="2fF-fv-tBf" secondAttribute="trailing" id="K96-VA-1Gv"/>
+                                                <constraint firstItem="LLg-oE-dvi" firstAttribute="top" secondItem="Gyf-OX-kDc" secondAttribute="topMargin" constant="10" id="KFF-f7-5gH"/>
+                                                <constraint firstItem="RhD-FE-YLJ" firstAttribute="leading" secondItem="Gyf-OX-kDc" secondAttribute="leadingMargin" id="KUP-pL-E1T"/>
+                                                <constraint firstItem="eaD-Ky-SsV" firstAttribute="top" secondItem="RhD-FE-YLJ" secondAttribute="bottom" constant="10" id="PDS-IQ-7jp"/>
+                                                <constraint firstItem="aIw-r2-Fhi" firstAttribute="centerX" secondItem="Gyf-OX-kDc" secondAttribute="centerX" id="RPE-FS-g3q"/>
+                                                <constraint firstItem="2fF-fv-tBf" firstAttribute="leading" secondItem="Gyf-OX-kDc" secondAttribute="leadingMargin" id="RSD-Sw-78a"/>
+                                                <constraint firstItem="RhD-FE-YLJ" firstAttribute="top" secondItem="oeV-xx-KKZ" secondAttribute="bottom" constant="8" id="SNT-kd-PND"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="RhD-FE-YLJ" secondAttribute="trailing" id="V03-q9-DQC"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="LLg-oE-dvi" secondAttribute="trailing" constant="16" id="hQH-EA-csd"/>
+                                                <constraint firstItem="Ogw-uh-ZcB" firstAttribute="top" secondItem="Gyf-OX-kDc" secondAttribute="topMargin" constant="10" id="lGS-vg-5t0"/>
+                                                <constraint firstItem="2fF-fv-tBf" firstAttribute="top" secondItem="eaD-Ky-SsV" secondAttribute="bottom" constant="8" id="o8n-Ec-Xzf"/>
+                                                <constraint firstItem="dWM-o9-y2z" firstAttribute="top" secondItem="5hH-6H-nSp" secondAttribute="bottom" constant="10" id="vHv-zi-MRa"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="lblGraphTitle1" destination="oeV-xx-KKZ" id="U2E-oM-vyC"/>
+                                            <outlet property="lblGraphTitle2" destination="eaD-Ky-SsV" id="hCY-mh-c72"/>
+                                            <outlet property="lblWeek" destination="aIw-r2-Fhi" id="1aE-4n-lZA"/>
+                                            <outlet property="mindfulView" destination="RhD-FE-YLJ" id="dZf-ck-rv7"/>
+                                            <outlet property="rrView" destination="2fF-fv-tBf" id="HxC-rf-Lf6"/>
+                                            <outlet property="uprightView" destination="dWM-o9-y2z" id="mps-PA-WiP"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
@@ -432,5 +597,7 @@ Upright Posture: 88%, Slouches: 5, Lower Back</string>
         <image name="button-plant-lg" width="152" height="27.5"/>
         <image name="button-sky-lg" width="304" height="55"/>
         <image name="ic-back" width="24.5" height="17"/>
+        <image name="ic_left_arrow" width="10" height="10"/>
+        <image name="ic_right_arrow" width="10" height="10"/>
     </resources>
 </document>
