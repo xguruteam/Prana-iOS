@@ -484,6 +484,7 @@ class BodyMeasurementsViewController: SuperViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         if let target = segue.destination as? DiaryViewController {
+            target.date = Date()
             target.note = note
             target.noteChangeHandler = { [unowned self] newNote in
                 self.note = newNote

@@ -14,14 +14,19 @@ class DiaryViewController: UIViewController {
     @IBOutlet weak var tvNote: UITextView!
     
     var note: String?
+    var date: Date!
     var noteChangeHandler: ((String?) -> ())?
+    var isEditable: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let now = Date()
-        lblDate.text = now.dateString()
+        lblDate.text = date.dateString()
         tvNote.text = note ?? ""
+        
+        if isEditable == false {
+            tvNote.isEditable = false
+        }
     }
     
     @IBAction func onBack(_ sender: Any) {

@@ -102,6 +102,7 @@
 		CAAF9D3822737952003232C4 /* GradientSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF9D0322737951003232C4 /* GradientSlider.swift */; };
 		CAAF9D3922737952003232C4 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF9D0422737951003232C4 /* TextField.swift */; };
 		CAAF9D3A22737952003232C4 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF9D0522737951003232C4 /* Button.swift */; };
+		CAB0723E22C36862007136FF /* WeeklyGraph2.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB0723D22C36862007136FF /* WeeklyGraph2.swift */; };
 		CAB1062A22B8D2EB00A7D8A1 /* BodyMeasurementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB1062922B8D2EB00A7D8A1 /* BodyMeasurementsViewController.swift */; };
 		CAB2AFDD227AAE570085146C /* PranaCircleProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB2AFDC227AAE570085146C /* PranaCircleProgressView.swift */; };
 		CAC1250D22C2463B008D6C7D /* RRGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1250C22C2463B008D6C7D /* RRGraph.swift */; };
@@ -113,6 +114,8 @@
 		CAC1252722C2E4DF008D6C7D /* WeeklyCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1252622C2E4DF008D6C7D /* WeeklyCell1.swift */; };
 		CAC1252922C2E4F7008D6C7D /* WeeklyCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1252822C2E4F7008D6C7D /* WeeklyCell2.swift */; };
 		CAC1252B22C2E508008D6C7D /* WeeklyCell3.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1252A22C2E508008D6C7D /* WeeklyCell3.swift */; };
+		CAC1252D22C34FC7008D6C7D /* MeasurementsHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1252C22C34FC7008D6C7D /* MeasurementsHistoryViewController.swift */; };
+		CAC1252F22C35C2B008D6C7D /* MonthlyGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1252E22C35C2B008D6C7D /* MonthlyGraph.swift */; };
 		CAC191C2226E592F009E04B5 /* PranaExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC191C1226E592F009E04B5 /* PranaExpandableCell.swift */; };
 		CAC36BCE2249A05E00B4FF1F /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC36BCD2249A05E00B4FF1F /* TestData.swift */; };
 		CAC46CCD223A8E95004691F4 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */; };
@@ -329,6 +332,7 @@
 		CAAF9D0322737951003232C4 /* GradientSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientSlider.swift; sourceTree = "<group>"; };
 		CAAF9D0422737951003232C4 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		CAAF9D0522737951003232C4 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		CAB0723D22C36862007136FF /* WeeklyGraph2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyGraph2.swift; sourceTree = "<group>"; };
 		CAB1062922B8D2EB00A7D8A1 /* BodyMeasurementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyMeasurementsViewController.swift; sourceTree = "<group>"; };
 		CAB2AFDC227AAE570085146C /* PranaCircleProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PranaCircleProgressView.swift; sourceTree = "<group>"; };
 		CAC1250C22C2463B008D6C7D /* RRGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRGraph.swift; sourceTree = "<group>"; };
@@ -341,6 +345,8 @@
 		CAC1252622C2E4DF008D6C7D /* WeeklyCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCell1.swift; sourceTree = "<group>"; };
 		CAC1252822C2E4F7008D6C7D /* WeeklyCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCell2.swift; sourceTree = "<group>"; };
 		CAC1252A22C2E508008D6C7D /* WeeklyCell3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCell3.swift; sourceTree = "<group>"; };
+		CAC1252C22C34FC7008D6C7D /* MeasurementsHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementsHistoryViewController.swift; sourceTree = "<group>"; };
+		CAC1252E22C35C2B008D6C7D /* MonthlyGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyGraph.swift; sourceTree = "<group>"; };
 		CAC191C1226E592F009E04B5 /* PranaExpandableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranaExpandableCell.swift; sourceTree = "<group>"; };
 		CAC36BCD2249A05E00B4FF1F /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
@@ -1041,6 +1047,9 @@
 				CAC1252622C2E4DF008D6C7D /* WeeklyCell1.swift */,
 				CAC1252822C2E4F7008D6C7D /* WeeklyCell2.swift */,
 				CAC1252A22C2E508008D6C7D /* WeeklyCell3.swift */,
+				CAC1252C22C34FC7008D6C7D /* MeasurementsHistoryViewController.swift */,
+				CAC1252E22C35C2B008D6C7D /* MonthlyGraph.swift */,
+				CAB0723D22C36862007136FF /* WeeklyGraph2.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -1399,9 +1408,11 @@
 				CA69E8442278977900984324 /* TrainingSession.swift in Sources */,
 				CAA44A31224425EF0050D619 /* ConnectionTestViewController.swift in Sources */,
 				CA9892152240C86D00D824B0 /* Live.swift in Sources */,
+				CAC1252F22C35C2B008D6C7D /* MonthlyGraph.swift in Sources */,
 				CAAF9D3522737952003232C4 /* LikeButtonCell.swift in Sources */,
 				CAEEB01222C11321002C3139 /* Measurement.swift in Sources */,
 				CAA626BA229717BE0036FC31 /* BatteryStateView.swift in Sources */,
+				CAC1252D22C34FC7008D6C7D /* MeasurementsHistoryViewController.swift in Sources */,
 				CAC1252922C2E4F7008D6C7D /* WeeklyCell2.swift in Sources */,
 				CAAB4ED5226E7FF9000C8802 /* ProgramChildCell.swift in Sources */,
 				CAAF9D2722737952003232C4 /* Location.swift in Sources */,
@@ -1450,6 +1461,7 @@
 				CAEEB01422C13A6C002C3139 /* SavedBodyNotification.swift in Sources */,
 				CAAF9D2E22737952003232C4 /* ColorPickerViewController.swift in Sources */,
 				CA98922222413B2300D824B0 /* LiveGraph.swift in Sources */,
+				CAB0723E22C36862007136FF /* WeeklyGraph2.swift in Sources */,
 				CAD502F52231BCF500F97B31 /* PranaDeviceManager.swift in Sources */,
 				CAAF9D2B22737952003232C4 /* Contacts.swift in Sources */,
 				CAAF9D3022737952003232C4 /* ImagePickerViewController.swift in Sources */,

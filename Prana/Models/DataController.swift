@@ -419,6 +419,72 @@ class DataController {
         return nil
     }
     
+    func fetchWeeklyMeasurement(date: Date) -> [Measurement] {
+        guard let managedContext = managedObjectContext else { return [] }
+        let fetchRequest = NSFetchRequest<LocalDB>(entityName: "LocalDB")
+        
+        let begin = date.previous(.monday, considerToday: true)
+        let end = date.next(.sunday, considerToday: true)
+        
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            let sessions = result.filter { (object) -> Bool in
+                guard object.type == "BM" else { return false }
+                
+                guard let createdAt = object.time else { return false }
+                return (begin...end).contains(createdAt)
+                }.map { (object) -> Measurement in
+                    let data = object.data!
+                    do {
+                        let measurement = try JSONDecoder().decode(Measurement.self, from: data.data(using: .utf8)!)
+                        return measurement
+                    } catch {
+                        Crashlytics.sharedInstance().recordError(error)
+                    }
+                    return Measurement(date: Date(), note: nil, data: [:])
+            }
+            return sessions
+            
+        } catch let error as NSError {
+            NSLog("Could not fetch readings. \(error), \(error.userInfo)")
+        }
+        
+        return []
+    }
+    
+    func fetchMonthlyMeasurement(date: Date) -> [Measurement] {
+        guard let managedContext = managedObjectContext else { return [] }
+        let fetchRequest = NSFetchRequest<LocalDB>(entityName: "LocalDB")
+        
+        let begin = date.beginning(of: .month)!
+        let end = date.end(of: .month)!
+        
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            let sessions = result.filter { (object) -> Bool in
+                guard object.type == "BM" else { return false }
+                
+                guard let createdAt = object.time else { return false }
+                return (begin...end).contains(createdAt)
+                }.map { (object) -> Measurement in
+                    let data = object.data!
+                    do {
+                        let measurement = try JSONDecoder().decode(Measurement.self, from: data.data(using: .utf8)!)
+                        return measurement
+                    } catch {
+                        Crashlytics.sharedInstance().recordError(error)
+                    }
+                    return Measurement(date: Date(), note: nil, data: [:])
+            }
+            return sessions
+            
+        } catch let error as NSError {
+            NSLog("Could not fetch readings. \(error), \(error.userInfo)")
+        }
+        
+        return []
+    }
+    
     func clearLocalDB() {
         guard let managedContext = managedObjectContext else { return }
         let fetchRequest = NSFetchRequest<LocalDB>(entityName: "LocalDB")
