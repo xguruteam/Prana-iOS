@@ -13,6 +13,7 @@ class SessionDetailViewController: SuperViewController {
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
         return tableView
     }()
     
@@ -112,7 +113,11 @@ class SessionDetailViewController: SuperViewController {
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
         
         tableView.tableHeaderView = containerView
-        containerView.bounds.size.height = 649
+        if type == .session {
+            containerView.bounds.size.height = 649
+        } else {
+            containerView.bounds.size.height = 649
+        }
 
 //        containerView.addSubview(titleLabel)
 //        titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10).isActive = true
@@ -129,7 +134,7 @@ class SessionDetailViewController: SuperViewController {
         
         
         containerView.addSubview(lblOverview)
-        lblOverview.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: 20).isActive = true
+        lblOverview.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: 10).isActive = true
         lblOverview.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
         
         
@@ -137,7 +142,7 @@ class SessionDetailViewController: SuperViewController {
             
             if session.kind == 0 {
                 containerView.addSubview(rrGraph)
-                rrGraph.topAnchor.constraint(equalTo: lblOverview.bottomAnchor, constant: 20).isActive = true
+                rrGraph.topAnchor.constraint(equalTo: lblOverview.bottomAnchor, constant: 40).isActive = true
                 rrGraph.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
                 rrGraph.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
                 rrGraph.heightAnchor.constraint(equalToConstant: 200).isActive = true
@@ -163,7 +168,7 @@ class SessionDetailViewController: SuperViewController {
                 containerView.addSubview(postureView)
                 postureView.widthAnchor.constraint(equalToConstant: 100).isActive = true
                 postureView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-                postureView.topAnchor.constraint(equalTo: rrGraph.bottomAnchor, constant: 20).isActive = true
+                postureView.topAnchor.constraint(equalTo: rrGraph.bottomAnchor, constant: 40).isActive = true
                 postureView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
                 
                 containerView.addSubview(postureBar)
@@ -178,7 +183,7 @@ class SessionDetailViewController: SuperViewController {
                 summaryView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
             } else if session.kind == 1 {
                 containerView.addSubview(rrGraph)
-                rrGraph.topAnchor.constraint(equalTo: lblOverview.bottomAnchor, constant: 20).isActive = true
+                rrGraph.topAnchor.constraint(equalTo: lblOverview.bottomAnchor, constant: 40).isActive = true
                 rrGraph.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
                 rrGraph.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
                 rrGraph.heightAnchor.constraint(equalToConstant: 200).isActive = true
@@ -202,7 +207,7 @@ class SessionDetailViewController: SuperViewController {
                 minLabel.rightAnchor.constraint(equalTo: rrGraph.rightAnchor, constant: 0).isActive = true
                 
                 containerView.addSubview(summaryView)
-                summaryView.topAnchor.constraint(equalTo: rrGraph.bottomAnchor, constant: 20).isActive = true
+                summaryView.topAnchor.constraint(equalTo: rrGraph.bottomAnchor, constant: 40).isActive = true
                 summaryView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
                 summaryView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
             } else {
@@ -225,10 +230,10 @@ class SessionDetailViewController: SuperViewController {
             }
         } else {
             containerView.addSubview(rrGraph)
-            rrGraph.topAnchor.constraint(equalTo: lblOverview.bottomAnchor, constant: 20).isActive = true
+            rrGraph.topAnchor.constraint(equalTo: lblOverview.bottomAnchor, constant: 10).isActive = true
             rrGraph.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
             rrGraph.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
-            rrGraph.heightAnchor.constraint(equalToConstant: 200).isActive = true
+            rrGraph.heightAnchor.constraint(equalToConstant: 150).isActive = true
             
             let rrLabel = UILabel()
             rrLabel.text = "RR"
@@ -253,7 +258,7 @@ class SessionDetailViewController: SuperViewController {
             eiGraph.topAnchor.constraint(equalTo: rrGraph.bottomAnchor, constant: 20).isActive = true
             eiGraph.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
             eiGraph.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
-            eiGraph.heightAnchor.constraint(equalToConstant: 200).isActive = true
+            eiGraph.heightAnchor.constraint(equalToConstant: 150).isActive = true
             
             let eiLabel = UILabel()
             eiLabel.text = "EI"
@@ -277,17 +282,17 @@ class SessionDetailViewController: SuperViewController {
             containerView.addSubview(postureView)
             postureView.widthAnchor.constraint(equalToConstant: 100).isActive = true
             postureView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-            postureView.topAnchor.constraint(equalTo: eiGraph.bottomAnchor, constant: 20).isActive = true
+            postureView.topAnchor.constraint(equalTo: eiGraph.bottomAnchor, constant: 10).isActive = true
             postureView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
             
             containerView.addSubview(postureBar)
-            postureBar.topAnchor.constraint(equalTo: postureView.bottomAnchor, constant: 20).isActive = true
+            postureBar.topAnchor.constraint(equalTo: postureView.bottomAnchor, constant: 10).isActive = true
             postureBar.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
             postureBar.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
             postureBar.heightAnchor.constraint(equalToConstant: 20).isActive = true
             
             containerView.addSubview(summaryView)
-            summaryView.topAnchor.constraint(equalTo: postureBar.bottomAnchor, constant: 20).isActive = true
+            summaryView.topAnchor.constraint(equalTo: postureBar.bottomAnchor, constant: 10).isActive = true
             summaryView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
             summaryView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
         }

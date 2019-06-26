@@ -40,6 +40,7 @@ class DailyCell1: UITableViewCell {
     var dateChangeHandler: ((Date) -> ())?
     
     func openDatePicker() {
+        self.tempDate = self.date
         let alert = UIAlertController(style: .actionSheet, title: "Select date")
         alert.addDatePicker(mode: .date, date: date, minimumDate: nil, maximumDate: nil) { date in
             // action with selected date

@@ -70,9 +70,9 @@ class MonthlyGraph: UIView {
         
         for i in 0..<Int(hc) {
             if unit == .inch {
-                attributedString = NSAttributedString(string: "\(CGFloat(max) / (hc - 1) * CGFloat(i))", attributes: attributes)
+                attributedString = NSAttributedString(string: "\(round(CGFloat(max) / (hc - 1) * CGFloat(i)))", attributes: attributes)
             } else {
-                attributedString = NSAttributedString(string: "\(CGFloat(max) / (hc - 1) * CGFloat(i) * 2.54)", attributes: attributes)
+                attributedString = NSAttributedString(string: "\(round(CGFloat(max) / (hc - 1) * CGFloat(i) * 2.54))", attributes: attributes)
             }
             stringRect = CGRect(x: 0, y: height - uh * CGFloat(i) - th, width: tw, height: th)
             attributedString.draw(in: stringRect)

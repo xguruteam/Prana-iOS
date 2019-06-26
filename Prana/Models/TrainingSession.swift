@@ -8,6 +8,13 @@
 
 import Foundation
 
+func getPercent(_ child: Int, _ parent: Int) -> Float {
+    let x = Float(child * 100)
+    let y = x / Float(parent)
+    
+    return y
+}
+
 class TrainingSession: Codable {
     var startedAt: Date
     var type: Int // 0: Visual, 1: Buzzer
@@ -121,6 +128,11 @@ class TrainingSession: Codable {
             uprightPercent = getPercent(uprightTime, postureTime)
         }
         
+        
+        mindfulPercent = round(mindfulPercent)
+        rrSum = round(rrSum)
+        uprightPercent = round(uprightPercent)
+        
         if kind == 0 {
             return """
             Training: \(kindString), \(duration / 60) Mins completed
@@ -169,13 +181,6 @@ class TrainingSession: Codable {
             slouchTime += slouch.duration
         }
         return slouchTime
-    }
-    
-    func getPercent(_ child: Int, _ parent: Int) -> Float {
-        let x = Float(child * 100)
-        let y = x / Float(parent)
-        
-        return y
     }
 }
 

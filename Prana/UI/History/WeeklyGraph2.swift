@@ -8,6 +8,10 @@
 
 import UIKit
 
+func round(_ value: CGFloat) -> CGFloat {
+    return CGFloat(Int(value * 100)) / 100.0
+}
+
 class WeeklyGraph2: UIView {
 
     override init(frame: CGRect) {
@@ -66,9 +70,9 @@ class WeeklyGraph2: UIView {
         
         for i in 0..<Int(hc) {
             if unit == .inch {
-                attributedString = NSAttributedString(string: "\(CGFloat(max) / (hc - 1) * CGFloat(i))", attributes: attributes)
+                attributedString = NSAttributedString(string: "\(round(CGFloat(max) / (hc - 1) * CGFloat(i)))", attributes: attributes)
             } else {
-                attributedString = NSAttributedString(string: "\(CGFloat(max) / (hc - 1) * CGFloat(i) * 2.54)", attributes: attributes)
+                attributedString = NSAttributedString(string: "\(round(CGFloat(max) / (hc - 1) * CGFloat(i) * 2.54))", attributes: attributes)
             }
             stringRect = CGRect(x: 0, y: height - uh * CGFloat(i) - th, width: uw, height: th)
             attributedString.draw(in: stringRect)

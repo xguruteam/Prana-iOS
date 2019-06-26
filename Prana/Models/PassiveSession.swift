@@ -76,8 +76,8 @@ class PassiveSession: Codable {
         
         return """
         Passive Tracking: \(duration / 60) Mins completed
-        Avg. RR : \(rrSum)
-        Upright Posture: \(uprightPercent)%, Slouches: \(slouches.count), Wearing: \(wearingString)
+        Avg. RR : \(round(rrSum))
+        Upright Posture: \(round(uprightPercent))%, Slouches: \(slouches.count), Wearing: \(wearingString)
         """
     }
     
@@ -90,8 +90,8 @@ class PassiveSession: Codable {
             avgRR += breath.respRate
         }
         if breaths.count > 0 {
-            avgEI += (avgEI / Double(breaths.count))
-            avgRR += (avgRR / Double(breaths.count))
+            avgEI = (avgEI / Double(breaths.count))
+            avgRR = (avgRR / Double(breaths.count))
         }
         
         return (avgEI, avgRR)
@@ -104,12 +104,5 @@ class PassiveSession: Codable {
             slouchTime += slouch.duration
         }
         return slouchTime
-    }
-    
-    func getPercent(_ child: Int, _ parent: Int) -> Float {
-        let x = Float(child * 100)
-        let y = x / Float(parent)
-        
-        return y
     }
 }

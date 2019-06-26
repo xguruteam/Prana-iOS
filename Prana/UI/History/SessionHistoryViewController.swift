@@ -79,6 +79,11 @@ class SessionHistoryViewController: SuperViewController {
     }
     
     func getDailySessionSummary() -> String {
+        
+        if currentSessions.count == 0 {
+            return "No Sessions"
+        }
+        
         var breathTime = 0
         var mindfulTime = 0
         var rrSum: Double = 0
@@ -92,22 +97,22 @@ class SessionHistoryViewController: SuperViewController {
             guard let session = object as? TrainingSession else { continue }
             if session.kind == 0 {
                 breathTime += session.duration
-                let sum = sumMindfulTime(session.breaths)
+                let sum = session.sumMindfulTime()
                 mindfulTime += sum.0
                 rrSum += sum.1
                 
                 postureTime += session.duration
-                slouchTime += sumSlouchTime(session.slouches)
+                slouchTime += session.sumSlouchTime()
                 sessionCount += 1
             } else if session.kind == 1 {
                 breathTime += session.duration
-                let sum = sumMindfulTime(session.breaths)
+                let sum = session.sumMindfulTime()
                 mindfulTime += sum.0
                 rrSum += sum.1
                 sessionCount += 1
             } else {
                 postureTime += session.duration
-                slouchTime += sumSlouchTime(session.slouches)
+                slouchTime += session.sumSlouchTime()
             }
         }
         
@@ -126,6 +131,10 @@ class SessionHistoryViewController: SuperViewController {
             uprightPercent = getPercent(uprightTime, postureTime)
         }
         
+        mindfulPercent = round(mindfulPercent)
+        rrSum = round(rrSum)
+        uprightPercent = round(uprightPercent)
+        
         return """
         Breath Training Time Completed: \(breathTime / 60) Mins
         Mindful Breaths: \(mindfulPercent)%
@@ -136,43 +145,6 @@ class SessionHistoryViewController: SuperViewController {
         Upright Posture: \(uprightPercent)%
         Upright Posture Minutes: \(uprightTime / 60)
         """
-    }
-    
-    func sumMindfulTime(_ breaths: [BreathRecord]) -> (Int, Double) {
-        var mindfulTime = 0
-        var avgRR: Double = 0
-        for i in 0..<breaths.count {
-            let breath = breaths[i]
-            if breath.isMindful {
-                if i == 0 {
-                    mindfulTime += breath.timeStamp
-                } else {
-                    mindfulTime += (breath.timeStamp - breaths[i - 1].timeStamp)
-                }
-            }
-            avgRR += breath.respRate
-        }
-        if breaths.count > 0 {
-            avgRR += (avgRR / Double(breaths.count))
-        }
-        
-        return (mindfulTime, avgRR)
-    }
-    
-    func sumSlouchTime(_ slouches: [SlouchRecord]) -> Int {
-        var slouchTime = 0
-        for i in 0..<slouches.count {
-            let slouch = slouches[i]
-            slouchTime += slouch.duration
-        }
-        return slouchTime
-    }
-    
-    func getPercent(_ child: Int, _ parent: Int) -> Float {
-        let x = Float(child * 100)
-        let y = x / Float(parent)
-        
-        return y
     }
     
     
@@ -234,13 +206,13 @@ extension SessionHistoryViewController: UITableViewDelegate, UITableViewDataSour
                 return 250
             }
             
-            return 120
+            return 140
         }
         
         if indexPath.row == 0 {
-            return 67
+            return 57
         }
-        return 576
+        return 500
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
