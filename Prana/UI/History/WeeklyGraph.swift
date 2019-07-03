@@ -37,8 +37,6 @@ class WeeklyGraph: UIView {
             var (max, _) = stackData.max { $0.0 < $1.0 }!
             if max < 60 {
                 max = 60
-            } else {
-                max = 60 + 60 * (max / 60)
             }
             self.max = CGFloat(max)
         }
@@ -81,27 +79,26 @@ class WeeklyGraph: UIView {
         if type == .stack {
             attributedString = NSAttributedString(string: "\(Int(max / 60))", attributes: attributes)
         } else {
-            attributedString = NSAttributedString(string: "\(round(max))", attributes: attributes)
+            attributedString = NSAttributedString(string: "\(roundFloat(Float(max), point: 0))", attributes: attributes)
         }
         
         var stringRect = CGRect(x: 0, y: 0, width: uw, height: th)
         attributedString.draw(in: stringRect)
         
         if type == .stack {
-            var avg = Int(max / 2)
-            avg /= 60
+            let avg = max / 2 / 60
             
             if avg > 0 {
-                attributedString = NSAttributedString(string: "\(avg)", attributes: attributes)
+                attributedString = NSAttributedString(string: "\(roundFloat(Float(avg), point: 1))", attributes: attributes)
                 stringRect = CGRect(x: 0, y: height / 2 - th / 2, width: uw, height: th)
                 attributedString.draw(in: stringRect)
             }
             
         } else {
-            var avg = Float(max / 2)
+            let avg = Float(max / 2)
             
             if avg > 0 {
-                attributedString = NSAttributedString(string: "\(round(avg))", attributes: attributes)
+                attributedString = NSAttributedString(string: "\(roundFloat(Float(avg), point: 0))", attributes: attributes)
                 stringRect = CGRect(x: 0, y: height / 2 - th / 2, width: uw, height: th)
                 attributedString.draw(in: stringRect)
             }

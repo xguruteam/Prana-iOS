@@ -50,7 +50,7 @@ class WeeklyGraph2: UIView {
         
         let uw = width / 8
         let hc: CGFloat = 6
-        let dh: CGFloat = 20
+        let dh: CGFloat = 30
         
         let uh = (height - dh) / hc
         
@@ -89,9 +89,15 @@ class WeeklyGraph2: UIView {
             stringRect = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - bw / 2.0, y: height - th, width: bw, height: th)
             attributedString.draw(in: stringRect)
             
+            if total > 0 {
+                attributedString = NSAttributedString(string: "\(roundFloat(unit == .inch ? total : (total * 2.54), point: 2))", attributes: attributes)
+                stringRect = CGRect(x: uw + CGFloat(i) * uw, y: height - th - (height - th - dh) * CGFloat(total) / CGFloat(max) - th + 5, width: uw, height: th)
+                attributedString.draw(in: stringRect)
+            }
+            
             if diary != nil {
                 attributedString = NSAttributedString(string: "D", attributes: attributes)
-                stringRect = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - bw / 2.0, y: height - th - (height - th - dh) * CGFloat(total) / CGFloat(max) - th, width: bw, height: th)
+                stringRect = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - bw / 2.0, y: height - th - (height - th - dh) * CGFloat(total) / CGFloat(max) - dh, width: bw, height: th)
                 attributedString.draw(in: stringRect)
             }
         }
@@ -109,7 +115,7 @@ class WeeklyGraph2: UIView {
         
         let uw = width / 8
         let hc: CGFloat = 6
-        let dh: CGFloat = 20
+        let dh: CGFloat = 30
         
         let uh = (height - dh) / hc
         

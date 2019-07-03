@@ -53,21 +53,17 @@ class PassiveSession: Codable {
     }
     
     var summary: String {
-        var breathTime = 0
         var rrSum: Double = 0
-        var sessionCount = 0
         
         var postureTime = 0
         var uprightTime = 0
         var slouchTime = 0
         
-        breathTime += duration
         let sum = sumEIRatio()
-        rrSum += sum.1
+        rrSum = sum.1
         
-        postureTime += duration
-        slouchTime += sumSlouchTime()
-        sessionCount += 1
+        postureTime = duration
+        slouchTime = sumSlouchTime()
 
         
         uprightTime = postureTime - slouchTime
@@ -79,8 +75,8 @@ class PassiveSession: Codable {
         
         return """
         Passive Tracking: \(duration / 60) Mins completed
-        Avg. RR : \(round(rrSum))
-        Upright Posture: \(round(uprightPercent))%, Slouches: \(slouches.count), Wearing: \(wearingString)
+        Avg. RR : \(roundFloat(Float(rrSum), point: 2))
+        Upright Posture: \(roundFloat(uprightPercent, point: 1))%, Slouches: \(slouches.count), Wearing: \(wearingString)
         """
     }
     
@@ -89,8 +85,8 @@ class PassiveSession: Codable {
         var uprightTime = 0
         var slouchTime = 0
         
-        postureTime += duration
-        slouchTime += sumSlouchTime()
+        postureTime = duration
+        slouchTime = sumSlouchTime()
 
         uprightTime = postureTime - slouchTime
         
@@ -100,10 +96,8 @@ class PassiveSession: Codable {
         }
         
         
-        uprightPercent = round(uprightPercent)
-        
         return """
-        Upright Posture: \(uprightPercent)% (\(uprightTime) of \(postureTime) seconds)
+        Upright Posture: \(roundFloat(uprightPercent, point: 1))% (\(uprightTime) of \(postureTime) seconds)
         Slouches: \(slouches.count)
         Wearing: \(wearingString)
         """

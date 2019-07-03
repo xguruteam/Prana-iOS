@@ -341,7 +341,7 @@ class DataController {
         return []
     }
     
-    func fetchWeeklySessions(date: Date, type: String) -> [AnyObject] {
+    func fetchWeeklySessions(date: Date, type: String? = nil) -> [AnyObject] {
         guard let managedContext = managedObjectContext else { return [] }
         let fetchRequest = NSFetchRequest<LocalDB>(entityName: "LocalDB")
         
@@ -351,10 +351,15 @@ class DataController {
         do {
             let result = try managedContext.fetch(fetchRequest)
             let sessions = result.filter { (object) -> Bool in
-                guard object.type == type else { return false }
+                if let type = type {
+                    guard object.type == type else { return false }
+                } else {
+                    guard object.type != "BM" else { return false }
+                }
                 
                 guard let createdAt = object.time else { return false }
                 return (begin...end).contains(createdAt)
+                
                 
                 }.map { (object) -> AnyObject in
                     let data = object.data!

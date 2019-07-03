@@ -13,6 +13,7 @@ class SessionHistoryViewController: SuperViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var btnRangeType1: PranaButton!
     @IBOutlet weak var btnRangeType2: PranaButton!
+    @IBOutlet weak var lblWeekRange: UILabel!
     
     @IBAction func onBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -26,15 +27,22 @@ class SessionHistoryViewController: SuperViewController {
         }
     }
     
+    @IBAction func onLeft(_ sender: Any) {
+        self.currentDate = self.currentDate.adding(.day, value: -7)
+    }
+    
+    @IBAction func onRight(_ sender: Any) {
+        self.currentDate = self.currentDate.adding(.day, value: 7)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.delegate = self
         tableView.dataSource = self
         
-        rangeType = .daily
         currentDate = Date()
-        
+        rangeType = .daily
     }
     
     enum RangeType {
@@ -60,6 +68,10 @@ class SessionHistoryViewController: SuperViewController {
 
     var currentDate: Date = Date() {
         didSet {
+            begin = currentDate.previous(.monday, considerToday: true)
+            end = currentDate.next(.sunday, considerToday: true)
+            lblWeekRange.text = "\(begin.dateString()) - \(end.dateString())"
+            
             if rangeType == .daily {
                 reloadDailySessionData()
             } else {
@@ -67,25 +79,59 @@ class SessionHistoryViewController: SuperViewController {
             }
         }
     }
+    var begin: Date!
+    var end: Date!
     
     var currentSessions: [AnyObject] = []
     var currentSessionSummary: String = ""
     
+    typealias DailySummary = (Date, String)
+    typealias DailyRow = Any
+    var dailyRows: [DailyRow] = []
+    
     func reloadDailySessionData() {
         guard rangeType == .daily else { return }
-        currentSessions = dataController.fetchDailySessions(date: currentDate)
-        currentSessionSummary = getDailySessionSummary()
+        currentSessions = dataController.fetchWeeklySessions(date: currentDate)
+        
+        dailyRows = []
+        
+        for week in 0...6 {
+            let day = begin.adding(.day, value: week)
+            
+            let daySessions = currentSessions.filter { (session) -> Bool in
+                if session is TrainingSession {
+                    let session = session as! TrainingSession
+                    return Calendar.current.isDate(session.startedAt, inSameDayAs: day)
+                } else {
+                    let passive = session as! PassiveSession
+                    return Calendar.current.isDate(passive.startedAt, inSameDayAs: day)
+                }
+            }
+            
+            if daySessions.count > 0 {
+                let dailySummary = getDailySessionSummary(daySessions)
+                dailyRows.insert(contentsOf: daySessions, at: 0)
+                dailyRows.insert((day, dailySummary), at: 0)
+            }
+        }
+        
+        if dailyRows.count == 0 {
+            dailyRows.insert((currentDate, "No Sessions"), at: 0)
+        }
+        
         tableView.reloadData()
     }
     
-    func getDailySessionSummary() -> String {
+    func getDailySessionSummary(_ sessions: [AnyObject]) -> String {
         
-        if currentSessions.count == 0 {
+        if sessions.count == 0 {
             return "No Sessions"
         }
         
         var breathTime = 0
         var mindfulTime = 0
+        var breathCount = 0
+        var mindfulCount = 0
         var rrSum: Double = 0
         var sessionCount = 0
         
@@ -93,24 +139,19 @@ class SessionHistoryViewController: SuperViewController {
         var uprightTime = 0
         var slouchTime = 0
         
-        for object in currentSessions {
+        for object in sessions {
             guard let session = object as? TrainingSession else { continue }
-            if session.kind == 0 {
+            if session.kind == 0 || session.kind == 1 {
                 breathTime += session.duration
                 let sum = session.sumMindfulTime()
                 mindfulTime += sum.0
                 rrSum += sum.1
-                
-                postureTime += session.duration
-                slouchTime += session.sumSlouchTime()
+                mindfulCount += sum.2
+                breathCount += session.breaths.count
                 sessionCount += 1
-            } else if session.kind == 1 {
-                breathTime += session.duration
-                let sum = session.sumMindfulTime()
-                mindfulTime += sum.0
-                rrSum += sum.1
-                sessionCount += 1
-            } else {
+            }
+            
+            if session.kind == 0 || session.kind == 2 {
                 postureTime += session.duration
                 slouchTime += session.sumSlouchTime()
             }
@@ -123,27 +164,24 @@ class SessionHistoryViewController: SuperViewController {
         uprightTime = postureTime - slouchTime
         
         var mindfulPercent:Float = 0
-        if breathTime > 0 {
-            mindfulPercent = getPercent(mindfulTime, breathTime)
+        if breathCount > 0 {
+            mindfulPercent = getPercent(mindfulCount, breathCount)
+            mindfulPercent = 80
         }
         var uprightPercent: Float = 0
         if (postureTime > 0) {
             uprightPercent = getPercent(uprightTime, postureTime)
         }
         
-        mindfulPercent = round(mindfulPercent)
-        rrSum = round(rrSum)
-        uprightPercent = round(uprightPercent)
-        
         return """
         Breath Training Time Completed: \(breathTime / 60) Mins
-        Mindful Breaths: \(mindfulPercent)%
-        Mindful Breath Minutes: \(mindfulTime / 60)
-        Average Training RR: \(rrSum)
+        Mindful Breaths: \(roundFloat(mindfulPercent, point: 1))%
+        Mindful Breath Minutes: \(roundFloat(Float(mindfulTime) / 60, point: 1))
+        Average Training RR: \(roundFloat(Float(rrSum), point: 2))
         
         Posture Training Time Completed: \(postureTime / 60) Mins
-        Upright Posture: \(uprightPercent)%
-        Upright Posture Minutes: \(uprightTime / 60)
+        Upright Posture: \(roundFloat(uprightPercent, point: 1))%
+        Upright Posture Minutes: \(roundFloat(Float(uprightTime) / 60, point: 1))
         """
     }
     
@@ -182,15 +220,14 @@ extension SessionHistoryViewController: UITableViewDelegate, UITableViewDataSour
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if rangeType == .daily {
-            return 2
+            return 1
         }
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if rangeType == .daily {
-            if section == 0 { return 1 }
-            return currentSessions.count
+            return dailyRows.count
         }
         
         return 2
@@ -202,11 +239,18 @@ extension SessionHistoryViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if rangeType == .daily {
-            if indexPath.section == 0 {
-                return 250
-            }
+            let row = dailyRows[indexPath.row]
             
-            return 140
+            switch row {
+            case is DailySummary:
+                return 230
+            case is TrainingSession:
+                return 120
+            case is PassiveSession:
+                return 100
+            default:
+                return 0
+            }
         }
         
         if indexPath.row == 0 {
@@ -217,51 +261,53 @@ extension SessionHistoryViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if rangeType == .daily {
-            if indexPath.section != 0 {
+            let row = dailyRows[indexPath.row]
+            
+            switch row {
+            case let session as TrainingSession:
                 let vc = getViewController(storyboard: "History", identifier: "SessionDetailViewController") as! SessionDetailViewController
-                if let session = currentSessions[indexPath.row] as? TrainingSession {
-                    vc.type = .session
-                    vc.session = session
-                } else {
-                    let passive = currentSessions[indexPath.row] as! PassiveSession
-                    vc.type = .passive
-                    vc.passive = passive
-                }
+                vc.type = .session
+                vc.session = session
                 self.navigationController?.pushViewController(vc, animated: true)
+            case let passive as PassiveSession:
+                let vc = getViewController(storyboard: "History", identifier: "SessionDetailViewController") as! SessionDetailViewController
+                vc.type = .passive
+                vc.passive = passive
+                self.navigationController?.pushViewController(vc, animated: true)
+            default:
+                break
             }
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if rangeType == .daily {
-            if indexPath.section == 0 {
+            
+            let row = dailyRows[indexPath.row]
+            
+            switch row {
+            case let summary as DailySummary:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DailyCell1") as! DailyCell1
-                
-                cell.date = currentDate
-//                cell.summaryView.text = currentSessionSummary
-                cell.lblSummary.text = currentSessionSummary
+                cell.date = summary.0
+                cell.lblSummary.text = summary.1
                 cell.dateChangeHandler = { [unowned self] newDate in
                     self.currentDate = newDate
                 }
-                
                 return cell
-            }
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DailyCell2") as! DailyCell2
-            
-            if let session = currentSessions[indexPath.row] as? TrainingSession {
+            case let session as TrainingSession:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "DailyCell2") as! DailyCell2
                 cell.lblTime.text = session.startedAt.timeString()
-//                cell.summaryView.text = session.summary
                 cell.lblSummary.text = session.summary
                 
                 return cell
+            case let passive as PassiveSession:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "DailyCell2") as! DailyCell2
+                cell.lblTime.text = passive.startedAt.timeString()
+                cell.lblSummary.text = passive.summary
+                return cell
+            default:
+                return UITableViewCell()
             }
-            
-            let passive = currentSessions[indexPath.row] as! PassiveSession
-            cell.lblTime.text = passive.startedAt.timeString()
-//            cell.summaryView.text = passive.summary
-            cell.lblSummary.text = passive.summary
-            return cell
         }
         
         if indexPath.row == 0 {

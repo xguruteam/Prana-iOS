@@ -15,6 +15,19 @@ func getPercent(_ child: Int, _ parent: Int) -> Float {
     return y
 }
 
+func roundFloat(_ value: Float, point: Int) -> Any {
+    if point <= 0 {
+        let per = Float(Int(value * Float(10 * 1))) / Float(10 * 1)
+        return per
+    }
+    let per = Float(Int(value * Float(powf(10.0, Float(point))))) / Float(powf(10.0, Float(point)))
+    if per == floorf(per) {
+        return Int(per)
+    }
+    
+    return per
+}
+
 class TrainingSession: Codable {
     var startedAt: Date
     var type: Int // 0: Visual, 1: Buzzer
@@ -89,103 +102,90 @@ class TrainingSession: Codable {
     var summary: String {
         var breathTime = 0
         var mindfulTime = 0
+        var breathCount = 0
+        var mindfulCount = 0
         var rrSum: Double = 0
-        var sessionCount = 0
         
         var postureTime = 0
         var uprightTime = 0
         var slouchTime = 0
         
-        if kind == 0 {
-            breathTime += duration
+        if kind == 0 || kind == 1 {
+            breathTime = duration
             let sum = sumMindfulTime()
-            mindfulTime += sum.0
-            rrSum += sum.1
-            
-            postureTime += duration
-            slouchTime += sumSlouchTime()
-            sessionCount += 1
-        } else if kind == 1 {
-            breathTime += duration
-            let sum = sumMindfulTime()
-            mindfulTime += sum.0
-            rrSum += sum.1
-            sessionCount += 1
-        } else {
-            postureTime += duration
-            slouchTime += sumSlouchTime()
+            mindfulTime = sum.0
+            rrSum = sum.1
+            mindfulCount = sum.2
+            breathCount = breaths.count
         }
         
-        if sessionCount > 0 {
-            rrSum /= Double(sessionCount)
+        if kind == 0 || kind == 2 {
+            postureTime += duration
+            slouchTime += sumSlouchTime()
         }
         
         uprightTime = postureTime - slouchTime
         
         var mindfulPercent:Float = 0
-        if breathTime > 0 {
-            mindfulPercent = getPercent(mindfulTime, breathTime)
+        if breathCount > 0 {
+            mindfulPercent = getPercent(mindfulCount, breathCount)
         }
+        
         var uprightPercent: Float = 0
         if (postureTime > 0) {
             uprightPercent = getPercent(uprightTime, postureTime)
         }
         
         
-        mindfulPercent = round(mindfulPercent)
-        rrSum = round(rrSum)
-        uprightPercent = round(uprightPercent)
-        
         if kind == 0 {
             return """
             Training: \(kindString), \(duration / 60) Mins completed
-            Mindful Breaths: \(mindfulPercent)%, Avg. RR: \(rrSum), \(patternString) pattern
-            Upright Posture: \(uprightPercent)%, Slouches: \(slouches.count), Wearing: \(wearingString)
+            Mindful Breaths: \(roundFloat(mindfulPercent, point: 1))%, Avg. RR: \(roundFloat(Float(rrSum), point: 2))
+            Pattern: \(patternString)
+            Upright Posture: \(roundFloat(uprightPercent, point: 1))%, Slouches: \(slouches.count), Wearing: \(wearingString)
             """
         } else if kind == 1 {
             return """
-            Training: \(kindString), \(duration / 60) Mins completed
-            Mindful Breaths: \(mindfulPercent)%, Avg. RR: \(rrSum), \(patternString) pattern
+            Mindful Breaths: \(roundFloat(mindfulPercent, point: 1))%, Avg. RR: \(roundFloat(Float(rrSum), point: 2))
+            Pattern: \(patternString)
             """
         }
         
 
         return """
         Training: \(kindString), \(duration / 60) Mins completed
-        Upright Posture: \(uprightPercent)%, Slouches: \(slouches.count), Wearing: \(wearingString)
+        Upright Posture: \(roundFloat(uprightPercent, point: 1))%, Slouches: \(slouches.count), Wearing: \(wearingString)
         """
     }
     
     var breathingSummary: String {
         var breathTime = 0
         var mindfulTime = 0
+        var breathCount = 0
         var rrSum: Double = 0
         var mindfulCount = 0
         
         if kind == 0 || kind == 1 {
-            breathTime += duration
+            breathTime = duration
             let sum = sumMindfulTime()
-            mindfulTime += sum.0
-            rrSum += sum.1
+            mindfulTime = sum.0
+            rrSum = sum.1
             mindfulCount = sum.2
+            breathCount = breaths.count
         }
         
         var mindfulPercent:Float = 0
-        if breathTime > 0 {
-            mindfulPercent = getPercent(mindfulTime, breathTime)
+        if breathCount > 0 {
+            mindfulPercent = getPercent(mindfulCount, breathCount)
         }
 
-        mindfulPercent = round(mindfulPercent)
-        rrSum = round(rrSum)
-        
         if kind == 0 || kind == 1 {
             return """
-            Mindful Breaths: \(mindfulPercent)% (\(mindfulCount) of \(breaths.count))
-            Avg. RR: \(rrSum)
+            Mindful Breaths: \(roundFloat(mindfulPercent, point: 1))% (\(mindfulCount) of \(breaths.count))
+            Avg. RR: \(roundFloat(Float(rrSum), point: 2))
             Pattern: \(patternString)
             """
         }
-        
         
         return ""
     }
@@ -196,8 +196,8 @@ class TrainingSession: Codable {
         var slouchTime = 0
         
         if kind == 0 || kind == 2 {
-            postureTime += duration
-            slouchTime += sumSlouchTime()
+            postureTime = duration
+            slouchTime = sumSlouchTime()
         }
         
         uprightTime = postureTime - slouchTime
@@ -208,11 +208,9 @@ class TrainingSession: Codable {
         }
         
         
-        uprightPercent = round(uprightPercent)
-        
         if kind == 0 || kind == 2 {
             return """
-            Upright Posture: \(uprightPercent)% (\(uprightTime) of \(postureTime) seconds)
+            Upright Posture: \(roundFloat(uprightPercent, point: 1))% (\(uprightTime) of \(postureTime) seconds)
             Slouches: \(slouches.count)
             Wearing: \(wearingString)
             """
