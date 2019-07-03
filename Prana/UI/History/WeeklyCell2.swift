@@ -96,7 +96,7 @@ class WeeklyCell2: UITableViewCell {
             for session in daySessions {
                 if session.kind == 0 || session.kind == 1 {
                     breathTime += session.duration
-                    let (mindful, rr) = session.sumMindfulTime()
+                    let (mindful, rr, _) = session.sumMindfulTime()
                     mindfulTime += mindful
                     avgRR += rr
                 }

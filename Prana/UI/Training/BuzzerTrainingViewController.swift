@@ -270,7 +270,7 @@ class BuzzerTrainingViewController: UIViewController {
         else {
             currentSessionObject?.floorSessionDuration()
             
-            if let session = currentSessionObject {
+            if let session = currentSessionObject, session.duration > 0 {
                 if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
                     dataController.addRecord(training: session)
                 }
@@ -533,7 +533,7 @@ extension BuzzerTrainingViewController: BuzzerDelegate {
 //        print("new mindful \(mindfuls) in \(totals)")
         if breathCount < totals {
             let isMindful = ((mindfuls > mindfulBreaths) ? true : false)
-            self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: isMindful, respRate: actualRR, eiRatio: 0)
+            self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: isMindful, respRate: actualRR, targetRate: targetRR, eiRatio: 0)
         }
         mindfulBreaths = mindfuls
         breathCount = totals

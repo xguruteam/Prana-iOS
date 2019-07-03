@@ -68,12 +68,15 @@ class TrainingSession: Codable {
         self.slouches.append(SlouchRecord(timeStamp: timeStamp, duration: duration))
     }
     
-    func addBreath(timeStamp: Int, isMindful: Bool, respRate: Double, eiRatio: Double) {
+    func addBreath(timeStamp: Int, isMindful: Bool, respRate: Double, targetRate: Double, eiRatio: Double) {
         guard timeStamp > 0 else { return }
-        self.breaths.append(BreathRecord(timeStamp: timeStamp, isMindful: isMindful, respRate: respRate, eiRatio: eiRatio))
+        self.breaths.append(BreathRecord(timeStamp: timeStamp, isMindful: isMindful, respRate: respRate, targetRate: targetRate, eiRatio: eiRatio))
     }
     
     func floorSessionDuration() {
+        let duration = self.duration / 60 * 60
+        self.duration = duration
+        
         self.slouches = slouches.filter {
             return $0.timeStamp <= self.duration ? true : false
         }
@@ -153,12 +156,78 @@ class TrainingSession: Codable {
         """
     }
     
-    func sumMindfulTime() -> (Int, Double) {
+    var breathingSummary: String {
+        var breathTime = 0
+        var mindfulTime = 0
+        var rrSum: Double = 0
+        var mindfulCount = 0
+        
+        if kind == 0 || kind == 1 {
+            breathTime += duration
+            let sum = sumMindfulTime()
+            mindfulTime += sum.0
+            rrSum += sum.1
+            mindfulCount = sum.2
+        }
+        
+        var mindfulPercent:Float = 0
+        if breathTime > 0 {
+            mindfulPercent = getPercent(mindfulTime, breathTime)
+        }
+
+        mindfulPercent = round(mindfulPercent)
+        rrSum = round(rrSum)
+        
+        if kind == 0 || kind == 1 {
+            return """
+            Mindful Breaths: \(mindfulPercent)% (\(mindfulCount) of \(breaths.count))
+            Avg. RR: \(rrSum)
+            Pattern: \(patternString)
+            """
+        }
+        
+        
+        return ""
+    }
+    
+    var postureSummary: String {
+        var postureTime = 0
+        var uprightTime = 0
+        var slouchTime = 0
+        
+        if kind == 0 || kind == 2 {
+            postureTime += duration
+            slouchTime += sumSlouchTime()
+        }
+        
+        uprightTime = postureTime - slouchTime
+        
+        var uprightPercent: Float = 0
+        if (postureTime > 0) {
+            uprightPercent = getPercent(uprightTime, postureTime)
+        }
+        
+        
+        uprightPercent = round(uprightPercent)
+        
+        if kind == 0 || kind == 2 {
+            return """
+            Upright Posture: \(uprightPercent)% (\(uprightTime) of \(postureTime) seconds)
+            Slouches: \(slouches.count)
+            Wearing: \(wearingString)
+            """
+        }
+        return ""
+    }
+    
+    func sumMindfulTime() -> (Int, Double, Int) {
         var mindfulTime = 0
         var avgRR: Double = 0
+        var mindfulCount = 0
         for i in 0..<breaths.count {
             let breath = breaths[i]
             if breath.isMindful {
+                mindfulCount += 1
                 if i == 0 {
                     mindfulTime += breath.timeStamp
                 } else {
@@ -171,7 +240,7 @@ class TrainingSession: Codable {
             avgRR = (avgRR / Double(breaths.count))
         }
         
-        return (mindfulTime, avgRR)
+        return (mindfulTime, avgRR, mindfulCount)
     }
     
     func sumSlouchTime() -> Int {
@@ -198,12 +267,14 @@ struct BreathRecord: Codable {
     var timeStamp: Int = 0
     var isMindful: Bool = false
     var respRate: Double = 0
+    var targetRate: Double = 0
     var eiRatio: Double = 0
     
-    init(timeStamp: Int, isMindful: Bool, respRate: Double, eiRatio: Double) {
+    init(timeStamp: Int, isMindful: Bool, respRate: Double, targetRate: Double, eiRatio: Double) {
         self.timeStamp = timeStamp
         self.isMindful = isMindful
         self.respRate = respRate
+        self.targetRate = targetRate
         self.eiRatio = eiRatio
     }
 }

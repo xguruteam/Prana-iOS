@@ -36,10 +36,13 @@ class PassiveSession: Codable {
     
     func addBreath(timeStamp: Int, isMindful: Bool, respRate: Double, eiRatio: Double) {
         guard timeStamp > 0 else { return }
-        self.breaths.append(BreathRecord(timeStamp: timeStamp, isMindful: isMindful, respRate: respRate, eiRatio: eiRatio))
+        self.breaths.append(BreathRecord(timeStamp: timeStamp, isMindful: isMindful, respRate: respRate, targetRate: 0, eiRatio: eiRatio))
     }
     
     func floorSessionDuration() {
+        let duration = self.duration / 60 * 60
+        self.duration = duration
+        
         self.slouches = slouches.filter {
             return $0.timeStamp <= self.duration ? true : false
         }
@@ -78,6 +81,31 @@ class PassiveSession: Codable {
         Passive Tracking: \(duration / 60) Mins completed
         Avg. RR : \(round(rrSum))
         Upright Posture: \(round(uprightPercent))%, Slouches: \(slouches.count), Wearing: \(wearingString)
+        """
+    }
+    
+    var postureSummary: String {
+        var postureTime = 0
+        var uprightTime = 0
+        var slouchTime = 0
+        
+        postureTime += duration
+        slouchTime += sumSlouchTime()
+
+        uprightTime = postureTime - slouchTime
+        
+        var uprightPercent: Float = 0
+        if (postureTime > 0) {
+            uprightPercent = getPercent(uprightTime, postureTime)
+        }
+        
+        
+        uprightPercent = round(uprightPercent)
+        
+        return """
+        Upright Posture: \(uprightPercent)% (\(uprightTime) of \(postureTime) seconds)
+        Slouches: \(slouches.count)
+        Wearing: \(wearingString)
         """
     }
     

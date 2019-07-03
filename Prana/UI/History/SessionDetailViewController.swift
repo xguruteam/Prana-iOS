@@ -67,6 +67,15 @@ class SessionDetailViewController: SuperViewController {
         return graph
     }()
     
+    let breathSummaryView: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textColor = UIColor(hexString: "#79859f")
+        label.font = UIFont(name: "Quicksand-Medium", size: 13)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     let eiGraph: Chart = {
         let graph = Chart()
         graph.labelFont = UIFont(name: "Quicksand-Bold", size: 13)
@@ -142,7 +151,7 @@ class SessionDetailViewController: SuperViewController {
             
             if session.kind == 0 {
                 containerView.addSubview(rrGraph)
-                rrGraph.topAnchor.constraint(equalTo: lblOverview.bottomAnchor, constant: 40).isActive = true
+                rrGraph.topAnchor.constraint(equalTo: lblOverview.bottomAnchor, constant: 20).isActive = true
                 rrGraph.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
                 rrGraph.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
                 rrGraph.heightAnchor.constraint(equalToConstant: 200).isActive = true
@@ -165,10 +174,15 @@ class SessionDetailViewController: SuperViewController {
                 minLabel.topAnchor.constraint(equalTo: rrGraph.bottomAnchor, constant: 0).isActive = true
                 minLabel.rightAnchor.constraint(equalTo: rrGraph.rightAnchor, constant: 0).isActive = true
                 
+                containerView.addSubview(breathSummaryView)
+                breathSummaryView.topAnchor.constraint(equalTo: rrGraph.bottomAnchor, constant: 20).isActive = true
+                breathSummaryView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
+                breathSummaryView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
+                
                 containerView.addSubview(postureView)
                 postureView.widthAnchor.constraint(equalToConstant: 100).isActive = true
                 postureView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-                postureView.topAnchor.constraint(equalTo: rrGraph.bottomAnchor, constant: 40).isActive = true
+                postureView.topAnchor.constraint(equalTo: breathSummaryView.bottomAnchor, constant: 40).isActive = true
                 postureView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
                 
                 containerView.addSubview(postureBar)
@@ -183,7 +197,7 @@ class SessionDetailViewController: SuperViewController {
                 summaryView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
             } else if session.kind == 1 {
                 containerView.addSubview(rrGraph)
-                rrGraph.topAnchor.constraint(equalTo: lblOverview.bottomAnchor, constant: 40).isActive = true
+                rrGraph.topAnchor.constraint(equalTo: lblOverview.bottomAnchor, constant: 20).isActive = true
                 rrGraph.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
                 rrGraph.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
                 rrGraph.heightAnchor.constraint(equalToConstant: 200).isActive = true
@@ -255,13 +269,13 @@ class SessionDetailViewController: SuperViewController {
             
             
             containerView.addSubview(eiGraph)
-            eiGraph.topAnchor.constraint(equalTo: rrGraph.bottomAnchor, constant: 20).isActive = true
+            eiGraph.topAnchor.constraint(equalTo: rrGraph.bottomAnchor, constant: 50).isActive = true
             eiGraph.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
             eiGraph.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
             eiGraph.heightAnchor.constraint(equalToConstant: 150).isActive = true
             
             let eiLabel = UILabel()
-            eiLabel.text = "EI"
+            eiLabel.text = "E/I"
             eiLabel.textColor = UIColor(hexString: "#79859f")
             eiLabel.font = UIFont(name: "Quicksand-Bold", size: 13)
             containerView.addSubview(eiLabel)
@@ -319,17 +333,60 @@ class SessionDetailViewController: SuperViewController {
 
             if session.kind == 0 || session.kind == 1 {
                 let duration = session.duration / 60
-                rrGraph.xLabels = (0...duration).map { Double($0) }
+                var xlabels = (0...duration).map { Double($0) }
+                xlabels.append(Double(duration) + 0.5)
+                rrGraph.xLabels = xlabels
                 
-                let data = session.breaths.map { (breath) -> (Double, Double) in
-                    return (Double(breath.timeStamp) / 60.0, breath.respRate)
+                var series: [([(Double, Double)], Bool)] = []
+                var segment: [(Double, Double)] = []
+                var prevMindful = false
+                var targetRRs: [(Double, Double)] = []
+                session.breaths.enumerated().forEach { (i, breath) in
+                    let value = (Double(breath.timeStamp) / 60.0, breath.respRate)
+                    segment.append(value)
+                    
+                    let targetRRValue = (Double(breath.timeStamp) / 60.0, breath.targetRate)
+                    targetRRs.append(targetRRValue)
+                    
+                    if i == 0 {
+                        prevMindful = breath.isMindful
+                    }
+                    
+                    if prevMindful == breath.isMindful {
+                        if i == session.breaths.count - 1 {
+                            series.append((segment, prevMindful))
+                        }
+                    } else {
+                        series.append((segment, prevMindful))
+                        if i < session.breaths.count - 1 {
+                            segment = [value]
+                            prevMindful = breath.isMindful
+                        }
+                    }
                 }
                 
-                let series = ChartSeries(data: data)
-                series.color = UIColor(hexString: "#5eb839")
-                series.area = true
+                series.forEach { (line) in
+                    let (data, isMindful) = line
+                    let series = ChartSeries(data: data)
+                    if isMindful {
+                        series.color = UIColor(hexString: "#5eb839")
+                    } else {
+                        series.color = UIColor(hexString: "#ff0000")
+                    }
+                    series.area = true
+                    rrGraph.add(series)
+                }
                 
-                rrGraph.add(series)
+                let targetRRSeries = ChartSeries(data: targetRRs)
+                targetRRSeries.color = UIColor(hexString: "#2bb7b8")
+                targetRRSeries.area = false
+                rrGraph.add(targetRRSeries)
+                
+                if session.kind == 0 {
+                    breathSummaryView.text = session.breathingSummary
+                } else {
+                    summaryView.text = session.breathingSummary
+                }
             }
             
             if session.kind == 0 || session.kind == 2 {
@@ -341,9 +398,10 @@ class SessionDetailViewController: SuperViewController {
                 
                 postureBar.duration = session.duration
                 postureBar.slouches = session.slouches
+                
+                summaryView.text = session.postureSummary
             }
             
-            summaryView.text = session.summary
         } else {
             let dateDescription = passive.startedAt.dateTimeString()
             lblOverview.text =
@@ -353,7 +411,9 @@ class SessionDetailViewController: SuperViewController {
             """
             
             let duration = passive.duration / 60
-            rrGraph.xLabels = (0...duration).map { Double($0) }
+            var xlabels = (0...duration).map { Double($0) }
+            xlabels.append(Double(duration) + 0.5)
+            rrGraph.xLabels = xlabels
             
             var data = passive.breaths.map { (breath) -> (Double, Double) in
                 return (Double(breath.timeStamp) / 60.0, breath.respRate)
@@ -365,7 +425,7 @@ class SessionDetailViewController: SuperViewController {
             
             rrGraph.add(series)
             
-            eiGraph.xLabels = (0...duration).map { Double($0) }
+            eiGraph.xLabels = xlabels
             
             data = passive.breaths.map { (breath) -> (Double, Double) in
                 return (Double(breath.timeStamp) / 60.0, breath.eiRatio)
@@ -387,7 +447,7 @@ class SessionDetailViewController: SuperViewController {
             postureBar.duration = passive.duration
             postureBar.slouches = passive.slouches
             
-            summaryView.text = passive.summary
+            summaryView.text = passive.postureSummary
         }
     }
     

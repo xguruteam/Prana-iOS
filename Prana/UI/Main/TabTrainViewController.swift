@@ -133,47 +133,36 @@ class TabTrainViewController: UIViewController {
         if let sessions = dataController?.fetchDailySessions(date: Date()).filter({ (object) -> Bool in
             return object is TrainingSession
         }) as? [TrainingSession], let _ = sessions.first {
-            let (breathingElapsed, postureElapsed, mindfulDuration, uprightDuration) = sessions.reduce((0, 0, 0, 0)) { (acc, session) -> (Int, Int, Int, Int) in
+            let (breathCount, postureElapsed, mindfuls, uprightDuration, breathingElapsed) = sessions.reduce((0, 0, 0, 0, 0)) { (acc, session) -> (Int, Int, Int, Int, Int) in
                 var result = acc
                 
                 let calendar = Calendar.current
                 if calendar.isDateInToday(session.startedAt) == false {
                     return result
                 }
-                if session.kind == 1 {
-                    result.0 += session.duration
+                if session.kind == 0 || session.kind == 1 {
+                    result.0 += session.breaths.count
+
+                    let (_, _, mindfuls)  = session.sumMindfulTime()
+                    result.2 += mindfuls
+                    result.4 += session.duration
                 }
-                else if session.kind == 2 {
-                    result.1 += session.duration
-                }
-                else {
-                    result.0 += session.duration
-                    result.1 += session.duration
-                }
-                let (mindfulDuration, _) = session.breaths.reduce((0, 0), { (result, breath) -> (Int, Int) in
-                    var (mindfulDuration, totalElapsed) = result
-                    let breathDuration = breath.timeStamp - totalElapsed
-                    if breathDuration > 0, breath.isMindful {
-                        mindfulDuration += breathDuration
-                    }
-                    totalElapsed = breath.timeStamp
-                    return (mindfulDuration, totalElapsed)
-                })
-                result.2 += mindfulDuration
                 
-                let slouchDuration = session.slouches.reduce(0, { (slouchDuration, slouch) -> Int in
-                    return slouchDuration + slouch.duration
-                })
-                let uprightDuration = session.duration - slouchDuration
-                if uprightDuration > 0 {
-                    result.3 += uprightDuration
+                if session.kind == 0 || session.kind == 2 {
+                    result.1 += session.duration
+
+                    let slouchDuration = session.sumSlouchTime()
+                    let uprightDuration = session.duration - slouchDuration
+                    if uprightDuration > 0 {
+                        result.3 += uprightDuration
+                    }
                 }
                 
                 return result
             }
             
-            if breathingElapsed > 0 {
-                lblBreathResult.text = "\(mindfulDuration * 100 / breathingElapsed)% Mindful"
+            if breathCount > 0 {
+                lblBreathResult.text = "\(mindfuls * 100 / breathCount)% Mindful"
             }
             else {
                 lblBreathResult.text = "0% Mindful"

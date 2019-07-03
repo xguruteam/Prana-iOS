@@ -192,7 +192,7 @@ class PassiveTrackingViewController: UIViewController {
         
         currentSessionObject?.floorSessionDuration()
         
-        if let session = currentSessionObject {
+        if let session = currentSessionObject, session.duration > 0 {
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
                 dataController.addRecord(passive: session)
             }

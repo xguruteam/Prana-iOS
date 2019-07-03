@@ -427,7 +427,7 @@ public extension Date {
     /// - Returns: date and time string
     public func dateTimeString(ofStyle style: DateFormatter.Style = .medium) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = style
+        dateFormatter.timeStyle = .short
         dateFormatter.dateStyle = style
         return dateFormatter.string(from: self)
     }
@@ -475,7 +475,7 @@ public extension Date {
     /// Time string from date
     public func timeString(ofStyle style: DateFormatter.Style = .medium) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = style
+        dateFormatter.timeStyle = .short
         dateFormatter.dateStyle = .none
         return dateFormatter.string(from: self)
     }

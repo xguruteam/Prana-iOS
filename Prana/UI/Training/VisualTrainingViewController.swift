@@ -442,7 +442,7 @@ class VisualTrainingViewController: UIViewController {
 //        makeSessionObject()
         currentSessionObject?.floorSessionDuration()
         
-        if let session = currentSessionObject {
+        if let session = currentSessionObject, session.duration > 0 {
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
                 dataController.addRecord(training: session)
             }
@@ -541,7 +541,7 @@ extension VisualTrainingViewController: VisualDelegate {
         if breathCount < total {
             // new breath
             let isMindful = (self.mindfulBreaths != mindful)
-            self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: isMindful, respRate: actualRR, eiRatio: 0)
+            self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: isMindful, respRate: actualRR, targetRate: targetRR, eiRatio: 0)
         }
         DispatchQueue.main.async {
             self.breathCount = total

@@ -24,7 +24,7 @@ class PostureBar: UIView {
             let x = CGFloat(slouch.timeStamp) * unit
             let w = CGFloat(slouch.duration) * unit
             let path = UIBezierPath(rect: CGRect(x: x, y: 0, width: w, height: height))
-            UIColor(hexString: "#f8e71c").setFill()
+            UIColor(hexString: "#ff0000").setFill()
             path.fill()
         }
     }
