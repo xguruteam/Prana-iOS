@@ -34,6 +34,7 @@
 		CA98921F2241353B00D824B0 /* TSCDesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98921E2241353A00D824B0 /* TSCDesignableView.swift */; };
 		CA98922222413B2300D824B0 /* LiveGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98922122413B2300D824B0 /* LiveGraph.swift */; };
 		CA9C4D5B22B0FDFD001A7A9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CA9C4D5A22B0FDFD001A7A9C /* GoogleService-Info.plist */; };
+		CA9D65C622CDF2A80074253B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9D65C522CDF2A80074253B /* SettingsViewController.swift */; };
 		CAA21A1522777D090004F5E0 /* Prana.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CAA21A1322777D090004F5E0 /* Prana.xcdatamodeld */; };
 		CAA21A17227780F10004F5E0 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA21A16227780F10004F5E0 /* DataController.swift */; };
 		CAA44A31224425EF0050D619 /* ConnectionTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA44A30224425EF0050D619 /* ConnectionTestViewController.swift */; };
@@ -264,6 +265,7 @@
 		CA98921E2241353A00D824B0 /* TSCDesignableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSCDesignableView.swift; sourceTree = "<group>"; };
 		CA98922122413B2300D824B0 /* LiveGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveGraph.swift; sourceTree = "<group>"; };
 		CA9C4D5A22B0FDFD001A7A9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CA9D65C522CDF2A80074253B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		CAA21A1422777D090004F5E0 /* Prana.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Prana.xcdatamodel; sourceTree = "<group>"; };
 		CAA21A16227780F10004F5E0 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		CAA44A30224425EF0050D619 /* ConnectionTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionTestViewController.swift; sourceTree = "<group>"; };
@@ -568,6 +570,7 @@
 				CAC7F51222AA3567004230C0 /* Tracking */,
 				CAB1062822B8D2CF00A7D8A1 /* Body */,
 				CAC4B96922C03951006DD7E8 /* History */,
+				CA9D65C422CDF2730074253B /* Settings */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -589,6 +592,14 @@
 				CA98922122413B2300D824B0 /* LiveGraph.swift */,
 			);
 			path = LiveGraph;
+			sourceTree = "<group>";
+		};
+		CA9D65C422CDF2730074253B /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				CA9D65C522CDF2A80074253B /* SettingsViewController.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		CAA21A1222777CEB0004F5E0 /* Models */ = {
@@ -1381,6 +1392,7 @@
 				CAC1251C22C2BFC5008D6C7D /* WeeklyGraph.swift in Sources */,
 				CA48E58C22671D93002CFA19 /* UIColor+Utils.swift in Sources */,
 				CAAF9D2F22737952003232C4 /* DatePickerViewController.swift in Sources */,
+				CA9D65C622CDF2A80074253B /* SettingsViewController.swift in Sources */,
 				CA48E58822664A5B002CFA19 /* LiveFeedViewController.swift in Sources */,
 				CAAF9D3722737952003232C4 /* SegmentedControl.swift in Sources */,
 				D77D3BF1223AA17E0022E86C /* TutorialEndViewController.swift in Sources */,
