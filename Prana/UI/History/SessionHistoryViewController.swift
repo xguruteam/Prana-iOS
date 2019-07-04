@@ -166,7 +166,6 @@ class SessionHistoryViewController: SuperViewController {
         var mindfulPercent:Float = 0
         if breathCount > 0 {
             mindfulPercent = getPercent(mindfulCount, breathCount)
-            mindfulPercent = 80
         }
         var uprightPercent: Float = 0
         if (postureTime > 0) {

@@ -378,7 +378,7 @@ class SessionDetailViewController: SuperViewController {
                 }
                 
                 let targetRRSeries = ChartSeries(data: targetRRs)
-                targetRRSeries.color = UIColor(hexString: "#2bb7b8")
+                targetRRSeries.color = UIColor(hexString: "#0000ff")
                 targetRRSeries.area = false
                 rrGraph.add(targetRRSeries)
                 
