@@ -284,21 +284,30 @@ class SettingsViewController: SuperViewController {
     }
     
     @objc func onLogout() {
-        UserDefaults.standard.removeObject(forKey: KEY_TOKEN)
-        UserDefaults.standard.removeObject(forKey: KEY_EXPIREAT)
-        UserDefaults.standard.removeObject(forKey: KEY_REMEMBERME)
-        UserDefaults.standard.synchronize()
-        
-        dataController.currentUser = nil
-        dataController.saveUserData()
-        
-        if PranaDeviceManager.shared.isConnected {
-            PranaDeviceManager.shared.stopGettingLiveData()
-            PranaDeviceManager.shared.disconnect()
-            PranaDeviceManager.shared.delegate = nil
+        let alert = UIAlertController(style: .alert, title: "Warning", message: "All settings will be lost!")
+        alert.addAction(title: "Cancel", style: .cancel) { (_) in
+            
         }
         
-        self.dismiss(animated: true, completion: nil)
+        alert.addAction(title: "Ok", style: .destructive) { [unowned self] (_) in
+            UserDefaults.standard.removeObject(forKey: KEY_TOKEN)
+            UserDefaults.standard.removeObject(forKey: KEY_EXPIREAT)
+            UserDefaults.standard.removeObject(forKey: KEY_REMEMBERME)
+            UserDefaults.standard.synchronize()
+            
+            self.dataController.currentUser = nil
+            self.dataController.saveUserData()
+            
+            if PranaDeviceManager.shared.isConnected {
+                PranaDeviceManager.shared.stopGettingLiveData()
+                PranaDeviceManager.shared.disconnect()
+                PranaDeviceManager.shared.delegate = nil
+            }
+            
+            self.dismiss(animated: true, completion: nil)
+        }
+        alert.show()
+        
     }
     
     @objc func onEditProfile() {

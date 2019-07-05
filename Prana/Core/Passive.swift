@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol PassiveDelegate {
+protocol PassiveDelegate: class {
     func passiveDidRespRate(currentRR: Double, avgRR: Double, breathCount: Int)
     func passiveDidEI(realtimeEI: Double, avgEI: Double)
     func passiveDidCalculateOneMinuteEI(lastEI: Double)
@@ -41,7 +41,7 @@ class Passive {
     }
     
     var objLiveGraph: Live
-    var delegate: PassiveDelegate?
+    weak var delegate: PassiveDelegate?
     
     init(live: Live) {
         currentSlouchPostureTime = 0; //***May 31st ADDED

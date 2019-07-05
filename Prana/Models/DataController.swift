@@ -26,7 +26,7 @@ class DataController {
     // Settings
     var isDevicePaired: Bool = false
     var isTutorialPassed: Bool = false
-    var isAutoDisconnect: Bool = false
+    var isAutoDisconnect: Bool = true
     var programType: Int = 100
     var dailyNotification: Date?
     var breathingGoals: Int = 0
@@ -69,7 +69,22 @@ class DataController {
         return nil
     }
     
+    func initValues() {
+        isDevicePaired = false
+        isTutorialPassed = false
+        isAutoDisconnect = true
+        programType = 100
+        dailyNotification = nil
+        breathingGoals = 0
+        postureGoals = 0
+        vtPattern = nil
+        btPattern = nil
+        savedBodyNotification = nil
+        sessionSettings = nil
+    }
+    
     init() {
+        initValues()
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
@@ -257,6 +272,8 @@ class DataController {
     }
     
     func clearSettings() {
+        initValues()
+        
         guard let managedContext = managedObjectContext else { return }
         let fetchRequest = NSFetchRequest<SettingsManagedObject>(entityName: "Settings")
         do {

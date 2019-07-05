@@ -54,8 +54,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        guard dataController.isAutoDisconnect else { return }
+        
+        if let _ = topViewControllerWithRootViewController(rootViewController: window?.rootViewController) as? PassiveTrackingViewController {
+            print("applicationDidEnterBackground when topViewController is passive")
+        } else {
+            print("applicationDidEnterBackground when topViewController is not passive")
+            
+            if PranaDeviceManager.shared.isConnected {
+                PranaDeviceManager.shared.delegate = nil
+                PranaDeviceManager.shared.stopGettingLiveData()
+                PranaDeviceManager.shared.disconnect()
+            }
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

@@ -115,6 +115,11 @@ class BuzzerTrainingViewController: UIViewController {
         }
     }
     
+    
+    deinit {
+        print("BuzzerTrainingViewController deinit")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -122,7 +127,7 @@ class BuzzerTrainingViewController: UIViewController {
         
         self.navigationController?.navigationBar.isHidden = true
         
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
     }
     
     func initView() {
@@ -238,6 +243,7 @@ class BuzzerTrainingViewController: UIViewController {
         super.viewDidDisappear(animated)
         objLive?.removeDelegate(self as! LiveDelegate)
         stopLiving()
+        objLive = nil
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -268,15 +274,6 @@ class BuzzerTrainingViewController: UIViewController {
             return
         }
         else {
-            currentSessionObject?.floorSessionDuration()
-            
-            if let session = currentSessionObject, session.duration > 0 {
-                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
-                    dataController.addRecord(training: session)
-                }
-            }
-            
-
             self.dismiss(animated: true) {
                 
             }
@@ -297,8 +294,7 @@ class BuzzerTrainingViewController: UIViewController {
     
     @IBAction func onStartStop(_ sender: Any) {
         if isLiving {
-            stopLiving()
-            isCompleted = true
+            onComplete()
             btnStartStop.isEnabled = false
             btnStartStop.setTitle("Session End", for: .normal)
             btnStartStop.isHidden = true
@@ -422,6 +418,7 @@ class BuzzerTrainingViewController: UIViewController {
         isLiving = false
         btnStartStop.setTitle("START SESSION", for: .normal)
         objBuzzer?.endSession()
+        objBuzzer = nil
         PranaDeviceManager.shared.stopGettingLiveData()
         btnBack.isHidden = false
         btnHelp.isHidden = false
@@ -478,9 +475,33 @@ class BuzzerTrainingViewController: UIViewController {
         }
     }
     
+    @objc func appMovedToBackground() {
+        print("App moved to background!")
+        
+        if !isCompleted {
+            if isTutorial {
+                onBack(btnBack)
+                return
+            }
+            onComplete()
+        }
+        
+        onBack(btnBack)
+    }
+    
     func onComplete() {
         isCompleted = true
         stopLiving()
+        
+        currentSessionObject?.floorSessionDuration()
+        
+        if let session = currentSessionObject, session.duration > 0 {
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
+                dataController.addRecord(training: session)
+            }
+        }
+        
+        currentSessionObject = nil
     }
     
     func styledTime(v: Int) -> String {
@@ -524,7 +545,7 @@ extension BuzzerTrainingViewController: LiveDelegate {
 
 extension BuzzerTrainingViewController: BuzzerDelegate {
     func buzzerNewActualRR(actualRR: Double) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             self.actualRR = actualRR
         }
     }
@@ -537,25 +558,25 @@ extension BuzzerTrainingViewController: BuzzerDelegate {
         }
         mindfulBreaths = mindfuls
         breathCount = totals
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             self.lblMindfulBreaths.text = "Mindful Breaths: \(Int(mindfuls*100/totals))% (\(mindfuls) of \(totals))"
         }
     }
     
     func buzzerNewBuzzerReason(_ reason: String) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             self.lblBuzzerReason.text = "Buzzer Reason: " + reason
         }
     }
     
     func burzzerNewTargetRR(targetRR: Double) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             self.targetRR = targetRR
         }
     }
     
     func buzzerTimeElapsed(_ elapsed: Int) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             self.timeRemaining = elapsed
 //            if elapsed % 60 == 0 {
                 self.makeSessionObject()
@@ -574,7 +595,7 @@ extension BuzzerTrainingViewController: BuzzerDelegate {
             slouchStartSeconds = 0
         }
         uprightDuration = uprightTime
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             self.lblUprightPosture.text = "Upright Posture: \(Int(uprightTime*100/elapsed))% (\(uprightTime) of \(elapsed) s)"
         }
     }
@@ -583,13 +604,13 @@ extension BuzzerTrainingViewController: BuzzerDelegate {
 //        print("new slouches \(slouches)")
         slouchStartSeconds = self.sessionDuration * 60 - self.timeRemaining
 //        self.currentSessionObject?.addSlouch(timeStamp: self.sessionDuration * 60 - self.timeRemaining)
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             self.lblSlouches.text = "Slouches: \(slouches)"
         }
     }
     
     func buzzerDidSessionComplete() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             self.onComplete()
             self.btnStartStop.isEnabled = false
 //            self.btnStartStop.alpha = 0.5

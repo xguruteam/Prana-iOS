@@ -9,7 +9,7 @@
 import Foundation
 import CoreBluetooth
 
-protocol PranaDeviceManagerDelegate {
+protocol PranaDeviceManagerDelegate: class {
     func PranaDeviceManagerDidStartScan()
     func PranaDeviceManagerDidStopScan(with error: String?)
     func PranaDeviceManagerDidDiscover(_ device: PranaDevice)
@@ -48,7 +48,7 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     
     let centralManager: CBCentralManager
     
-    var delegate: PranaDeviceManagerDelegate?
+    weak var delegate: PranaDeviceManagerDelegate?
     private var delegates = [PranaDeviceManagerDelegate]()
     
     var currentDevice: CBPeripheral?

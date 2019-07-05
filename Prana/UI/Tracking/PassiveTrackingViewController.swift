@@ -118,9 +118,15 @@ class PassiveTrackingViewController: UIViewController {
     
     var isLive = false
 
+    deinit {
+        print("PassiveTrackingViewController deinit")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+        
         // Do any additional setup after loading the view.
         initView()
         
@@ -186,9 +192,8 @@ class PassiveTrackingViewController: UIViewController {
 
     @IBAction func onBack(_ sender: Any) {
         objLive?.removeDelegate(self)
-        if isLive {
-            PranaDeviceManager.shared.stopGettingLiveData()
-        }
+        objLive = nil
+        PranaDeviceManager.shared.stopGettingLiveData()
         
         currentSessionObject?.floorSessionDuration()
         
@@ -197,6 +202,8 @@ class PassiveTrackingViewController: UIViewController {
                 dataController.addRecord(passive: session)
             }
         }
+        
+        currentSessionObject = nil
         
         self.dismiss(animated: true) {
             
@@ -257,6 +264,17 @@ class PassiveTrackingViewController: UIViewController {
         }
         
         displayPostureAnimation(1)
+    }
+    
+    @objc func appMovedToBackground() {
+        print("App moved to background!")
+        if !isLive {
+            onBack(btnStartStop)
+            
+            if PranaDeviceManager.shared.isConnected {
+                PranaDeviceManager.shared.disconnect()
+            }
+        }
     }
     
     func uprightHasBeenSetHandler() {
@@ -367,6 +385,7 @@ class PassiveTrackingViewController: UIViewController {
         btnStartStop.setTitle("TRACKING ENDED", for: .normal)
         btnStartStop.isEnabled = false
         objPassive?.stop()
+        objPassive = nil
         PranaDeviceManager.shared.stopGettingLiveData()
         btnBack.isHidden = false
         btnHelp.isHidden = false

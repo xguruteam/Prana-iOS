@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol BuzzerDelegate {
+protocol BuzzerDelegate: class {
     func buzzerNewActualRR(actualRR: Double)
     func buzzerNewMindfulBreaths(_ mindfuls: Int, ofTotalBreaths totals: Int)
     func buzzerNewBuzzerReason(_ reason: String)
@@ -74,7 +74,7 @@ class Buzzer {
     
     var objLiveGraph: Live
     
-    var delegate: BuzzerDelegate?
+    weak var delegate: BuzzerDelegate?
     
     var maxSubPattern:Int = 8
     

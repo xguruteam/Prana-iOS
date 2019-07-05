@@ -180,9 +180,15 @@ class VisualTrainingViewController: UIViewController {
     
     var objVisual: VisualTrainingScene?
     
+    deinit {
+        print("VisualTrianingViewController deinit")
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
         
         mindfulBreaths = -1
         targetRR = -1.0
@@ -293,7 +299,7 @@ class VisualTrainingViewController: UIViewController {
         }
         
         objVisual?.stopSession()
-        
+        objVisual = nil
         //MARK: Landscape
         self.dismiss(animated: false) {
             NotificationCenter.default.post(name: .landscapeViewControllerDidDismiss, object: nil)
@@ -434,25 +440,36 @@ class VisualTrainingViewController: UIViewController {
             showHideStartButton()
         } else if isStarted {
             objVisual?.stopSession()
+            objVisual = nil
             onComplete()
         }
     }
     
     func onEnd() {
-//        makeSessionObject()
-        currentSessionObject?.floorSessionDuration()
-        
-        if let session = currentSessionObject, session.duration > 0 {
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
-                dataController.addRecord(training: session)
-            }
-        }
-        
         //MARK: Landscape
         self.dismiss(animated: false) {
             NotificationCenter.default.post(name: .visualViewControllerEndSession, object: nil)
         }
         //End: Landscape
+    }
+    
+    @objc func appMovedToBackground() {
+        print("App moved to background!")
+        if isTutorial {
+            onBack(btnStart)
+            return
+        }
+        
+        if isCompleted {
+            onBack(btnStart)
+        }
+        
+        if isCompleted == false {
+            objVisual?.stopSession()
+            objVisual = nil
+            onComplete()
+            onEnd()
+        }
     }
     
     func onComplete() {
@@ -465,6 +482,16 @@ class VisualTrainingViewController: UIViewController {
         if isShowButton {
            showHideStartButton()
         }
+        
+        //        makeSessionObject()
+        currentSessionObject?.floorSessionDuration()
+        
+        if let session = currentSessionObject, session.duration > 0 {
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
+                dataController.addRecord(training: session)
+            }
+        }
+        currentSessionObject = nil
     }
     
     func makeSessionObject() {
@@ -491,20 +518,20 @@ class VisualTrainingViewController: UIViewController {
 
 extension VisualTrainingViewController: VisualDelegate {
     func visualBattery(battery: Int) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             self.batteryView.progress = CGFloat(battery) / 100.0
         }
     }
     
     
     func visualUprightHasBeenSet() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             self.uprightHasBeenSetHandler()
         }
     }
     
     func visualPostureFrameCalculated(frameIndex: Int) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             self.displayPostureAnimation(frameIndex ?? 1)
         }
     }
@@ -519,20 +546,20 @@ extension VisualTrainingViewController: VisualDelegate {
             slouchStartSeconds = 0
         }
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             self.postureDuration = elapsedTime
             self.uprightDuration = uprightPostureTime
         }
     }
 
     func visualNewTargetRateCalculated(rate: Double) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             self.targetRR = rate
         }
     }
 
     func visualNewActualRateCalculated(rate: Double) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             self.actualRR = rate
         }
     }
@@ -543,7 +570,7 @@ extension VisualTrainingViewController: VisualDelegate {
             let isMindful = (self.mindfulBreaths != mindful)
             self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: isMindful, respRate: actualRR, targetRate: targetRR, eiRatio: 0)
         }
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             self.breathCount = total
             self.mindfulBreaths = mindful
         }
@@ -552,20 +579,20 @@ extension VisualTrainingViewController: VisualDelegate {
     func visualNewSlouches(slouches: Int) {
         slouchStartSeconds = self.sessionDuration * 60 - self.timeRemaining
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             self.slouches = slouches
 //            self.currentSessionObject?.addSlouch(timeStamp: self.sessionDuration * 60 - self.timeRemaining)
         }
     }
 
     func visualOnComplete() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             self.onComplete()
         }
     }
     
     func visualOnTimer(v: Int) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             self.timeRemaining = v
 //            if v % 60 == 0 {
                 self.makeSessionObject()

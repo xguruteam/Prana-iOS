@@ -11,7 +11,7 @@ import GameplayKit
 import CoreMotion
 
 
-protocol VisualDelegate {
+protocol VisualDelegate: class {
     func visualUprightHasBeenSet()
     func visualOnComplete()
     func visualOnTimer(v: Int)
@@ -71,7 +71,7 @@ class VisualTrainingScene: SKScene {
     
     var objLive: Live?
     
-    var visualDelegate: VisualDelegate?
+    weak var visualDelegate: VisualDelegate?
     
     var isBreathingOnly = false
     
