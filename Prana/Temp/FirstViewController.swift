@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MBProgressHUD
 import Alamofire
 
 class FirstViewController: UIViewController {
@@ -130,12 +129,12 @@ class FirstViewController: UIViewController {
     }
     
     @IBAction func onGenTrackingClicked(_ sender: Any) {
-        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        hud.mode = .indeterminate
-        hud.label.text = "Press the button to end session"
-        
-        hud.button.setTitle("End Session", for: .normal)
-        hud.button.addTarget(self, action: #selector(onEnd(_:)), for: .touchUpInside)
+//        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+//        hud.mode = .indeterminate
+//        hud.label.text = "Press the button to end session"
+//        
+//        hud.button.setTitle("End Session", for: .normal)
+//        hud.button.addTarget(self, action: #selector(onEnd(_:)), for: .touchUpInside)
         
         if let _ = timer {
             self.timer?.invalidate()

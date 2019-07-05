@@ -8,7 +8,6 @@
 
 import UIKit
 import Alamofire
-import MBProgressHUD
 import MKProgress
 
 class HistoryViewController2: UIViewController, UITableViewDataSource, UITableViewDelegate {

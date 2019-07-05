@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Toaster
 
 class SettingsViewController: SuperViewController {
 
@@ -39,6 +40,13 @@ class SettingsViewController: SuperViewController {
         label.font = UIFont(name: "Quicksand-Medium", size: 15)
         label.textColor = UIColor(hexString: "#415165")
         return label
+    }()
+    
+    let bluetoothStateView: BluetoothStateView = {
+        let imageView = BluetoothStateView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        return imageView
     }()
     
     let roundedContainer: UIView = {
@@ -134,11 +142,17 @@ class SettingsViewController: SuperViewController {
         container.bounds.size.height = 605
         
         container.addSubview(titleLabel)
-        titleLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 10).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 16).isActive = true
         titleLabel.centerXAnchor.constraint(equalTo: container.centerXAnchor).isActive = true
         
+        container.addSubview(bluetoothStateView)
+        bluetoothStateView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
+        bluetoothStateView.rightAnchor.constraint(equalTo: container.rightAnchor, constant: -20).isActive = true
+        bluetoothStateView.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        bluetoothStateView.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        
         container.addSubview(roundedContainer)
-        roundedContainer.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
+        roundedContainer.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16).isActive = true
         roundedContainer.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 20).isActive = true
         roundedContainer.rightAnchor.constraint(equalTo: container.rightAnchor, constant: -20).isActive = true
         roundedContainer.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -20).isActive = true
@@ -147,7 +161,7 @@ class SettingsViewController: SuperViewController {
         headerView.topAnchor.constraint(equalTo: roundedContainer.topAnchor, constant: 0).isActive = true
         headerView.leftAnchor.constraint(equalTo: roundedContainer.leftAnchor, constant: 0).isActive = true
         headerView.rightAnchor.constraint(equalTo: roundedContainer.rightAnchor, constant: 0).isActive = true
-        headerView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        headerView.heightAnchor.constraint(equalToConstant: 88).isActive = true
         
         let largeButtonInset: CGFloat = 16
         let smallButtonInset: CGFloat = 16
@@ -252,7 +266,21 @@ class SettingsViewController: SuperViewController {
         bContact.rightAnchor.constraint(equalTo: roundedContainer.rightAnchor, constant: 0 - largeButtonInset).isActive = true
         
         bLogout.addTarget(self, action: #selector(onLogout), for: .touchUpInside)
-        
+        bEdit.addTarget(self, action: #selector(onEditProfile), for: .touchUpInside)
+        sAutoDisconnect.isOn = dataController.isAutoDisconnect
+        sAutoDisconnect.addTarget(self, action: #selector(onChangeAutoDisconnect(_:)), for: .valueChanged)
+        bDisconnect.addTarget(self, action: #selector(onDisconnect), for: .touchUpInside)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        PranaDeviceManager.shared.addDelegate(self)
+        bluetoothStateView.isEnabled = PranaDeviceManager.shared.isConnected
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        PranaDeviceManager.shared.removeDelegate(self)
     }
     
     @objc func onLogout() {
@@ -260,6 +288,9 @@ class SettingsViewController: SuperViewController {
         UserDefaults.standard.removeObject(forKey: KEY_EXPIREAT)
         UserDefaults.standard.removeObject(forKey: KEY_REMEMBERME)
         UserDefaults.standard.synchronize()
+        
+        dataController.currentUser = nil
+        dataController.saveUserData()
         
         if PranaDeviceManager.shared.isConnected {
             PranaDeviceManager.shared.stopGettingLiveData()
@@ -270,6 +301,23 @@ class SettingsViewController: SuperViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @objc func onEditProfile() {
+        let vc = getViewController(storyboard: "Main", identifier: "SignupViewController") as! SignupViewController
+        vc.isUpdateProfile = true
+        self.show(vc, sender: self)
+    }
+    
+    @objc func onChangeAutoDisconnect(_ sender: UISwitch) {
+        dataController.isAutoDisconnect = sender.isOn
+        dataController.saveSettings()
+    }
+    
+    @objc func onDisconnect() {
+        if PranaDeviceManager.shared.isConnected {
+            PranaDeviceManager.shared.stopGettingLiveData()
+            PranaDeviceManager.shared.disconnect()
+        }
+    }
 
     /*
     // MARK: - Navigation
@@ -281,4 +329,23 @@ class SettingsViewController: SuperViewController {
     }
     */
 
+}
+
+extension SettingsViewController: PranaDeviceManagerDelegate {
+    func PranaDeviceManagerDidConnect(_ deviceName: String) {
+        DispatchQueue.main.async {
+            self.bluetoothStateView.isEnabled = true
+        }
+    }
+    
+    func PranaDeviceManagerFailConnect() {
+        DispatchQueue.main.async {
+            self.bluetoothStateView.isEnabled = false
+            let toast  = Toast(text: "Prana is disconnected.", duration: Delay.short)
+            ToastView.appearance().backgroundColor = UIColor(hexString: "#995ad598")
+            ToastView.appearance().textColor = .white
+            ToastView.appearance().font = UIFont(name: "Quicksand-Medium", size: 14)
+            toast.show()
+        }
+    }
 }

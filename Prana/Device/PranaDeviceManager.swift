@@ -14,10 +14,23 @@ protocol PranaDeviceManagerDelegate {
     func PranaDeviceManagerDidStopScan(with error: String?)
     func PranaDeviceManagerDidDiscover(_ device: PranaDevice)
     func PranaDeviceManagerDidConnect(_ deviceName: String)
+    func PranaDeviceManagerDidDisconnect()
     func PranaDeviceManagerFailConnect()
     func PranaDeviceManagerDidOpenChannel()
     func PranaDeviceManagerDidReceiveData(_ parameter: CBCharacteristic)
     func PranaDeviceManagerDidReceiveLiveData(_ data: String!)
+}
+
+extension PranaDeviceManagerDelegate {
+    func PranaDeviceManagerDidStartScan() {}
+    func PranaDeviceManagerDidStopScan(with error: String?) {}
+    func PranaDeviceManagerDidDiscover(_ device: PranaDevice) {}
+    func PranaDeviceManagerDidConnect(_ deviceName: String) {}
+    func PranaDeviceManagerDidDisconnect() {}
+    func PranaDeviceManagerFailConnect() {}
+    func PranaDeviceManagerDidOpenChannel() {}
+    func PranaDeviceManagerDidReceiveData(_ parameter: CBCharacteristic) {}
+    func PranaDeviceManagerDidReceiveLiveData(_ data: String!) {}
 }
 
 class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
@@ -170,6 +183,13 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
         }
     }
     
+    func didDisconnect() {
+        for item in self.delegates {
+            item.PranaDeviceManagerDidDisconnect()
+            item.PranaDeviceManagerFailConnect()
+        }
+    }
+    
     func failConnect() {
         disconnect()
         for item in self.delegates {
@@ -272,6 +292,8 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
                 failConnect()
 //                tryReconnect()
             }
+        } else {
+            didDisconnect()
         }
     }
     

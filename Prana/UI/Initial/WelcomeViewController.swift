@@ -10,11 +10,10 @@ import Foundation
 import UIKit
 import Alamofire
 import SwiftyJSON
-import MBProgressHUD
 import MKProgress
 
 
-class WelcomeViewController: UIViewController {
+class WelcomeViewController: SuperViewController {
 
     @IBOutlet weak var signupButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
@@ -25,7 +24,6 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        shouldLogin()
 //        afterLogin()
 
         // Do any additional setup after loading the view.
@@ -41,6 +39,8 @@ class WelcomeViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
         #endif
+        
+        shouldLogin()
     }
     
     func initView() {
@@ -87,11 +87,9 @@ class WelcomeViewController: UIViewController {
     }
     
     @objc func didLogIn() {
-        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        hud.mode = .indeterminate
-        hud.label.text = "Loading..."
+        MKProgress.show()
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
-            MBProgressHUD.hide(for: self.view, animated: true)
+            MKProgress.hide()
             self.afterLogin()
         }
     }
@@ -139,6 +137,12 @@ class WelcomeViewController: UIViewController {
     }
     
     func shouldLogin() {
+        if let _ = dataController.currentUser {
+            self.afterLogin()
+            return
+        }
+        
+        /*
         let autoLogin = UserDefaults.standard.bool(forKey: KEY_REMEMBERME)
         if (!autoLogin) {
             return
@@ -186,6 +190,7 @@ class WelcomeViewController: UIViewController {
                     }
                 }
         }
+ */
     }
     
     func getStoryboardWithIdentifier(identifier: String) -> UIViewController {

@@ -20,11 +20,13 @@ typealias SessionManagedObject = NSManagedObject
 class DataController {
     var managedObjectContext: NSManagedObjectContext? = nil
     
-    
+    // user
+    var currentUser: User?
     
     // Settings
     var isDevicePaired: Bool = false
     var isTutorialPassed: Bool = false
+    var isAutoDisconnect: Bool = false
     var programType: Int = 100
     var dailyNotification: Date?
     var breathingGoals: Int = 0
@@ -78,7 +80,67 @@ class DataController {
 //        clearSessions()
 //        clearLocalDB()
         #endif
+        loadUserData()
         loadSettings()
+    }
+    
+    func clearData() {
+        clearSettings()
+        clearPrograms()
+        clearLocalDB()
+        loadSettings()
+    }
+    
+    func loadUserData() {
+        guard let managedContext = managedObjectContext else { return }
+        let fetchRequest = NSFetchRequest<UserData>(entityName: "UserData")
+        
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            
+            if let settings = result.first {
+                if let uDataString = settings.value(forKey: "userData") as? String {
+                    currentUser = try JSONDecoder().decode(User.self, from: uDataString.data(using: .utf8)!)
+                }
+            }
+            
+        } catch let error as NSError {
+            NSLog("Could not fetch Settings. \(error), \(error.userInfo)")
+        }
+    }
+    
+    func saveUserData() {
+        guard let managedContext = managedObjectContext else { return }
+        let fetchRequest = NSFetchRequest<UserData>(entityName: "UserData")
+        
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            
+            if let settings = result.first {
+                if let userData = currentUser {
+                    let uDataString = try JSONEncoder().encode(userData)
+                    settings.setValue(String(data:uDataString, encoding: .utf8)!, forKey: "userData")
+                } else {
+                    settings.setValue(nil, forKey: "userData")
+                }
+            } else {
+                let settingsEntity = NSEntityDescription.entity(forEntityName: "UserData", in: managedContext)!
+                
+                let settings = UserData(entity: settingsEntity, insertInto: managedContext)
+                
+                if let userData = currentUser {
+                    let uDataString = try JSONEncoder().encode(userData)
+                    settings.setValue(String(data:uDataString, encoding: .utf8)!, forKey: "userData")
+                } else {
+                    settings.setValue(nil, forKey: "userData")
+                }
+            }
+            
+            try managedContext.save()
+            
+        } catch {
+            print(error)
+        }
     }
     
     func loadSettings() {
@@ -91,6 +153,7 @@ class DataController {
             if let settings = result.first {
                 isDevicePaired = settings.value(forKey: "isDevicePaired") as! Bool
                 isTutorialPassed = settings.value(forKey: "isTutorialPassed") as! Bool
+                isAutoDisconnect = settings.value(forKey: "isAutoDisconnect") as! Bool
                 programType = settings.value(forKey: "programType") as! Int
                 dailyNotification = settings.value(forKey: "dailyNotification") as? Date
                 breathingGoals = settings.value(forKey: "breathingGoals") as! Int
@@ -116,6 +179,7 @@ class DataController {
                 let settings = SettingsManagedObject(entity: settingsEntity, insertInto: managedContext)
                 settings.setValue(isDevicePaired, forKey: "isDevicePaired")
                 settings.setValue(isTutorialPassed, forKey: "isTutorialPassed")
+                settings.setValue(isAutoDisconnect, forKey: "isAutoDisconnect")
                 settings.setValue(programType, forKey: "programType")
                 settings.setValue(dailyNotification, forKey: "dailyNotification")
                 settings.setValue(breathingGoals, forKey: "breathingGoals")
@@ -162,6 +226,7 @@ class DataController {
             if let settings = result.first {
                 settings.setValue(isDevicePaired, forKey: "isDevicePaired")
                 settings.setValue(isTutorialPassed, forKey: "isTutorialPassed")
+                settings.setValue(isAutoDisconnect, forKey: "isAutoDisconnect")
                 settings.setValue(programType, forKey: "programType")
                 settings.setValue(dailyNotification, forKey: "dailyNotification")
                 settings.setValue(breathingGoals, forKey: "breathingGoals")

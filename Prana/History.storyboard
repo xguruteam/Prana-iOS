@@ -33,10 +33,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fk5-ne-xWo">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="36" width="375" height="631"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZOA-wd-SZX">
-                                        <rect key="frame" x="0.0" y="20" width="375" height="22"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="22"/>
                                         <subviews>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="adE-OK-uvF" userLabel="Back">
                                                 <rect key="frame" x="16" y="2" width="16" height="18"/>
@@ -59,7 +59,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ODn-cx-6TF">
-                                        <rect key="frame" x="20" y="62" width="335" height="585"/>
+                                        <rect key="frame" x="20" y="38" width="335" height="573"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wYh-cN-6XU">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="88"/>
@@ -153,10 +153,10 @@
                                     <constraint firstAttribute="bottom" secondItem="ODn-cx-6TF" secondAttribute="bottom" constant="20" id="Hnt-wA-IVX"/>
                                     <constraint firstItem="ZOA-wd-SZX" firstAttribute="leading" secondItem="Fk5-ne-xWo" secondAttribute="leading" id="NPc-PG-loh"/>
                                     <constraint firstAttribute="trailing" secondItem="ODn-cx-6TF" secondAttribute="trailing" constant="20" id="PyB-sn-arf"/>
-                                    <constraint firstItem="ODn-cx-6TF" firstAttribute="top" secondItem="ZOA-wd-SZX" secondAttribute="bottom" constant="20" id="QeT-Nh-0fd"/>
+                                    <constraint firstItem="ODn-cx-6TF" firstAttribute="top" secondItem="ZOA-wd-SZX" secondAttribute="bottom" constant="16" id="QeT-Nh-0fd"/>
                                     <constraint firstItem="ODn-cx-6TF" firstAttribute="leading" secondItem="Fk5-ne-xWo" secondAttribute="leading" constant="20" id="eJE-wO-JDN"/>
                                     <constraint firstAttribute="trailing" secondItem="ZOA-wd-SZX" secondAttribute="trailing" id="kAq-8i-hT7"/>
-                                    <constraint firstItem="ZOA-wd-SZX" firstAttribute="top" secondItem="Fk5-ne-xWo" secondAttribute="top" constant="20" id="uTQ-Zn-8Ob"/>
+                                    <constraint firstItem="ZOA-wd-SZX" firstAttribute="top" secondItem="Fk5-ne-xWo" secondAttribute="top" id="uTQ-Zn-8Ob"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -169,7 +169,7 @@
                             <constraint firstItem="wT9-vw-fQa" firstAttribute="leading" secondItem="6Ac-iM-al1" secondAttribute="leading" id="dPw-CA-czy"/>
                             <constraint firstItem="wT9-vw-fQa" firstAttribute="top" secondItem="CFM-IV-iR3" secondAttribute="top" id="nMo-jb-6C3"/>
                             <constraint firstItem="wT9-vw-fQa" firstAttribute="bottom" secondItem="6Ac-iM-al1" secondAttribute="bottom" id="u2a-Tg-2Cu"/>
-                            <constraint firstItem="Fk5-ne-xWo" firstAttribute="top" secondItem="CFM-IV-iR3" secondAttribute="top" id="uPD-Eb-xr7"/>
+                            <constraint firstItem="Fk5-ne-xWo" firstAttribute="top" secondItem="6Ac-iM-al1" secondAttribute="top" constant="16" id="uPD-Eb-xr7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Ac-iM-al1"/>
                     </view>

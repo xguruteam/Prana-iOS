@@ -11,10 +11,9 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import Crashlytics
-import MBProgressHUD
 import MKProgress
 
-class LoginViewController: UIViewController {
+class LoginViewController: SuperViewController {
 
     @IBOutlet weak var img_logo: UIImageView!
     @IBOutlet weak var tf_email: UITextField!
@@ -30,6 +29,7 @@ class LoginViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
 
         initView()
+        tf_email.spellCheckingType = .no
     }
 
     func initView() {
@@ -110,6 +110,7 @@ class LoginViewController: UIViewController {
         APIClient.sessionManager.request(APIClient.BaseURL + "login", method: .post, parameters: param, encoding: JSONEncoding.default, headers: nil)
             .validate(statusCode: 200..<300)
             .responseJSON {(response) in
+                MKProgress.hide()
                 switch response.result {
                 case .success:
                     if let data = response.value as? [String: Any] {
@@ -119,6 +120,9 @@ class LoginViewController: UIViewController {
                         UserDefaults.standard.set(expires_at, forKey: KEY_EXPIREAT)
                         UserDefaults.standard.set(remember_me, forKey: KEY_REMEMBERME)
                         UserDefaults.standard.synchronize()
+                        self.dataController.currentUser = User(data: data)
+                        self.dataController.saveUserData()
+                        self.dataController.clearData()
                         // let firstVC = Utils.getStoryboardWithIdentifier(identifier: "FirstViewController")
                         self.navigationController?.popToRootViewController(animated: false)
                         NotificationCenter.default.post(name: .didLogIn, object: nil)
@@ -145,7 +149,7 @@ class LoginViewController: UIViewController {
                     break
                 }
 //                MBProgressHUD.hide(for: self.view, animated: true)
-                MKProgress.hide()
+                
         }
     }
     

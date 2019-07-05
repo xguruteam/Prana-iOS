@@ -9,7 +9,6 @@ target 'Prana' do
     pod 'Alamofire', '~> 4.0'
     pod 'SwiftyJSON', '~> 4.0'
     pod 'IQKeyboardManagerSwift'
-    pod 'MBProgressHUD', '~> 1.1.0'
     pod 'Macaw', '~> 0.9.5'
     pod 'ExpandableCell'
     pod 'MKProgress', '~> 1.0.9'

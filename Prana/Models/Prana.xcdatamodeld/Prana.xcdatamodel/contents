@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18F203" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="LocalDB" representedClassName="LocalDB" syncable="YES" codeGenerationType="class">
         <attribute name="data" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="flag" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
@@ -13,19 +13,11 @@
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="Sessions" representedClassName="SessionMO" syncable="YES" codeGenerationType="class">
-        <attribute name="breaths" optional="YES" attributeType="Transformable" customClassName="[[String:Any]]" syncable="YES"/>
-        <attribute name="duration" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="kind" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="mindful" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="slouches" optional="YES" attributeType="Transformable" customClassName="[[String:Any]]" syncable="YES"/>
-        <attribute name="startedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="upright" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-    </entity>
     <entity name="Settings" representedClassName="Settings" syncable="YES" codeGenerationType="class">
         <attribute name="breathingGoals" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="btPattern" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dailyNotification" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="isAutoDisconnect" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isDevicePaired" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isTutorialPassed" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="postureGoals" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -34,10 +26,13 @@
         <attribute name="sessionSettings" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="vtPattern" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="UserData" representedClassName="UserData" syncable="YES" codeGenerationType="class">
+        <attribute name="userData" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="LocalDB" positionX="-171" positionY="-36" width="128" height="120"/>
         <element name="Programs" positionX="-171" positionY="-36" width="128" height="105"/>
-        <element name="Sessions" positionX="-18" positionY="63" width="128" height="148"/>
-        <element name="Settings" positionX="-320.03125" positionY="-184.984375" width="128" height="195"/>
+        <element name="Settings" positionX="-320.03125" positionY="-184.984375" width="128" height="210"/>
+        <element name="UserData" positionX="-243" positionY="-72" width="128" height="60"/>
     </elements>
 </model>

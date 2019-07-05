@@ -11,7 +11,6 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import Crashlytics
-import MBProgressHUD
 import MKProgress
 
 class ResetPasswordViewController: UIViewController {

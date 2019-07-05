@@ -35,6 +35,7 @@
 		CA98922222413B2300D824B0 /* LiveGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98922122413B2300D824B0 /* LiveGraph.swift */; };
 		CA9C4D5B22B0FDFD001A7A9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CA9C4D5A22B0FDFD001A7A9C /* GoogleService-Info.plist */; };
 		CA9D65C622CDF2A80074253B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9D65C522CDF2A80074253B /* SettingsViewController.swift */; };
+		CA9D65C822CEC0E00074253B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9D65C722CEC0E00074253B /* User.swift */; };
 		CAA21A1522777D090004F5E0 /* Prana.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CAA21A1322777D090004F5E0 /* Prana.xcdatamodeld */; };
 		CAA21A17227780F10004F5E0 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA21A16227780F10004F5E0 /* DataController.swift */; };
 		CAA44A31224425EF0050D619 /* ConnectionTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA44A30224425EF0050D619 /* ConnectionTestViewController.swift */; };
@@ -266,6 +267,7 @@
 		CA98922122413B2300D824B0 /* LiveGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveGraph.swift; sourceTree = "<group>"; };
 		CA9C4D5A22B0FDFD001A7A9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CA9D65C522CDF2A80074253B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		CA9D65C722CEC0E00074253B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CAA21A1422777D090004F5E0 /* Prana.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Prana.xcdatamodel; sourceTree = "<group>"; };
 		CAA21A16227780F10004F5E0 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		CAA44A30224425EF0050D619 /* ConnectionTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionTestViewController.swift; sourceTree = "<group>"; };
@@ -614,6 +616,7 @@
 				CAADAFAE22947D5000518444 /* SessionSettings.swift */,
 				CAEEB01122C11321002C3139 /* Measurement.swift */,
 				CAEEB01322C13A6C002C3139 /* SavedBodyNotification.swift */,
+				CA9D65C722CEC0E00074253B /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1490,6 +1493,7 @@
 				CAEEB01A22C15C39002C3139 /* DailyCell2.swift in Sources */,
 				D79A36D32227C6DD0085D3FA /* HistoryViewController2.swift in Sources */,
 				D7A6AC9F22559A44001DD8F9 /* TutorialWearUpperchestViewController.swift in Sources */,
+				CA9D65C822CEC0E00074253B /* User.swift in Sources */,
 				CAA782E42285F28A00EB5122 /* PatternCell.swift in Sources */,
 				D732BDB02255FC86008AFF76 /* TutorialWearLowerbackViewController.swift in Sources */,
 				CAAF9D2D22737952003232C4 /* ContactCell.swift in Sources */,

@@ -14,7 +14,7 @@ import Crashlytics
 //import MBProgressHUD
 import MKProgress
 
-class SignupViewController: UIViewController, UITextFieldDelegate {
+class SignupViewController: SuperViewController, UITextFieldDelegate {
     
     @IBOutlet weak var tf_firstname: UITextField!
     @IBOutlet weak var lbl_error_firstname: UILabel!
@@ -36,6 +36,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     
     var datePicker: UIDatePicker!
     
+    var isUpdateProfile = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -46,6 +48,28 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         initView()
         
         genderChange(nGender: 0)
+        
+        tf_firstname.spellCheckingType = .no
+        tf_lastname.spellCheckingType = .no
+        tf_email.keyboardType = .emailAddress
+        tf_email.spellCheckingType = .no
+        changeBirthDay(Date())
+        
+        if isUpdateProfile {
+            if let user = dataController.currentUser {
+                tf_firstname.text = user.firstName
+                tf_lastname.text = user.lastName
+                tf_email.text = user.email
+                tf_password.text = user.password
+                tf_confirmpassword.text = user.password
+                changeBirthDay(user.birthDay)
+                if user.gender == "male" {
+                    genderChange(nGender: 0)
+                } else {
+                    genderChange(nGender: 1)
+                }
+            }
+        }
     }
     
     @IBAction func onBackClick(_ sender: Any) {
@@ -116,7 +140,11 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        signup()
+        if isUpdateProfile {
+            
+        } else {
+            signup()
+        }
     }
     
     func signup() {
@@ -136,6 +164,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         APIClient.sessionManager.request(APIClient.BaseURL + "register", method: .post, parameters: param, encoding: JSONEncoding.default, headers: nil)
             .validate(statusCode: 200..<300)
             .responseJSON {(response) in
+                MKProgress.hide()
                 switch response.result {
                 case .success:
                     let alertController = UIAlertController(title: "Success", message:
@@ -173,7 +202,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                     }
                 }
 //                MBProgressHUD.hide(for: self.view, animated: true)
-                MKProgress.hide()
+                
             }
     }
     
@@ -191,6 +220,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         APIClient.sessionManager.request(APIClient.BaseURL + "login", method: .post, parameters: param, encoding: JSONEncoding.default, headers: nil)
             .validate(statusCode: 200..<300)
             .responseJSON {(response) in
+                MKProgress.hide()
                 switch response.result {
                 case .success:
                     if let data = response.value as? [String: Any] {
@@ -200,6 +230,9 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                         UserDefaults.standard.set(expires_at, forKey: KEY_EXPIREAT)
                         UserDefaults.standard.set(false, forKey: KEY_REMEMBERME)
                         UserDefaults.standard.synchronize()
+                        self.dataController.currentUser = User(data: data)
+                        self.dataController.saveUserData()
+                        self.dataController.clearData()
                         self.navigationController?.popToRootViewController(animated: false)
                         NotificationCenter.default.post(name: .didLogIn, object: nil)
                     }
@@ -232,7 +265,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                     }
                 }
 //                MBProgressHUD.hide(for: self.view, animated: true)
-                MKProgress.hide()
+                
         }
     }
     
@@ -284,14 +317,17 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func datePickerValueChanged(sender:UIDatePicker) {
-        
+        changeBirthDay(sender.date)
+    }
+    
+    func changeBirthDay(_ date: Date) {
         let formatter = DateFormatter()
         
         formatter.locale = Locale.init(identifier: "en_US_POSIX")
         formatter.dateFormat = "dd/MM/YYYY"
         formatter.timeZone = TimeZone.init(secondsFromGMT: 0)
         
-        tf_birthdate.text = formatter.string(from: sender.date)
+        tf_birthdate.text = formatter.string(from: date)
         
     }
 }
