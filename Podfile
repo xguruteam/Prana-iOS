@@ -10,7 +10,6 @@ target 'Prana' do
     pod 'SwiftyJSON', '~> 4.0'
     pod 'IQKeyboardManagerSwift'
     pod 'Macaw', '~> 0.9.5'
-    pod 'ExpandableCell'
     pod 'MKProgress', '~> 1.0.9'
     pod 'Toaster'
     

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ExpandableCell
 import MKProgress
 import CoreBluetooth
 import Toaster
@@ -722,10 +721,9 @@ class ProgramsViewController: UIViewController {
     func getCellForType(_ type: Int) -> UITableViewCell? {
         switch type {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProgramParentCell") as? ExpandableCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProgramParentCell") as? ProgramParentCell else { return UITableViewCell() }
             cell.arrowImageView.image = UIImage(named: "ic_arrow_down")
             //        cell.arrowImageView.contentMode = .scaleAspectFit
-            cell.rightMargin = 56.0
             if isProgramCellOpen {
                 cell.arrowImageView.image = UIImage(cgImage: cell.arrowImageView.image!.cgImage!, scale: 1.0, orientation: .downMirrored)
             }
@@ -807,10 +805,9 @@ class ProgramsViewController: UIViewController {
             
             return cell1
         case 2:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SessionParentCell") as? ExpandableCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SessionParentCell") as? SessionParentCell else { return UITableViewCell() }
             cell.arrowImageView.image = UIImage(named: "ic_arrow_down")
             //        cell.arrowImageView.contentMode = .scaleAspectFit
-            cell.rightMargin = 56.0
             if isSessionCellOpen {
                 cell.arrowImageView.image = UIImage(cgImage: cell.arrowImageView.image!.cgImage!, scale: 1.0, orientation: .downMirrored)
             }
@@ -1102,259 +1099,6 @@ extension ProgramsViewController: UITableViewDelegate, UITableViewDataSource {
         default:
             break
         }
-    }
-}
-
-extension ProgramsViewController: ExpandableDelegate {
-    
-    func expandableTableView(_ expandableTableView: ExpandableTableView, expandedCellsForRowAt indexPath: IndexPath) -> [UITableViewCell]? {
-        switch indexPath.row {
-        case 0:
-            let cell1 = tableView.dequeueReusableCell(withIdentifier: "ProgramChildCell") as! ProgramChildCell
-            
-            cell1.notificationContainer.roundCorners(corners: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner], radius: 10.0)
-
-            cell1.programTypeListner = { [weak self] (type) in
-                guard let self = self else { return }
-                self.onProgramTypeChange(type)
-            }
-            cell1.startTrainingListner = { [weak self] in
-                guard let self = self else { return }
-                self.onTrainingStart()
-            }
-            cell1.notificationTimeListener = { [weak self] (time) in
-                guard let self = self else { return }
-                self.onNotificationTime(time)
-            }
-            cell1.notificationEnableChangeListener = { [weak self] (isEnable) in
-                guard let self = self else { return }
-                self.onNotificationEnableChange(isEnable)
-            }
-            cell1.customBreathingGoalChangeListener = { [weak self] (goal) in
-                guard let self = self else { return }
-                self.onCustomBreathingGoalChange(goal)
-            }
-            cell1.customPostureGoalChangeListener = { [weak self] (goal) in
-                guard let self = self else { return }
-                self.onCustomPostureGoalChange(goal)
-            }
-            
-            if programType == 0 {
-                cell1.fourteenContainer.isHidden = false
-                cell1.customContainer.isHidden = true
-                cell1.goalsContainer.isHidden = true
-                cell1.dailyButton.isClicked = true
-                cell1.customButton.isClicked = false
-//                cell1.startButton.setTitle("START 14 DAY PROGRAM", for: .normal)
-            }
-            else {
-                cell1.fourteenContainer.isHidden = true
-                cell1.customContainer.isHidden = false
-                cell1.goalsContainer.isHidden = false
-                cell1.dailyButton.isClicked = false
-                cell1.customButton.isClicked = true
-//                cell1.startButton.setTitle("START CUSTOM TRAINING", for: .normal)
-            }
-            
-            if isTrainingStarted {
-                cell1.programContainer.isHidden = true
-                cell1.fourteenContainer.isHidden = true
-                cell1.lblCustomDescription.isHidden = true
-                if programType == 0 {
-                    cell1.startButton.setTitle("CANCEL 14 DAY PROGRAM", for: .normal)
-                }
-                else {
-                    cell1.startButton.setTitle("CANCEL CUSTOM TRAINING", for: .normal)
-                }
-            }
-            else {
-                cell1.programContainer.isHidden = false
-                cell1.fourteenContainer.isHidden = false
-                cell1.lblCustomDescription.isHidden = false
-                if programType == 0 {
-                    cell1.startButton.setTitle("START 14 DAY PROGRAM", for: .normal)
-                }
-                else {
-                    cell1.startButton.setTitle("START CUSTOM TRAINING", for: .normal)
-                }
-            }
-            
-            cell1.notificationTime = self.notificationTime
-            cell1.swNotification.isOn = isNotificationEnable
-            cell1.customBreathingGoal = self.customBreathingGoal
-            cell1.customPostureGoal = self.customPostureGoal
-            
-            return [cell1]
-            
-        case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SessionChildCell") as! SessionChildCell
-            cell.settingContainer.roundCorners(corners: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner], radius: 10.0)
-            
-            if programType == 0 {
-                cell.constrain1.constant = 30
-                cell.constrain2.constant = 40
-            }
-            else {
-                cell.constrain1.constant = 200
-                cell.constrain2.constant = 20
-            }
-            
-            cell.kindChangeListener = { [weak self] (kind) in
-                guard let self = self else { return }
-                self.onSessionKindChange(kind)
-            }
-            
-            cell.typeChangeListener = { [weak self] (type) in
-                guard let self = self else { return }
-                self.onSessionTypeChange(type)
-            }
-            
-            cell.positionChangeListener = { [weak self] (position) in
-                guard let self = self else { return }
-                self.onSessionPositionChange(position)
-            }
-            cell.sessionDurationChangeListener = { [weak self] (duration) in
-                self?.onSessionDurationChange(duration)
-            }
-            
-            cell.sessionPatternChangeListener = { [weak self] (pattern) in
-                self?.onSessionPatternChange(pattern)
-            }
-            
-            cell.sessionStartListener = { [weak self] in
-                self?.onSessionStart()
-            }
-            
-            cell.changeKind(sessionKind)
-            cell.changeType(sessionType)
-            cell.changePosition(sessionPosition)
-            cell.sessionDuration = sessionDuration
-//            cell.sessionPattern = sessionPattern
-            
-            return [cell]
-        default:
-            break
-        }
-        return nil
-    }
-    
-    func expandableTableView(_ expandableTableView: ExpandableTableView, heightsForExpandedRowAt indexPath: IndexPath) -> [CGFloat]? {
-        switch indexPath.row {
-        case 0:
-            if isTrainingStarted {
-                if programType == 0 {
-                    return [740 - 445]
-                }
-                else {
-                    return [1100 - 425]//[740]
-                }
-            }
-            else {
-                if programType == 0 {
-                    return [740]
-                }
-                else {
-                    return [1100]//[740]
-                }
-            }
-            
-        case 1:
-            if programType == 0 {
-                return [550]
-            }
-            return [550+170]
-            
-        default:
-            break
-        }
-        return nil
-        
-    }
-    
-    //    func numberOfSections(in tableView: ExpandableTableView) -> Int {
-    //        return 1
-    //    }
-    
-    func expandableTableView(_ expandableTableView: ExpandableTableView, numberOfRowsInSection section: Int) -> Int {
-        if isTrainingStarted {
-            return 2
-        }
-        else {
-            return 1
-        }
-        return 2
-    }
-    
-    func expandableTableView(_ expandableTableView: ExpandableTableView, didSelectRowAt indexPath: IndexPath) {
-        //        print("didSelectRow:\(indexPath)")
-    }
-    
-    func expandableTableView(_ expandableTableView: ExpandableTableView, didSelectExpandedRowAt indexPath: IndexPath) {
-        //        print("didSelectExpandedRowAt:\(indexPath)")
-    }
-    
-    func expandableTableView(_ expandableTableView: ExpandableTableView, expandedCell: UITableViewCell, didSelectExpandedRowAt indexPath: IndexPath) {
-        //        if let cell = expandedCell as? ExpandedCell {
-        //            print("\(cell.titleLabel.text ?? "")")
-        //        }
-    }
-    
-    //    func expandableTableView(_ expandableTableView: ExpandableTableView, titleForHeaderInSection section: Int) -> String? {
-    //        return "Section:\(section)"
-    //    }
-    //    func expandableTableView(_ expandableTableView: ExpandableTableView, heightForHeaderInSection section: Int) -> CGFloat {
-    //        return 20
-    //    }
-    //
-    func expandableTableView(_ expandableTableView: ExpandableTableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    
-        switch indexPath.row {
-        case 0:
-            guard let cell = expandableTableView.dequeueReusableCell(withIdentifier: "ProgramParentCell") as? ExpandableCell else { return UITableViewCell() }
-            cell.arrowImageView.image = UIImage(named: "ic_arrow_down")
-            //        cell.arrowImageView.contentMode = .scaleAspectFit
-            cell.rightMargin = 56.0
-            return cell
-        case 1:
-            guard let cell = expandableTableView.dequeueReusableCell(withIdentifier: "SessionParentCell") as? ExpandableCell else { return UITableViewCell() }
-            cell.arrowImageView.image = UIImage(named: "ic_arrow_down")
-            //        cell.arrowImageView.contentMode = .scaleAspectFit
-            cell.rightMargin = 56.0
-            
-            cell.roundCorners(corners: [.layerMinXMinYCorner, .layerMinXMaxYCorner], radius: 10.0)
-            return cell
-        default:
-            break
-        }
-        
-        return UITableViewCell()
-    }
-    
-    func expandableTableView(_ expandableTableView: ExpandableTableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.row {
-        case 0, 1:
-            return 50
-        default:
-            break
-        }
-        
-        return 44
-    }
-    
-    @objc(expandableTableView:didCloseRowAt:) func expandableTableView(_ expandableTableView: UITableView, didCloseRowAt indexPath: IndexPath) {
-        let cell = expandableTableView.cellForRow(at: indexPath)
-        cell?.contentView.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1)
-        cell?.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1)
-    }
-    
-    func expandableTableView(_ expandableTableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func expandableTableView(_ expandableTableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
-        //        let cell = expandableTableView.cellForRow(at: indexPath)
-        //        cell?.contentView.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
-        //        cell?.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
     }
 }
 

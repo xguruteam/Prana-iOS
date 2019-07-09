@@ -863,10 +863,19 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                             <color key="textColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_down" translatesAutoresizingMaskIntoConstraints="NO" id="ldh-CC-cCR">
+                                                            <rect key="frame" x="304" y="21" width="15" height="8"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="8" id="Jx6-Rv-6hZ"/>
+                                                                <constraint firstAttribute="width" constant="15" id="qbe-Rm-0hg"/>
+                                                            </constraints>
+                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
+                                                        <constraint firstItem="ldh-CC-cCR" firstAttribute="centerY" secondItem="kis-Et-C2N" secondAttribute="centerY" id="MSW-Ws-llV"/>
                                                         <constraint firstItem="suw-fH-HaC" firstAttribute="centerY" secondItem="kis-Et-C2N" secondAttribute="centerY" id="MaW-0R-jmB"/>
+                                                        <constraint firstAttribute="trailing" secondItem="ldh-CC-cCR" secondAttribute="trailing" constant="16" id="Mb7-KE-WCH"/>
                                                         <constraint firstItem="8kL-X3-PFP" firstAttribute="centerY" secondItem="kis-Et-C2N" secondAttribute="centerY" id="Ss0-po-tve"/>
                                                         <constraint firstItem="8kL-X3-PFP" firstAttribute="leading" secondItem="suw-fH-HaC" secondAttribute="trailing" constant="8" id="XNZ-lb-E1W"/>
                                                         <constraint firstItem="suw-fH-HaC" firstAttribute="leading" secondItem="kis-Et-C2N" secondAttribute="leading" constant="16" id="f4m-7U-tIX"/>
@@ -881,6 +890,9 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="arrowImageView" destination="ldh-CC-cCR" id="N0l-4Q-63D"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProgramChildCell" rowHeight="995" id="lGO-s7-JWB" customClass="ProgramChildCell" customModule="Prana" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="238" width="375" height="995"/>
@@ -1179,11 +1191,11 @@ For each training session:
                                             <outlet property="swNotification" destination="3LH-ke-5dj" id="iJD-8q-PZ8"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SessionParentCell" rowHeight="50" id="lau-f3-8di" customClass="ExpandableCell" customModule="ExpandableCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SessionParentCell" rowHeight="50" id="lau-f3-8di" customClass="SessionParentCell" customModule="Prana" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1233" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lau-f3-8di" id="6KQ-uc-e2N">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5r1-xa-Aiv">
@@ -1202,12 +1214,21 @@ For each training session:
                                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_down" translatesAutoresizingMaskIntoConstraints="NO" id="fBh-Qz-5vk">
+                                                            <rect key="frame" x="304" y="21" width="15" height="8"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="15" id="F1K-O6-VcR"/>
+                                                                <constraint firstAttribute="height" constant="8" id="Z9M-YN-eZO"/>
+                                                            </constraints>
+                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="7So-lJ-aXI" firstAttribute="centerY" secondItem="5r1-xa-Aiv" secondAttribute="centerY" id="9uo-Yg-LYZ"/>
                                                         <constraint firstItem="7So-lJ-aXI" firstAttribute="leading" secondItem="5r1-xa-Aiv" secondAttribute="leading" constant="16" id="MdI-Kp-r1m"/>
+                                                        <constraint firstAttribute="trailing" secondItem="fBh-Qz-5vk" secondAttribute="trailing" constant="16" id="VZy-3n-got"/>
                                                         <constraint firstItem="WIZ-uu-1wW" firstAttribute="centerY" secondItem="5r1-xa-Aiv" secondAttribute="centerY" id="lW4-fe-imq"/>
+                                                        <constraint firstItem="fBh-Qz-5vk" firstAttribute="centerY" secondItem="5r1-xa-Aiv" secondAttribute="centerY" id="ogg-Kz-gbS"/>
                                                         <constraint firstItem="WIZ-uu-1wW" firstAttribute="leading" secondItem="7So-lJ-aXI" secondAttribute="trailing" constant="8" id="qy2-Ne-jCy"/>
                                                     </constraints>
                                                 </view>
@@ -1220,6 +1241,9 @@ For each training session:
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="arrowImageView" destination="fBh-Qz-5vk" id="YDQ-Ax-bie"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SessionChildCell" rowHeight="505" id="NrF-44-bER" customClass="SessionChildCell" customModule="Prana" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1283" width="375" height="505"/>
@@ -9579,6 +9603,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
         <image name="ic-lock" width="11" height="15"/>
         <image name="ic-track" width="23" height="24"/>
         <image name="ic-triangle" width="23" height="30"/>
+        <image name="ic_arrow_down" width="15" height="8"/>
         <image name="ic_bell" width="400" height="400"/>
         <image name="ic_bluetooth" width="42.666667938232422" height="42.666667938232422"/>
         <image name="ic_close" width="42.666667938232422" height="42.666667938232422"/>

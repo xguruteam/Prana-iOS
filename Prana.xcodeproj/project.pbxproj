@@ -33,6 +33,7 @@
 		CA9892192240ED9A00D824B0 /* Pattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9892182240ED9A00D824B0 /* Pattern.swift */; };
 		CA98921F2241353B00D824B0 /* TSCDesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98921E2241353A00D824B0 /* TSCDesignableView.swift */; };
 		CA98922222413B2300D824B0 /* LiveGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98922122413B2300D824B0 /* LiveGraph.swift */; };
+		CA99676522D4AB3F00096581 /* SessionParentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA99676422D4AB3F00096581 /* SessionParentCell.swift */; };
 		CA9C4D5B22B0FDFD001A7A9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CA9C4D5A22B0FDFD001A7A9C /* GoogleService-Info.plist */; };
 		CA9D65C622CDF2A80074253B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9D65C522CDF2A80074253B /* SettingsViewController.swift */; };
 		CA9D65C822CEC0E00074253B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9D65C722CEC0E00074253B /* User.swift */; };
@@ -118,7 +119,6 @@
 		CAC1252B22C2E508008D6C7D /* WeeklyCell3.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1252A22C2E508008D6C7D /* WeeklyCell3.swift */; };
 		CAC1252D22C34FC7008D6C7D /* MeasurementsHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1252C22C34FC7008D6C7D /* MeasurementsHistoryViewController.swift */; };
 		CAC1252F22C35C2B008D6C7D /* MonthlyGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1252E22C35C2B008D6C7D /* MonthlyGraph.swift */; };
-		CAC191C2226E592F009E04B5 /* PranaExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC191C1226E592F009E04B5 /* PranaExpandableCell.swift */; };
 		CAC36BCE2249A05E00B4FF1F /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC36BCD2249A05E00B4FF1F /* TestData.swift */; };
 		CAC46CCD223A8E95004691F4 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */; };
 		CAC4B96B22C03971006DD7E8 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC4B96A22C03971006DD7E8 /* HistoryViewController.swift */; };
@@ -265,6 +265,7 @@
 		CA9892182240ED9A00D824B0 /* Pattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pattern.swift; sourceTree = "<group>"; };
 		CA98921E2241353A00D824B0 /* TSCDesignableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSCDesignableView.swift; sourceTree = "<group>"; };
 		CA98922122413B2300D824B0 /* LiveGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveGraph.swift; sourceTree = "<group>"; };
+		CA99676422D4AB3F00096581 /* SessionParentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionParentCell.swift; sourceTree = "<group>"; };
 		CA9C4D5A22B0FDFD001A7A9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CA9D65C522CDF2A80074253B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		CA9D65C722CEC0E00074253B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -351,7 +352,6 @@
 		CAC1252A22C2E508008D6C7D /* WeeklyCell3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCell3.swift; sourceTree = "<group>"; };
 		CAC1252C22C34FC7008D6C7D /* MeasurementsHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementsHistoryViewController.swift; sourceTree = "<group>"; };
 		CAC1252E22C35C2B008D6C7D /* MonthlyGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyGraph.swift; sourceTree = "<group>"; };
-		CAC191C1226E592F009E04B5 /* PranaExpandableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PranaExpandableCell.swift; sourceTree = "<group>"; };
 		CAC36BCD2249A05E00B4FF1F /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
 		CAC4B96A22C03971006DD7E8 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
@@ -1027,7 +1027,6 @@
 			isa = PBXGroup;
 			children = (
 				CAB2AFDC227AAE570085146C /* PranaCircleProgressView.swift */,
-				CAC191C1226E592F009E04B5 /* PranaExpandableCell.swift */,
 				CAAC19812270D2EF001DC02D /* PranaDropDown.swift */,
 				CAAC19832270D309001DC02D /* PranaDropDown.xib */,
 				CAA626B722970B010036FC31 /* BluetoothStateView.swift */,
@@ -1098,6 +1097,7 @@
 				CAA782E12285D20600EB5122 /* PatternsViewController.swift */,
 				CAA782E32285F28A00EB5122 /* PatternCell.swift */,
 				CAE2CF3E228985E000DCBAB5 /* CustomPatternViewController.swift */,
+				CA99676422D4AB3F00096581 /* SessionParentCell.swift */,
 			);
 			path = Programs;
 			sourceTree = "<group>";
@@ -1425,6 +1425,7 @@
 				CA9892152240C86D00D824B0 /* Live.swift in Sources */,
 				CAC1252F22C35C2B008D6C7D /* MonthlyGraph.swift in Sources */,
 				CAAF9D3522737952003232C4 /* LikeButtonCell.swift in Sources */,
+				CA99676522D4AB3F00096581 /* SessionParentCell.swift in Sources */,
 				CAEEB01222C11321002C3139 /* Measurement.swift in Sources */,
 				CAA626BA229717BE0036FC31 /* BatteryStateView.swift in Sources */,
 				CAC1252D22C34FC7008D6C7D /* MeasurementsHistoryViewController.swift in Sources */,
@@ -1499,7 +1500,6 @@
 				CAAF9D2D22737952003232C4 /* ContactCell.swift in Sources */,
 				CAAF9D1022737951003232C4 /* UISearchBar+Extensions.swift in Sources */,
 				D7BA349D22565D9100B4689E /* TutorialVisualViewController.swift in Sources */,
-				CAC191C2226E592F009E04B5 /* PranaExpandableCell.swift in Sources */,
 				CAC1251622C2588A008D6C7D /* ChartColors.swift in Sources */,
 				CAC4B96D22C03AEC006DD7E8 /* SuperViewController.swift in Sources */,
 				CA01754B228C483C0085455F /* BackgroundTaskManager.swift in Sources */,

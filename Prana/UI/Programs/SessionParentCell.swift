@@ -1,14 +1,14 @@
 //
-//  ProgramParentCell.swift
+//  SessionParentCell.swift
 //  Prana
 //
-//  Created by Luccas on 4/24/19.
+//  Created by Guru on 7/9/19.
 //  Copyright © 2019 Prana. All rights reserved.
 //
 
 import UIKit
 
-class ProgramParentCell: UITableViewCell {
+class SessionParentCell: UITableViewCell {
 
     @IBOutlet weak var arrowImageView: UIImageView!
     
@@ -22,5 +22,5 @@ class ProgramParentCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }

@@ -1,6 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-Prana/Pods-Prana-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
-${BUILT_PRODUCTS_DIR}/ExpandableCell/ExpandableCell.framework
 ${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework
 ${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework
 ${BUILT_PRODUCTS_DIR}/MKProgress/MKProgress.framework
