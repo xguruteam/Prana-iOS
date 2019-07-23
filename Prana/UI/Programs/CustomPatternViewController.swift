@@ -224,6 +224,10 @@ class CustomPatternViewController: UIViewController {
         alert.addAction(title: "Done", style: .default) { (_) in
             self.minimumResp = self.tempMinimumResp
             self.drop2.title = "\(self.bpms[self.minimumResp]) b/m"
+            
+            if self.minimumResp < self.startResp { self.startResp = self.minimumResp }
+            self.drop1.title = "\(self.bpms[self.startResp]) b/m"
+            
         }
         alert.addAction(title: "Cancel", style: .cancel) { (_) in
             
