@@ -154,7 +154,7 @@ class PassiveTrackingViewController: UIViewController {
         objPassive = Passive(live: objLive!)
         objPassive?.delegate = self
         
-        setBreathSensitivity(val: 2)
+        setBreathSensitivity(val: 1)
         setPostureSensitivity(val: 2)
 
         displayPostureAnimation(1)

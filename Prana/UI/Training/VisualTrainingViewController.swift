@@ -103,10 +103,10 @@ class VisualTrainingViewController: UIViewController {
     var targetRR: Double = 0 {
         didSet {
             if targetRR < 0 {
-                lblStatus2.text = "Target/Actual Respiration Rate:"
+                lblStatus2.text = "Target/Real-time Respiration Rate:"
             }
             else {
-                lblStatus2.text = "Target/Actual Respiration Rate: \(roundDouble(double: targetRR))/\(roundDouble(double: actualRR)) bpm"
+                lblStatus2.text = "Target/Real-time Respiration Rate: \(roundDouble(double: targetRR))/\(roundDouble(double: actualRR)) bpm"
             }
         }
     }
@@ -114,10 +114,10 @@ class VisualTrainingViewController: UIViewController {
     var actualRR: Double = 0 {
         didSet {
             if targetRR < 0 {
-                lblStatus2.text = "Target/Actual Respiration Rate:"
+                lblStatus2.text = "Target/Real-time Respiration Rate:"
             }
             else {
-                lblStatus2.text = "Target/Actual Respiration Rate: \(roundDouble(double: targetRR))/\(roundDouble(double: actualRR)) bpm"
+                lblStatus2.text = "Target/Real-time Respiration Rate: \(roundDouble(double: targetRR))/\(roundDouble(double: actualRR)) bpm"
             }
             if targetRR < 0 {
                 lblStatus5.text = "Actual:"
@@ -216,7 +216,12 @@ class VisualTrainingViewController: UIViewController {
         let scene = VisualTrainingScene(sessionDuration * 60, isBreathingOnly: (sessionKind == 1 ? true : false))
         scene.whichPattern = whichPattern
         scene.subPattern = subPattern
-        scene.skipCalibration = skipCalibration
+        scene.skipCalibration = 0 // skipCalibration
+        if skipCalibration == 1 {
+            scene.initialMessage = "Breathe normally here to set your initial Average Breath Depth."
+        } else {
+            scene.initialMessage = "Breathe normally here to set your initial Target Respiration Rate."
+        }
         scene.startSubPattern = startSubPattern
         scene.maxSubPattern = maxSubPattern
         scene.visualDelegate = self

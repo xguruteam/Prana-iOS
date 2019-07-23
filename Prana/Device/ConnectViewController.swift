@@ -43,6 +43,17 @@ class ConnectViewController: UIViewController {
         lblBatteryLevel.isHidden = true
         lblGuide.isHidden = false
         
+        if isTutorial {
+            lblGuide.text = """
+            Press and hold the button on Prana for 3 seconds to wirelessly connect to the app. The light on the device will be blink blue.
+            """
+        } else {
+            lblGuide.text = """
+            First wear the device around your body.
+            Then press and hold the button on Prana for 3 seconds to wirelessly connect to the app. The light on the device will be blink blue.
+            """
+        }
+        
         startScanPrana()
     }
     

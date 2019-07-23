@@ -152,6 +152,8 @@ class VisualTrainingScene: SKScene {
     
     var _calibrationRegionWidth: Double = 600
     
+    var initialMessage: String?
+    
     var skipCalibration:Int = 0;  //may 8th  For visual training, if this is set to 1, it causes the function addCalibrationBreathRegion() not to run, which skips the initial 15 second respiration assessment. If whichPattern = 0 (Slowing pattern), and skipCalibration is 1, then startSubPattern and maxSubPattern determine the initial respiration rate and minimum respiration rate
     var startSubPattern:Int = 5; //may 8th  The example value 5 here corresponds to 12bpm. Note, for Buzzer Training, if the non-custom Slowing pattern is used, then this value should be set to 5
     var maxSubPattern:Int = 34; //may 8th  SET THIS TO THE INDEX VALUE found under //Dynamic slow breathing pattern below, between 0-34. This value corresponds TO THE MINIMUM RESPIRATION RATE SELECTED ON THE CUSTOM BREATH PATTERN PAGE. This value should be 34 if skipCalibration = 0. The example value 8 here corresponds to 9.2bpm
@@ -222,7 +224,7 @@ class VisualTrainingScene: SKScene {
         _calibrationRegion?.position = CGPoint(x: CGFloat(lastX) + _calibrationRegion!.size.width / 2, y: _playRegionY + _playRegionH/2)
         _calibrationRegion?.name = "calibration"
         
-        _calibrationRegionLabel = SKLabelNode(text: "Breathe normally here to set your initial Target Respiration Rate.")
+        _calibrationRegionLabel = SKLabelNode(text: initialMessage)
         _calibrationRegionLabel?.color = .white
         _calibrationRegionLabel?.fontName = "Quicksand"
         _calibrationRegionLabel?.fontSize = 16

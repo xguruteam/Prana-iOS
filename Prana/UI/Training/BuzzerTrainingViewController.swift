@@ -106,12 +106,12 @@ class BuzzerTrainingViewController: UIViewController {
     
     var targetRR: Double = 0 {
         didSet {
-            lblTargetRespirationRate.text = "Target/Actual Respiration Rate:\(targetRR)/\(actualRR) bpm"
+            lblTargetRespirationRate.text = "Target/Real-time Respiration Rate:\(targetRR)/\(actualRR) bpm"
         }
     }
     var actualRR: Double = 0 {
         didSet {
-            lblTargetRespirationRate.text = "Target/Actual Respiration Rate:\(targetRR)/\(actualRR) bpm"
+            lblTargetRespirationRate.text = "Target/Real-time Respiration Rate:\(targetRR)/\(actualRR) bpm"
         }
     }
     
@@ -165,7 +165,7 @@ class BuzzerTrainingViewController: UIViewController {
 //        lblTimeRemaining.text = "_:__"
         
         lblMindfulBreaths.text = "Mindful Breaths:"
-        lblTargetRespirationRate.text = "Target Respiration Rate:"
+        lblTargetRespirationRate.text = "Target/Real-time Respiration Rate:"
         lblBreathingPattern.text = "Breathing Pattern: SLOWING PATTERN"
         
         lblUprightPosture.text = "Upright Posture:"
@@ -179,7 +179,7 @@ class BuzzerTrainingViewController: UIViewController {
         objBuzzer?.maxSubPattern = maxSubPattern
         objBuzzer?.delegate = self
         
-        setBreathSensitivity(val: 2)
+        setBreathSensitivity(val: 1)
         setPostureSensitivity(val: 2)
         
         PranaDeviceManager.shared.startGettingLiveData()
@@ -314,21 +314,28 @@ class BuzzerTrainingViewController: UIViewController {
         var text: [AttributedTextBlock] = [
             .header2("Buzzer Training Instructions for Breathing & Posture"),
             .list("Requires your conscious attention during the session time"),
-            .list("Start inhaling on a single buzz (any time after the single buzz but before the exhale double buzz)"),
+            .list("Start inhaling after you feel the first quick buzz"),
             .list("Start exhaling on a double buzz (any time after the double buzz but before the next inhale buzz)"),
+            .list("Start exhaling after you feel the next quick buzz"),
+            .list("When you feel a quick double-buzz, the breath is complete. Wait to inhale until the quick buzz again"),
             .list("Maintain your upright posture"),
             .list("A long single buzz means you are not following the breathing pattern, and a long double buzz means your posture is slouching"),
-            .list("During the session, keep your body fairly still to help accuracy")
+            .list("If you are inhaling or exhaling too soon (breathing faster), that is usually what triggers the buzz warning"),
+            .list("During the session, keep your body fairly still to help accuracy"),
+            .list("The first two breaths of the session are not evaluated (they are for calibration)"),
         ]
         
         if sessionKind == 1 {
             text = [
                 .header2("Buzzer Training Instructions for Breathing only"),
                 .list("Requires your conscious attention during the session time"),
-                .list("Start inhaling on a single buzz (any time after the single buzz but before the exhale double buzz)"),
-                .list("Start exhaling on a double buzz (any time after the double buzz but before the next inhale buzz)"),
+                .list("Start inhaling after you feel the first quick buzz"),
+                .list("Start exhaling after you feel the next quick buzz"),
+                .list("When you feel a quick double-buzz, the breath is complete. Wait to inhale until the quick buzz again"),
                 .list("A long single buzz means you are not following the breathing pattern"),
-                .list("During the session, keep your body fairly still to help accuracy")
+                .list("If you are inhaling or exhaling too soon (breathing faster), that is usually what triggers the buzz warning"),
+                .list("During the session, keep your body fairly still to help accuracy"),
+                .list("The first two breaths of the session are not evaluated (they are for calibration)"),
             ]
         }
         else if sessionKind == 2 {
