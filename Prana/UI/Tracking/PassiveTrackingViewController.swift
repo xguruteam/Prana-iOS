@@ -21,6 +21,7 @@ class PassiveTrackingViewController: UIViewController {
     @IBOutlet weak var lblStatus4: UILabel!
     @IBOutlet weak var lblStatus5: UILabel!
     @IBOutlet weak var lblStatus6: UILabel!
+    @IBOutlet weak var lblStatus9: UILabel!
     
     @IBOutlet weak var btnBreathSense1: UIButton!
     @IBOutlet weak var btnBreathSense2: UIButton!
@@ -47,13 +48,19 @@ class PassiveTrackingViewController: UIViewController {
     
     var currentRR: Float = 0 {
         didSet {
-            lblStatus1.text = "Current Resp Rate: \(currentRR)"
+            lblStatus1.text = "Real-time: \(currentRR)"
+        }
+    }
+    
+    var oneMinuteRR: Float = 0 {
+        didSet {
+            lblStatus9.text = "1-minute: \(oneMinuteRR)"
         }
     }
     
     var avgRR: Float = 0 {
         didSet {
-            lblStatus2.text = "Session Avg Resp Rate: \(avgRR)"
+            lblStatus2.text = "Session avg: \(avgRR)"
         }
     }
     
@@ -65,19 +72,19 @@ class PassiveTrackingViewController: UIViewController {
     
     var realTimeEI: Float = 0 {
         didSet {
-            lblStatus4.text = "Real-Time E/I: \(realTimeEI)"
+            lblStatus4.text = "Real-time: \(realTimeEI)"
         }
     }
     
     var avgEI: Float = 0 {
         didSet {
-            lblStatus5.text = "Session Avg E/I: \(avgEI)"
+            lblStatus5.text = "Session avg: \(avgEI)"
         }
     }
     
     var lastEI: Float = 0 {
         didSet {
-            lblStatus6.text = "Last Minute E/I: \(lastEI)"
+            lblStatus6.text = "1-minute: \(lastEI)"
         }
     }
     
@@ -136,6 +143,7 @@ class PassiveTrackingViewController: UIViewController {
         realTimeEI = 0
         avgEI = 0
         lastEI = 0
+        oneMinuteRR = 0
         buzzIn = 5
         
         objLive = Live()
@@ -446,7 +454,7 @@ extension PassiveTrackingViewController: PassiveDelegate {
     func passiveDidRespRate(currentRR: Double, avgRR: Double, breathCount: Int) {
         if self.breathCount < breathCount {
             // new breath
-            currentSessionObject?.addBreath(timeStamp: timeElapsed, isMindful: false, respRate: currentRR, eiRatio: Double(realTimeEI))
+            currentSessionObject?.addBreath(timeStamp: timeElapsed, isMindful: false, respRate: currentRR, eiRatio: Double(lastEI))
         }
         DispatchQueue.main.async {
             self.breathCount = breathCount
@@ -505,6 +513,8 @@ extension PassiveTrackingViewController: PassiveDelegate {
     }
     
     func passiveDidCalculateOneMinuteRespRate(oneMinuteRR: Int) {
-        
+        DispatchQueue.main.async {
+            self.oneMinuteRR = Float(oneMinuteRR)
+        }
     }
 }
