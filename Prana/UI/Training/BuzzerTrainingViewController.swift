@@ -69,6 +69,8 @@ class BuzzerTrainingViewController: UIViewController {
     
     @IBOutlet weak var lblGuide: UILabel!
     @IBOutlet weak var btnHelp: UIButton!
+    @IBOutlet weak var lblBuzzWhenUnmindful: UILabel!
+    @IBOutlet weak var swBuzzWhenUnmindful: UISwitch!
     
     @IBOutlet weak var batteryView: BatteryStateView!
     
@@ -128,6 +130,7 @@ class BuzzerTrainingViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+        swBuzzWhenUnmindful.addTarget(self, action: #selector(onBuzzWhenUnmindfulChange(_:)), for: .valueChanged)
     }
     
     func initView() {
@@ -210,6 +213,7 @@ class BuzzerTrainingViewController: UIViewController {
             objBuzzer?.buzzerTrainingForPostureOnly = 0
             uprightHasBeenSetHandler()
             lblGuide.isHidden = true
+            objBuzzer?.doWarningBuzzesforUnmindful = 1
         }
         else if sessionKind == 2{
             lblBuzzerReason.isHidden = true
@@ -232,10 +236,14 @@ class BuzzerTrainingViewController: UIViewController {
             con10.constant = 200
             objBuzzer?.useBuzzerForPosture = 1
             objBuzzer?.buzzerTrainingForPostureOnly = 1
+            objBuzzer?.doWarningBuzzesforUnmindful = 0
+            lblBuzzWhenUnmindful.isHidden = true
+            swBuzzWhenUnmindful.isHidden = true
         }
         else {
             objBuzzer?.useBuzzerForPosture = 1
             objBuzzer?.buzzerTrainingForPostureOnly = 0
+            objBuzzer?.doWarningBuzzesforUnmindful = 1
         }
     }
     
@@ -480,6 +488,10 @@ class BuzzerTrainingViewController: UIViewController {
 //                currentSessionObject?.upright = upright
             }
         }
+    }
+    
+    @objc func onBuzzWhenUnmindfulChange(_ sender: UISwitch) {
+        objBuzzer?.doWarningBuzzesforUnmindful = sender.isOn ? 1 : 0
     }
     
     @objc func appMovedToBackground() {
