@@ -61,10 +61,10 @@
 		var secondCounter:int = 0;
 		var xd:int = 2;
 		var whichBirdFrame:int = 0;		
-		var skipCalibration:int = 1;  //may 8th  For visual training, if this is set to 1, it causes the function addCalibrationBreathRegion() not to run, which skips the initial 15 second respiration assessment. If whichPattern = 0 (Slowing pattern), and skipCalibration is 1, then startSubPattern and maxSubPattern determine the initial respiration rate and minimum respiration rate
+		var skipCalibration:int = 0;  //JULY 13:Change1i For visual training, if this is set to 1, it causes the function addCalibrationBreathRegion() not to run, which skips the initial 15 second respiration assessment. If whichPattern = 0 (Slowing pattern), and skipCalibration is 1, then startSubPattern and maxSubPattern determine the initial respiration rate and minimum respiration rate
 		var startSubPattern:Number = 5; //may 8th  The example value 5 here corresponds to 12bpm. Note, for Buzzer Training, if the non-custom Slowing pattern is used, then this value should be set to 5
-		var maxSubPattern:int = 8; //may 8th  SET THIS TO THE INDEX VALUE found under //Dynamic slow breathing pattern below, between 0-34. This value corresponds TO THE MINIMUM RESPIRATION RATE SELECTED ON THE CUSTOM BREATH PATTERN PAGE. This value should be 34 if skipCalibration = 0. The example value 8 here corresponds to 9.2bpm
-		
+		var maxSubPattern:int = 34; //may 8th  SET THIS TO THE INDEX VALUE found under //Dynamic slow breathing pattern below, between 0-34. This value corresponds TO THE MINIMUM RESPIRATION RATE SELECTED ON THE CUSTOM BREATH PATTERN PAGE. This value should be 34 if skipCalibration = 0. The example value 8 here corresponds to 9.2bpm
+		var customSlowingPatternIsActive:int = 0; //July 13:New1i  When user is using the Slowing Pattern from the pattern gallery (custom), then this should be set to 1. In this case, the first breathing pattern is set to startSubPattern, and maxSubPattern should also be set based on user selection on the custom pattern screen (15 second calibration is never skipped now for any pattern)
 		public function Game(main:Main) {			
 		
 			DC = main;					
@@ -235,7 +235,65 @@
 			patternSequence = [];
 			patternSequence[0] = [];
 			
+			
+			//Dynamic slow breathing pattern //July 13:Change1l  (this section was updated)
+						
+			patternSequence[0].push([1,0,1,0.5]); //24 bpm		
+			patternSequence[0].push([1,0,1.5,0.5]); //20 bpm
+			
+			patternSequence[0].push([1,0,1.5,1]); //17.14 bpm
+			patternSequence[0].push([1.5,0,1.5,1]); //15 bpm
+			
+			patternSequence[0].push([1.5,0,1.5,1.5]); //13.3 bpm
+			patternSequence[0].push([1.5,0,2,1.5]); //12 bpm
+			
+			patternSequence[0].push([2,0,2,1.5]); //10.9 bpm
+			patternSequence[0].push([2,0,2.5,1.5]); //10 bpm
+			
+			patternSequence[0].push([2.5,0,2.5,1.5]); //9.2 bpm
+			patternSequence[0].push([2.5,0,3,1.5]); //8.6 bpm
+			
+			patternSequence[0].push([3,0,3,1.5]); //8 bpm
+			patternSequence[0].push([3,0,3.5,1.5]); //7.5 bpm
+			
+			patternSequence[0].push([3.5,0,3.5,1.5]); //7.1 bpm
+			patternSequence[0].push([3.5,0,4,1.5]); //6.7 bpm
+			
+			patternSequence[0].push([4,0,4,1.5]); //6.3 bpm
+			patternSequence[0].push([4,0,4.5,1.5]); //6 bpm
+			
+			patternSequence[0].push([4.5,0,4.5,1.5]); //5.7 bpm
+			patternSequence[0].push([4.5,0,5,1.5]); //5.5 bpm
+			
+			patternSequence[0].push([5,0,5,1.5]); //5.2 bpm
+			patternSequence[0].push([5,0,5.5,1.5]); //5 bpm
+			
+			patternSequence[0].push([5,0,5.5,2]); //4.8 bpm
+			patternSequence[0].push([5.5,0,5.5,2]); //4.6 bpm
+			
+			patternSequence[0].push([5.5,0,6,2]); //4.4 bpm
+			patternSequence[0].push([6,0,6,2]); //4.3 bpm
+			
+			patternSequence[0].push([6,0,6.5,2]); //4.1 bpm
+			patternSequence[0].push([6.5,0,6.5,2]); //4 bpm
+			
+			patternSequence[0].push([6.5,0,7,2]); //3.9 bpm
+			patternSequence[0].push([7,0,7,2]); //3.8 bpm
+			
+			patternSequence[0].push([7,0,7.5,2]); //3.6 bpm
+			patternSequence[0].push([7.5,0,7.5,2]); //3.5 bpm
+			
+			patternSequence[0].push([7.5,0,8,2]); //3.4 bpm
+			patternSequence[0].push([8,0,8,2]); //3.3 bpm
+			
+			patternSequence[0].push([8,0,8.5,2]); //3.2 bpm
+			patternSequence[0].push([8.5,0,8.5,2]); //3.1 bpm
+			
+			patternSequence[0].push([9,0,9,2]); //3 bpm
+			
+			
 			//Dynamic slow breathing pattern
+			/**
 						
 			patternSequence[0].push([1,0,1,0.5]); //24 bpm		
 			patternSequence[0].push([1,0,1.5,0.5]); //20 bpm
@@ -289,7 +347,7 @@
 			patternSequence[0].push([7,0,7,5.5]); //3.1 bpm
 			
 			patternSequence[0].push([7,0,7,6]); //3 bpm
-			
+			**/
 			
 			//Meditation 1 breathing pattern
 			
@@ -319,8 +377,8 @@
 			patternSequence[3].push([1.5,0,1.5,1,"FOCUS PATTERN 15 BPM"]); //15 bpm
 			patternSequence[4].push([1.5,0,1.5,2,"FOCUS PATTERN 12 BPM"]); //12 bpm
 			patternSequence[5].push([2,0,2,2,"FOCUS PATTERN 10 BPM"]); //10 bpm
-			patternSequence[6].push([2.5,0,2.5,2.5,"FOCUS PATTERN 8 BPM"]); //8 bpm
-			patternSequence[7].push([3.5,0,3.5,3,"FOCUS PATTERN 6 BPM"]); //6 bpm
+			patternSequence[6].push([2.5,0,2.5,2.5,"FOCUS PATTERN 8 BPM"]); //8 bpm  
+			patternSequence[7].push([3.5,0,3.5,3,"FOCUS PATTERN 6 BPM"]); //6 bpm  
 			
 			//Relax breathing patterns
 			
@@ -855,7 +913,9 @@
 				
 				if (targetLayer.getChildAt(0).x <= -1130) {  //accounting for 70 width of bird
 					targetLayer.removeChildAt(0);
-					calibrationBreathsDone = 1;					
+					calibrationBreathsDone = 1;	
+					DC.objLiveGraph.breathTopExceededThreshold = 1; //JULY 13:NEW1f
+					DC.objLiveGraph.lightBreathsThreshold = 1; //JULY 13:NEW1f
 					
 					if (whichPattern == 0) {						
 						
@@ -863,8 +923,8 @@
 						
 						initialFadeIn = 1; //fade in initial patterns
 						
-						if (DC.objLiveGraph.respRate >= 24) {
-							subPattern = 0;
+						if (DC.objLiveGraph.respRate >= 17.14) { //JULY 13:Change1h
+							subPattern = 2;
 							createInitialSetOfBreathPatterns();
 						}
 						else if (DC.objLiveGraph.respRate <=8) {
@@ -877,6 +937,9 @@
 								a = 60/(patternSequence[0][i][0] + patternSequence[0][i][1] + patternSequence[0][i][2]+ patternSequence[0][i][3]);
 								if (DC.objLiveGraph.respRate > a) {
 									subPattern = i;
+									if (customSlowingPatternIsActive == 1) { //July 13:New1i  
+										subPattern = startSubPattern; //July 13:New1i  
+									} //July 13:New1i  
 									createInitialSetOfBreathPatterns();
 									break;
 								}
@@ -1019,6 +1082,12 @@
 		
 		function startMode():void  {				
 			
+			addChild(DC.objLiveGraph); //***JULY 13th ADDED   Luccas, ignore this, this is just to show the live graph on my desktop for debugging
+			DC.objLiveGraph.scaleX = 0.7;  //***JULY 13th ADDED   Luccas, ignore this, this is just to show the live graph on my desktop
+			DC.objLiveGraph.scaleY = 0.7;  //***JULY 13th ADDED   Luccas, ignore this, this is just to show the live graph on my desktop
+			DC.objLiveGraph.postureUI.visible = false;  //***JULY 13th ADDED   Luccas, ignore this, this is just to show the live graph on my desktop
+			
+			
 			gamePanel.startGameButton.gotoAndStop(1);
 			gamePanel.backButton.visible = true;
 			balloon.visible = false;
@@ -1145,6 +1214,10 @@
 		
 		function backButtonHandler(evt:MouseEvent):void  {	
 			
+			DC.objLiveGraph.postureUI.visible = true;  //July 13th ADDED, YOU may not need this Luccas, in BT and PT, I hide the postureUI when displaying the live graph (because the postureUI component is part of Live graph but unecessary when viewed in BT and PT, because those already separately display the posture details), but you probably organized the structure differently
+			DC.objLiveGraph.scaleX = 1;  //***July 13th ADDED  YOU may not need this Luccas
+			DC.objLiveGraph.scaleY = 1;  //***July 13th ADDED  YOU may not need this Luccas
+			
 			DC.removeChild(DC.objGame);
 			DC.addChild(DC.objModeScreen);	
 			DC.objModeScreen.startScreen3.visible = false;
@@ -1188,10 +1261,10 @@
 				//myTimer2.start();
 				//gameTimer.start();
 								
-				DC.objLiveGraph.stuckBreathsThreshold = 2; //need more stuck breaths during the game, otherwise bird falls suddenly too often.
-				DC.objLiveGraph.breathTopExceededThreshold = 1;		
-				DC.objLiveGraph.minBreathRange = 50;
-				
+				DC.objLiveGraph.stuckBreathsThreshold = 3; //JULY 13:NEW1g need more stuck breaths during the game, otherwise bird falls suddenly too often.
+				DC.objLiveGraph.breathTopExceededThreshold = 0; //JULY13:NEW1f  set to 0, so that breath range can be found more quickly during calibration
+				DC.objLiveGraph.lightBreathsThreshold = 0; //JULY13:NEW1f  set to 0, so that breath range can be found more quickly during calibration
+				DC.objLiveGraph.minBreathRange = 50;			
 			
 			}
 			

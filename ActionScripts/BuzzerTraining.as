@@ -70,7 +70,8 @@
 		var buzzerTrainingForPostureOnly:int = 0; //****** May 8th 2019 changes
 		
 		var isBuzzerTrainingActive:int = 0; // May 19th, ADDED THIS LINE
-	
+		
+		var doWarningBuzzesforUnmindful:int = 0; //JULY 13:New1p   Set this to 0 when on/off switch is off  to not buzz for warning buzzes when unmindful breathing, should be on by default
 		
 		public function BuzzerTraining(main:Main) {
 				
@@ -270,10 +271,16 @@
 				if (buzzReason == 1) { //due to bad breathing
 					
 					if (breathTime == -53) { // May 19th, Changed from -160      so that any guidance buzzing doesn't interfere with bad breath buzzing. Allows any guidance buzzing time to clear first.
-						DC.objStartConnection.socket.writeUTFBytes("Buzz,1.2" + "\n");			
-						DC.objStartConnection.socket.flush();	
-						isBuzzing = 1;
-						buzzCount = 30; //May 19th changed from 90
+						
+						if (doWarningBuzzesforUnmindful == 1) { //JULY 13:New1p  
+							DC.objStartConnection.socket.writeUTFBytes("Buzz,1.2" + "\n");			
+							DC.objStartConnection.socket.flush();	
+							isBuzzing = 1; //JULY 13:New1p
+							buzzCount = 30; //JULY 13:New1p
+						} //JULY 13:New1p  
+						
+						//isBuzzing = 1; //JULY 13:Change1p  REMOVED
+						//buzzCount = 30; //JULY 13:Change1p  REMOVED
 					}
 				}
 				
@@ -317,13 +324,16 @@
 				whenExhaled = 0;	
 				buzzReason = 0;
 				
-				if (cycles > 2) {
-					mindfulBreathsCount++;	
+				if (cycles > 2) { 					
+				
+					mindfulBreathsCount++;										
 					
 					if (whichPattern == 0) {
 						goodBreaths++; //For breath pattern 0, for keeping track of 4 out of 5 good breaths to advance or recede
 					}
-					buzzerTrainingUI.mindfulBreaths.text = String(mindfulBreathsCount) + " of " + String(totalBreaths);		
+					
+					buzzerTrainingUI.mindfulBreaths.text = String(mindfulBreathsCount) + " of " + String(totalBreaths) + " goodBreaths = " + String(goodBreaths);
+							
 				}
 				
 					
@@ -374,19 +384,19 @@
 				numOfInhales = 0;
 				numOfExhales = 0;	
 				
-				if (cycles >= 2) {
+				if (cycles >= 2) { //JULY
 					
 					totalBreaths++;
 					
 					if (whichPattern == 0) {
-						breathsOnCurrentLevel++;
+						breathsOnCurrentLevel++; 
 						
-						if (breathsOnCurrentLevel == 6) {
-							breathsOnCurrentLevel = 1;
-							goodBreaths = 0;				
-						}				
+						//if (breathsOnCurrentLevel == 6) {//JULY 13:Change1r REMOVED
+						//	breathsOnCurrentLevel = 1;//JULY 13:Change1r REMOVED
+							//goodBreaths = 0;		//JULY 13:Change1r REMOVED		
+						//}			//JULY 13:Change1r REMOVED
 						
-						if (breathsOnCurrentLevel == 5) {				
+						if (breathsOnCurrentLevel == 6) {				
 							if (goodBreaths >= 4) {				
 								subPattern++;
 								if (subPattern > DC.objGame.maxSubPattern) { //may 8th  maxSubPattern is representing the minimum target respiration rate
@@ -398,7 +408,10 @@
 								if (subPattern < 3) {
 									subPattern = 3; //minimum is 15bmp for buzzer training
 								}				
-							}			
+							}	
+							breathsOnCurrentLevel = 1; //JULY 13:NEW1r 
+							goodBreaths = 0;	 //JULY 13:NEW1r 
+							
 						}
 					
 					}
@@ -506,7 +519,8 @@
 			whenInhaled = 0;
 			whenExhaled = 0;
 			buzzReason = 1;
-			buzzerTrainingUI.mindfulBreaths.text = String(mindfulBreathsCount) + " of " + String(totalBreaths);	
+			
+			buzzerTrainingUI.mindfulBreaths.text = String(mindfulBreathsCount) + " of " + String(totalBreaths) + " goodBreaths = " + String(goodBreaths); 
 			
 		}
 		
@@ -526,6 +540,10 @@
 		
 		
 		function backToBreathingAndPostureMenuHandler(evt:MouseEvent):void  {	
+			
+			DC.objLiveGraph.postureUI.visible = true;  //May 31st ADDED, YOU may not need this Luccas, in BT and PT, I hide the postureUI when displaying the live graph (because the postureUI component is part of Live graph but unecessary when viewed in BT and PT, because those already separately display the posture details), but you probably organized the structure differently
+			DC.objLiveGraph.scaleX = 1;  //***May 31st ADDED  YOU may not need this Luccas
+			DC.objLiveGraph.scaleY = 1;  //***May 31st ADDED  YOU may not need this Luccas
 			
 			DC.removeChild(DC.objBuzzerTraining);
 			DC.addChild(DC.objModeScreen);	
@@ -583,9 +601,12 @@
 			
 			if (trainingDuration == 0) {
 				
-				buzzerTrainingUI.sessionCompleteIndicator.visible = true;
+				buzzerTrainingUI.sessionCompleteIndicator.visible = true;			
 				
-				clearBuzzerTraining();							
+				clearBuzzerTraining();			
+				
+				DC.objStartConnection.socket.writeUTFBytes("Buzz,2.5" + "\n"); //JULY 13:New1q  		
+				DC.objStartConnection.socket.flush(); //JULY 13:New1q  
 				
 			}
 			

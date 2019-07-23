@@ -37,7 +37,7 @@
 		var isPassiveTrackingActive:int = 0;  // May 19th, ADDED THIS LINE
 		var currentSlouchPostureTime:int = 0; // May 31st ADDED THIS LINE
 		var buzzTimeTrigger:int = 0;  // May 31st ADDED THIS LINE
-		var secondsElapsed:int = 0; // May 31st ADDED THIS LINE
+		//var secondsElapsed:int = 0; //JULY 13th:CHANGE1b  REMOVE THIS LINE
 	
 		
 		public function PassiveTracking(main:Main) {
@@ -90,7 +90,7 @@
 			DC.objLiveGraph.postureUI.visible = false;  //***May 31st ADDED
 			
 			currentSlouchPostureTime = 0; //***May 31st ADDED
-			secondsElapsed = 0; //***May 31st ADDED
+			//secondsElapsed = 0; //JULY 13th:CHANGE1b  REMOVE THIS LINE
 			passiveTrackingUI.lastMinuteEI.text = ""; //***May 31st ADDED
 			passiveTrackingUI.realTimeEI.text = "";//***May 31st ADDED
 			passiveTrackingUI.sessionAvgEI.text = "";//***May 31st ADDED			
@@ -105,6 +105,7 @@
 			
 			passiveTrackingUI.averageRR.text = "";
 			passiveTrackingUI.currentRR.text = "";
+			passiveTrackingUI.oneMinuteRR.text = ""; //JULY 13th:NEW1d
 			passiveTrackingUI.howManyBreaths.text = "";
 			
 			if (DC.objGame.trainingPosture == 1) {
@@ -197,6 +198,10 @@
 		  function passiveTrackingMainLoop():void { //May 19th, ADDED THIS LINE
 			
 			passiveTrackingUI.currentRR.text = String(DC.objLiveGraph.respRate);	
+			  
+			if (DC.objLiveGraph.timeElapsed >= 60) { //JULY 13th:NEW1d
+				passiveTrackingUI.oneMinuteRR.text = String(DC.objLiveGraph.calculateOneMinuteRespRate()); //JULY 13th:NEW1d
+			} //JULY 13th:NEW1d
 			
 			passiveTrackingUI.howManyBreaths.text = String(DC.objLiveGraph.breathCount);
 			passiveTrackingUI.averageRR.text = String(DC.objLiveGraph.avgRespRate);
@@ -285,12 +290,12 @@
 				passiveTrackingUI.sessionAvgEI.text = String(roundNumber(DC.objLiveGraph.EIAvgSessionRatio/DC.objLiveGraph.EIRatio.length,10));   //May 31st ADDED
 			}
 			
-			secondsElapsed++;  //May 31st ADDED
+			//secondsElapsed++;  //JULY 13th:CHANGE1b  REMOVE THIS LINE
 			
-			if (secondsElapsed >= 60) {  //May 31st ADDED
-				secondsElapsed = 0;  //May 31st ADDED
-				passiveTrackingUI.lastMinuteEI.text = String(DC.objLiveGraph.calculateOneMinuteEI()); //May 31st ADDED
-			} //May 31st ADDED
+			if (DC.objLiveGraph.timeElapsed >= 60) {  //JULY 13th:CHANGE1b 
+				//secondsElapsed = 0; //JULY 13th:CHANGE1b  REMOVE THIS LINE
+				passiveTrackingUI.lastMinuteEI.text = String(DC.objLiveGraph.EI1Minute); //JULY 13th:CHANGE1b, this is a global variable now in LiveGraph class
+			} 
 			
 					 
 			trainingDuration--;

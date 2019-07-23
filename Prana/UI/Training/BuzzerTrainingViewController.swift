@@ -550,7 +550,7 @@ extension BuzzerTrainingViewController: BuzzerDelegate {
         }
     }
     
-    func buzzerNewMindfulBreaths(_ mindfuls: Int, ofTotalBreaths totals: Int) {
+    func buzzerNewMindfulBreaths(_ mindfuls: Int, goods: Int, ofTotalBreaths totals: Int) {
 //        print("new mindful \(mindfuls) in \(totals)")
         if breathCount < totals {
             let isMindful = ((mindfuls > mindfulBreaths) ? true : false)

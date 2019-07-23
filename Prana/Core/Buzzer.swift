@@ -11,7 +11,7 @@ import UIKit
 
 protocol BuzzerDelegate: class {
     func buzzerNewActualRR(actualRR: Double)
-    func buzzerNewMindfulBreaths(_ mindfuls: Int, ofTotalBreaths totals: Int)
+    func buzzerNewMindfulBreaths(_ mindfuls: Int, goods: Int, ofTotalBreaths totals: Int)
     func buzzerNewBuzzerReason(_ reason: String)
     func burzzerNewTargetRR(targetRR: Double)
     func buzzerTimeElapsed(_ elapsed: Int)
@@ -79,6 +79,8 @@ class Buzzer {
     var maxSubPattern:Int = 8
     
     var isBuzzerTrainingActive:Int = 0; // May 19th, ADDED THIS LINE
+    
+    var doWarningBuzzesforUnmindful:Int = 0; //JULY 13:New1p   Set this to 0 when on/off switch is off  to not buzz for warning buzzes when unmindful breathing, should be on by default
     
     init(pattern: Int, subPattern subPatt: Int, duration: Int, live: Live) {
         useBuzzerForPosture = 1;
@@ -164,9 +166,11 @@ class Buzzer {
             if (buzzReason == 1) { //due to bad breathing
                 
                 if (breathTime == -53) { // May 19th, Changed from -160      so that any guidance buzzing doesn't interfere with bad breath buzzing. Allows any guidance buzzing time to clear first.
-                    PranaDeviceManager.shared.sendCommand("Buzz,1.2");
-                    isBuzzing = 1;
-                    buzzCount = 30; //May 19th changed from 90
+                    if (doWarningBuzzesforUnmindful == 1) { //JULY 13:New1p
+                        PranaDeviceManager.shared.sendCommand("Buzz,1.2");
+                        isBuzzing = 1;
+                        buzzCount = 30; //May 19th changed from 90
+                    }
                 }
             }
                 
@@ -213,7 +217,7 @@ class Buzzer {
                 if (whichPattern == 0) {
                     goodBreaths+=1; //For breath pattern 0, for keeping track of 4 out of 5 good breaths to advance or recede
                 }
-                self.delegate?.buzzerNewMindfulBreaths(mindfulBreathsCount, ofTotalBreaths: totalBreaths)
+                self.delegate?.buzzerNewMindfulBreaths(mindfulBreathsCount, goods: goodBreaths, ofTotalBreaths: totalBreaths)
             }
             
             
@@ -270,12 +274,12 @@ class Buzzer {
                 if (whichPattern == 0) {
                     breathsOnCurrentLevel+=1;
                     
-                    if (breathsOnCurrentLevel == 6) {
-                        breathsOnCurrentLevel = 1;
-                        goodBreaths = 0;
-                    }
+//                    if (breathsOnCurrentLevel == 6) {
+//                        breathsOnCurrentLevel = 1;
+//                        goodBreaths = 0;
+//                    }
                     
-                    if (breathsOnCurrentLevel == 5) {
+                    if (breathsOnCurrentLevel == 6) {
                         if (goodBreaths >= 4) {
                             subPattern+=1;
                             if (subPattern > maxSubPattern) {
@@ -288,6 +292,8 @@ class Buzzer {
                                 subPattern = 3; //minimum is 15bmp for buzzer training
                             }
                         }
+                        breathsOnCurrentLevel = 1; //JULY 13:NEW1r
+                        goodBreaths = 0;     //JULY 13:NEW1r
                     }
                     
                 }
@@ -417,7 +423,7 @@ class Buzzer {
             self.delegate?.buzzerDidSessionComplete()
             
             clearBuzzerTraining();
-            
+            PranaDeviceManager.shared.sendCommand("Buzz,2.5")
         }
         
     }
@@ -433,7 +439,7 @@ class Buzzer {
         whenInhaled = 0;
         whenExhaled = 0;
         buzzReason = 1;
-        self.delegate?.buzzerNewMindfulBreaths(mindfulBreathsCount, ofTotalBreaths: totalBreaths)
+        self.delegate?.buzzerNewMindfulBreaths(mindfulBreathsCount, goods: goodBreaths, ofTotalBreaths: totalBreaths)
         //    buzzerTrainingUI.mindfulBreaths.text = String(mindfulBreathsCount) + " of " + String(totalBreaths);
         
     }

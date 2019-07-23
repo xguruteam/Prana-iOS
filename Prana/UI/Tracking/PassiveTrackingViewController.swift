@@ -504,5 +504,7 @@ extension PassiveTrackingViewController: PassiveDelegate {
         }
     }
     
-    
+    func passiveDidCalculateOneMinuteRespRate(oneMinuteRR: Int) {
+        
+    }
 }

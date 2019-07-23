@@ -170,6 +170,8 @@ class Live: NSObject {
     var EIAvgSessionRatio:Double = 0; // May31st ADDED
     var EIRatioCount:Int = 0; // May31st ADDED
     var EIGoodToMeasure:Int = 0; // May31st ADDED
+    var EI1Minute:Double = 0;  //JULY 13th:NEW1b
+    var lightBreathsThreshold:Int = 1; //JULY 13th:NEW1i
 
     override init() {
         super.init()
@@ -253,13 +255,17 @@ class Live: NSObject {
         avgRespRate = 0
         
         // from startMode()
-        currentStrainGaugeHighest = currentStrainGaugeLowest + 0.003
-        currentStrainGaugeHighestPrev = currentStrainGaugeHighest
-        currentStrainGaugeLowestNew = currentStrainGaugeLowest
-        currentStrainGaugeHighestNew = currentStrainGaugeHighest
+//        currentStrainGaugeHighest = currentStrainGaugeLowest + 0.003
+//        currentStrainGaugeHighestPrev = currentStrainGaugeHighest
+//        currentStrainGaugeLowestNew = currentStrainGaugeLowest
+//        currentStrainGaugeHighestNew = currentStrainGaugeHighest
         
         stuckBreathsThreshold = 1
         breathTopExceededThreshold = 1
+        lightBreathsThreshold = 1; //JULY 13th:NEW1i
+        lightBreathsInARow = 0; //JULY 13th:NEW1i
+        breathTopExceeded = 0; //JULY 13th:NEW1i
+        stuckBreaths = 0; //JULY 13th:NEW1i
         minBreathRange = fullBreathGraphHeight/16.0
         
         exhaleCorrectionFactor = 0; //May 31st ADDED
@@ -269,6 +275,7 @@ class Live: NSObject {
         inhaleEndTime = 0; //May 31st ADDED
         exhaleEndTime = 0; //May 31st ADDED
         EIRatioCount = 0; //May 31st ADDED
+        EI1Minute = 0;  //JULY 13th:NEW1b
         
         PranaDeviceManager.shared.addDelegate(self)
     }
@@ -322,7 +329,7 @@ class Live: NSObject {
         
         resetCount()
         
-        if (count < initialPrepareCount) {
+        if (count < 8) {
             xSensor[count] = dataArray[3]
             ySensor[count] = dataArray[2]
             zSensor[count] = dataArray[4]
@@ -377,7 +384,7 @@ class Live: NSObject {
         
         strainGauge = breathSensor[count]
         
-        if (count == initialPrepareCount) {
+        if (count == 8) {
             currentStrainGaugeHighest = currentStrainGaugeLowest + 0.003
             currentStrainGaugeHighestPrev = currentStrainGaugeHighest
         }
@@ -466,17 +473,36 @@ class Live: NSObject {
             if ((currentStrainGaugeHighest-currentStrainGaugeLowest) < strainGaugeMinRange) {
                 currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange
             }
-        } else if (relativeInhaleLevelSG < 0.05 && !((breathSensor[count] > breathSensor[count-1]) && (breathSensor[count-1] > breathSensor[count-2]) && (breathSensor[count-2] > breathSensor[count-3]) && (breathSensor[count-3] > breathSensor[count-4]) && (breathSensor[count-4] > breathSensor[count-5]) && (breathSensor[count-5] > breathSensor[count-6]) ) ) {
+        }
+        else {
             
-            relativeInhaleLevelSG = 0
-            
-            currentStrainGaugeHighest = (currentStrainGaugeHighest - currentStrainGaugeLowest) + strainGauge;
-            
-            currentStrainGaugeLowest = strainGauge
-            
-            if (currentStrainGaugeHighest-currentStrainGaugeLowest < strainGaugeMinRange) {
-                currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange
+            if (appMode != 3) { // JULY 13:Change1n  (all the rest of the code below in this function was updated, about 20 lines)
+                
+                if (relativeInhaleLevelSG < 0.05 && !((breathSensor[count] > breathSensor[count-1]) && (breathSensor[count-1] > breathSensor[count-2]) && (breathSensor[count-2] > breathSensor[count-3]) && (breathSensor[count-3] > breathSensor[count-4]) && (breathSensor[count-4] > breathSensor[count-5]) && (breathSensor[count-5] > breathSensor[count-6]) ) ) {
+                    
+                    relativeInhaleLevelSG = 0;
+                    currentStrainGaugeHighest = (currentStrainGaugeHighest - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
+                    
+                    currentStrainGaugeLowest = strainGauge;
+                    if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
+                        currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
+                    }
+                }
             }
+            else {
+                
+                if (relativeInhaleLevelSG < 0.10 && !((breathSensor[count] > breathSensor[count-1]) && (breathSensor[count-1] > breathSensor[count-2]) && (breathSensor[count-2] > breathSensor[count-3]) && (breathSensor[count-3] > breathSensor[count-4]) && (breathSensor[count-4] > breathSensor[count-5]) && (breathSensor[count-5] > breathSensor[count-6]) && (breathSensor[count-6] > breathSensor[count-7]) && (breathSensor[count-7] > breathSensor[count-8]) ) ) {
+                    
+                    relativeInhaleLevelSG = 0;
+                    currentStrainGaugeHighest = (currentStrainGaugeHighest - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
+                    
+                    currentStrainGaugeLowest = strainGauge;
+                    if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
+                        currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
+                    }
+                }
+            }
+            
         }
     }
     
@@ -584,7 +610,7 @@ class Live: NSObject {
         
         storeSensorData(sensorData: sensorData)
         
-        if (count < 5) {
+        if (count < 8) {
             return
         }
         
@@ -597,11 +623,11 @@ class Live: NSObject {
 
         if (breathEnding == 1) {
             if (graphYSeries[count] > endBreathY) {
-                if (EIGoodToMeasure == 1 && exhaleCorrectionFactor < 1.3) {  // May 31st ADDED, only when this is low, can E/I be accurate
-                    
+                if (EIGoodToMeasure == 1 && exhaleCorrectionFactor < 1.3 && stuckBreaths == 0) {  // JULY 13th:CHANGE1a, if stuckBreaths > 0, then EIRatio can sometimes be negative
+
                     exhaleEndTime = timeElapsed; //May 31st ADDED
                     
-                    var ratio = (exhaleCorrectionFactor*(exhaleEndTime - inhaleEndTime))/((1-(0.05/smoothBreathingCoefBaseLevel))*(inhaleEndTime - inhaleStartTime))
+                    var ratio = (exhaleCorrectionFactor*(exhaleEndTime - inhaleEndTime))/(inhaleEndTime - inhaleStartTime) // JULY 13th:NEW1c
                     
                     ratio = roundNumber(num: ratio, dec: 10)
                     
@@ -617,11 +643,30 @@ class Live: NSObject {
                     
                 }
                 //                endBreathLine
-                stuckBreaths = 0
+//                stuckBreaths = 0
                 breathEnding = 0
                 breathCount += 1
                 calculateRespRate()
-                setNewStrainGaugeRange()
+                
+                if (timeElapsed >= 60) { //JULY 13th:NEW1d
+//                    postureUI.oneMinuteRespirationRateIndicator.text = String(calculateOneMinuteRespRate()); //JULY 13th:NEW1d
+                } //JULY 13th:NEW1d
+                
+                if (appMode == 1 && timeElapsed >= 60) { //JULY 13th:NEW1b   NOTE: appMode == 1 means it is Passive Tracking mode
+                    calculateOneMinuteEI(); //JULY 13th:NEW1b
+                } //JULY 13th:NEW1b
+                
+                if (stuckBreaths == 0) { //JULY 13th:NEW1i
+                    setNewStrainGaugeRange();
+                } //JULY 13th:NEW1i
+                else {  //JULY 13th:NEW1i
+                    currentStrainGaugeHighest = (currentStrainGaugeHighestPrev - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor. JULY 13th:NEW1i
+                    
+                    if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) { //JULY 13th:NEW1i
+                        currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange; //JULY 13th:NEW1i
+                    } //JULY 13th:NEW1i
+                } //JULY 13th:NEW1i
+                stuckBreaths = 0; //JULY 13th:NEW1i
                 
                 noisyMovements = 0
                 currentStrainGaugeLowest = strainGauge
@@ -629,12 +674,12 @@ class Live: NSObject {
         }
     }
     
-    func calculateOneMinuteEI() -> Double { // May 31st ADDED
+    func calculateOneMinuteEI() { // May 31st ADDED
         
-        var EI1Minute:Double = 0;  // May 31st ADDED
+        EI1Minute = 0;  // May 31st ADDED
         var breathsInLastMinute:Int = 0; // May 31st ADDED
         
-        guard EIRatio.count > 1 else { return 1 }
+        guard EIRatio.count > 1 else { return }
         
         for i in (1...(EIRatio.count-1)).reversed() {
             let ratioDic = EIRatio[i]
@@ -656,7 +701,7 @@ class Live: NSObject {
             EI1Minute = 1; // May 31st ADDED
         } // May 31st ADDED
         
-        return(EI1Minute); // May 31st ADDED
+//        return(EI1Minute); // May 31st ADDED
         
     } // May 31st ADDED
     
@@ -682,68 +727,87 @@ class Live: NSObject {
         }
     }
     
+    func calculateOneMinuteRespRate() -> Int {    //JULY 13th:NEW1d  New FUNCTION
+        
+        var breathsInLastMinute:Int = 0;
+        for i in ((0..<(whenBreathsEnd.count - 1)).map { Int($0) + 1 }.reversed()) {
+            if (whenBreathsEnd[i] >= (timeElapsed - 60)) {
+                breathsInLastMinute+=1;
+            }
+        }
+        return breathsInLastMinute;
+        
+    }
+    
     func setNewStrainGaugeRange() {
-        var rangeSet:Int = 0
-        
-        newStrainGaugeRange = currentStrainGaugeHighestNew - currentStrainGaugeLowestNew
-        
-        if noisyMovements == 0 { //do not set the range to be more sensitive when noisy movements
+        if (noisyMovements == 1) {
             
-            if newStrainGaugeRange < (0.70*(currentStrainGaugeHighest - currentStrainGaugeLowest)) {
+            currentStrainGaugeHighest = (currentStrainGaugeHighestPrev - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
+            
+            if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
+                currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
+            }
+            
+            return;
+        }
+        
+        newStrainGaugeRange = currentStrainGaugeHighestNew - currentStrainGaugeLowestNew;
+        
+        if (newStrainGaugeRange < (0.65*(currentStrainGaugeHighest - currentStrainGaugeLowest))) {
+            
+            lightBreathsInARow+=1;
+            breathTopExceeded = 0;
+            
+            if (lightBreathsInARow > lightBreathsThreshold) {
                 
-                lightBreathsInARow += 1
-                breathTopExceeded = 0
+                currentStrainGaugeLowest = 0.5*currentStrainGaugeLowestNew + (1-0.5)*currentStrainGaugeLowest;
+                currentStrainGaugeHighest = 0.5*currentStrainGaugeHighestNew + (1-0.5)*currentStrainGaugeHighest;
                 
-                if lightBreathsInARow > 1 {
-                    
-                    rangeSet = 1
-                    currentStrainGaugeLowest = 0.5*currentStrainGaugeLowestNew + (1-0.5)*currentStrainGaugeLowest
-                    currentStrainGaugeHighest = 0.5*currentStrainGaugeHighestNew + (1-0.5)*currentStrainGaugeHighest
-                    
-                    if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
-                        currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange
-                    }
-                    
-                    
+                currentStrainGaugeHighest = (currentStrainGaugeHighest - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
+                
+                if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
+                    currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
                 }
                 
-            }
+                return;
                 
-            else  {
-                
-                lightBreathsInARow = 0;  //Also do not reset this when noisy movements
             }
+            
+        }
+            
+        else  {
+            
+            lightBreathsInARow = 0;  //Also do not reset this when noisy movements
         }
         
         
-        
-        
-        if (rangeSet == 0) {
-            if (noisyMovements == 0) {
-                
-                if ( (currentStrainGaugeHighest-currentStrainGaugeLowest) > 1.5*(currentStrainGaugeHighestPrev-currentStrainGaugeLowest)) {
-                    
-                    breathTopExceeded += 1
-                    lightBreathsInARow = 0
-                    
-                    if (breathTopExceeded > breathTopExceededThreshold) {
-                        currentStrainGaugeHighest = ((0.3*currentStrainGaugeHighest + (1-0.3)*currentStrainGaugeHighestPrev) - currentStrainGaugeLowest) + strainGauge
-                    }
-                    else {
-                        currentStrainGaugeHighest = (currentStrainGaugeHighestPrev - currentStrainGaugeLowest) + strainGauge //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
-                    }
-                }
-                    
-                else {
-                    breathTopExceeded = 0
-                }
+        if ( (currentStrainGaugeHighest-currentStrainGaugeLowest) > 1.5*(currentStrainGaugeHighestPrev-currentStrainGaugeLowest)) {
+            
+            breathTopExceeded+=1;
+            lightBreathsInARow = 0;
+            
+            if (breathTopExceeded > breathTopExceededThreshold) {
+                currentStrainGaugeHighest = ((0.3*currentStrainGaugeHighest + (1-0.3)*currentStrainGaugeHighestPrev) - currentStrainGaugeLowest) + strainGauge;
             }
             else {
-                currentStrainGaugeHighest = (currentStrainGaugeHighestPrev - currentStrainGaugeLowest) + strainGauge //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
+                currentStrainGaugeHighest = (currentStrainGaugeHighestPrev - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
             }
+            
+            if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
+                currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
+            }
+            
         }
-        
-        
+            
+        else {
+            
+            breathTopExceeded = 0;
+            currentStrainGaugeHighest = (currentStrainGaugeHighestPrev - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
+            if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
+                currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
+            }
+            
+        }
     }
     
     func reversalDetector() {
@@ -829,9 +893,16 @@ class Live: NSObject {
                 }
                 
                 
-                if ( ((bottomReversalY-topReversalY < minBreathRange) && (stuckBreaths > 0)) || (yStartPos-topReversalY < (minBreathRange/3)) ) {
-                    return
-                }
+                if (appMode != 3) { //JULY 13:New1o
+                    if ( ((bottomReversalY - topReversalY < minBreathRange) && stuckBreaths > 0) || (yStartPos - topReversalY < (minBreathRange/3)) ) { //***March16Change Just changed to divided by 3 here from 2 to allow smaller breaths from baseline to be detected
+                        return; // Require a min breath range when breath is stuck, otherwise breath holding does not work and breath range sensitivity can artificially spike due to noise
+                    }
+                }  //JULY 13:New1o
+                else { //JULY 13:New1o
+                    if ( ((bottomReversalY - topReversalY < minBreathRange) && stuckBreaths > 0) || (yStartPos - topReversalY < (minBreathRange*3)) ) {  //JULY 13:New1o  changed to *3 here to make a greater requirement to be considered a breath during BT  (to help reduce BT false positives)
+                        return; // Require a min breath range when breath is stuck, otherwise breath holding does not work and breath range sensitivity can artificially spike due to noise   //JULY 13:New1o
+                    } //JULY 13:New1o
+                }  //JULY 13:New1o
                 
                 topReversalFound = 1
                 
@@ -894,6 +965,15 @@ class Live: NSObject {
             }
         }
     }
+    
+    func resetBreathRange() {     //JULY 13:New1k
+        
+        currentStrainGaugeHighest = currentStrainGaugeLowest + 0.003; //JULY 13:New1k
+        currentStrainGaugeHighestPrev = currentStrainGaugeHighest;  //JULY 13:New1k
+        currentStrainGaugeLowestNew = currentStrainGaugeLowest; //JULY 13:New1k
+        currentStrainGaugeHighestNew = currentStrainGaugeHighest;    //JULY 13:New1k
+        
+    } //JULY 13:New1k
     
     func setUprightButtonPush(sensorData a:[Double])  {
         

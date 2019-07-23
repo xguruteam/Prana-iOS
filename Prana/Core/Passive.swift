@@ -10,6 +10,7 @@ import Foundation
 
 protocol PassiveDelegate: class {
     func passiveDidRespRate(currentRR: Double, avgRR: Double, breathCount: Int)
+    func passiveDidCalculateOneMinuteRespRate(oneMinuteRR: Int)
     func passiveDidEI(realtimeEI: Double, avgEI: Double)
     func passiveDidCalculateOneMinuteEI(lastEI: Double)
     func passiveUprightTime(seconds: Int)
@@ -32,7 +33,7 @@ class Passive {
     var isPassiveTrackingActive:Int = 0;  // May 19th, ADDED THIS LINE
     var currentSlouchPostureTime:Int = 0; // May 31st ADDED THIS LINE
     var buzzTimeTrigger:Int = 0;  // May 31st ADDED THIS LINE
-    var secondsElapsed:Int = 0; // May 31st ADDED THIS LINE
+//    var secondsElapsed:Int = 0; // May 31st ADDED THIS LINE
     
     var isBuzzing:Int = 0 {
         didSet {
@@ -45,7 +46,7 @@ class Passive {
     
     init(live: Live) {
         currentSlouchPostureTime = 0; //***May 31st ADDED
-        secondsElapsed = 0; //***May 31st ADDED
+//        secondsElapsed = 0; //***May 31st ADDED
         
         useBuzzerForPosture = 1;
         
@@ -95,6 +96,9 @@ class Passive {
     
         
         self.delegate?.passiveDidRespRate(currentRR: objLiveGraph.respRate, avgRR: objLiveGraph.avgRespRate, breathCount: objLiveGraph.breathCount)
+        if (objLiveGraph.timeElapsed >= 60) { //JULY 13th:NEW1d
+            self.delegate?.passiveDidCalculateOneMinuteRespRate(oneMinuteRR: objLiveGraph.calculateOneMinuteRespRate())
+        } //JULY 13th:NEW1d
         
         timerHandler();
         
@@ -148,11 +152,11 @@ class Passive {
             self.delegate?.passiveDidEI(realtimeEI: realEI, avgEI: avgEI)
         }
         
-        secondsElapsed+=1;  //May 31st ADDED
+//        secondsElapsed+=1;  //May 31st ADDED
         
-        if (secondsElapsed >= 60) {  //May 31st ADDED
-            secondsElapsed = 0;  //May 31st ADDED
-            self.delegate?.passiveDidCalculateOneMinuteEI(lastEI: objLiveGraph.calculateOneMinuteEI())
+        if (objLiveGraph.timeElapsed >= 60) {  //May 31st ADDED
+//            secondsElapsed = 0;  //May 31st ADDED
+            self.delegate?.passiveDidCalculateOneMinuteEI(lastEI: objLiveGraph.EI1Minute)
         } //May 31st ADDED
         
         

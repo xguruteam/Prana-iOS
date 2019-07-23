@@ -115,6 +115,8 @@
 		var EIAvgSessionRatio:Number = 0; // May31st ADDED
 		var EIRatioCount:int = 0; // May31st ADDED
 		var EIGoodToMeasure:int = 0; // May31st ADDED
+		var EI1Minute:Number = 0;  //JULY 13th:NEW1b
+		var lightBreathsThreshold:int = 1; //JULY 13th:NEW1i
 		
 		public function LiveGraph(main:Main) {
 			
@@ -302,7 +304,7 @@
 			
 			resetCount();
 						
-			if (count < 5) {
+			if (count < 8) { //JULY 13:Change1m  
 				
 				xSensor[count] = Number(dataArray[3]);
 				ySensor[count] = Number(dataArray[2]);
@@ -354,7 +356,7 @@
 			strainGauge = breathSensor[count];											
 		
 				
-			if (count == 5) {				
+			if (count == 8) { //JULY 13:Change1m  				
 				
 				currentStrainGaugeHighest = currentStrainGaugeLowest + 0.003;
 				currentStrainGaugeHighestPrev = currentStrainGaugeHighest;
@@ -493,25 +495,40 @@
 									
 			}		
 				
-			else if (relativeInhaleLevelSG < 0.05 && !((breathSensor[count] > breathSensor[count-1]) && (breathSensor[count-1] > breathSensor[count-2]) && (breathSensor[count-2] > breathSensor[count-3]) && (breathSensor[count-3] > breathSensor[count-4]) && (breathSensor[count-4] > breathSensor[count-5]) && (breathSensor[count-5] > breathSensor[count-6]) ) ) { //***March16Change
-
-			//else if (relativeInhaleLevelSG < 0.05 && !((breathSensor[count] > breathSensor[count-1]) && (breathSensor[count-1] > breathSensor[count-2]) && (breathSensor[count-2] > breathSensor[count-3]) && (breathSensor[count-3] > breathSensor[count-4]) && (breathSensor[count-4] > breathSensor[count-5]) ) ) {
-	
-				//If breath signal is below a low threshold (5%), AND user is NOT inhaling consistently, then treat as noise, and make relativeInhaleLevel = 0	
+			else {
 				
-				relativeInhaleLevelSG = 0;		
-				//upStreak = 0;  //Idea is reversalThreshold could be smaller than the up streak test above, and it could be triggered even though this resets, which could create a conflict
-				currentStrainGaugeHighest = (currentStrainGaugeHighest - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
-
+				if (DC.appMode != 3) { // JULY 13:Change1n  (all the rest of the code below in this function was updated, about 20 lines)
 				
-				currentStrainGaugeLowest = strainGauge;				
-				if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
-						currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
-				}		
+					if (relativeInhaleLevelSG < 0.05 && !((breathSensor[count] > breathSensor[count-1]) && (breathSensor[count-1] > breathSensor[count-2]) && (breathSensor[count-2] > breathSensor[count-3]) && (breathSensor[count-3] > breathSensor[count-4]) && (breathSensor[count-4] > breathSensor[count-5]) && (breathSensor[count-5] > breathSensor[count-6]) ) ) { 
+					
+						relativeInhaleLevelSG = 0;		
+						currentStrainGaugeHighest = (currentStrainGaugeHighest - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
+						
+						currentStrainGaugeLowest = strainGauge;				
+						if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
+								currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
+						}	
+					}
+				}
+				else {
+					
+					if (relativeInhaleLevelSG < 0.10 && !((breathSensor[count] > breathSensor[count-1]) && (breathSensor[count-1] > breathSensor[count-2]) && (breathSensor[count-2] > breathSensor[count-3]) && (breathSensor[count-3] > breathSensor[count-4]) && (breathSensor[count-4] > breathSensor[count-5]) && (breathSensor[count-5] > breathSensor[count-6]) && (breathSensor[count-6] > breathSensor[count-7]) && (breathSensor[count-7] > breathSensor[count-8]) ) ) { 
+					
+						relativeInhaleLevelSG = 0;		
+						currentStrainGaugeHighest = (currentStrainGaugeHighest - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
+						
+						currentStrainGaugeLowest = strainGauge;				
+						if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
+								currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
+						}					
+					}
+				}
 				
-			}				
+			}
 			
 		}
+			
+		
 		
 				
 		public function displayBreathingGraph():void  {				
@@ -713,7 +730,7 @@
 					
 			storeSensorData(sensorData);
 			
-			if (count < 5) {		
+			if (count < 8) { //JULY 13:Change1m   Changed 5 to 8 here. This could have been causing crashes. For example, in setRelativeInhaleLevelStrainGauge(), I was accessing arrays based on count-6, which is a negative index value when count = 5  (and now I have count-8 there)
 				return;
 			}				
 									
@@ -728,10 +745,12 @@
 				
 				if (graphYSeries[count] > endBreathY) { 
 					
-					if (EIGoodToMeasure == 1 && exhaleCorrectionFactor < 1.3) {  // May 31st ADDED, only when this is low, can E/I be accurate
+					if (EIGoodToMeasure == 1 && exhaleCorrectionFactor < 1.3 && stuckBreaths == 0) {  // JULY 13th:CHANGE1a, if stuckBreaths > 0, then EIRatio can sometimes be negative
 						
 						exhaleEndTime = timeElapsed; //May 31st ADDED						
-						EIRatio[EIRatioCount] = [(exhaleCorrectionFactor*(exhaleEndTime - inhaleEndTime))/((1-(0.05/smoothBreathingCoefBaseLevel))*(inhaleEndTime - inhaleStartTime)),timeElapsed]; // May 31st ADDED
+						//EIRatio[EIRatioCount] = [(exhaleCorrectionFactor*(exhaleEndTime - inhaleEndTime))/((1-(0.05/smoothBreathingCoefBaseLevel))*(inhaleEndTime - inhaleStartTime)),timeElapsed]; // JULY 13th:CHANGE1c  REMOVED
+						EIRatio[EIRatioCount] = [(exhaleCorrectionFactor*(exhaleEndTime - inhaleEndTime))/(inhaleEndTime - inhaleStartTime),timeElapsed]; // JULY 13th:NEW1c
+						
 						EIRatio[EIRatioCount][0] = roundNumber(EIRatio[EIRatioCount][0],10); // May 31st ADDED
 						EIAvgSessionRatio = EIAvgSessionRatio + EIRatio[EIRatioCount][0]; // May 31st ADDED
 						EIRatioCount++;  // May 31st ADDED	
@@ -740,14 +759,33 @@
 					}  // May 31st ADDED
 				
 					endBreathLine.y = 5000;	
-					stuckBreaths = 0;					
+					//stuckBreaths = 0;  JULY 13th REMOVED	
 					breathEnding = 0;						
 					breathCount++;						
-					calculateRespRate();										
-					setNewStrainGaugeRange();
+					calculateRespRate();	
+					
+					if (timeElapsed >= 60) { //JULY 13th:NEW1d
+						postureUI.oneMinuteRespirationRateIndicator.text = String(calculateOneMinuteRespRate()); //JULY 13th:NEW1d
+					} //JULY 13th:NEW1d
+					
+					if (DC.appMode == 1 && timeElapsed >= 60) { //JULY 13th:NEW1b   NOTE: appMode == 1 means it is Passive Tracking mode
+						calculateOneMinuteEI(); //JULY 13th:NEW1b
+					} //JULY 13th:NEW1b			
+					
+					if (stuckBreaths == 0) { //JULY 13th:NEW1i
+						setNewStrainGaugeRange(); 	
+					} //JULY 13th:NEW1i
+					else {  //JULY 13th:NEW1i
+						currentStrainGaugeHighest = (currentStrainGaugeHighestPrev - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor. JULY 13th:NEW1i
+										
+						if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) { //JULY 13th:NEW1i
+							currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange; //JULY 13th:NEW1i
+						} //JULY 13th:NEW1i
+					} //JULY 13th:NEW1i
+					stuckBreaths = 0; //JULY 13th:NEW1i
 					
 					noisyMovements = 0; //This is where to reset this. Thus, ANY noisy movement during inhalation will trigger a higher endBreathY
-					currentStrainGaugeLowest = strainGauge;	
+					currentStrainGaugeLowest = strainGauge;  
 					
 				}
 			}												
@@ -756,9 +794,9 @@
 		
 		
 			
-		public function calculateOneMinuteEI():Number { // May 31st ADDED
+		public function calculateOneMinuteEI():void { //JULY 13th:CHANGE1b
 			
-			var EI1Minute:Number = 0;  // May 31st ADDED
+			EI1Minute = 0;  //JULY 13th:CHANGE1b
 			var breathsInLastMinute:int = 0; // May 31st ADDED
 			
 			for (var i:int = EIRatio.length-1; i > 0; i--)  { // May 31st ADDED
@@ -779,7 +817,7 @@
 				EI1Minute = 1; // May 31st ADDED
 			} // May 31st ADDED
 			
-			return(EI1Minute); // May 31st ADDED
+			//return(EI1Minute); //JULY 13th:CHANGE1b  REMOVE THIS LINE
 			
 		} // May 31st ADDED
 		
@@ -811,71 +849,96 @@
 		}
 		
 		
-		public function setNewStrainGaugeRange():void {			
+		public function calculateOneMinuteRespRate():Number {	//JULY 13th:NEW1d  New FUNCTION	
 			
-			var rangeSet:int = 0;
+			var breathsInLastMinute:int = 0;   
 			
-			newStrainGaugeRange = currentStrainGaugeHighestNew - currentStrainGaugeLowestNew;							
+			for (var i:int = whenBreathsEnd.length-1; i > 0; i--)  { 
 				
-				if (noisyMovements == 0) { //do not set the range to be more sensitive when noisy movements
+				if (whenBreathsEnd[i] >= (timeElapsed - 60)) { 					
+					breathsInLastMinute++; 
+				} 
+				else { 
+					break; 
+				} 
+			} 
+			return(breathsInLastMinute);
+			
+		}
+		
+		
+		public function setNewStrainGaugeRange():void {	//JULY 13th:NEW1e  (This entire function updated on many lines, please see)	
 					
-					if (newStrainGaugeRange < (0.70*(currentStrainGaugeHighest - currentStrainGaugeLowest))) {						
-							
-						lightBreathsInARow++;	
-						breathTopExceeded = 0;
+			if (noisyMovements == 1) {
+				
+				currentStrainGaugeHighest = (currentStrainGaugeHighestPrev - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
 								
-						if (lightBreathsInARow > 1) {											
-							
-							rangeSet = 1;
-							currentStrainGaugeLowest = 0.5*currentStrainGaugeLowestNew + (1-0.5)*currentStrainGaugeLowest;		
-							currentStrainGaugeHighest = 0.5*currentStrainGaugeHighestNew + (1-0.5)*currentStrainGaugeHighest;										
-							
-							if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
-								currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
-							}	
-							
-									
-						}							
+				if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
+					currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
+				}	
+				
+				return;
+			}
+			
+			newStrainGaugeRange = currentStrainGaugeHighestNew - currentStrainGaugeLowestNew;		
+					
+			if (newStrainGaugeRange < (0.65*(currentStrainGaugeHighest - currentStrainGaugeLowest))) {						
+					
+				lightBreathsInARow++;	
+				breathTopExceeded = 0;
 						
-					}
-							
-					else  {									
-						
-						lightBreathsInARow = 0;  //Also do not reset this when noisy movements
+				if (lightBreathsInARow > lightBreathsThreshold) { 					
+					
+					currentStrainGaugeLowest = 0.5*currentStrainGaugeLowestNew + (1-0.5)*currentStrainGaugeLowest;		
+					currentStrainGaugeHighest = 0.5*currentStrainGaugeHighestNew + (1-0.5)*currentStrainGaugeHighest;	
+					
+					currentStrainGaugeHighest = (currentStrainGaugeHighest - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
+										
+					if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
+						currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
 					}	
-				}
-				
-				
-			
-			
-			if (rangeSet == 0) {
-				if (noisyMovements == 0) {
 					
-					if ( (currentStrainGaugeHighest-currentStrainGaugeLowest) > 1.5*(currentStrainGaugeHighestPrev-currentStrainGaugeLowest)) {	
-						
-						breathTopExceeded++;
-						lightBreathsInARow = 0;
-						
-						if (breathTopExceeded > breathTopExceededThreshold) {	
-							currentStrainGaugeHighest = ((0.3*currentStrainGaugeHighest + (1-0.3)*currentStrainGaugeHighestPrev) - currentStrainGaugeLowest) + strainGauge;
-						}
-						else {
-							currentStrainGaugeHighest = (currentStrainGaugeHighestPrev - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
-						}
-					}
+					return;
+													
+				}							
+				
+			}
 					
-					else {
-						breathTopExceeded = 0;
-					}
+			else  {									
+				
+				lightBreathsInARow = 0;  //Also do not reset this when noisy movements
+			}				
+						
+					
+			if ( (currentStrainGaugeHighest-currentStrainGaugeLowest) > 1.5*(currentStrainGaugeHighestPrev-currentStrainGaugeLowest)) {	
+				
+				breathTopExceeded++;
+				lightBreathsInARow = 0;
+				
+				if (breathTopExceeded > breathTopExceededThreshold) {	
+					currentStrainGaugeHighest = ((0.3*currentStrainGaugeHighest + (1-0.3)*currentStrainGaugeHighestPrev) - currentStrainGaugeLowest) + strainGauge;
 				}
 				else {
 					currentStrainGaugeHighest = (currentStrainGaugeHighestPrev - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
 				}
-			}			
-		
+				
+				if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
+					currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
+				}	
+					
+			}
+			
+			else {
+				
+				breathTopExceeded = 0;
+				currentStrainGaugeHighest = (currentStrainGaugeHighestPrev - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
+				if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
+					currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
+				}	
+					
+			}
 		}
-		
-		
+	
 		
 		
 		public function reversalDetector():void {			
@@ -929,6 +992,7 @@
 					downStreak = 0;
 					bottomReversalFound = 1;	
 					inhaleStartTime = timeElapsed - (reversalThreshold+1)*(1/20); //May 31st ADDED
+										
 					//DC.objStartConnection.socket.writeUTFBytes("Buzz,2" + "\n");			
 					//DC.objStartConnection.socket.flush();
 					bottomReversalY = graphYSeries[downStreakStart];					
@@ -984,11 +1048,16 @@
 						}						
 					}			
 					
-					//if (DC.appMode != 3) {
+					if (DC.appMode != 3) { //JULY 13:New1o  
 						if ( ((bottomReversalY - topReversalY < minBreathRange) && stuckBreaths > 0) || (yStartPos - topReversalY < (minBreathRange/3)) ) { //***March16Change Just changed to divided by 3 here from 2 to allow smaller breaths from baseline to be detected
 							return; // Require a min breath range when breath is stuck, otherwise breath holding does not work and breath range sensitivity can artificially spike due to noise
 						}
-					//}
+					}  //JULY 13:New1o 
+					else { //JULY 13:New1o 
+						if ( ((bottomReversalY - topReversalY < minBreathRange) && stuckBreaths > 0) || (yStartPos - topReversalY < (minBreathRange*3)) ) {  //JULY 13:New1o  changed to *3 here to make a greater requirement to be considered a breath during BT  (to help reduce BT false positives)
+							return; // Require a min breath range when breath is stuck, otherwise breath holding does not work and breath range sensitivity can artificially spike due to noise   //JULY 13:New1o 
+						} //JULY 13:New1o 
+					}  //JULY 13:New1o 
 					
 					topReversalFound = 1;	
 					
@@ -1115,7 +1184,8 @@
 			if (postureUI.breathSelector.breathLevel1.selected == true) {
 				smoothBreathingCoefBaseLevel = 0.15;
 				reversalThreshold = 6;
-				birdIncrements = 24;
+				birdIncrements = 24;				
+				
 			}
 			else if (postureUI.breathSelector.breathLevel2.selected == true) {
 				smoothBreathingCoefBaseLevel = 0.4;
@@ -1244,6 +1314,16 @@
 		}	//***march18
 		
 		
+		function resetBreathRange():void {	 //JULY 13:New1k  
+			
+			currentStrainGaugeHighest = currentStrainGaugeLowest + 0.003; //JULY 13:New1k  
+			currentStrainGaugeHighestPrev = currentStrainGaugeHighest;  //JULY 13:New1k   
+			currentStrainGaugeLowestNew = currentStrainGaugeLowest; //JULY 13:New1k   
+			currentStrainGaugeHighestNew = currentStrainGaugeHighest;	//JULY 13:New1k    
+			
+		} //JULY 13:New1k  
+		
+		
 		function startMode():void {			
 			
 			exhaleCorrectionFactor = 0; //May 31st ADDED
@@ -1253,18 +1333,20 @@
 			inhaleEndTime = 0; //May 31st ADDED
 			exhaleEndTime = 0; //May 31st ADDED
 			EIRatioCount = 0; //May 31st ADDED
+			EI1Minute = 0;  //JULY 13th:NEW1b
 			whenBreathsEnd = [];
 			whenBreathsEnd[0] = 0;
 			breathCount = 0;
 			timeElapsed = 0;
 			respRate = 0;
 			avgRespRate = 0;
-			currentStrainGaugeHighest = currentStrainGaugeLowest + 0.003;
-			currentStrainGaugeHighestPrev = currentStrainGaugeHighest;
-			currentStrainGaugeLowestNew = currentStrainGaugeLowest;
-			currentStrainGaugeHighestNew = currentStrainGaugeHighest;		
+			//currentStrainGaugeHighest = currentStrainGaugeLowest + 0.003; //JULY 13:Change1j  REMOVE this line
+			//currentStrainGaugeHighestPrev = currentStrainGaugeHighest;  //JULY 13:Change1j  REMOVE this line
+			//currentStrainGaugeLowestNew = currentStrainGaugeLowest; //JULY 13:Change1j  REMOVE this line
+			//currentStrainGaugeHighestNew = currentStrainGaugeHighest;	//JULY 13:Change1j   REMOVE this line
 			
 			postureUI.respirationRateIndicator.text = "";
+			postureUI.oneMinuteRespirationRateIndicator.text = ""; //JULY 13th:NEW1d
 			postureUI.howManyBreaths.text = "";
 			
 			DC.objModeScreen.startData();
@@ -1272,6 +1354,10 @@
 			//addEventListener(Event.ENTER_FRAME, enterFrameHandler);  May 19th, REMOVED THIS LINE
 			stuckBreathsThreshold = 1; 
 			breathTopExceededThreshold = 1;		
+			lightBreathsThreshold = 1; //JULY 13th:NEW1i
+			lightBreathsInARow = 0; //JULY 13th:NEW1i
+			breathTopExceeded = 0; //JULY 13th:NEW1i
+			stuckBreaths = 0; //JULY 13th:NEW1i
 			minBreathRange = fullBreathGraphHeight/16; //***March16Change This is important because resolutions on devices are different. Previously it was set to 25, which is an absolute value. Now it is set relative to the fullBreathGraphHeight (whatever that is set to for the particular device, it was 400 on desktop)
 					
 		}			

@@ -152,9 +152,10 @@ class VisualTrainingScene: SKScene {
     
     var _calibrationRegionWidth: Double = 600
     
-    var skipCalibration:Int = 1;  //may 8th  For visual training, if this is set to 1, it causes the function addCalibrationBreathRegion() not to run, which skips the initial 15 second respiration assessment. If whichPattern = 0 (Slowing pattern), and skipCalibration is 1, then startSubPattern and maxSubPattern determine the initial respiration rate and minimum respiration rate
+    var skipCalibration:Int = 0;  //may 8th  For visual training, if this is set to 1, it causes the function addCalibrationBreathRegion() not to run, which skips the initial 15 second respiration assessment. If whichPattern = 0 (Slowing pattern), and skipCalibration is 1, then startSubPattern and maxSubPattern determine the initial respiration rate and minimum respiration rate
     var startSubPattern:Int = 5; //may 8th  The example value 5 here corresponds to 12bpm. Note, for Buzzer Training, if the non-custom Slowing pattern is used, then this value should be set to 5
-    var maxSubPattern:Int = 8; //may 8th  SET THIS TO THE INDEX VALUE found under //Dynamic slow breathing pattern below, between 0-34. This value corresponds TO THE MINIMUM RESPIRATION RATE SELECTED ON THE CUSTOM BREATH PATTERN PAGE. This value should be 34 if skipCalibration = 0. The example value 8 here corresponds to 9.2bpm
+    var maxSubPattern:Int = 34; //may 8th  SET THIS TO THE INDEX VALUE found under //Dynamic slow breathing pattern below, between 0-34. This value corresponds TO THE MINIMUM RESPIRATION RATE SELECTED ON THE CUSTOM BREATH PATTERN PAGE. This value should be 34 if skipCalibration = 0. The example value 8 here corresponds to 9.2bpm
+    var customSlowingPatternIsActive:Int = 0; //July 13:New1i  When user is using the Slowing Pattern from the pattern gallery (custom), then this should be set to 1. In this case, the first breathing pattern is set to startSuaddbPattern, and maxSubPattern should also be set based on user selection on the custom pattern screen (15 second calibration is never skipped now for any pattern)
 
     
     convenience init(_ trainingDuration: Int, isBreathingOnly: Bool = false) {
@@ -398,14 +399,16 @@ class VisualTrainingScene: SKScene {
                 _calibrationRegion?.removeFromParent()
                 
                 objLive?.calibrationBreathsDone = 1
+                objLive?.breathTopExceededThreshold = 1; //JULY 13:NEW1f
+                objLive?.lightBreathsThreshold = 1; //JULY 13:NEW1f
                 
                 if whichPattern == 0 {
                     initialFadeIn = 1
                     
                     lastX = Double(size.width / 4.0)
                     
-                    if objLive!.respRate >= 24 {
-                        subPattern = 0
+                    if objLive!.respRate >= 17.14 {
+                        subPattern = 2
                         createInitialSetOfBreathPatterns()
                     } else if objLive!.respRate <= 8 {
                         subPattern = 10
@@ -415,6 +418,9 @@ class VisualTrainingScene: SKScene {
                             let a: Double = Double(60.0/(Pattern.getPatternValue(value: Pattern.patternSequence[0][i][0]) + Pattern.getPatternValue(value: Pattern.patternSequence[0][i][1]) + Pattern.getPatternValue(value: Pattern.patternSequence[0][i][2]) + Pattern.getPatternValue(value: Pattern.patternSequence[0][i][3])))
                             if objLive!.respRate > a {
                                 subPattern = i
+                                if (customSlowingPatternIsActive == 1) { //July 13:New1i
+                                    subPattern = startSubPattern; //July 13:New1i
+                                } //July 13:New1i
                                 createInitialSetOfBreathPatterns()
                                 break
                             }
@@ -946,8 +952,9 @@ class VisualTrainingScene: SKScene {
             self.visualDelegate?.visualNewTargetRateCalculated(rate: flyingObjects[0].rate)
         }
         
-        objLive?.stuckBreathsThreshold = 2
-        objLive?.breathTopExceededThreshold = 1
+        objLive?.stuckBreathsThreshold = 3
+        objLive?.breathTopExceededThreshold = 0
+        objLive?.lightBreathsThreshold = 0;
         objLive?.minBreathRange = objLive!.fullBreathGraphHeight / 16.0 * 2.0
         
         _timer = RepeatingTimer(timeInterval: 1.0)
