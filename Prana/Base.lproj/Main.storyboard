@@ -3201,14 +3201,14 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             <rect key="frame" x="0.0" y="16" width="375" height="22"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NoR-1Z-web" userLabel="Back">
-                                                    <rect key="frame" x="16" y="2" width="16" height="18"/>
+                                                    <rect key="frame" x="16" y="2" width="24.500000000000007" height="18"/>
                                                     <state key="normal" backgroundImage="ic-back"/>
                                                     <connections>
                                                         <action selector="onBack:" destination="uhC-ne-xZr" eventType="touchUpInside" id="CLl-q7-c2a"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Live Graph" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDd-WT-oLb">
-                                                    <rect key="frame" x="151" y="2.5" width="73.5" height="17.5"/>
+                                                    <rect key="frame" x="149.5" y="1.5" width="76.5" height="19"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="15"/>
                                                     <color key="textColor" red="0.25490196078431371" green="0.31764705882352939" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -3240,8 +3240,17 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                 <constraint firstItem="c3B-6f-iGB" firstAttribute="leading" secondItem="vVU-Ny-CsV" secondAttribute="leading" id="oyw-4a-PIi"/>
                                             </constraints>
                                         </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wKx-RJ-wzA">
+                                            <rect key="frame" x="147" y="31" width="80" height="35"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="80" id="1ue-Zc-b4z"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="30"/>
+                                            <color key="textColor" red="0.43529411759999997" green="0.75686274509999996" blue="0.23137254900000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZGo-ze-jC2" customClass="LiveGraph" customModule="Prana" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="46" width="343" height="160"/>
+                                            <rect key="frame" x="16" y="138" width="343" height="160"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="160" id="1nH-eC-qyb"/>
@@ -3250,29 +3259,41 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="isAddButton" value="YES"/>
                                             </userDefinedRuntimeAttributes>
                                         </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Real-Time Respiration Rate: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CuW-Ng-1uy">
-                                            <rect key="frame" x="16" y="222" width="205.5" height="19"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Respiration Rate: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRi-u2-1CM">
+                                            <rect key="frame" x="76" y="314" width="221.5" height="20"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
+                                            <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Real-Time Respiration Rate: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CuW-Ng-1uy">
+                                            <rect key="frame" x="16" y="314" width="221.5" height="20"/>
+                                            <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                             <color key="textColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1-minute:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQy-mx-dZN">
+                                            <rect key="frame" x="76" y="314" width="221.5" height="20"/>
+                                            <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
+                                            <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breath Count:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbu-Oi-fTV">
-                                            <rect key="frame" x="16" y="245" width="100" height="19"/>
+                                            <rect key="frame" x="252" y="306" width="106.5" height="20"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                             <color key="textColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EDa-tm-2Lh">
-                                            <rect key="frame" x="16" y="280" width="343" height="32"/>
+                                            <rect key="frame" x="16" y="374" width="343" height="32"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breath Responsiveness: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FN5-fN-EM3">
-                                                    <rect key="frame" x="0.0" y="8.5" width="144" height="15.5"/>
+                                                    <rect key="frame" x="0.0" y="8" width="149" height="16.5"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                     <color key="textColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MRl-kf-tf7">
-                                                    <rect key="frame" x="183" y="2" width="16" height="28"/>
+                                                    <rect key="frame" x="188" y="1.5" width="16" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="16" id="FV9-wj-oe2"/>
                                                     </constraints>
@@ -3282,7 +3303,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pqD-K6-uPG">
-                                                    <rect key="frame" x="142.5" y="0.0" width="50" height="32"/>
+                                                    <rect key="frame" x="147.5" y="0.0" width="50" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="zBm-2h-Oul"/>
                                                     </constraints>
@@ -3291,7 +3312,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jq3-ec-PNr">
-                                                    <rect key="frame" x="160" y="8.5" width="15" height="15"/>
+                                                    <rect key="frame" x="165" y="8.5" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="15" id="2GY-IM-jEy"/>
                                                         <constraint firstAttribute="height" constant="15" id="7dd-hm-g4e"/>
@@ -3302,7 +3323,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="skQ-4t-oC2">
-                                                    <rect key="frame" x="246" y="2" width="16" height="28"/>
+                                                    <rect key="frame" x="251" y="1.5" width="16" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="16" id="sVb-yv-0u8"/>
                                                     </constraints>
@@ -3312,7 +3333,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jh3-gO-rch">
-                                                    <rect key="frame" x="205.5" y="0.0" width="50" height="32"/>
+                                                    <rect key="frame" x="210.5" y="0.0" width="50" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="K6Z-lc-uKY"/>
                                                     </constraints>
@@ -3321,7 +3342,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pjw-16-pab">
-                                                    <rect key="frame" x="223" y="8.5" width="15" height="15"/>
+                                                    <rect key="frame" x="228" y="8.5" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="CaH-dd-gjc"/>
                                                         <constraint firstAttribute="width" constant="15" id="G28-wO-gsJ"/>
@@ -3332,7 +3353,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfL-F0-xYy">
-                                                    <rect key="frame" x="309" y="2" width="16" height="28"/>
+                                                    <rect key="frame" x="314" y="1.5" width="16" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="16" id="CW6-tg-hiR"/>
                                                     </constraints>
@@ -3342,7 +3363,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zm8-ow-o8K">
-                                                    <rect key="frame" x="268.5" y="0.0" width="50" height="32"/>
+                                                    <rect key="frame" x="273.5" y="0.0" width="50" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="iDW-5b-B2G"/>
                                                     </constraints>
@@ -3351,7 +3372,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qtn-xa-XLE">
-                                                    <rect key="frame" x="286" y="8.5" width="15" height="15"/>
+                                                    <rect key="frame" x="291" y="8.5" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="k4H-GP-h3U"/>
                                                         <constraint firstAttribute="width" constant="15" id="keP-mo-9uM"/>
@@ -3394,16 +3415,16 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VU9-T8-rqr">
-                                            <rect key="frame" x="16" y="512" width="343" height="32"/>
+                                            <rect key="frame" x="16" y="606" width="343" height="32"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posture Sensitivity: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ega-8G-fQc">
-                                                    <rect key="frame" x="0.0" y="8.5" width="115" height="15.5"/>
+                                                    <rect key="frame" x="0.0" y="8" width="119.5" height="16.5"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                     <color key="textColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rBh-X0-XkL">
-                                                    <rect key="frame" x="182" y="2" width="16" height="28"/>
+                                                    <rect key="frame" x="186.5" y="1.5" width="16" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="16" id="XRf-vM-6MP"/>
                                                     </constraints>
@@ -3413,7 +3434,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W22-FQ-lG5">
-                                                    <rect key="frame" x="141.5" y="0.0" width="50" height="32"/>
+                                                    <rect key="frame" x="146" y="0.0" width="50" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="gg2-8A-vsX"/>
                                                     </constraints>
@@ -3422,7 +3443,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PhP-74-Sv9">
-                                                    <rect key="frame" x="159" y="8.5" width="15" height="15"/>
+                                                    <rect key="frame" x="163.5" y="8.5" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="4zR-7K-s9D"/>
                                                         <constraint firstAttribute="width" constant="15" id="opk-6k-yAB"/>
@@ -3433,7 +3454,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ywk-8I-dkT">
-                                                    <rect key="frame" x="245" y="2" width="16" height="28"/>
+                                                    <rect key="frame" x="249.5" y="1.5" width="16" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="16" id="See-YC-BdK"/>
                                                     </constraints>
@@ -3443,7 +3464,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GEh-cG-Gto">
-                                                    <rect key="frame" x="204.5" y="0.0" width="50" height="32"/>
+                                                    <rect key="frame" x="209" y="0.0" width="50" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="tLC-uq-0Qo"/>
                                                     </constraints>
@@ -3452,7 +3473,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Umh-u6-eL7">
-                                                    <rect key="frame" x="222" y="8.5" width="15" height="15"/>
+                                                    <rect key="frame" x="226.5" y="8.5" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="15" id="PZb-y8-rwj"/>
                                                         <constraint firstAttribute="height" constant="15" id="ZRC-Ob-Evu"/>
@@ -3463,7 +3484,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XNF-B0-0Wp">
-                                                    <rect key="frame" x="308" y="2" width="16" height="28"/>
+                                                    <rect key="frame" x="312.5" y="1.5" width="16" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="16" id="57Q-Vk-CNe"/>
                                                     </constraints>
@@ -3473,7 +3494,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rFh-QO-QHy">
-                                                    <rect key="frame" x="267.5" y="0.0" width="50" height="32"/>
+                                                    <rect key="frame" x="272" y="0.0" width="50" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="lo6-KO-1kU"/>
                                                     </constraints>
@@ -3482,7 +3503,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JGt-LT-RIr">
-                                                    <rect key="frame" x="285" y="8.5" width="15" height="15"/>
+                                                    <rect key="frame" x="289.5" y="8.5" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="15" id="0ef-zI-kew"/>
                                                         <constraint firstAttribute="height" constant="15" id="ecu-Wp-7TA"/>
@@ -3525,30 +3546,30 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- - " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FfV-J5-MVM">
-                                            <rect key="frame" x="229.5" y="222" width="22" height="19"/>
-                                            <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
+                                            <rect key="frame" x="245.5" y="314" width="22" height="20"/>
+                                            <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                             <color key="textColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- - - " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OF8-Oa-yCv">
-                                            <rect key="frame" x="124" y="245" width="32.5" height="19"/>
+                                            <rect key="frame" x="130.5" y="338" width="32.5" height="20"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                             <color key="textColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sit (1).png" translatesAutoresizingMaskIntoConstraints="NO" id="gOn-Hf-fh7">
-                                            <rect key="frame" x="127.5" y="334" width="120" height="120"/>
+                                            <rect key="frame" x="127.5" y="428" width="120" height="120"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="120" id="8qd-dT-7la"/>
                                                 <constraint firstAttribute="width" constant="120" id="tOC-IF-89y"/>
                                             </constraints>
                                         </imageView>
-                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t9G-si-qy0" customClass="SVGView" customModule="Macaw">
-                                            <rect key="frame" x="127.5" y="334" width="120" height="120"/>
+                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t9G-si-qy0">
+                                            <rect key="frame" x="127.5" y="428" width="120" height="120"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bfy-S7-zjR">
-                                            <rect key="frame" x="120" y="470" width="135" height="32"/>
+                                            <rect key="frame" x="120" y="564" width="135" height="32"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="32" id="SAp-h3-tsD"/>
                                                 <constraint firstAttribute="width" constant="135" id="nAc-Br-YAx"/>
@@ -3567,13 +3588,13 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wearing: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mWi-HV-Wrr">
-                                            <rect key="frame" x="16" y="589.5" width="54.5" height="15.5"/>
+                                            <rect key="frame" x="16" y="683" width="58.5" height="16.5"/>
                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                             <color key="textColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="o64-RS-tDY">
-                                            <rect key="frame" x="86.5" y="572" width="92" height="50"/>
+                                            <rect key="frame" x="90.5" y="666" width="92" height="50"/>
                                             <color key="backgroundColor" red="0.42219603061676025" green="0.73813134431838989" blue="0.22485783696174622" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="9As-Hb-HpD"/>
@@ -3595,7 +3616,7 @@ Back</string>
                                             </connections>
                                         </button>
                                         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="F2v-FZ-TNV">
-                                            <rect key="frame" x="194.5" y="572" width="92" height="50"/>
+                                            <rect key="frame" x="198.5" y="666" width="92" height="50"/>
                                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="qNT-8T-sAT"/>
@@ -3631,39 +3652,45 @@ Chest</string>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstItem="EDa-tm-2Lh" firstAttribute="top" secondItem="bbu-Oi-fTV" secondAttribute="bottom" constant="16" id="15E-Aq-DM9"/>
                                         <constraint firstItem="FfV-J5-MVM" firstAttribute="leading" secondItem="CuW-Ng-1uy" secondAttribute="trailing" constant="8" id="1rN-h6-J6J"/>
-                                        <constraint firstItem="bbu-Oi-fTV" firstAttribute="leading" secondItem="ZGo-ze-jC2" secondAttribute="leading" id="30R-gp-Te8"/>
+                                        <constraint firstItem="CuW-Ng-1uy" firstAttribute="top" secondItem="dRi-u2-1CM" secondAttribute="bottom" constant="16" id="2zo-AB-sYZ"/>
                                         <constraint firstItem="mWi-HV-Wrr" firstAttribute="centerY" secondItem="o64-RS-tDY" secondAttribute="centerY" id="6SW-tX-mxx"/>
+                                        <constraint firstAttribute="trailing" secondItem="OF8-Oa-yCv" secondAttribute="trailing" constant="16" id="7Tq-ay-ts2"/>
                                         <constraint firstItem="t9G-si-qy0" firstAttribute="trailing" secondItem="gOn-Hf-fh7" secondAttribute="trailing" id="9uT-MQ-qOj"/>
-                                        <constraint firstItem="ZGo-ze-jC2" firstAttribute="top" secondItem="4Ht-DN-vUk" secondAttribute="bottom" constant="8" id="C8s-gU-FjT"/>
+                                        <constraint firstItem="ZGo-ze-jC2" firstAttribute="top" secondItem="4Ht-DN-vUk" secondAttribute="bottom" constant="30" id="C8s-gU-FjT"/>
+                                        <constraint firstItem="KQy-mx-dZN" firstAttribute="leading" secondItem="tmK-IS-tcT" secondAttribute="leading" constant="16" id="Crg-l9-SaF"/>
+                                        <constraint firstItem="dRi-u2-1CM" firstAttribute="leading" secondItem="tmK-IS-tcT" secondAttribute="leading" constant="16" id="E5Q-0Y-QtY"/>
                                         <constraint firstItem="VU9-T8-rqr" firstAttribute="trailing" secondItem="EDa-tm-2Lh" secondAttribute="trailing" id="FFw-Td-8Wn"/>
+                                        <constraint firstItem="wKx-RJ-wzA" firstAttribute="top" secondItem="4Ht-DN-vUk" secondAttribute="bottom" id="IDi-fw-X3Z"/>
                                         <constraint firstItem="o64-RS-tDY" firstAttribute="top" secondItem="VU9-T8-rqr" secondAttribute="bottom" constant="28" id="JF5-at-6R1"/>
                                         <constraint firstItem="4Ht-DN-vUk" firstAttribute="centerX" secondItem="ZGo-ze-jC2" secondAttribute="centerX" id="NRd-dv-jYI"/>
-                                        <constraint firstItem="OF8-Oa-yCv" firstAttribute="centerY" secondItem="bbu-Oi-fTV" secondAttribute="centerY" id="Nha-Lj-V3r"/>
                                         <constraint firstItem="t9G-si-qy0" firstAttribute="leading" secondItem="gOn-Hf-fh7" secondAttribute="leading" id="O91-cA-qbh"/>
                                         <constraint firstAttribute="trailing" secondItem="ZGo-ze-jC2" secondAttribute="trailing" constant="16" id="Ojf-MZ-cGQ"/>
                                         <constraint firstItem="F2v-FZ-TNV" firstAttribute="leading" secondItem="o64-RS-tDY" secondAttribute="trailing" constant="16" id="Pzy-5A-r1i"/>
-                                        <constraint firstItem="OF8-Oa-yCv" firstAttribute="leading" secondItem="bbu-Oi-fTV" secondAttribute="trailing" constant="8" id="Qx1-gs-Sza"/>
                                         <constraint firstItem="t9G-si-qy0" firstAttribute="top" secondItem="gOn-Hf-fh7" secondAttribute="top" id="Uqd-bh-l7x"/>
                                         <constraint firstItem="FfV-J5-MVM" firstAttribute="centerY" secondItem="CuW-Ng-1uy" secondAttribute="centerY" id="Xoh-hU-lPX"/>
-                                        <constraint firstItem="CuW-Ng-1uy" firstAttribute="top" secondItem="ZGo-ze-jC2" secondAttribute="bottom" constant="16" id="YPe-WG-bjn"/>
+                                        <constraint firstItem="CuW-Ng-1uy" firstAttribute="top" secondItem="ZGo-ze-jC2" secondAttribute="bottom" constant="40" id="YPe-WG-bjn"/>
                                         <constraint firstItem="ZGo-ze-jC2" firstAttribute="leading" secondItem="tmK-IS-tcT" secondAttribute="leading" constant="16" id="ZSA-aS-yWq"/>
                                         <constraint firstItem="bfy-S7-zjR" firstAttribute="centerX" secondItem="tmK-IS-tcT" secondAttribute="centerX" id="Ziz-W0-aL8"/>
                                         <constraint firstItem="gOn-Hf-fh7" firstAttribute="centerX" secondItem="tmK-IS-tcT" secondAttribute="centerX" id="ZpL-Uv-fS5"/>
                                         <constraint firstItem="EDa-tm-2Lh" firstAttribute="leading" secondItem="ZGo-ze-jC2" secondAttribute="leading" id="aEB-Ye-0HS"/>
+                                        <constraint firstItem="bbu-Oi-fTV" firstAttribute="centerY" secondItem="dRi-u2-1CM" secondAttribute="centerY" id="bPs-hY-kJ9"/>
+                                        <constraint firstItem="KQy-mx-dZN" firstAttribute="top" secondItem="CuW-Ng-1uy" secondAttribute="bottom" constant="8" id="bZc-WY-J5w"/>
                                         <constraint firstItem="F2v-FZ-TNV" firstAttribute="centerY" secondItem="o64-RS-tDY" secondAttribute="centerY" id="cDK-eY-aGp"/>
-                                        <constraint firstItem="bbu-Oi-fTV" firstAttribute="top" secondItem="CuW-Ng-1uy" secondAttribute="bottom" constant="4" id="caJ-mP-wxR"/>
                                         <constraint firstItem="4Ht-DN-vUk" firstAttribute="width" secondItem="tmK-IS-tcT" secondAttribute="width" id="eKu-Lq-KNZ"/>
                                         <constraint firstItem="gOn-Hf-fh7" firstAttribute="top" secondItem="EDa-tm-2Lh" secondAttribute="bottom" constant="22" id="fl0-Iw-8Hs"/>
+                                        <constraint firstItem="wKx-RJ-wzA" firstAttribute="centerX" secondItem="tmK-IS-tcT" secondAttribute="centerX" id="gWT-vs-35k"/>
+                                        <constraint firstItem="bbu-Oi-fTV" firstAttribute="trailing" secondItem="OF8-Oa-yCv" secondAttribute="leading" id="jrc-cA-Oty"/>
                                         <constraint firstItem="bfy-S7-zjR" firstAttribute="top" secondItem="gOn-Hf-fh7" secondAttribute="bottom" constant="16" id="lh1-Ag-Bgz"/>
                                         <constraint firstItem="mWi-HV-Wrr" firstAttribute="leading" secondItem="VU9-T8-rqr" secondAttribute="leading" id="msf-t7-uIw"/>
                                         <constraint firstItem="t9G-si-qy0" firstAttribute="bottom" secondItem="gOn-Hf-fh7" secondAttribute="bottom" id="oIS-Ij-nUj"/>
+                                        <constraint firstItem="OF8-Oa-yCv" firstAttribute="centerY" secondItem="bbu-Oi-fTV" secondAttribute="centerY" id="pt0-ZG-CIB"/>
                                         <constraint firstItem="o64-RS-tDY" firstAttribute="leading" secondItem="mWi-HV-Wrr" secondAttribute="trailing" constant="16" id="rpG-Gw-ncJ"/>
                                         <constraint firstItem="CuW-Ng-1uy" firstAttribute="leading" secondItem="ZGo-ze-jC2" secondAttribute="leading" id="uM1-Yr-E4J"/>
                                         <constraint firstItem="EDa-tm-2Lh" firstAttribute="trailing" secondItem="ZGo-ze-jC2" secondAttribute="trailing" id="uPB-nW-e5g"/>
                                         <constraint firstItem="4Ht-DN-vUk" firstAttribute="top" secondItem="tmK-IS-tcT" secondAttribute="top" constant="16" id="vEK-Fe-Rwj"/>
                                         <constraint firstItem="VU9-T8-rqr" firstAttribute="top" secondItem="bfy-S7-zjR" secondAttribute="bottom" constant="10" id="wrh-Xq-3cz"/>
+                                        <constraint firstItem="EDa-tm-2Lh" firstAttribute="top" secondItem="KQy-mx-dZN" secondAttribute="bottom" constant="8" id="xc7-2z-sca"/>
                                         <constraint firstItem="VU9-T8-rqr" firstAttribute="leading" secondItem="EDa-tm-2Lh" secondAttribute="leading" id="xvF-4e-m7d"/>
                                     </constraints>
                                 </view>
@@ -3700,7 +3727,9 @@ Chest</string>
                         <outlet property="btnWearUpperChest" destination="F2v-FZ-TNV" id="rwe-Qd-SwO"/>
                         <outlet property="imgPostureAnimation" destination="gOn-Hf-fh7" id="DDJ-JC-bAV"/>
                         <outlet property="lblBreathCount" destination="OF8-Oa-yCv" id="bfi-bB-2lG"/>
+                        <outlet property="lblOneMinutes" destination="KQy-mx-dZN" id="HkE-t8-wsS"/>
                         <outlet property="lblRespirationRate" destination="FfV-J5-MVM" id="9Fp-B7-Hhg"/>
+                        <outlet property="lblTime" destination="wKx-RJ-wzA" id="3xs-LU-U5L"/>
                         <outlet property="postureSensitivityGroup" destination="VU9-T8-rqr" id="eoJ-v2-EV9"/>
                     </connections>
                 </viewController>

@@ -27,6 +27,8 @@ class LiveGraphViewController: UIViewController {
     
     @IBOutlet weak var lblRespirationRate: UILabel!
     @IBOutlet weak var lblBreathCount: UILabel!
+    @IBOutlet weak var lblOneMinutes: UILabel!
+    @IBOutlet weak var lblTime: UILabel!
     
     @IBOutlet weak var imgPostureAnimation: UIImageView!
     
@@ -65,6 +67,9 @@ class LiveGraphViewController: UIViewController {
         setPostureSensitivity(val: 2)
         
         displayPostureAnimation(1)
+        displayBreathCount(val: 0)
+        displayRespirationRate(val: 0)
+        lblOneMinutes.text = "1-minute: 0"
         
         setWearPosition(val: 0)
         
@@ -227,6 +232,16 @@ extension LiveGraphViewController: LiveDelegate {
     func liveProcess(sensorData: [Double]) {
         DispatchQueue.main.async {
             self.batteryView.progress = CGFloat(sensorData[6]) / 100.0
+            
+            let v = Int(self.objLive?.timeElapsed ?? 0)
+            let m = Int(v / 60)
+            let s = v - m * 60
+            
+            self.lblTime.text = String(format: "%d:%02d", m, s)
+            
+            if v > 60 {
+                self.lblOneMinutes.text = "1-minute: \(self.objLive?.calculateOneMinuteRespRate() ?? 0)"
+            }
         }
     }
     
