@@ -37,6 +37,7 @@ class DataController {
     var savedBodyNotification: SavedBodyNotification?
     
     var sessionSettings: SessionSettings?
+    var lastSession: Any?
     
     
     // Instant variable
@@ -310,6 +311,8 @@ class DataController {
             result.flag = true
             
             try managedContext.save()
+            
+            lastSession = session
         }
         catch {
             Crashlytics.sharedInstance().recordError(error)
@@ -333,6 +336,8 @@ class DataController {
             result.flag = true
             
             try managedContext.save()
+            
+            lastSession = session
         }
         catch {
             Crashlytics.sharedInstance().recordError(error)
@@ -379,6 +384,8 @@ class DataController {
             
             
             try managedContext.save()
+            
+            lastSession = measurement
         }
         catch {
             Crashlytics.sharedInstance().recordError(error)

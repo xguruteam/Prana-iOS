@@ -9,7 +9,7 @@
 import UIKit
 import Macaw
 
-class BuzzerTrainingViewController: UIViewController {
+class BuzzerTrainingViewController: SuperViewController {
 
     @IBOutlet weak var lblTimeRemaining: UILabel!
     @IBOutlet weak var lblBuzzerReason: UILabel!
@@ -100,6 +100,8 @@ class BuzzerTrainingViewController: UIViewController {
     
     var slouchStartSeconds: Int = 0
     
+    var isFinished = false
+    
     var timeRemaining: Int = 0 {
         didSet {
             lblTimeRemaining.text = "\(styledTime(v: timeRemaining))"
@@ -151,7 +153,12 @@ class BuzzerTrainingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        if isFinished {
+            return
+        }
+        
         timeRemaining = sessionDuration * 60
+        swBuzzWhenUnmindful.onTintColor = UIColor(hexString: "#2bb7b8")
         
         objLive = Live()
         objLive?.appMode = 3
@@ -249,6 +256,10 @@ class BuzzerTrainingViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        if isFinished {
+            return
+        }
+        
         objLive?.removeDelegate(self as! LiveDelegate)
         stopLiving()
         objLive = nil
@@ -518,6 +529,13 @@ class BuzzerTrainingViewController: UIViewController {
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
                 dataController.addRecord(training: session)
             }
+            
+            isFinished = true
+            let vc = getViewController(storyboard: "History", identifier: "SessionDetailViewController") as! SessionDetailViewController
+            vc.type = .session
+            vc.session = session
+            
+            self.present(vc, animated: true, completion: nil)
         }
         
         currentSessionObject = nil

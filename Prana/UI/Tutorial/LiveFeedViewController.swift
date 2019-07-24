@@ -99,8 +99,8 @@ class LiveFeedViewController: UIViewController {
     
     @IBAction func onNext(_ sender: Any) {
         
-        if isLowerBack {
-            let vc = Utils.getStoryboardWithIdentifier(identifier: "TutorialWearUpperchestViewController")
+        if !isLowerBack {
+            let vc = Utils.getStoryboardWithIdentifier(identifier: "TutorialLowerbackViewController")
             self.navigationController?.pushViewController(vc, animated: true)
         }
         else {

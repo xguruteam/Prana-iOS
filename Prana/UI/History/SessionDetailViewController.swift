@@ -109,6 +109,10 @@ class SessionDetailViewController: SuperViewController {
     }()
     
     @objc func onBack() {
+        guard let _ = self.navigationController else {
+            self.dismiss(animated: true, completion: nil)
+            return
+        }
         self.navigationController?.popViewController(animated: true)
     }
 

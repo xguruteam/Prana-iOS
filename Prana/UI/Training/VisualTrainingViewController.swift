@@ -11,7 +11,7 @@ import GameplayKit
 import SpriteKit
 import Macaw
 
-class VisualTrainingViewController: UIViewController {
+class VisualTrainingViewController: SuperViewController {
 
     @IBOutlet weak var gameView: SKView!
     @IBOutlet weak var liveGraphView: LiveGraph!

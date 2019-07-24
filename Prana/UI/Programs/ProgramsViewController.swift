@@ -202,6 +202,14 @@ class ProgramsViewController: UIViewController {
     
     @objc func onVisualViewControllerEnd() {
         UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+        
+        if let lastSession = dataController?.lastSession as? TrainingSession {
+            let storyboard = UIStoryboard(name: "History", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "SessionDetailViewController") as! SessionDetailViewController
+            vc.type = .session
+            vc.session = lastSession
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     
     @objc func onDeviceOrientationChange() {

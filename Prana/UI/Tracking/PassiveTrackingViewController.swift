@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PassiveTrackingViewController: UIViewController {
+class PassiveTrackingViewController: SuperViewController {
 
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnHelp: UIButton!
@@ -191,7 +191,7 @@ class PassiveTrackingViewController: UIViewController {
         
         postureSenseGroup.layer.addSublayer(border2)
         
-        switchSlouching.tintColor = UIColor(hexString: "#2bb7b8")
+//        switchSlouching.tintColor = UIColor(hexString: "#2bb7b8")
         switchSlouching.onTintColor = UIColor(hexString: "#2bb7b8")
         
         btnStartStop.setTitle("START TRACKING", for: .normal)
@@ -202,16 +202,6 @@ class PassiveTrackingViewController: UIViewController {
         objLive?.removeDelegate(self)
         objLive = nil
         PranaDeviceManager.shared.stopGettingLiveData()
-        
-        currentSessionObject?.floorSessionDuration()
-        
-        if let session = currentSessionObject, session.duration > 0 {
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
-                dataController.addRecord(passive: session)
-            }
-        }
-        
-        currentSessionObject = nil
         
         self.dismiss(animated: true) {
             
@@ -248,6 +238,22 @@ class PassiveTrackingViewController: UIViewController {
     @IBAction func onStartStop(_ sender: Any) {
         if isLive {
             stopLiving()
+            
+            currentSessionObject?.floorSessionDuration()
+            
+            if let session = currentSessionObject, session.duration > 0 {
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
+                    dataController.addRecord(passive: session)
+                }
+                let vc = getViewController(storyboard: "History", identifier: "SessionDetailViewController") as! SessionDetailViewController
+                vc.type = .passive
+                vc.passive = session
+                self.present(vc, animated: true, completion: nil)
+            }
+            
+            currentSessionObject = nil
+            
+
         }
         else {
             startLiving()
