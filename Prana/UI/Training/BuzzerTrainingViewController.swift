@@ -133,6 +133,10 @@ class BuzzerTrainingViewController: SuperViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
         swBuzzWhenUnmindful.addTarget(self, action: #selector(onBuzzWhenUnmindfulChange(_:)), for: .valueChanged)
+        
+        if isTutorial {
+            onHelp(self.btnHelp)
+        }
     }
     
     func initView() {

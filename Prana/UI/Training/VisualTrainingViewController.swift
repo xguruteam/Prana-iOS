@@ -259,6 +259,10 @@ class VisualTrainingViewController: SuperViewController {
         lblStatus6.text = "Wearing: " + (sessionWearing == 0 ? "Lower Back" : "Upper Chest")
         
         // Do any additional setup after loading the view.
+        
+        if isTutorial {
+            onHelp(self.btnHelp)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -327,21 +331,24 @@ class VisualTrainingViewController: SuperViewController {
         
         var text: [AttributedTextBlock] = [
             .header2("Visual Training Instructions"),
+            .list("Collect the flowers to follow the breathing pattern"),
             .list("Inhale to move the bird up"),
             .list("Exhale to move the bird down"),
-            .list("Collect the flowers to follow the breathing pattern"),
+            .list("Hold your breath when the flowers are flat"),
             .list("Maintain your upright posture"),
             .list("During the session, keep your body fairly still to help accuracy"),
-            .list("Don't worry if you don't get it perfect this first time")]
+            .list("Tap the center of the screen to end the session early"),
+        ]
         
         if sessionKind == 1 {
             text = [
                 .header2("Visual Training Instructions for Breathing Only"),
+                .list("Collect the flowers to follow the breathing pattern"),
                 .list("Inhale to move the bird up"),
                 .list("Exhale to move the bird down"),
-                .list("Collect the flowers to follow the breathing pattern"),
+                .list("Hold your breath when the flowers are flat"),
                 .list("During the session, keep your body fairly still to help accuracy"),
-                .list("Don't worry if you don't get it perfect this first time")
+                .list("Tap the center of the screen to end the session early"),
             ]
         }
         alert.addTextViewer(text: .attributedText(text))

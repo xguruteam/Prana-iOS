@@ -197,7 +197,7 @@ class SessionChildCell: UITableViewCell {
         tempSessionDuration = sessionDuration
         let alert = UIAlertController(style: .actionSheet, title: "Posture Goal", message: nil)
         
-        let frameSizes: [Int] = (2...60).map { Int($0) }
+        let frameSizes: [Int] = (1...60).map { Int($0) }
         let pickerViewValues: [[String]] = [frameSizes.map { "\($0) Minutes" }]
         let pickerViewSelectedValue: PickerViewViewController.Index = (column: 0, row: frameSizes.index(of: tempSessionDuration) ?? 0)
         

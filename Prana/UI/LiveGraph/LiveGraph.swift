@@ -72,14 +72,14 @@ class LiveGraph: UIView {
         
         path.stroke()
         
-        if (live.isDrawTop) {
-            let topPath = UIBezierPath()
-            topLineColor.setStroke()
-            
-            topPath.move(to: CGPoint(x: 0, y: scale(live.topReversalY)))
-            topPath.addLine(to: CGPoint(x: width, y: scale(live.topReversalY)))
-            topPath.stroke()
-        }
+//        if (live.isDrawTop) {
+//            let topPath = UIBezierPath()
+//            topLineColor.setStroke()
+//
+//            topPath.move(to: CGPoint(x: 0, y: scale(live.topReversalY)))
+//            topPath.addLine(to: CGPoint(x: width, y: scale(live.topReversalY)))
+//            topPath.stroke()
+//        }
         
         if (live.isDrawBottom) {
             let bottomPath = UIBezierPath()
