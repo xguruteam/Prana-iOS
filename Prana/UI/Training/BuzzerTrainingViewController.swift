@@ -527,21 +527,22 @@ class BuzzerTrainingViewController: SuperViewController {
         isCompleted = true
         stopLiving()
         
-        currentSessionObject?.floorSessionDuration()
-        
-        if let session = currentSessionObject, session.duration > 0 {
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
-                dataController.addRecord(training: session)
+        if isTutorial == false {
+            currentSessionObject?.floorSessionDuration()
+            
+            if let session = currentSessionObject, session.duration > 0 {
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
+                    dataController.addRecord(training: session)
+                }
+                
+                isFinished = true
+                let vc = getViewController(storyboard: "History", identifier: "SessionDetailViewController") as! SessionDetailViewController
+                vc.type = .session
+                vc.session = session
+                
+                self.present(vc, animated: true, completion: nil)
             }
-            
-            isFinished = true
-            let vc = getViewController(storyboard: "History", identifier: "SessionDetailViewController") as! SessionDetailViewController
-            vc.type = .session
-            vc.session = session
-            
-            self.present(vc, animated: true, completion: nil)
         }
-        
         currentSessionObject = nil
     }
     

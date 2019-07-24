@@ -278,12 +278,12 @@ class SessionDetailViewController: SuperViewController {
             minLabel.rightAnchor.constraint(equalTo: rrGraph.rightAnchor, constant: 0).isActive = true
             
             containerView.addSubview(breathSummaryView)
-            breathSummaryView.topAnchor.constraint(equalTo: rrGraph.bottomAnchor, constant: 16).isActive = true
+            breathSummaryView.topAnchor.constraint(equalTo: rrGraph.bottomAnchor, constant: 0).isActive = true
             breathSummaryView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
             breathSummaryView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
 
             containerView.addSubview(eiGraph)
-            eiGraph.topAnchor.constraint(equalTo: breathSummaryView.bottomAnchor, constant: 40).isActive = true
+            eiGraph.topAnchor.constraint(equalTo: breathSummaryView.bottomAnchor, constant: 30).isActive = true
             eiGraph.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
             eiGraph.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
             eiGraph.heightAnchor.constraint(equalToConstant: 150).isActive = true

@@ -496,11 +496,13 @@ class VisualTrainingViewController: SuperViewController {
         }
         
         //        makeSessionObject()
-        currentSessionObject?.floorSessionDuration()
-        
-        if let session = currentSessionObject, session.duration > 0 {
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
-                dataController.addRecord(training: session)
+        if isTutorial == false {
+            currentSessionObject?.floorSessionDuration()
+            
+            if let session = currentSessionObject, session.duration > 0 {
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
+                    dataController.addRecord(training: session)
+                }
             }
         }
         currentSessionObject = nil
