@@ -580,7 +580,7 @@ extension VisualTrainingViewController: VisualDelegate {
         if breathCount < total {
             // new breath
             let isMindful = (self.mindfulBreaths != mindful)
-            self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: isMindful, respRate: actualRR, targetRate: targetRR, eiRatio: 0)
+            self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: isMindful, respRate: actualRR, targetRate: targetRR, eiRatio: 0, oneMinuteRR: 0)
         }
         DispatchQueue.main.async { [unowned self] in
             self.breathCount = total

@@ -34,22 +34,22 @@ class PassiveSession: Codable {
         self.slouches.append(SlouchRecord(timeStamp: timeStamp, duration: duration))
     }
     
-    func addBreath(timeStamp: Int, isMindful: Bool, respRate: Double, eiRatio: Double) {
+    func addBreath(timeStamp: Int, isMindful: Bool, respRate: Double, eiRatio: Double, oneMinuteRR: Double) {
         guard timeStamp > 0 else { return }
-        self.breaths.append(BreathRecord(timeStamp: timeStamp, isMindful: isMindful, respRate: respRate, targetRate: 0, eiRatio: eiRatio))
+        self.breaths.append(BreathRecord(timeStamp: timeStamp, isMindful: isMindful, respRate: respRate, targetRate: 0, eiRatio: eiRatio, oneMinuteRR: oneMinuteRR))
     }
     
     func floorSessionDuration() {
-        let duration = self.duration / 60 * 60
-        self.duration = duration
-        
-        self.slouches = slouches.filter {
-            return $0.timeStamp <= self.duration ? true : false
-        }
-        
-        self.breaths = breaths.filter {
-            return $0.timeStamp <= self.duration ? true : false
-        }
+//        let duration = self.duration / 60 * 60
+//        self.duration = duration
+//        
+//        self.slouches = slouches.filter {
+//            return $0.timeStamp <= self.duration ? true : false
+//        }
+//        
+//        self.breaths = breaths.filter {
+//            return $0.timeStamp <= self.duration ? true : false
+//        }
     }
     
     var summary: String {
@@ -77,6 +77,16 @@ class PassiveSession: Codable {
         Passive Tracking: \(duration / 60) Mins completed
         Avg. RR : \(roundFloat(Float(rrSum), point: 2))
         Upright Posture: \(roundFloat(uprightPercent, point: 1))%, Slouches: \(slouches.count), Wearing: \(wearingString)
+        """
+    }
+    
+    var breathSummary: String {
+        var rrSum: Double = 0
+        let sum = sumEIRatio()
+        rrSum = sum.1
+
+        return """
+        Avg. RR : \(roundFloat(Float(rrSum), point: 2))
         """
     }
     
@@ -113,7 +123,12 @@ class PassiveSession: Codable {
         }
         if breaths.count > 0 {
             avgEI = (avgEI / Double(breaths.count))
-            avgRR = (avgRR / Double(breaths.count))
+        }
+        
+        if breaths.count > 2 {
+            avgRR = (avgRR / Double(breaths.count - 2))
+        } else {
+            avgRR = 0
         }
         
         return (avgEI, avgRR)

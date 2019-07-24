@@ -95,7 +95,7 @@ class SessionHistoryViewController: SuperViewController {
         
         dailyRows = []
         
-        for week in 0...6 {
+        for week in ((0...6).map { Int($0) }.reversed()) {
             let day = begin.adding(.day, value: week)
             
             let daySessions = currentSessions.filter { (session) -> Bool in
@@ -106,11 +106,12 @@ class SessionHistoryViewController: SuperViewController {
                     let passive = session as! PassiveSession
                     return Calendar.current.isDate(passive.startedAt, inSameDayAs: day)
                 }
-            }
+            }.reversed()
+            let newArray = Array(daySessions)
             
             if daySessions.count > 0 {
-                let dailySummary = getDailySessionSummary(daySessions)
-                dailyRows.insert(contentsOf: daySessions, at: 0)
+                let dailySummary = getDailySessionSummary(newArray)
+                dailyRows.insert(contentsOf: newArray, at: 0)
                 dailyRows.insert((day, dailySummary), at: 0)
             }
         }
@@ -176,7 +177,7 @@ class SessionHistoryViewController: SuperViewController {
         Breath Training Time Completed: \(breathTime / 60) Mins
         Mindful Breaths: \(roundFloat(mindfulPercent, point: 1))%
         Mindful Breath Minutes: \(roundFloat(Float(mindfulTime) / 60, point: 1))
-        Average Training RR: \(roundFloat(Float(rrSum), point: 2))
+        Average RR: \(roundFloat(Float(rrSum), point: 2))
         
         Posture Training Time Completed: \(postureTime / 60) Mins
         Upright Posture: \(roundFloat(uprightPercent, point: 1))%

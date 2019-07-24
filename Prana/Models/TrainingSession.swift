@@ -61,7 +61,11 @@ class TrainingSession: Codable {
     }
     var pattern: Int
     var patternString: String {
-        return patternNames[pattern].0
+        if let index = patternNumbers.index(of: pattern) {
+            return patternNames[index].0
+        } else {
+            return patternNames[0].0
+        }
     }
     var duration: Int = 0
     
@@ -81,22 +85,22 @@ class TrainingSession: Codable {
         self.slouches.append(SlouchRecord(timeStamp: timeStamp, duration: duration))
     }
     
-    func addBreath(timeStamp: Int, isMindful: Bool, respRate: Double, targetRate: Double, eiRatio: Double) {
+    func addBreath(timeStamp: Int, isMindful: Bool, respRate: Double, targetRate: Double, eiRatio: Double, oneMinuteRR: Double) {
         guard timeStamp > 0 else { return }
-        self.breaths.append(BreathRecord(timeStamp: timeStamp, isMindful: isMindful, respRate: respRate, targetRate: targetRate, eiRatio: eiRatio))
+        self.breaths.append(BreathRecord(timeStamp: timeStamp, isMindful: isMindful, respRate: respRate, targetRate: targetRate, eiRatio: eiRatio, oneMinuteRR: oneMinuteRR))
     }
     
     func floorSessionDuration() {
-        let duration = self.duration / 60 * 60
-        self.duration = duration
-        
-        self.slouches = slouches.filter {
-            return $0.timeStamp <= self.duration ? true : false
-        }
-        
-        self.breaths = breaths.filter {
-            return $0.timeStamp <= self.duration ? true : false
-        }
+//        let duration = self.duration / 60 * 60
+//        self.duration = duration
+//        
+//        self.slouches = slouches.filter {
+//            return $0.timeStamp <= self.duration ? true : false
+//        }
+//        
+//        self.breaths = breaths.filter {
+//            return $0.timeStamp <= self.duration ? true : false
+//        }
     }
     
     var summary: String {
@@ -234,8 +238,10 @@ class TrainingSession: Codable {
             }
             avgRR += breath.respRate
         }
-        if breaths.count > 0 {
-            avgRR = (avgRR / Double(breaths.count))
+        if breaths.count > 2 {
+            avgRR = (avgRR / Double(breaths.count - 2))
+        } else {
+            avgRR = 0
         }
         
         return (mindfulTime, avgRR, mindfulCount)
@@ -267,12 +273,14 @@ struct BreathRecord: Codable {
     var respRate: Double = 0
     var targetRate: Double = 0
     var eiRatio: Double = 0
+    var oneMinuteRR: Double = 0
     
-    init(timeStamp: Int, isMindful: Bool, respRate: Double, targetRate: Double, eiRatio: Double) {
+    init(timeStamp: Int, isMindful: Bool, respRate: Double, targetRate: Double, eiRatio: Double, oneMinuteRR: Double) {
         self.timeStamp = timeStamp
         self.isMindful = isMindful
         self.respRate = respRate
         self.targetRate = targetRate
         self.eiRatio = eiRatio
+        self.oneMinuteRR = oneMinuteRR
     }
 }

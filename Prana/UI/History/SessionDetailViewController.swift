@@ -64,6 +64,9 @@ class SessionDetailViewController: SuperViewController {
         graph.labelColor = UIColor(hexString: "#79859f")
         graph.axesColor = UIColor(hexString: "#ced3dc")
         graph.translatesAutoresizingMaskIntoConstraints = false
+        graph.yLabelsFormatter = { index, value -> String in
+            return "\(roundFloat(Float(value), point: 2))"
+        }
         return graph
     }()
     
@@ -82,6 +85,9 @@ class SessionDetailViewController: SuperViewController {
         graph.labelColor = UIColor(hexString: "#79859f")
         graph.axesColor = UIColor(hexString: "#ced3dc")
         graph.translatesAutoresizingMaskIntoConstraints = false
+        graph.yLabelsFormatter = { index, value -> String in
+            return "\(roundFloat(Float(value), point: 2))"
+        }
         return graph
     }()
     
@@ -271,9 +277,13 @@ class SessionDetailViewController: SuperViewController {
             minLabel.topAnchor.constraint(equalTo: rrGraph.bottomAnchor, constant: 0).isActive = true
             minLabel.rightAnchor.constraint(equalTo: rrGraph.rightAnchor, constant: 0).isActive = true
             
-            
+            containerView.addSubview(breathSummaryView)
+            breathSummaryView.topAnchor.constraint(equalTo: rrGraph.bottomAnchor, constant: 16).isActive = true
+            breathSummaryView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
+            breathSummaryView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
+
             containerView.addSubview(eiGraph)
-            eiGraph.topAnchor.constraint(equalTo: rrGraph.bottomAnchor, constant: 50).isActive = true
+            eiGraph.topAnchor.constraint(equalTo: breathSummaryView.bottomAnchor, constant: 40).isActive = true
             eiGraph.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
             eiGraph.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
             eiGraph.heightAnchor.constraint(equalToConstant: 150).isActive = true
@@ -420,7 +430,7 @@ class SessionDetailViewController: SuperViewController {
             rrGraph.xLabels = xlabels
             
             var data = passive.breaths.map { (breath) -> (Double, Double) in
-                return (Double(breath.timeStamp) / 60.0, breath.respRate)
+                return (Double(breath.timeStamp) / 60.0, breath.oneMinuteRR)
             }
             
             var series = ChartSeries(data: data)
@@ -451,6 +461,7 @@ class SessionDetailViewController: SuperViewController {
             postureBar.duration = passive.duration
             postureBar.slouches = passive.slouches
             
+            breathSummaryView.text = passive.breathSummary
             summaryView.text = passive.postureSummary
         }
     }

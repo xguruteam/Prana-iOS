@@ -595,7 +595,7 @@ extension BuzzerTrainingViewController: BuzzerDelegate {
 //        print("new mindful \(mindfuls) in \(totals)")
         if breathCount < totals {
             let isMindful = ((mindfuls > mindfulBreaths) ? true : false)
-            self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: isMindful, respRate: actualRR, targetRate: targetRR, eiRatio: 0)
+            self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: isMindful, respRate: actualRR, targetRate: targetRR, eiRatio: 0, oneMinuteRR: 0)
         }
         mindfulBreaths = mindfuls
         breathCount = totals
