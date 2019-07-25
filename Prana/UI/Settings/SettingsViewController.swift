@@ -98,6 +98,7 @@ class SettingsViewController: SuperViewController {
     let bEdit: UIButton = makeSmallButton("Edit Profile Info")
     let bDisconnect = makeSmallButton("Disconnect Now")
     let bAutoDisconnect = makeSmallButton("Automatically Disconnect")
+    let bAutoReset = makeSmallButton("Auto-Reset Breath Range")
     let bLogout = makeSmallButton("Log out")
     
     let bAbout = makeLargeButton("About Us")
@@ -116,7 +117,15 @@ class SettingsViewController: SuperViewController {
     
     let sAutoDisconnect: UISwitch = {
         let uiSwitch = UISwitch()
-        uiSwitch.tintColor = UIColor(hexString: "#2bb7b8")
+//        uiSwitch.tintColor = UIColor(hexString: "#2bb7b8")
+        uiSwitch.onTintColor = UIColor(hexString: "#2bb7b8")
+        uiSwitch.translatesAutoresizingMaskIntoConstraints = false
+        return uiSwitch
+    }()
+    
+    let sAutoReset: UISwitch = {
+        let uiSwitch = UISwitch()
+//        uiSwitch.tintColor = UIColor(hexString: "#2bb7b8")
         uiSwitch.onTintColor = UIColor(hexString: "#2bb7b8")
         uiSwitch.translatesAutoresizingMaskIntoConstraints = false
         return uiSwitch
@@ -196,9 +205,20 @@ class SettingsViewController: SuperViewController {
         
         sAutoDisconnect.rightAnchor.constraint(equalTo: roundedContainer.rightAnchor, constant: 0 - largeButtonInset).isActive = true
         sAutoDisconnect.centerYAnchor.constraint(equalTo: bAutoDisconnect.centerYAnchor).isActive = true
+        
+        roundedContainer.addSubview(bAutoReset)
+        roundedContainer.addSubview(sAutoReset)
+        bAutoReset.topAnchor.constraint(equalTo: bAutoDisconnect.bottomAnchor, constant: buttonSpacing).isActive = true
+        bAutoReset.leftAnchor.constraint(equalTo: roundedContainer.leftAnchor, constant: largeButtonInset).isActive = true
+        bAutoReset.rightAnchor.constraint(equalTo: sAutoDisconnect.leftAnchor, constant: 0 - largeButtonInset).isActive = true
+        bAutoReset.contentEdgeInsets = insets
+        
+        sAutoReset.rightAnchor.constraint(equalTo: roundedContainer.rightAnchor, constant: 0 - largeButtonInset).isActive = true
+        sAutoReset.centerYAnchor.constraint(equalTo: bAutoReset.centerYAnchor).isActive = true
+        
 
         roundedContainer.addSubview(bLogout)
-        bLogout.topAnchor.constraint(equalTo: bAutoDisconnect.bottomAnchor, constant: buttonSpacing).isActive = true
+        bLogout.topAnchor.constraint(equalTo: sAutoReset.bottomAnchor, constant: buttonSpacing).isActive = true
         bLogout.leftAnchor.constraint(equalTo: roundedContainer.leftAnchor, constant: largeButtonInset).isActive = true
         bLogout.rightAnchor.constraint(equalTo: roundedContainer.rightAnchor, constant: 0 - largeButtonInset).isActive = true
         bLogout.contentEdgeInsets = insets
@@ -269,6 +289,8 @@ class SettingsViewController: SuperViewController {
         bEdit.addTarget(self, action: #selector(onEditProfile), for: .touchUpInside)
         sAutoDisconnect.isOn = dataController.isAutoDisconnect
         sAutoDisconnect.addTarget(self, action: #selector(onChangeAutoDisconnect(_:)), for: .valueChanged)
+        sAutoReset.isOn = dataController.isAutoReset
+        sAutoReset.addTarget(self, action: #selector(onChangeAutoReset(_:)), for: .valueChanged)
         bDisconnect.addTarget(self, action: #selector(onDisconnect), for: .touchUpInside)
     }
     
@@ -318,6 +340,11 @@ class SettingsViewController: SuperViewController {
     
     @objc func onChangeAutoDisconnect(_ sender: UISwitch) {
         dataController.isAutoDisconnect = sender.isOn
+        dataController.saveSettings()
+    }
+    
+    @objc func onChangeAutoReset(_ sender: UISwitch) {
+        dataController.isAutoReset = sender.isOn
         dataController.saveSettings()
     }
     

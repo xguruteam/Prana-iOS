@@ -18,6 +18,7 @@
         <attribute name="btPattern" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dailyNotification" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="isAutoDisconnect" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isAutoReset" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isDevicePaired" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isTutorialPassed" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="postureGoals" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -33,7 +34,7 @@
     <elements>
         <element name="LocalDB" positionX="-171" positionY="-36" width="128" height="120"/>
         <element name="Programs" positionX="-171" positionY="-36" width="128" height="105"/>
-        <element name="Settings" positionX="-320.03125" positionY="-184.984375" width="128" height="225"/>
+        <element name="Settings" positionX="-320.03125" positionY="-184.984375" width="128" height="240"/>
         <element name="UserData" positionX="-243" positionY="-72" width="128" height="60"/>
     </elements>
 </model>

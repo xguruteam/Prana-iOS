@@ -27,6 +27,7 @@ class DataController {
     var isDevicePaired: Bool = false
     var isTutorialPassed: Bool = false
     var isAutoDisconnect: Bool = true
+    var isAutoReset: Bool = false
     var programType: Int = 100
     var dailyNotification: Date?
     var breathingGoals: Int = 0
@@ -76,6 +77,7 @@ class DataController {
         isDevicePaired = false
         isTutorialPassed = false
         isAutoDisconnect = true
+        isAutoReset = false
         programType = 100
         dailyNotification = nil
         breathingGoals = 0
@@ -84,6 +86,7 @@ class DataController {
         btPattern = nil
         savedBodyNotification = nil
         sessionSettings = nil
+        sensitivities = Sensitivities()
     }
     
     init() {
@@ -172,6 +175,7 @@ class DataController {
                 isDevicePaired = settings.value(forKey: "isDevicePaired") as! Bool
                 isTutorialPassed = settings.value(forKey: "isTutorialPassed") as! Bool
                 isAutoDisconnect = settings.value(forKey: "isAutoDisconnect") as! Bool
+                isAutoReset = settings.value(forKey: "isAutoReset") as! Bool
                 programType = settings.value(forKey: "programType") as! Int
                 dailyNotification = settings.value(forKey: "dailyNotification") as? Date
                 breathingGoals = settings.value(forKey: "breathingGoals") as! Int
@@ -202,6 +206,7 @@ class DataController {
                 settings.setValue(isDevicePaired, forKey: "isDevicePaired")
                 settings.setValue(isTutorialPassed, forKey: "isTutorialPassed")
                 settings.setValue(isAutoDisconnect, forKey: "isAutoDisconnect")
+                settings.setValue(isAutoReset, forKey: "isAutoReset")
                 settings.setValue(programType, forKey: "programType")
                 settings.setValue(dailyNotification, forKey: "dailyNotification")
                 settings.setValue(breathingGoals, forKey: "breathingGoals")
@@ -252,6 +257,7 @@ class DataController {
                 settings.setValue(isDevicePaired, forKey: "isDevicePaired")
                 settings.setValue(isTutorialPassed, forKey: "isTutorialPassed")
                 settings.setValue(isAutoDisconnect, forKey: "isAutoDisconnect")
+                settings.setValue(isAutoReset, forKey: "isAutoReset")
                 settings.setValue(programType, forKey: "programType")
                 settings.setValue(dailyNotification, forKey: "dailyNotification")
                 settings.setValue(breathingGoals, forKey: "breathingGoals")
