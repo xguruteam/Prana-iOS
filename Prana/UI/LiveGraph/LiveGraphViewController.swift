@@ -10,7 +10,7 @@ import UIKit
 import CoreBluetooth
 import Macaw
 
-class LiveGraphViewController: UIViewController {
+class LiveGraphViewController: SuperViewController {
     
 //    @IBOutlet weak var btStartStop: UIButton!
     @IBOutlet weak var breathingGraphView: LiveGraph!
@@ -63,8 +63,23 @@ class LiveGraphViewController: UIViewController {
         objLive?.addDelegate(self as LiveDelegate)
         breathingGraphView.objLive = objLive
         
-        setBreathSensitivity(val: 2)
-        setPostureSensitivity(val: 2)
+        switch dataController.sensitivities.lgbr {
+        case 0:
+            setBreathSensitivity(val: 1)
+        case 1:
+            setBreathSensitivity(val: 2)
+        default:
+            setBreathSensitivity(val: 3)
+        }
+        
+        switch dataController.sensitivities.lgps {
+        case 0:
+            setPostureSensitivity(val: 1)
+        case 1:
+            setPostureSensitivity(val: 2)
+        default:
+            setPostureSensitivity(val: 3)
+        }
         
         displayPostureAnimation(1)
         displayBreathCount(val: 0)
@@ -161,6 +176,8 @@ class LiveGraphViewController: UIViewController {
         default:
             return
         }
+        dataController.sensitivities.lgbr = val - 1
+        dataController.saveSettings()
         
         objLive?.setBreathingResponsiveness(val: val)
     }
@@ -180,7 +197,9 @@ class LiveGraphViewController: UIViewController {
         default:
             return
         }
-        
+        dataController.sensitivities.lgps = val - 1
+        dataController.saveSettings()
+
         objLive?.setPostureResponsiveness(val: val)
     }
     

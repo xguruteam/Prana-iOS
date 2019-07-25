@@ -196,8 +196,22 @@ class VisualTrainingViewController: SuperViewController {
         postureDuration = -1
         slouches = -1
         
-        onBreathSensitivityChange(btnBreathSensitivityRadio2)
-        onPostureSensitivityChange(btnPostureSensitivityRadio2)
+        switch dataController.sensitivities.vtbr {
+        case 0:
+            onBreathSensitivityChange(btnBreathSensitivityRadio1)
+        case 1:
+            onBreathSensitivityChange(btnBreathSensitivityRadio2)
+        default:
+            onBreathSensitivityChange(btnBreathSensitivityRadio3)
+        }
+        switch dataController.sensitivities.vtps {
+        case 0:
+            onPostureSensitivityChange(btnPostureSensitivityRadio1)
+        case 1:
+            onPostureSensitivityChange(btnPostureSensitivityRadio2)
+        default:
+            onPostureSensitivityChange(btnPostureSensitivityRadio3)
+        }
         
         displayPostureAnimation(1)
         
@@ -373,6 +387,8 @@ class VisualTrainingViewController: SuperViewController {
         default:
             return
         }
+        dataController.sensitivities.vtbr = val - 1
+        dataController.saveSettings()
         
         objVisual?.setBreathSensitivity(val)
     }
@@ -394,6 +410,8 @@ class VisualTrainingViewController: SuperViewController {
         default:
             return
         }
+        dataController.sensitivities.vtps = val - 1
+        dataController.saveSettings()
         
         objVisual?.setPostureSensitivity(val)
     }

@@ -194,7 +194,14 @@ class BuzzerTrainingViewController: SuperViewController {
         objBuzzer?.delegate = self
         
         setBreathSensitivity(val: 1)
-        setPostureSensitivity(val: 2)
+        switch dataController.sensitivities.btps {
+        case 0:
+            setPostureSensitivity(val: 1)
+        case 1:
+            setPostureSensitivity(val: 2)
+        default:
+            setPostureSensitivity(val: 3)
+        }
         
         PranaDeviceManager.shared.startGettingLiveData()
         
@@ -420,6 +427,8 @@ class BuzzerTrainingViewController: SuperViewController {
         default:
             return
         }
+        dataController.sensitivities.btps = val - 1
+        dataController.saveSettings()
         
         objLive?.setPostureResponsiveness(val: val)
     }

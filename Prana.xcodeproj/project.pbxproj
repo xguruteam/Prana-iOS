@@ -207,6 +207,7 @@
 		CAEEB01A22C15C39002C3139 /* DailyCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEEB01922C15C39002C3139 /* DailyCell2.swift */; };
 		CAEEB01C22C18F98002C3139 /* SessionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEEB01B22C18F98002C3139 /* SessionDetailViewController.swift */; };
 		CAFA5BE022AA788900AB4046 /* Passive.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFA5BDF22AA788900AB4046 /* Passive.swift */; };
+		CAFA6DF922E98202005D005D /* Sensitivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFA6DF822E98202005D005D /* Sensitivities.swift */; };
 		D701F4DE223B998800D19574 /* TutorialUpperchestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D701F4DD223B998800D19574 /* TutorialUpperchestViewController.swift */; };
 		D70D9E86226084A200BC30F8 /* TapBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D9E85226084A200BC30F8 /* TapBarViewController.swift */; };
 		D71129382236932700145C4B /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71129372236932700145C4B /* ForgotPasswordViewController.swift */; };
@@ -440,6 +441,7 @@
 		CAEEB01922C15C39002C3139 /* DailyCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCell2.swift; sourceTree = "<group>"; };
 		CAEEB01B22C18F98002C3139 /* SessionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailViewController.swift; sourceTree = "<group>"; };
 		CAFA5BDF22AA788900AB4046 /* Passive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Passive.swift; sourceTree = "<group>"; };
+		CAFA6DF822E98202005D005D /* Sensitivities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sensitivities.swift; sourceTree = "<group>"; };
 		D701F4DD223B998800D19574 /* TutorialUpperchestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialUpperchestViewController.swift; sourceTree = "<group>"; };
 		D70D9E85226084A200BC30F8 /* TapBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBarViewController.swift; sourceTree = "<group>"; };
 		D71129372236932700145C4B /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
@@ -617,6 +619,7 @@
 				CAEEB01122C11321002C3139 /* Measurement.swift */,
 				CAEEB01322C13A6C002C3139 /* SavedBodyNotification.swift */,
 				CA9D65C722CEC0E00074253B /* User.swift */,
+				CAFA6DF822E98202005D005D /* Sensitivities.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1421,6 +1424,7 @@
 				D7E145AD2236F50100991D34 /* ResetPasswordViewController.swift in Sources */,
 				CAEEB01022C0F290002C3139 /* PassiveSession.swift in Sources */,
 				CA69E8442278977900984324 /* TrainingSession.swift in Sources */,
+				CAFA6DF922E98202005D005D /* Sensitivities.swift in Sources */,
 				CAA44A31224425EF0050D619 /* ConnectionTestViewController.swift in Sources */,
 				CA9892152240C86D00D824B0 /* Live.swift in Sources */,
 				CAC1252F22C35C2B008D6C7D /* MonthlyGraph.swift in Sources */,

@@ -155,7 +155,14 @@ class PassiveTrackingViewController: SuperViewController {
         objPassive?.delegate = self
         
         setBreathSensitivity(val: 1)
-        setPostureSensitivity(val: 2)
+        switch dataController.sensitivities.ptps {
+        case 0:
+            setPostureSensitivity(val: 1)
+        case 1:
+            setPostureSensitivity(val: 2)
+        default:
+            setPostureSensitivity(val: 3)
+        }
 
         displayPostureAnimation(1)
         
@@ -338,6 +345,8 @@ class PassiveTrackingViewController: SuperViewController {
         default:
             return
         }
+        dataController.sensitivities.ptps = val - 1
+        dataController.saveSettings()
         
         objLive?.setPostureResponsiveness(val: val)
     }

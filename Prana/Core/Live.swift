@@ -676,7 +676,7 @@ class Live: NSObject {
     
     func calculateOneMinuteEI() { // May 31st ADDED
         
-        EI1Minute = 0;  // May 31st ADDED
+        var EI1Minute: Double = 0;  // May 31st ADDED
         var breathsInLastMinute:Int = 0; // May 31st ADDED
         
         guard EIRatio.count > 1 else { return }
@@ -695,10 +695,10 @@ class Live: NSObject {
         }
         
         if (breathsInLastMinute > 0) { // May 31st ADDED
-            EI1Minute = roundNumber(num: EI1Minute / Double(breathsInLastMinute),dec: 10); // May 31st ADDED
+            self.EI1Minute = roundNumber(num: EI1Minute / Double(breathsInLastMinute),dec: 10); // May 31st ADDED
         } // May 31st ADDED
         else { // May 31st ADDED
-            EI1Minute = 1; // May 31st ADDED
+            self.EI1Minute = 1; // May 31st ADDED
         } // May 31st ADDED
         
 //        return(EI1Minute); // May 31st ADDED

@@ -39,6 +39,8 @@ class DataController {
     var sessionSettings: SessionSettings?
     var lastSession: Any?
     
+    var sensitivities: Sensitivities = Sensitivities()
+    
     
     // Instant variable
     var currentDay: Int {
@@ -188,6 +190,10 @@ class DataController {
                 if let sessionSettingsString = settings.value(forKey: "sessionSettings") as? String {
                     sessionSettings = try JSONDecoder().decode(SessionSettings.self, from: sessionSettingsString.data(using: .utf8)!)
                 }
+                
+                if let sensitivitiesString = settings.value(forKey: "sensitivities") as? String {
+                    sensitivities = try JSONDecoder().decode(Sensitivities.self, from: sensitivitiesString.data(using: .utf8)!)
+                }
             }
             else {
                 let settingsEntity = NSEntityDescription.entity(forEntityName: "Settings", in: managedContext)!
@@ -219,6 +225,9 @@ class DataController {
                 
                 let sessionSettingsString = try JSONEncoder().encode(sessionSettings)
                 settings.setValue(String(data:sessionSettingsString, encoding: .utf8)!, forKey: "sessionSettings")
+                
+                let sensitivitiesString = try JSONEncoder().encode(sensitivities)
+                settings.setValue(String(data:sensitivitiesString, encoding: .utf8)!, forKey: "sensitivities")
                 
                 do {
                     try managedContext.save()
@@ -259,6 +268,9 @@ class DataController {
                 
                 let sessionSettingsString = try JSONEncoder().encode(sessionSettings)
                 settings.setValue(String(data:sessionSettingsString, encoding: .utf8)!, forKey: "sessionSettings")
+                
+                let sensitivitiesString = try JSONEncoder().encode(sensitivities)
+                settings.setValue(String(data:sensitivitiesString, encoding: .utf8)!, forKey: "sensitivities")
                 
                 do {
                     try managedContext.save()
