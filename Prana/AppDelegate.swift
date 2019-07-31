@@ -119,17 +119,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return rootViewController
     }
     
-    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-        if let rootViewController = self.topViewControllerWithRootViewController(rootViewController: window?.rootViewController) {
-            if (rootViewController is VisualTrainingViewController){
-                return .landscapeRight
-            }
-        }
-        
-        // Only allow portrait (standard behaviour)
-        return .portrait;
-    }
-    
     // MARK: - Core Data stack
     
     lazy var persistentContainer: NSPersistentContainer = {

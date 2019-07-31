@@ -28,30 +28,30 @@ class TutorialVisualViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+//        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+//        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
     }
     
-    override var shouldAutorotate: Bool {
-        return true
-    }
+//    override var shouldAutorotate: Bool {
+//        return true
+//    }
     
     @objc func onLandscapeViewControllerDismiss() {
-        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+//        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
     }
     
     @objc func onVisualViewControllerEnd() {
-        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+//        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
         let vc = Utils.getStoryboardWithIdentifier(identifier: "TutorialBuzzerViewController")
         self.navigationController?.pushViewController(vc, animated: false)
     }
     
     @objc func onDeviceOrientationChange() {
-        self.setNeedsStatusBarAppearanceUpdate()
+//        self.setNeedsStatusBarAppearanceUpdate()
     }
     
     /*
@@ -88,8 +88,9 @@ class TutorialVisualViewController: UIViewController {
         vc.skipCalibration = 0
         vc.maxSubPattern = 34
         vc.patternTitle = patternNames[vc.whichPattern].0
-        UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-        self.present(vc, animated: false, completion: nil)
+//        UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+      self.present(vc, as: .landscape, curtainColor: .white)
+//        self.present(vc, animated: false, completion: nil)
     }
     
     @IBAction func onBack(_ sender: Any) {

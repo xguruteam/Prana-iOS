@@ -168,8 +168,8 @@ class ProgramsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-        
+//        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+      
         
         PranaDeviceManager.shared.addDelegate(self)
         
@@ -186,23 +186,23 @@ class ProgramsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-        
+//        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+      
         titleView.roundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 10.0)
 //        tableView.open(at: IndexPath(row: 0, section: 0))
     }
     
-    override var shouldAutorotate: Bool {
-        return true
-    }
+//    override var shouldAutorotate: Bool {
+//        return true
+//    }
     
     @objc func onLandscapeViewControllerDismiss() {
-        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+//        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
     }
     
     @objc func onVisualViewControllerEnd() {
-        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-        
+//        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+      
         if let lastSession = dataController?.lastSession as? TrainingSession {
             let storyboard = UIStoryboard(name: "History", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "SessionDetailViewController") as! SessionDetailViewController
@@ -580,8 +580,8 @@ class ProgramsViewController: UIViewController {
                 
             }
             else {
-                UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-                
+//                UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+              
                 let vc = Utils.getStoryboardWithIdentifier(identifier: "VisualTrainingViewController") as! VisualTrainingViewController
                 vc.isTutorial = false
                 vc.sessionKind = sessionKind
@@ -635,9 +635,7 @@ class ProgramsViewController: UIViewController {
                         fatalError()
                     }
                 }
-                self.present(vc, animated: false) {
-                    
-                }
+                self.present(vc, as: .landscape, curtainColor: .white)
             }
         }
         
