@@ -39,7 +39,6 @@ class TutorialStartViewController: UIViewController {
         if PranaDeviceManager.shared.isConnected {
             PranaDeviceManager.shared.stopGettingLiveData()
             PranaDeviceManager.shared.disconnect()
-            PranaDeviceManager.shared.delegate = nil
         }
         
         self.dismiss(animated: true, completion: nil)

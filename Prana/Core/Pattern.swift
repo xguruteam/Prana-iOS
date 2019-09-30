@@ -156,16 +156,16 @@ class Pattern {
             [1.5,0,1.5,1,"FOCUS PATTERN 15 BPM"], //15 bpm
         ],
         [
-            [1.5,0,1.5,2,"FOCUS PATTERN 12 BPM"], //12 bpm
+            [2,0,2,1,"FOCUS PATTERN 12 BPM"], //12 bpm
         ],
         [
-            [2,0,2,2,"FOCUS PATTERN 10 BPM"], //10 bpm
+            [2.5,0,2.5,1,"FOCUS PATTERN 10 BPM"], //10 bpm
         ],
         [
-            [2.5,0,2.5,2.5,"FOCUS PATTERN 8 BPM"], //8 bpm
+            [3,0,3,1.5,"FOCUS PATTERN 8 BPM"], //8 bpm
         ],
         [
-            [3.5,0,3.5,3,"FOCUS PATTERN 6 BPM"], //6 bpm
+            [4,0,4,2,"FOCUS PATTERN 6 BPM"], //6 bpm
         ],
         
         //Relax breathing patterns
@@ -173,16 +173,16 @@ class Pattern {
             [1,0,2,1,"RELAX PATTERN 15 BPM"], //15 bpm
         ],
         [
-            [1,0,2,2,"RELAX PATTERN 12 BPM"], //12 bpm
+            [1.5,0,2.5,1,"RELAX PATTERN 12 BPM"], //12 bpm
         ],
         [
             [1.5,0,3,1.5,"RELAX PATTERN 10 BPM"], //10 bpm
         ],
         [
-            [1.5,0,3,3,"RELAX PATTERN 8 BPM"], //8 bpm
+            [2,0,4,1.5,"RELAX PATTERN 8 BPM"], //8 bpm
         ],
         [
-            [2.5,0,5,2.5,"RELAX PATTERN 6 BPM"], //6 bpm
+            [3,0,5.5,1.5,"RELAX PATTERN 6 BPM"], //6 bpm
         ],
         
         //Sleep breathing patterns

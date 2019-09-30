@@ -71,7 +71,6 @@ class FirstViewController: UIViewController {
         if PranaDeviceManager.shared.isConnected {
             PranaDeviceManager.shared.stopGettingLiveData()
             PranaDeviceManager.shared.disconnect()
-            PranaDeviceManager.shared.delegate = nil
         }
 
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)

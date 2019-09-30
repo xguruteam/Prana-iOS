@@ -13,7 +13,7 @@ import Macaw
 class LiveGraphViewController: SuperViewController {
     
 //    @IBOutlet weak var btStartStop: UIButton!
-    @IBOutlet weak var breathingGraphView: LiveGraph!
+    @IBOutlet weak var breathingGraphView: LiveGraph2!
     
     //    @IBOutlet weak var postureIndicatorView: PostureIndicator!
     @IBOutlet weak var breathSensitivityGroup: UIView!
@@ -46,8 +46,9 @@ class LiveGraphViewController: SuperViewController {
     @IBOutlet weak var batteryView: BatteryStateView!
     
     var isLive = false
-    var objLive: Live?
+    var objLive: Live2?
     var isLowerBack = true
+    var isFinish = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,9 +59,9 @@ class LiveGraphViewController: SuperViewController {
         
         initView()
         
-        objLive = Live()
+        objLive = Live2()
         objLive?.appMode = 1
-        objLive?.addDelegate(self as LiveDelegate)
+        objLive?.addDelegate(self)
         breathingGraphView.objLive = objLive
         
         switch dataController.sensitivities.lgbr {
@@ -93,6 +94,12 @@ class LiveGraphViewController: SuperViewController {
         batteryView.isGray = true
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isFinish { return }
+        stopLive()
+    }
+    
     func initView() {
         btnWearLowerBack.titleLabel?.textAlignment = .center
         btnWearUpperChest.titleLabel?.textAlignment = .center
@@ -120,7 +127,7 @@ class LiveGraphViewController: SuperViewController {
     }
     
     @IBAction func onBack(_ sender: Any) {
-        objLive?.removeDelegate(self as! LiveDelegate)
+        isFinish = true
         stopLive()
         self.dismiss(animated: true, completion: nil)
     }
@@ -151,13 +158,18 @@ class LiveGraphViewController: SuperViewController {
         
         isLive = true
         
-        PranaDeviceManager.shared.startGettingLiveData()
+        objLive?.startMode()
     }
     
     func stopLive() {
         isLive = false
         
-        PranaDeviceManager.shared.stopGettingLiveData()
+        breathingGraphView.objLive = nil
+        objLive?.removeDelegate(self)
+        
+        objLive?.stopMode()
+        
+        objLive = nil
     }
     
     func setBreathSensitivity(val: Int) {
@@ -247,62 +259,50 @@ class LiveGraphViewController: SuperViewController {
 
 }
 
-extension LiveGraphViewController: LiveDelegate {
-    func liveProcess(sensorData: [Double]) {
+extension LiveGraphViewController: Live2Delegate {
+    
+    func liveMainLoop(timeElapsed: Double, sensorData: [Double]) {
         DispatchQueue.main.async {
             self.batteryView.progress = CGFloat(sensorData[6]) / 100.0
             
-            let v = Int(self.objLive?.timeElapsed ?? 0)
+            let v = Int(timeElapsed)
             let m = Int(v / 60)
             let s = v - m * 60
             
             self.lblTime.text = String(format: "%d:%02d", m, s)
-            
-            if v > 60 {
-                self.lblOneMinutes.text = "1-minute: \(self.objLive?.calculateOneMinuteRespRate() ?? 0)"
-            }
         }
     }
     
-    func liveDebug(para1: String, para2: String, para3: String, para4: String) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else {
-                return
-            }
-            
-//            self.displayDebugStats(ln1: para1, ln2: para2, ln3: para3, ln4: para4)
-        }
-    }
-    
-    func liveNewBreathingCalculated() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else {
-                return
-            }
-            
-//            self.postureIndicatorView.displayPostureIndicator(x: self.objLive?.xPos ?? 0)
-        }
-    }
-    
-    func liveNewPostureCalculated() {
+    func liveNew(oneMinuteRespirationRate: Int) {
         DispatchQueue.main.async {
-            self.displayPostureAnimation(self.objLive?.whichPostureFrame ?? 1)
+            self.lblOneMinutes.text = "1-minute: \(oneMinuteRespirationRate)"
         }
     }
     
-    func liveNewRespRateCaclculated() {
+    func liveNew(postureFrame: Int) {
+        DispatchQueue.main.async {
+            self.displayPostureAnimation(postureFrame)
+        }
+    }
+    
+    func liveNew(respirationRate: Double) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
                 return
             }
             
-            self.displayRespirationRate(val: self.objLive?.respRate ?? 0.0)
-            self.displayBreathCount(val: self.objLive?.breathCount ?? 0)
+            self.displayRespirationRate(val: respirationRate)
         }
     }
     
-    func liveDidUprightSet() {
-        
+    func liveNew(breathCount: Int) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            self.displayBreathCount(val: breathCount)
+        }
     }
     
 }

@@ -28,7 +28,6 @@ class ConnectionTestViewController: UIViewController {
         log += "\n"
         log += "viewDidLoad\n"
         
-        PranaDeviceManager.shared.delegate = self
         PranaDeviceManager.shared.addDelegate(self)
         
         log += "startScan\n"
@@ -86,17 +85,17 @@ extension ConnectionTestViewController: PranaDeviceManagerDelegate {
     }
     
     func PranaDeviceManagerDidStopScan(with error: String?) {
-        log += "didStopScan: \(error)\n"
+        log += "didStopScan: \(String(describing: error))\n"
     }
     
     func PranaDeviceManagerDidDiscover(_ device: PranaDevice) {
-        log += "detectedDevice: \(device.name)\n"
+        log += "detectedDevice: \(String(describing: device.name))\n"
         if device.name.contains("Prana Tech")
             || device.name.contains("iPod touch")
             || device.name.contains("PranaTech") {
             log += "stopScan"
             PranaDeviceManager.shared.stopScan()
-            log += "connect: \(device.name)\n"
+            log += "connect: \(String(describing: device.name))\n"
             PranaDeviceManager.shared.connectTo(device.peripheral)
         }
     }
@@ -105,7 +104,7 @@ extension ConnectionTestViewController: PranaDeviceManagerDelegate {
         log += "device connected!\n"
     }
     
-    func PranaDeviceManagerFailConnect() {
+    func PranaDeviceManagerDidDisconnect() {
         log += "device failed to connect!\n"
     }
     
@@ -115,12 +114,8 @@ extension ConnectionTestViewController: PranaDeviceManagerDelegate {
         PranaDeviceManager.shared.startGettingLiveData()
     }
     
-    func PranaDeviceManagerDidReceiveData(_ parameter: CBCharacteristic) {
-        
-    }
-    
-    func PranaDeviceManagerDidReceiveLiveData(_ data: String!) {
-        log += "didReceive: \(data)\n"
+    func PranaDeviceManagerDidReceiveLiveData(_ data: String) {
+        log += "didReceive: \(String(describing: data))\n"
         DispatchQueue.main.async {
             print(data)
             self.onNewLiveData(data)

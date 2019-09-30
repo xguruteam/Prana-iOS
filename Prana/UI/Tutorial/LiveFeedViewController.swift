@@ -11,7 +11,7 @@ import Macaw
 
 class LiveFeedViewController: UIViewController {
     
-    @IBOutlet weak var breathingGraphView: LiveGraph!
+    @IBOutlet weak var breathingGraphView: LiveGraph2!
     
     @IBOutlet weak var breathSensitivityGroup: UIView!
     @IBOutlet weak var btnUpright: UIButton!
@@ -38,7 +38,7 @@ class LiveFeedViewController: UIViewController {
     @IBOutlet weak var lblDescription: UILabel!
     
     var isLive = false
-    var objLive: Live?
+    var objLive: Live2?
     var isLowerBack = true
     
 
@@ -58,23 +58,13 @@ class LiveFeedViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        objLive = Live()
-        objLive?.appMode = 1
-        objLive?.addDelegate(self as LiveDelegate)
-        breathingGraphView.objLive = objLive
-        
-        setBreathSensitivity(val: 2)
-        setPostureSensitivity(val: 2)
-        
-        displayPostureAnimation(1)
-        
-        btnNext.isHidden = true
         
         startLive()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        
         stopLive()
     }
     
@@ -122,15 +112,32 @@ class LiveFeedViewController: UIViewController {
             return
         }
         
-        isLive = true
+        objLive = Live2()
+        objLive?.appMode = 1
+        objLive?.addDelegate(self)
+        breathingGraphView.objLive = objLive
         
-        PranaDeviceManager.shared.startGettingLiveData()
+        setBreathSensitivity(val: 2)
+        setPostureSensitivity(val: 2)
+        
+        displayPostureAnimation(1)
+        
+        btnNext.isHidden = true
+        
+        isLive = true
+
+        objLive?.startMode()
     }
     
     func stopLive() {
         isLive = false
         
-        PranaDeviceManager.shared.stopGettingLiveData()
+        breathingGraphView.objLive = nil
+        objLive?.removeDelegate(self)
+        
+        objLive?.stopMode()
+        
+        objLive = nil
     }
     
     func setBreathSensitivity(val: Int) {
@@ -202,47 +209,19 @@ class LiveFeedViewController: UIViewController {
 
 }
 
-extension LiveFeedViewController: LiveDelegate {
-    func liveProcess(sensorData: [Double]) {
-        
-    }
+extension LiveFeedViewController: Live2Delegate {
     
-    func liveDebug(para1: String, para2: String, para3: String, para4: String) {
+    func liveNew(postureFrame: Int) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
                 return
             }
             
-            //            self.displayDebugStats(ln1: para1, ln2: para2, ln3: para3, ln4: para4)
+            self.displayPostureAnimation(postureFrame)
         }
     }
     
-    func liveNewBreathingCalculated() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else {
-                return
-            }
-            
-            //            self.postureIndicatorView.displayPostureIndicator(x: self.objLive?.xPos ?? 0)
-        }
-    }
-    
-    func liveNewPostureCalculated() {
-        DispatchQueue.main.async {
-            self.displayPostureAnimation(self.objLive?.whichPostureFrame ?? 1)
-        }
-    }
-    
-    func liveNewRespRateCaclculated() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else {
-                return
-            }
-            
-        }
-    }
-    
-    func liveDidUprightSet() {
+    func liveUprightHasBeenSet() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
                 return

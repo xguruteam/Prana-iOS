@@ -69,7 +69,7 @@ class VisualTrainingScene: SKScene {
         static let FLOWER_SCALE: CGFloat = 0.5
     }
     
-    var objLive: Live?
+    var objLive: Live2?
     
     weak var visualDelegate: VisualDelegate?
     
@@ -105,6 +105,8 @@ class VisualTrainingScene: SKScene {
     var patternName: String!
     
     var _backgrounds: [SKSpriteNode]!
+    
+    var newGraphY: Double = 0
     
     //
     var flyingObjects: [Breath] = []
@@ -158,7 +160,19 @@ class VisualTrainingScene: SKScene {
     var startSubPattern:Int = 5; //may 8th  The example value 5 here corresponds to 12bpm. Note, for Buzzer Training, if the non-custom Slowing pattern is used, then this value should be set to 5
     var maxSubPattern:Int = 34; //may 8th  SET THIS TO THE INDEX VALUE found under //Dynamic slow breathing pattern below, between 0-34. This value corresponds TO THE MINIMUM RESPIRATION RATE SELECTED ON THE CUSTOM BREATH PATTERN PAGE. This value should be 34 if skipCalibration = 0. The example value 8 here corresponds to 9.2bpm
     var customSlowingPatternIsActive:Int = 0; //July 13:New1i  When user is using the Slowing Pattern from the pattern gallery (custom), then this should be set to 1. In this case, the first breathing pattern is set to startSuaddbPattern, and maxSubPattern should also be set based on user selection on the custom pattern screen (15 second calibration is never skipped now for any pattern)
-
+    
+    var breathLevel:Int = 2;  //AUG 1st ADDED
+    var startRecordingActualBreaths:Int = 0; //AUG 12th NEW
+    var savedCurrentBreaths:Int = 0; //AUG 12th NEW
+    var graphStartTime:Double = 0; //AUG 12th NEW
+//    var breathingGraph:MovieClip = new MovieClip(); //AUG 12th NEW
+//    var postureGraph:MovieClip = new MovieClip(); //AUG 12th NEW
+    var lastXForActualBreath:Double = 0; //AUG 12th NEW
+    var lastYForActualBreath:Double = 0; //AUG 12th NEW
+    var previousExpectedBreathStartTime:Double = 0; //AUG 12th NEW
+    var previousExpectedBreathRR:Double = 0; //AUG 12th NEW
+    var postureSessionTime:Int = 0; //AUG 12th NEW
+    var enteredPatternWhileExhaling:Int = 0; //AUG 12th NEW
     
     convenience init(_ trainingDuration: Int, isBreathingOnly: Bool = false) {
         self.init()
@@ -213,11 +227,23 @@ class VisualTrainingScene: SKScene {
         self._playRegionY = CGFloat(yStartPos)
         self._playRegionH = CGFloat(fullBreathGraphHeight)
         
-        objLive = Live()
+        let objLiveGraph = Live2()
+        objLive = objLiveGraph
         objLive?.addDelegate(self)
         objLive?.setBreathingResponsiveness(val: 2)
         objLive?.appMode = 2
         objLive?.calibrationBreathsDone = 0
+        
+        startRecordingActualBreaths = 0; //AUG 12th NEW
+        savedCurrentBreaths = 0; //AUG 12th NEW
+        graphStartTime = 0;  //AUG 12th New
+        
+        objLive?.startMode()
+        
+        objLiveGraph.breathTopExceededThreshold = 0; //AUG 1st NEW
+        objLiveGraph.lightBreathsThreshold = 0; //AUG 1st NEW
+        objLiveGraph.minBreathRange = objLiveGraph.fullBreathGraphHeight/16; //AUG 1st
+        objLiveGraph.minBreathRangeForStuck = (objLiveGraph.fullBreathGraphHeight/16); //AUG 1st
         
         // Clibration Region
         _calibrationRegion = SKSpriteNode(color: UIColor.black, size: CGSize(width: _calibrationRegionWidth, height: 32))
@@ -347,6 +373,9 @@ class VisualTrainingScene: SKScene {
     }
     
     func scrollAndUpdate() {
+        
+        guard let objLiveGraph = objLive else { return }
+        
         lastX = lastX - xd
         
         self.visualDelegate?.visualNewActualRateCalculated(rate: (objLive?.respRate)!)
@@ -389,6 +418,11 @@ class VisualTrainingScene: SKScene {
                 createInitialSetOfBreathPatterns();
                 
                 self.visualDelegate?.visualNewTargetRateCalculated(rate: flyingObjects[0].rate)
+                
+                objLiveGraph.breathTopExceededThreshold = 1; //AUG 1st NEW  if you skip calibation, these should still be set
+                objLiveGraph.lightBreathsThreshold = 1; //AUG 1st NEW  if you skip calibation, these should still be set
+                objLiveGraph.minBreathRange = objLiveGraph.fullBreathGraphHeight/8; //AUG 1st NEW
+                objLiveGraph.minBreathRangeForStuck = (objLiveGraph.fullBreathGraphHeight/4); //AUG 1st NEW  (4 helps patterns like 478 when user holds breath between inhale/exhale, so that random body movements less likely to trigger stuck breath)
             }
             
         }
@@ -403,22 +437,25 @@ class VisualTrainingScene: SKScene {
                 objLive?.calibrationBreathsDone = 1
                 objLive?.breathTopExceededThreshold = 1; //JULY 13:NEW1f
                 objLive?.lightBreathsThreshold = 1; //JULY 13:NEW1f
+                objLiveGraph.minBreathRange = objLiveGraph.fullBreathGraphHeight/8; //AUG 1st NEW
+                objLiveGraph.minBreathRangeForStuck = (objLiveGraph.fullBreathGraphHeight/4); //AUG 1st NEW
+                
                 
                 if whichPattern == 0 {
                     initialFadeIn = 1
                     
                     lastX = Double(size.width / 4.0)
                     
-                    if objLive!.respRate >= 17.14 {
+                    if objLive!.calibrationRR >= 17.14 {
                         subPattern = 2
                         createInitialSetOfBreathPatterns()
-                    } else if objLive!.respRate <= 8 {
+                    } else if objLive!.calibrationRR <= 8 {
                         subPattern = 10
                         createInitialSetOfBreathPatterns()
                     } else {
                         for i in 0...Pattern.patternSequence[0].count {
                             let a: Double = Double(60.0/(Pattern.getPatternValue(value: Pattern.patternSequence[0][i][0]) + Pattern.getPatternValue(value: Pattern.patternSequence[0][i][1]) + Pattern.getPatternValue(value: Pattern.patternSequence[0][i][2]) + Pattern.getPatternValue(value: Pattern.patternSequence[0][i][3])))
-                            if objLive!.respRate > a {
+                            if objLive!.calibrationRR > a {
                                 subPattern = i
                                 if (customSlowingPatternIsActive == 1) { //July 13:New1i
                                     subPattern = startSubPattern; //July 13:New1i
@@ -439,8 +476,50 @@ class VisualTrainingScene: SKScene {
             let cols = flyingObjects[0].flowers.count
             let flowers = flyingObjects[0].flowers[cols-1].count
             let lastFlowerOfBreath = flyingObjects[0].flowers[cols-1][flowers-1].node
+            let firstFlowerOfBreath = flyingObjects[0].flowers[0][0].node
+            
+            if ((firstFlowerOfBreath!.position.x <= (_birdX + CGFloat(xStep))) && (objLiveGraph.judgedBreaths.count == 0)) {   //AUG 12th NEW, when bird is 1/2 second before the first flower of the first pattern
+                
+                objLiveGraph.judgedBreaths.append(LiveBreath(target: nil, actuals: objLiveGraph.actualBreathsWithinAPattern, breathStatus: -1)); //AUG 12th NEW the concat() here is to copy the array (to avoid possible reference problem),saving all non-judged breaths here during 15 second calibration
+                
+                objLiveGraph.actualBreathsWithinAPattern = []; //AUG 12th NEW
+                previousExpectedBreathStartTime = roundNumber(num: (objLiveGraph.timeElapsed-graphStartTime)+0.5,dec: 10); //AUG 12th NEW, the 0.5 here is to add back the 1/2 second due to 320+xStep above THIS IS THE EXPECTED OR TARGET breath
+                enteredPatternWhileExhaling = objLiveGraph.breathEnding; //AUG 12th NEW, idea here is if user did not finish exhaling during last breath, and that exhale carries into the current breath, then the current breath is bad
+                
+                //DC.objLiveGraph.testUI.indicator4.txt1.text = String(DC.objLiveGraph.judgedBreaths.length);
+                
+            } //AUG 12th NEW
+                
+            else if ((lastFlowerOfBreath!.position.x <= _birdX+CGFloat(xStep)) && savedCurrentBreaths == 0) {   //AUG 12th NEW when bird is 1/2 second before the first flower of a pattern after the first pattern
+                
+                savedCurrentBreaths = 1; //AUG 12th NEW
+                
+                if (objLiveGraph.actualBreathsWithinAPattern.count == 0) { //AUG 12th NEW
+                    
+                    objLiveGraph.actualBreathsWithinAPattern = [CoreBreath(it: previousExpectedBreathStartTime, rr: 0)]; //AUG 12th NEW  If user did not breathe at all during the target breath, create a breath with 0 RR
+                    
+                }    //AUG 12th NEW
+                
+                
+                if (objLiveGraph.judgedBreaths.count == 1) {
+                    
+                    objLiveGraph.judgedBreaths.append(LiveBreath(target: nil, actuals: objLiveGraph.actualBreathsWithinAPattern, breathStatus: 0)); //AUG 12th NEW the .concat() is to copy the array (to avoid reference problem), the 0 is placeholder to be assigned in the "assessed" functions below
+                    
+                }
+                else {
+                    
+                    objLiveGraph.judgedBreaths.append(LiveBreath(target: CoreBreath(it: previousExpectedBreathStartTime, rr: previousExpectedBreathRR), actuals: objLiveGraph.actualBreathsWithinAPattern, breathStatus: 0)); //AUG 12th NEW the .concat() is to copy the array (to avoid reference problem), the 0 is placeholder to be assigned in the "assessed" functions below
+                    
+                }
+                
+                previousExpectedBreathStartTime = roundNumber(num: (objLiveGraph.timeElapsed-graphStartTime)+0.5,dec: 10); //AUG 12th NEW, the 0.5 here is to add back the 1/2 second due to 320+xStep above THIS IS THE EXPECTED OR TARGET breath
+                previousExpectedBreathRR = flyingObjects[0].rate; //AUG 12th NEW
+                objLiveGraph.actualBreathsWithinAPattern = []; //AUG 12th NEW
+                
+            }  //AUG 12th NEW
             
             if lastFlowerOfBreath!.position.x < _birdX {
+                savedCurrentBreaths = 0; //AUG 12th NEW
                 updateBreathPatterns = 0
                 
                 if whichPattern == 0 {
@@ -448,6 +527,12 @@ class VisualTrainingScene: SKScene {
                 } else {
                     assessBreathForRegularPattern()
                 }
+                
+                if (objLiveGraph.judgedBreaths.count > 2) { //AUG 12th NEW
+//                    drawBreathingGraph(); //AUG 12th NEW
+                } //AUG 12th NEW
+                
+                enteredPatternWhileExhaling = objLiveGraph.breathEnding; //AUG 12th NEW, idea here is if user did not finish exhaling during last breath, and that exhale carries into the current breath, then the current breath is bad
                 
                 // section to remove first breath pattern and its nodes
                 let breath0 = flyingObjects[0]
@@ -473,18 +558,7 @@ class VisualTrainingScene: SKScene {
             return
         }
         
-        let yPos = live.yPos
-        let count = live.count
-        
-        if count <= 1 {
-            return
-        }
-        
-        if count >= live.totalPoints {
-            return
-        }
-        
-        let nextYPosLive = yPos[count]
+        let nextYPosLive = self.newGraphY
         if _curYPosLive != nextYPosLive {
             _curYPosLive = nextYPosLive
             _guidedPath = []
@@ -554,7 +628,9 @@ class VisualTrainingScene: SKScene {
     
     //
     func gameTimerHandler() {
+        guard let objLiveGraph = objLive else { return }
         trainingDuration -= 1
+        postureSessionTime+=1; //AUG 1st NEW (measured in seconds, int)
         
         self.visualDelegate?.visualOnTimer(v: trainingDuration)
         
@@ -569,6 +645,15 @@ class VisualTrainingScene: SKScene {
                 self.visualDelegate?.visualNewSlouches(slouches: slouchesCount)
             }
         }
+        
+        if objLiveGraph.judgedPosture.isEmpty {
+            objLiveGraph.judgedPosture.append(LivePosture(time: postureSessionTime, isGood: objLiveGraph.postureIsGood)); //AUG 1st NEW Only recording the changes in posture, that's all you need to create the full posture graph
+        }
+        else if (objLiveGraph.postureIsGood != objLiveGraph.judgedPosture[objLiveGraph.judgedPosture.count-1].isGood) { //AUG 1st NEW
+            objLiveGraph.judgedPosture.append(LivePosture(time: postureSessionTime, isGood: objLiveGraph.postureIsGood)); //AUG 1st NEW Only recording the changes in posture, that's all you need to create the full posture graph
+        } //AUG 1st NEW
+        
+//        drawPostureGraph(); //AUG 1st NEW
         
         self.visualDelegate?.visualUprightTime(uprightPostureTime: uprightPostureTime, elapsedTime: (gameSetTime - trainingDuration))
         
@@ -854,30 +939,40 @@ class VisualTrainingScene: SKScene {
     }
     
     func assessBreathForRegularPattern() {
-        totalBreaths += 1
         
-        if flyingObjects[0].flowers.count == targetsHit {
+        guard let objLiveGraph = objLive else { return }
+        
+        if (flyingObjects[0].flowers.count == targetsHit && (objLiveGraph.judgedBreaths[objLiveGraph.judgedBreaths.count-1].actuals.count == 1) && enteredPatternWhileExhaling == 0) {  //AUG 1st CHANGED
             mindfulBreathCount += 1
+            
+            objLiveGraph.judgedBreaths[objLiveGraph.judgedBreaths.count-1].breathStatus = 1; //AUG 1st NEW
         }
         
+        totalBreaths += 1
         targetsHit = 0
         
         self.visualDelegate?.visualNewBreathDone(total: totalBreaths, mindful: mindfulBreathCount)
     }
     
     func assessBreathForDynamicPattern() {
+        
+        guard let objLiveGraph = objLive else { return }
+        
         breathsOnCurrentLevel += 1
-        totalBreaths += 1
+        
         if breathsOnCurrentLevel == 6 {
             breathsOnCurrentLevel = 1
             goodBreaths = 0
         }
         
-        if flyingObjects[0].flowers?.count == targetsHit {
+        if (flyingObjects[0].flowers?.count == targetsHit && (objLiveGraph.judgedBreaths[objLiveGraph.judgedBreaths.count-1].actuals.count == 1) && enteredPatternWhileExhaling == 0) {  //AUG 1st CHANGED
             goodBreaths += 1
             mindfulBreathCount += 1
+            
+            objLiveGraph.judgedBreaths[objLiveGraph.judgedBreaths.count-1].breathStatus = 1; //AUG 1st NEW
         }
         
+        totalBreaths += 1
         targetsHit = 0
         
         if breathsOnCurrentLevel == 5 {
@@ -933,14 +1028,31 @@ class VisualTrainingScene: SKScene {
         }
         
         PranaDeviceManager.shared.stopGettingLiveData()
+        
+        objLive?.removeDelegate(self)
+        objLive?.stopMode()
+        objLive = nil
     }
     
     func startMode() {
+        guard let objLiveGraph = objLive else { return }
         if _playOrPause {
             return
         }
         
         self._playOrPause = true
+        
+        graphStartTime = objLiveGraph.timeElapsed;  //AUG 12th New
+        objLiveGraph.judgedBreaths = []; //AUG 12th NEW
+        objLiveGraph.judgedPosture = []; //AUG 12th NEW
+        objLiveGraph.actualBreathsWithinAPattern = [] //AUG 12th NEW
+        postureSessionTime = 0; //AUG 12th NEW
+        
+//        addChild(breathingGraph); //AUG 12th NEW
+//        addChild(postureGraph); //AUG 12th NEW
+        
+        objLiveGraph.judgedPosture.append(LivePosture(time: 0, isGood: objLiveGraph.postureIsGood)); //AUG 12th NEW  Record the initial posture state, NOTE: this array only records CHANGES in posture, not every second of posture state
+        
         
         self._patternNameNode.removeFromParent()
         
@@ -955,9 +1067,12 @@ class VisualTrainingScene: SKScene {
         }
         
         objLive?.stuckBreathsThreshold = 3
-        objLive?.breathTopExceededThreshold = 0
-        objLive?.lightBreathsThreshold = 0;
-        objLive?.minBreathRange = objLive!.fullBreathGraphHeight / 16.0 * 2.0
+//        objLive?.breathTopExceededThreshold = 0
+//        objLive?.lightBreathsThreshold = 0;
+//        objLive?.minBreathRange = objLive!.fullBreathGraphHeight / 16.0 * 2.0
+        objLiveGraph.breathCountAtCalibrationStart = objLiveGraph.breathCount;  //AUG 1st New
+        objLiveGraph.timeElapsedAtCalibrationStart = objLiveGraph.timeElapsed;  //AUG 1st New
+        
         
         _timer = RepeatingTimer(timeInterval: 1.0)
         _timer?.eventHandler = { [weak self] in
@@ -1030,26 +1145,16 @@ class VisualTrainingScene: SKScene {
     }
 }
 
-extension VisualTrainingScene: LiveDelegate {
-    func liveProcess(sensorData: [Double]) {
+extension VisualTrainingScene: Live2Delegate {
+    func liveMainLoop(timeElapsed: Double, sensorData: [Double]) {
         self.visualDelegate?.visualBattery(battery: Int(sensorData[6]))
     }
     
-    func liveNewBreathingCalculated() {
-        
-    }
-    
-    func liveNewPostureCalculated() {
-        let postureFrame: Int = (objLive?.whichPostureFrame)!
-        
+    func liveNew(postureFrame: Int) {
         self.visualDelegate?.visualPostureFrameCalculated(frameIndex: postureFrame)
     }
     
-    func liveNewRespRateCaclculated() {
-        
-    }
-    
-    func liveDidUprightSet() {
+    func liveUprightHasBeenSet() {
         if !_isUprightSet {
             _isUprightSet = true
             DispatchQueue.main.async {
@@ -1057,14 +1162,13 @@ extension VisualTrainingScene: LiveDelegate {
                 self._patternNameNode.removeFromParent()
             }
         }
-
+        
         // enable start
         self.visualDelegate?.visualUprightHasBeenSet()
     }
     
-    func liveDebug(para1: String, para2: String, para3: String, para4: String) {
-        
+    func liveNew(graphY: Double) {
+        self.newGraphY = graphY
     }
-    
     
 }

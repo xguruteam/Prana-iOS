@@ -62,7 +62,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("applicationDidEnterBackground when topViewController is not passive")
             
             if PranaDeviceManager.shared.isConnected {
-                PranaDeviceManager.shared.delegate = nil
                 PranaDeviceManager.shared.stopGettingLiveData()
                 PranaDeviceManager.shared.disconnect()
             }

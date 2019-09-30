@@ -15,10 +15,8 @@ protocol PranaDeviceManagerDelegate: class {
     func PranaDeviceManagerDidDiscover(_ device: PranaDevice)
     func PranaDeviceManagerDidConnect(_ deviceName: String)
     func PranaDeviceManagerDidDisconnect()
-    func PranaDeviceManagerFailConnect()
     func PranaDeviceManagerDidOpenChannel()
-    func PranaDeviceManagerDidReceiveData(_ parameter: CBCharacteristic)
-    func PranaDeviceManagerDidReceiveLiveData(_ data: String!)
+    func PranaDeviceManagerDidReceiveLiveData(_ data: String)
 }
 
 extension PranaDeviceManagerDelegate {
@@ -27,13 +25,11 @@ extension PranaDeviceManagerDelegate {
     func PranaDeviceManagerDidDiscover(_ device: PranaDevice) {}
     func PranaDeviceManagerDidConnect(_ deviceName: String) {}
     func PranaDeviceManagerDidDisconnect() {}
-    func PranaDeviceManagerFailConnect() {}
     func PranaDeviceManagerDidOpenChannel() {}
-    func PranaDeviceManagerDidReceiveData(_ parameter: CBCharacteristic) {}
-    func PranaDeviceManagerDidReceiveLiveData(_ data: String!) {}
+    func PranaDeviceManagerDidReceiveLiveData(_ data: String) {}
 }
 
-class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
+class PranaDeviceManager: NSObject {
     
     static let RX_SERVICE_UUID = "6E400001-B5A3-F393-E0A9-E50E24DCCA9E"
     static let RX_CHAR_UUID = "6E400002-B5A3-F393-E0A9-E50E24DCCA9E"
@@ -48,8 +44,7 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     
     let centralManager: CBCentralManager
     
-    weak var delegate: PranaDeviceManagerDelegate?
-    private var delegates = [PranaDeviceManagerDelegate]()
+    private var delegates: [PranaDeviceManagerDelegate] = []
     
     var currentDevice: CBPeripheral?
     var isConnected: Bool = false
@@ -60,9 +55,9 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     
     override init() {
         
-        self.centralManager = CBCentralManager(delegate: nil, queue: concurrentQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true])
+        centralManager = CBCentralManager(delegate: nil, queue: concurrentQueue, options: [CBCentralManagerOptionShowPowerAlertKey: true])
         super.init()
-        self.centralManager.delegate = self
+        centralManager.delegate = self
     }
     
     open func prepare() {
@@ -71,28 +66,28 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     
     open func startScan() {
         isRunning = true
-        if self.centralManager.state == .poweredOn {
+        if centralManager.state == .poweredOn {
             start()
-            self.delegate?.PranaDeviceManagerDidStartScan()
+            delegates.forEach { $0.PranaDeviceManagerDidStartScan() }
             return
         }
-        self.delegate?.PranaDeviceManagerDidStopScan(with: "Bluetooth is turned off.")
+        delegates.forEach { $0.PranaDeviceManagerDidStopScan(with: "Bluetooth is turned off.") }
         return
     }
     
     open func stopScan() {
         if isRunning {
             isRunning = false
-            if self.centralManager.state == .poweredOn {
+            if centralManager.state == .poweredOn {
                 stop()
-                self.delegate?.PranaDeviceManagerDidStopScan(with: nil)
+                delegates.forEach { $0.PranaDeviceManagerDidStopScan(with: nil) }
                 return
             }
         }
     }
     
     open func startGettingLiveData() {
-        guard let char = self.rxChar else {
+        guard let char = rxChar else {
             return
         }
         
@@ -102,15 +97,15 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     }
     
     open func sendCommand(_ command: String) {
-        guard let char = self.rxChar else {
+        guard let char = rxChar else {
             return
         }
-        print("command " + command)
+        print("prana command " + command)
         currentDevice?.writeValue(command.data(using: .utf8)!, for: char, type: .withoutResponse)
     }
     
     open func stopGettingLiveData() {
-        guard let char = self.rxChar else {
+        guard let char = rxChar else {
             return
         }
         
@@ -119,31 +114,20 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     }
     
     private func start() {
-        //        self.centralManager.delegate = self
         disconnect()
-        self.centralManager.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: false])
+        centralManager.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: false])
     }
     
     private func stop() {
-        self.centralManager.stopScan()
-        //        self.centralManager.delegate = nil
+        centralManager.stopScan()
     }
     
     open func addDelegate(_ delegate: PranaDeviceManagerDelegate) {
-        self.delegates.append(delegate)
+        delegates.append(delegate)
     }
     
     open func removeDelegate(_ delegate: PranaDeviceManagerDelegate) {
-        var i: Int = 0
-        for item in self.delegates {
-            let obj1 = delegate as! NSObject
-            let obj2 = item as! NSObject
-            if obj2.isEqual(obj1) {
-                break
-            }
-            i = i + 1
-        }
-        self.delegates.remove(at: i)
+        delegates.remove(delegate as! NSObject)
     }
     
     open func connectTo(_ device: CBPeripheral) {
@@ -152,56 +136,40 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
         currentDevice = device
         
         if isConnected == true {
-            self.centralManager.cancelPeripheralConnection(prevDevice!)
+            centralManager.cancelPeripheralConnection(prevDevice!)
         }
         
         isConnected = true
         
-        self.centralManager.connect(currentDevice!, options: nil)
+        centralManager.connect(currentDevice!, options: nil)
     }
     
     open func reconnect() {
         if isConnected == true {
-            self.centralManager.cancelPeripheralConnection(currentDevice!)
+            centralManager.cancelPeripheralConnection(currentDevice!)
         }
     }
     
     open func disconnect() {
         if isConnected == true {
             isConnected = false
-            self.centralManager.cancelPeripheralConnection(currentDevice!)
+            centralManager.cancelPeripheralConnection(currentDevice!)
         }
         
         currentDevice = nil
-        self.rxChar = nil
+        rxChar = nil
     }
     
     //MARK: Notify to Delegates
     func didConnect() {
-        for item in self.delegates {
-            item.PranaDeviceManagerDidConnect(currentDevice?.name ?? "Unknown")
-        }
+        delegates.forEach { $0.PranaDeviceManagerDidConnect(currentDevice?.name ?? "Unknown") }
     }
     
     func didDisconnect() {
-        for item in self.delegates {
-            item.PranaDeviceManagerDidDisconnect()
-            item.PranaDeviceManagerFailConnect()
-        }
-    }
-    
-    func failConnect() {
-        disconnect()
-        for item in self.delegates {
-            item.PranaDeviceManagerFailConnect()
-        }
+        delegates.forEach { $0.PranaDeviceManagerDidDisconnect() }
     }
     
     func didReceiveData(_ parameter: CBCharacteristic) {
-        for item in self.delegates {
-            item.PranaDeviceManagerDidReceiveData(parameter)
-        }
-        
         processLiveData(parameter)
     }
     
@@ -217,9 +185,8 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
             || data.starts(with: "EndSessionEarly") {
             if let raw = buff {
                 if !needStopLive {
-                    for item in self.delegates {
-                        item.PranaDeviceManagerDidReceiveLiveData(raw)
-                    }
+                    
+                    delegates.forEach { $0.PranaDeviceManagerDidReceiveLiveData(raw) }
                 }
             }
             
@@ -237,35 +204,30 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
         }
     }
     
-    
-    //MARK: CBCentralManagerDelegate
+}
+
+extension PranaDeviceManager: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state == .poweredOn {
             if isRunning {
                 start()
-                self.delegate?.PranaDeviceManagerDidStartScan()
+                delegates.forEach { $0.PranaDeviceManagerDidStartScan() }
             }
         }
         else {
             if isRunning {
                 stop()
-                self.delegate?.PranaDeviceManagerDidStopScan(with: "Bluetooth is turned off.")
+                delegates.forEach { $0.PranaDeviceManagerDidStopScan(with: "Bluetooth is turned off.") }
             }
         }
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        
-//        Log.d("discover a peripheral - \(peripheral.name ?? "Unknown")")
-        //        if peripheral.name?.starts(with: "PM5") == true {
         let c2device = PranaDevice(name: peripheral.name ?? "Unknown", rssi: RSSI.doubleValue, id: peripheral.identifier.uuidString, peripheral: peripheral)
-        self.delegate?.PranaDeviceManagerDidDiscover(c2device)
-        //        }
-        
+        delegates.forEach { $0.PranaDeviceManagerDidDiscover(c2device) }
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-//        Log.d("didConnect: \(peripheral.identifier)")
         if isConnected == true {
             if peripheral.isEqual(currentDevice) {
                 didConnect()
@@ -276,21 +238,18 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-//        Log.d("didFailToConnect")
         if isConnected == true {
             if peripheral.isEqual(currentDevice) {
-                failConnect()
+                didDisconnect()
             }
         }
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-//        Log.d("didDisConnectPeripheral")
         // try to re-connect
         if isConnected == true {
             if peripheral.isEqual(currentDevice) {
-                failConnect()
-//                tryReconnect()
+                didDisconnect()
             }
         } else {
             didDisconnect()
@@ -298,30 +257,30 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     }
     
     func tryReconnect() {
-        let peripherals = self.centralManager.retrievePeripherals(withIdentifiers: [currentDevice!.identifier])
+        let peripherals = centralManager.retrievePeripherals(withIdentifiers: [currentDevice!.identifier])
         
         if let item = peripherals.first {
             currentDevice = item
-            self.centralManager.connect(currentDevice!, options: nil)
+            centralManager.connect(currentDevice!, options: nil)
         }
         else {
             isConnected = false
             currentDevice = nil
-            failConnect()
+            didDisconnect()
         }
     }
     
-    //MARK: CBPeripheralDelegate
+}
+
+extension PranaDeviceManager: CBPeripheralDelegate {
+    
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        if error != nil {
-//            Log.e((error?.localizedDescription)!)
+        if let _ = error {
             return
         }
         
         if let services = peripheral.services {
             for service in services {
-//                Log.d("discovered service - \(service.uuid.uuidString)")
-                
                 if service.uuid.uuidString == PranaDeviceManager.RX_SERVICE_UUID {
                     peripheral.discoverCharacteristics(nil, for: service)
                 }
@@ -331,20 +290,17 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-        if error != nil {
-//            Log.e((error?.localizedDescription)!)
+        if let _ = error {
             return
         }
         
         if let chars = service.characteristics {
             for char in chars {
-//                Log.d("discovered characteristic - \(char.uuid.uuidString)")
-
                 switch char.uuid.uuidString {
                 case PranaDeviceManager.TX_CHAR_UUID:
                     peripheral.setNotifyValue(true, for: char)
                 case PranaDeviceManager.RX_CHAR_UUID:
-                    self.rxChar = char
+                    rxChar = char
                 default:
                     continue
                 }
@@ -353,33 +309,26 @@ class PranaDeviceManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
-        if error != nil {
-//            Log.e((error?.localizedDescription)!)
+        if let _ = error {
             return
         }
         
         if characteristic.isNotifying {
-//            Log.d("start subscribing from - \(characteristic.uuid.uuidString)")
-            concurrentQueue.asyncAfter(deadline: DispatchTime.now() + .seconds(0)) {
-                for item in self.delegates {
-                    item.PranaDeviceManagerDidOpenChannel()
-                }
+            concurrentQueue.asyncAfter(deadline: DispatchTime.now() + .seconds(0)) { [weak self] in
+                guard let self = self else { return }
+                self.delegates.forEach { $0.PranaDeviceManagerDidOpenChannel() }
             }
         }
         else {
-//            Log.d("end subscribing from - \(characteristic.uuid.uuidString)")
         }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        if error != nil {
-//            Log.e((error?.localizedDescription)!)
+        if let _ = error {
             return
         }
         
-//        Log.d("received data - \(String(describing: String(data: characteristic.value!, encoding: .utf8)))")
-        
         didReceiveData(characteristic)
     }
-}
 
+}

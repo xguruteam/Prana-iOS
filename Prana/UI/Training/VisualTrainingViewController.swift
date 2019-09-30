@@ -14,7 +14,7 @@ import Macaw
 class VisualTrainingViewController: SuperViewController {
 
     @IBOutlet weak var gameView: SKView!
-    @IBOutlet weak var liveGraphView: LiveGraph!
+    @IBOutlet weak var liveGraphView: LiveGraph2!
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnSetUpright: UIButton!
@@ -322,7 +322,9 @@ class VisualTrainingViewController: SuperViewController {
         }
         
         objVisual?.stopSession()
+        objVisual?.visualDelegate = nil
         objVisual = nil
+        liveGraphView.objLive = nil
         //MARK: Landscape
         self.dismiss(animated: false) {
             NotificationCenter.default.post(name: .landscapeViewControllerDidDismiss, object: nil)
@@ -470,7 +472,9 @@ class VisualTrainingViewController: SuperViewController {
             showHideStartButton()
         } else if isStarted {
             objVisual?.stopSession()
+            objVisual?.visualDelegate = nil
             objVisual = nil
+            liveGraphView.objLive = nil
             onComplete()
         }
     }
@@ -497,6 +501,8 @@ class VisualTrainingViewController: SuperViewController {
         if isCompleted == false {
             objVisual?.stopSession()
             objVisual = nil
+            objVisual?.visualDelegate = nil
+            liveGraphView.objLive = nil
             onComplete()
             onEnd()
         }

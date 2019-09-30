@@ -14,7 +14,7 @@ class PassiveTrackingViewController: SuperViewController {
     @IBOutlet weak var btnHelp: UIButton!
     @IBOutlet weak var batteryView: BatteryStateView!
     @IBOutlet weak var lblTimeElapsed: UILabel!
-    @IBOutlet weak var liveGraph: LiveGraph!
+    @IBOutlet weak var liveGraph: LiveGraph2!
     @IBOutlet weak var lblStatus1: UILabel!
     @IBOutlet weak var lblStatus2: UILabel!
     @IBOutlet weak var lblStatus3: UILabel!
@@ -48,76 +48,98 @@ class PassiveTrackingViewController: SuperViewController {
     
     var currentRR: Float = 0 {
         didSet {
-            lblStatus1.text = "Real-time: \(currentRR)"
+            DispatchQueue.main.async {
+                self.lblStatus1.text = "Real-time: \(self.currentRR)"
+            }
         }
     }
     
     var oneMinuteRR: Float = 0 {
         didSet {
-            lblStatus9.text = "1-minute: \(oneMinuteRR)"
+            DispatchQueue.main.async {
+                self.lblStatus9.text = "1-minute: \(self.oneMinuteRR)"
+            }
         }
     }
     
-    var avgRR: Float = 0 {
+    var averageRR: Float = 0 {
         didSet {
-            lblStatus2.text = "Session avg: \(avgRR)"
+            DispatchQueue.main.async {
+                self.lblStatus2.text = "Session avg: \(self.averageRR)"
+            }
         }
     }
     
     var breathCount: Int = 0 {
         didSet {
-            lblStatus3.text = "Breath Count: \(breathCount)"
+            DispatchQueue.main.async {
+                self.lblStatus3.text = "Breath Count: \(self.breathCount)"
+            }
         }
     }
     
     var realTimeEI: Float = 0 {
         didSet {
-            lblStatus4.text = "Real-time: \(realTimeEI)"
+            DispatchQueue.main.async {
+                self.lblStatus4.text = "Real-time: \(self.realTimeEI)"
+            }
         }
     }
     
-    var avgEI: Float = 0 {
+    var sessionAvgEI: Float = 0 {
         didSet {
-            lblStatus5.text = "Session avg: \(avgEI)"
+            DispatchQueue.main.async {
+                self.lblStatus5.text = "Session avg: \(self.sessionAvgEI)"
+            }
         }
     }
     
-    var lastEI: Float = 0 {
+    var lastMinuteEI: Float = 0 {
         didSet {
-            lblStatus6.text = "1-minute: \(lastEI)"
+            DispatchQueue.main.async {
+                self.lblStatus6.text = "1-minute: \(self.lastMinuteEI)"
+            }
         }
     }
     
-    var timeElapsed: Int = 0 {
+    var trainingDuration: Int = 0 {
         didSet {
-            lblTimeElapsed.text = "\(styledTime(v: timeElapsed))"
+            DispatchQueue.main.async {
+                self.lblTimeElapsed.text = "\(styledTime(v: self.trainingDuration))"
+            }
         }
     }
     
-    var uprightSeconds: Int = 0 {
+    var uprightPostureTime: Int = 0 {
         didSet {
-            guard timeElapsed > 0 else { return }
-            lblStatus7.text = "Upright Posture: \(Int(100.0 * Float(uprightSeconds)/Float(timeElapsed)))% (\(uprightSeconds) of \(timeElapsed) s)"
+            DispatchQueue.main.async {
+                guard self.trainingDuration > 0 else { return }
+                self.lblStatus7.text = "Upright Posture: \(Int(100.0 * Float(self.uprightPostureTime)/Float(self.trainingDuration)))% (\(self.uprightPostureTime) of \(self.trainingDuration) s)"
+            }
         }
     }
     
-    var slouches: Int = 0 {
+    var slouchesCount: Int = 0 {
         didSet {
-            lblStatus8.text = "Slouches: \(slouches)"
+            DispatchQueue.main.async {
+                self.lblStatus8.text = "Slouches: \(self.slouchesCount)"
+            }
         }
     }
     
-    var buzzIn: Int = 5 {
+    var buzzTimeTrigger: Int = 5 {
         didSet {
-            ddBuzzIn.title = buzzIn == 0 ? "Immediate" : "\(buzzIn) Seconds"
-            objPassive?.buzzTimeTrigger = buzzIn
+            DispatchQueue.main.async {
+                self.ddBuzzIn.title = self.buzzTimeTrigger == 0 ? "Immediate" : "\(self.buzzTimeTrigger) Seconds"
+            }
         }
     }
+    
+    
     var tempBuzzIn: Int = 0
     var sessionWearing: Int = 0
     
-    var objLive: Live?
-    var objPassive: Passive?
+    var objLive: Live2?
     
     var currentSessionObject: PassiveSession?
     
@@ -137,24 +159,23 @@ class PassiveTrackingViewController: SuperViewController {
         // Do any additional setup after loading the view.
         initView()
         
-        currentRR = 0
-        avgRR = 0
-        breathCount = 0
+        currentSlouchPostureTime = 0; //***May 31st ADDED
+        lastMinuteEI = 0
         realTimeEI = 0
-        avgEI = 0
-        lastEI = 0
-        oneMinuteRR = 0
-        buzzIn = 5
+        sessionAvgEI = 0
+
+        isPassiveTrackingActive = 0; // AUG 1st ADDED
         
-        objLive = Live()
+        objLive = Live2()
         objLive?.appMode = 1
         objLive?.addDelegate(self)
         liveGraph.objLive = objLive
         
-        objPassive = Passive(live: objLive!)
-        objPassive?.delegate = self
+        objLive?.startMode(); //Need this here because user needs to be able set posture before timer starts!
         
-        setBreathSensitivity(val: 1)
+        objLive?.breathTopExceededThreshold = 0; //AUG 1st NEW
+        objLive?.lightBreathsThreshold = 0; //AUG 1st NEW
+        
         switch dataController.sensitivities.ptps {
         case 0:
             setPostureSensitivity(val: 1)
@@ -164,24 +185,21 @@ class PassiveTrackingViewController: SuperViewController {
             setPostureSensitivity(val: 3)
         }
 
-        displayPostureAnimation(1)
+        setBreathSensitivity(val: 1)
         
-        lblGuide.isHidden = false
-        btnStartStop.isHidden = true
+        useBuzzerForPosture = 1;
         
-        ddBuzzIn.clickListener = { [weak self] in
-            self?.openBuzzInPicker()
-        }
+        buzzTimeTrigger = 5; // May 31st ADDED THIS LINE
         
-        PranaDeviceManager.shared.startGettingLiveData()
-
-    }
-    
-    func styledTime(v: Int) -> String {
-        let m = Int(v / 60)
-        let s = v - m * 60
+        currentRR = 0
+        averageRR = 0
+        breathCount = 0
+        oneMinuteRR = 0
         
-        return String(format: "%d:%02d", m, s)
+        slouchesCount = 0;
+        uprightPostureTime = 0;
+        hasUprightBeenSet = 0;
+        totalBreaths = 0;    
     }
     
     func initView() {
@@ -202,13 +220,22 @@ class PassiveTrackingViewController: SuperViewController {
         switchSlouching.onTintColor = UIColor(hexString: "#2bb7b8")
         
         btnStartStop.setTitle("START TRACKING", for: .normal)
+        
+        displayPostureAnimation(1)
+        
+        lblGuide.isHidden = false
+        btnStartStop.isHidden = true
+        
+        ddBuzzIn.clickListener = { [weak self] in
+            self?.openBuzzInPicker()
+        }
     }
     
 
     @IBAction func onBack(_ sender: Any) {
         objLive?.removeDelegate(self)
+        objLive?.stopMode()
         objLive = nil
-        PranaDeviceManager.shared.stopGettingLiveData()
         
         self.dismiss(animated: true) {
             
@@ -268,7 +295,7 @@ class PassiveTrackingViewController: SuperViewController {
     }
     
     @IBAction func onEnableSlouchBuzzChange(_ sender: Any) {
-        objPassive?.useBuzzerForPosture = switchSlouching.isOn ? 1 : 0
+        useBuzzerForPosture = switchSlouching.isOn ? 1 : 0
     }
     
     @IBAction func onWearingChange(_ sender: UIButton) {
@@ -299,8 +326,8 @@ class PassiveTrackingViewController: SuperViewController {
     }
     
     func uprightHasBeenSetHandler() {
-        if objPassive?.hasUprightBeenSet == 0 {
-            objPassive?.hasUprightBeenSet = 1
+        if hasUprightBeenSet == 0 {
+            hasUprightBeenSet = 1
             DispatchQueue.main.async {
                 //                self.btnStartStop.isEnabled = true
                 //                self.btnStartStop.alpha = 1.0
@@ -362,7 +389,7 @@ class PassiveTrackingViewController: SuperViewController {
     }
     
     func openBuzzInPicker() {
-        tempBuzzIn = buzzIn
+        tempBuzzIn = buzzTimeTrigger
         let alert = UIAlertController(style: .actionSheet, title: "Buzz In", message: nil)
         
         let frameSizes: [Int] = [0, 3, 5, 10, 15, 20, 30]
@@ -375,7 +402,7 @@ class PassiveTrackingViewController: SuperViewController {
             }
         }
         alert.addAction(title: "Done", style: .default) { (_) in
-            self.buzzIn = self.tempBuzzIn
+            self.buzzTimeTrigger = self.tempBuzzIn
         }
         alert.addAction(title: "Cancel", style: .cancel) { (_) in
             
@@ -395,28 +422,60 @@ class PassiveTrackingViewController: SuperViewController {
 
         currentSessionObject = PassiveSession(startedAt: Date(), wearing: sessionWearing)
         
-        objPassive?.useBuzzerForPosture = switchSlouching.isOn ? 1 : 0
-        objPassive?.buzzTimeTrigger = buzzIn
-        
-        objPassive?.start()
         btnBack.isHidden = true
         btnHelp.isHidden = true
+        
+        objLive?.isBuzzing = 0; //May 19th Changed
+        buzzCount = 0;
+        //addEventListener(Event.ENTER_FRAME, enterFrameHandler);  // May 19th, REMOVED THIS LINE
+        isPassiveTrackingActive = 1; // May 19th, ADDED THIS LINE
+        
+        //DC.objLiveGraph.whenBreathsEnd = [];   //AUG 1st REMOVED
+        //DC.objLiveGraph.whenBreathsEnd[0] = 0; //AUG 1st REMOVED
+        objLive?.breathCount = 0;
+        objLive?.timeElapsed = 0;
+        objLive?.respRate = 0;
+        objLive?.avgRespRate = 0;
+        
+        objLive?.exhaleCorrectionFactor = 0; //AUG 1st NEW
+        objLive?.EIAvgSessionRatio = 0; //AUG 1st NEW
+        objLive?.EIRatio = [];  //AUG 1st NEW
+        objLive?.inhaleStartTime = 0; //AUG 1st NEW
+        objLive?.inhaleEndTime = 0; //AUG 1st NEW
+        objLive?.exhaleEndTime = 0; //AUG 1st NEW
+        objLive?.EIRatioCount = 0; //AUG 1st NEW
+        objLive?.EI1Minute = 0;  //AUG 1st NEW
+        objLive?.whenBreathsStart = []; //AUG 1st NEW
+        objLive?.enterFrameCount = 0; //AUG 1st NEW
+        objLive?.EIAvgSessionSummation = 0; //AUG 1st NEW
+        
+        objLive?.breathTopExceededThreshold = 1; //AUG 1st NEW
+        objLive?.lightBreathsThreshold = 1; //AUG 1st NEW
+        objLive?.minBreathRange = objLive!.fullBreathGraphHeight/16; //AUG 1st CHANGE
+        objLive?.minBreathRangeForStuck = (objLive!.fullBreathGraphHeight/16); //AUG 1st NEW
     }
     
     func stopLiving() {
         isLive = false
         btnStartStop.setTitle("TRACKING ENDED", for: .normal)
         btnStartStop.isEnabled = false
-        objPassive?.stop()
-        objPassive = nil
-        PranaDeviceManager.shared.stopGettingLiveData()
+        
         btnBack.isHidden = false
         btnHelp.isHidden = false
         
+        //removeEventListener(Event.ENTER_FRAME, enterFrameHandler);  // May 19th, REMOVED THIS LINE
+        isPassiveTrackingActive = 0; // May 19th, ADDED THIS LINE
+        
+        objLive?.isBuzzing = 0; //May 19th Changed
+        buzzCount = 0;
+        prevPostureState = 0;
+        objLive?.removeDelegate(self)
+        objLive?.stopMode()
+        objLive = nil
     }
     
     func makeSessionObject() {
-        var duration = timeElapsed
+        var duration = trainingDuration
         if duration > 0, breathCount > 0 {
             currentSessionObject?.duration = duration
         }
@@ -431,40 +490,156 @@ class PassiveTrackingViewController: SuperViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    // MARK: Original Action Script
+    //var isBuzzing:int = 0; May 19th  REMOVE (we are now using isBuzzing in BuzzerTraining class as a global variable)
+    var buzzCount:Int = 0;
+    var hasUprightBeenSet:Int = 0;
+//    var trainingDuration:Int = 0;
+//    var slouchesCount:Int = 0;
+//    var uprightPostureTime:Int = 0;
+    var prevPostureState:Int = 0;
+    var enterFrameCount:Int = 0;
+    var totalBreaths:Int = 0;
+    var useBuzzerForPosture:Int = 1;
+    var isPassiveTrackingActive:Int = 0;  // May 19th, ADDED THIS LINE
+    var currentSlouchPostureTime:Int = 0; // May 31st ADDED THIS LINE
+//    var buzzTimeTrigger:Int = 0;  // May 31st ADDED THIS LINE
+    //var secondsElapsed:int = 0; //JULY 13th:CHANGE1b  REMOVE THIS LINE
+    
+    func passiveTrackingMainLoop() {
+        guard isPassiveTrackingActive == 1 else { return }
+        
+        currentRR = Float(objLive!.respRate)
+        
+        //if (DC.objLiveGraph.timeElapsed >= 60) { //AUG 1st REMOVED
+        //passiveTrackingUI.oneMinuteRR.text = String(DC.objLiveGraph.calculateOneMinuteRespRate()); //AUG 1st REMOVED
+        //} //AUG 1st REMOVED
+        
+        breathCount = objLive!.breathCount
+        averageRR = Float(objLive!.avgRespRate)
+        
+        timerHandler();
+        
+        if (buzzCount > 0) {
+            
+            buzzCount-=1;
+            
+            //if (buzzCount == 0) { //May 19th REMOVED
+            //DC.objBuzzerTraining.isBuzzing = 0; May 19th REMOVED
+            //DC.objLiveGraph.dampingLevel = 0;  May 19th REMOVED
+            //DC.objLiveGraph.postureAttenuatorLevel = 0;  May 19th REMOVED
+            //}
+            
+        }
+        
+        
+        if (buzzCount == 0 && objLive?.postureIsGood == 0 && useBuzzerForPosture == 1 && objLive?.isBuzzing == 0 && currentSlouchPostureTime >= buzzTimeTrigger)  { //May 31st Changed
+            
+            PranaDeviceManager.shared.sendCommand("Buzz,1"); //May 19th Changed
+            objLive?.isBuzzing = 1; //May 19th Changed
+            buzzCount = 150; //May 19th Change
+        }
+        
+        if (buzzCount == 120) { //May 19th ADDED LINE
+            
+            PranaDeviceManager.shared.sendCommand("Buzz,1"); //May 19th ADDED LINE
+            
+        } //May 19th ADDED LINE
+        
+        if (buzzCount == 90) { //May 19th ADDED LINE
+            objLive?.isBuzzing = 0; //May 19th ADDED LINE
+            objLive?.dampingLevel = 0; //May 19th ADDED LINE
+            objLive?.postureAttenuatorLevel = 0; //May 19th ADDED LINE
+        } //May 19th ADDED LINE
+    }
+    
+    func timerHandler() {
+        enterFrameCount+=1;
+        
+        if (enterFrameCount < 20) {  //May 19th, changed from 60 to 20
+            return;
+        }
+        
+        enterFrameCount = 0;
+        
+        if (objLive!.timeElapsed >= 60) { //AUG 1st NEW
+            oneMinuteRR = Float(objLive!.calculateOneMinuteRespRate())
+            
+            objLive?.calculateOneMinuteEI(); //AUG 1st NEW
+            lastMinuteEI = Float(objLive!.EI1Minute); //Aug 1st NEW
+        } //AUG 1st NEW
+        
+        if (objLive?.EIRatio.count > 0) {  //May 31st ADDED
+            realTimeEI = Float(objLive!.EIRatio[objLive!.EIRatio.count-1][0]);   //May 31st ADDED
+            sessionAvgEI = Float(objLive!.EIAvgSessionRatio);   //AUG 1st CHANGED
+        }
+        
+        //secondsElapsed++;  //JULY 13th:CHANGE1b  REMOVE THIS LINE
+        
+        //if (DC.objLiveGraph.timeElapsed >= 60) {  //AUG 1st REMOVED
+        //secondsElapsed = 0; //JULY 13th:CHANGE1b  REMOVE THIS LINE
+        //passiveTrackingUI.lastMinuteEI.text = String(DC.objLiveGraph.EI1Minute); //AUG 1st REMOVED
+        //} //AUG 1st REMOVED
+        
+        
+        trainingDuration+=1;
+        makeSessionObject()
+        
+        if (objLive?.postureIsGood == 1) {
+            uprightPostureTime+=1;
+            currentSlouchPostureTime = 0; // May 31st ADDED THIS
+        }
+        else {  // May 31st ADDED THIS
+            currentSlouchPostureTime+=1;  // May 31st ADDED THIS
+        }  // May 31st ADDED THIS
+        
+        
+        if (prevPostureState == 1) {
+            if (objLive?.postureIsGood == 0) {
+                slouchesCount+=1;
+                slouchStartSeconds = trainingDuration - currentSlouchPostureTime
+                if slouchStartSeconds > 0, currentSlouchPostureTime > 0 {
+                    currentSessionObject?.addSlouch(timeStamp: slouchStartSeconds, duration: currentSlouchPostureTime)
+                    // slouch end
+                }
+            }
+        }
+        
+//        uprightSeconds = uprightPostureTime
+//        slouches = slouchesCount;
+        
+        prevPostureState = objLive!.postureIsGood;
+    }
+    
 
 }
 
-extension PassiveTrackingViewController: LiveDelegate {
-    func liveProcess(sensorData: [Double]) {
+extension PassiveTrackingViewController: Live2Delegate {
+    
+    func liveMainLoop(timeElapsed: Double, sensorData: [Double]) {
+        passiveTrackingMainLoop()
         DispatchQueue.main.async {
             self.batteryView.progress = CGFloat(sensorData[6]) / 100.0
         }
     }
     
-    func liveDebug(para1: String, para2: String, para3: String, para4: String) {
-        
-    }
-    
-    func liveNewBreathingCalculated() {
-        
-    }
-    
-    func liveNewPostureCalculated() {
+    func liveNew(postureFrame: Int) {
         DispatchQueue.main.async {
-            self.displayPostureAnimation(self.objLive?.whichPostureFrame ?? 1)
+            self.displayPostureAnimation(postureFrame)
         }
     }
     
-    func liveNewRespRateCaclculated() {
-        
-    }
-    
-    func liveDidUprightSet() {
+    func liveUprightHasBeenSet() {
         uprightHasBeenSetHandler()
     }
     
+    func liveNew(breathCount: Int) {
+        currentSessionObject?.addBreath(timeStamp: trainingDuration, isMindful: false, respRate: Double(currentRR), eiRatio: Double(lastMinuteEI), oneMinuteRR: Double(oneMinuteRR))
+    }
 }
 
+/*
 extension PassiveTrackingViewController: PassiveDelegate {
     func passiveDidRespRate(currentRR: Double, avgRR: Double, breathCount: Int) {
         if self.breathCount < breathCount {
@@ -533,3 +708,4 @@ extension PassiveTrackingViewController: PassiveDelegate {
         }
     }
 }
+*/

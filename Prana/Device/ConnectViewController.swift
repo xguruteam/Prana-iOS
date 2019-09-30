@@ -35,7 +35,6 @@ class ConnectViewController: UIViewController {
         
         initView()
         
-        PranaDeviceManager.shared.delegate = self
         PranaDeviceManager.shared.addDelegate(self)
         
         lblBatteryWarining.isHidden = true
@@ -81,7 +80,6 @@ class ConnectViewController: UIViewController {
     @IBAction func onNext(_ sender: Any) {
         PranaDeviceManager.shared.stopGettingLiveData()
         PranaDeviceManager.shared.removeDelegate(self)
-        PranaDeviceManager.shared.delegate = nil
         self.dismiss(animated: false) { [unowned self] in
             
             self.completionHandler?()
@@ -103,7 +101,6 @@ class ConnectViewController: UIViewController {
             PranaDeviceManager.shared.disconnect()
         }
         PranaDeviceManager.shared.removeDelegate(self)
-        PranaDeviceManager.shared.delegate = nil
         
         if self.isTutorial {
             self.navigationController?.popViewController(animated: true)
@@ -214,7 +211,7 @@ extension ConnectViewController: PranaDeviceManagerDelegate {
         }
     }
     
-    func PranaDeviceManagerDidReceiveLiveData(_ data: String!) {
+    func PranaDeviceManagerDidReceiveLiveData(_ data: String) {
         DispatchQueue.main.async {
             self.onNewLiveData(data)
         }
@@ -232,6 +229,7 @@ extension ConnectViewController: PranaDeviceManagerDelegate {
         print(device.name)
         #if TEST_MODE
         if device.name.contains("Prana Tech")
+            || device.name.contains("iPhone")
             || device.name.contains("iPod touch") {
             stopScanPrana()
             connectPrana(device)
@@ -254,7 +252,7 @@ extension ConnectViewController: PranaDeviceManagerDelegate {
 //        }
     }
     
-    func PranaDeviceManagerFailConnect() {
+    func PranaDeviceManagerDidDisconnect() {
         DispatchQueue.main.async {
 //            self.lblSuccessMessage.textColor = UIColor.black
             self.lbl_success_connect.text = "Failed to connect Prana!"

@@ -42,11 +42,11 @@ class PassiveSession: Codable {
     func floorSessionDuration() {
 //        let duration = self.duration / 60 * 60
 //        self.duration = duration
-//        
+//
 //        self.slouches = slouches.filter {
 //            return $0.timeStamp <= self.duration ? true : false
 //        }
-//        
+//
 //        self.breaths = breaths.filter {
 //            return $0.timeStamp <= self.duration ? true : false
 //        }

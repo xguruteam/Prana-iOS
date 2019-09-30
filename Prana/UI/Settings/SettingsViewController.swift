@@ -323,7 +323,7 @@ class SettingsViewController: SuperViewController {
             if PranaDeviceManager.shared.isConnected {
                 PranaDeviceManager.shared.stopGettingLiveData()
                 PranaDeviceManager.shared.disconnect()
-                PranaDeviceManager.shared.delegate = nil
+                PranaDeviceManager.shared.removeDelegate(self)
             }
             
             self.dismiss(animated: true, completion: nil)
@@ -374,7 +374,7 @@ extension SettingsViewController: PranaDeviceManagerDelegate {
         }
     }
     
-    func PranaDeviceManagerFailConnect() {
+    func PranaDeviceManagerDidDisconnect() {
         DispatchQueue.main.async {
             self.bluetoothStateView.isEnabled = false
             let toast  = Toast(text: "Prana is disconnected.", duration: Delay.short)

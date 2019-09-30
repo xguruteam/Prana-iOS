@@ -208,7 +208,9 @@ class ProgramsViewController: UIViewController {
             let vc = storyboard.instantiateViewController(withIdentifier: "SessionDetailViewController") as! SessionDetailViewController
             vc.type = .session
             vc.session = lastSession
-            self.present(vc, animated: true, completion: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100), execute: {
+                self.present(vc, animated: true, completion: nil)
+            })
         }
     }
     
@@ -1109,25 +1111,13 @@ extension ProgramsViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ProgramsViewController: PranaDeviceManagerDelegate {
-    func PranaDeviceManagerDidStartScan() {
-        
-    }
-    
-    func PranaDeviceManagerDidStopScan(with error: String?) {
-        
-    }
-    
-    func PranaDeviceManagerDidDiscover(_ device: PranaDevice) {
-        
-    }
-    
     func PranaDeviceManagerDidConnect(_ deviceName: String) {
         DispatchQueue.main.async {
             self.bluetoothView.isEnabled = true
         }
     }
     
-    func PranaDeviceManagerFailConnect() {
+    func PranaDeviceManagerDidDisconnect() {
         DispatchQueue.main.async {
             self.bluetoothView.isEnabled = false
             let toast  = Toast(text: "Prana is disconnected.", duration: Delay.short)
@@ -1137,18 +1127,5 @@ extension ProgramsViewController: PranaDeviceManagerDelegate {
             toast.show()
         }
     }
-    
-    func PranaDeviceManagerDidOpenChannel() {
-        
-    }
-    
-    func PranaDeviceManagerDidReceiveData(_ parameter: CBCharacteristic) {
-        
-    }
-    
-    func PranaDeviceManagerDidReceiveLiveData(_ data: String!) {
-        
-    }
-    
     
 }

@@ -36,6 +36,10 @@
 		CA98922222413B2300D824B0 /* LiveGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA98922122413B2300D824B0 /* LiveGraph.swift */; };
 		CA99676522D4AB3F00096581 /* SessionParentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA99676422D4AB3F00096581 /* SessionParentCell.swift */; };
 		CA9C4D5B22B0FDFD001A7A9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CA9C4D5A22B0FDFD001A7A9C /* GoogleService-Info.plist */; };
+		CA9C5EBE232F9C9A00DD033F /* Public.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9C5EBD232F9C9A00DD033F /* Public.swift */; };
+		CA9C5EC0232FBE6600DD033F /* LiveBreath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9C5EBF232FBE6600DD033F /* LiveBreath.swift */; };
+		CA9C5EC2232FBECC00DD033F /* CoreBreath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9C5EC1232FBECC00DD033F /* CoreBreath.swift */; };
+		CA9C5EE4232FC05C00DD033F /* LivePosture.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9C5EE3232FC05B00DD033F /* LivePosture.swift */; };
 		CA9D65C622CDF2A80074253B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9D65C522CDF2A80074253B /* SettingsViewController.swift */; };
 		CA9D65C822CEC0E00074253B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9D65C722CEC0E00074253B /* User.swift */; };
 		CAA21A1522777D090004F5E0 /* Prana.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CAA21A1322777D090004F5E0 /* Prana.xcdatamodeld */; };
@@ -53,6 +57,8 @@
 		CAAC198622710471001DC02D /* ProgramParentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAC198522710471001DC02D /* ProgramParentCell.swift */; };
 		CAADAFAD229460EE00518444 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAADAFAC229460ED00518444 /* Notifications.swift */; };
 		CAADAFAF22947D5100518444 /* SessionSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAADAFAE22947D5000518444 /* SessionSettings.swift */; };
+		CAAF58A3233F3DFF0028FAFD /* Live2.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF58A2233F3DFF0028FAFD /* Live2.swift */; };
+		CAAF58A5233F3F5C0028FAFD /* LiveGraph2.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF58A4233F3F5B0028FAFD /* LiveGraph2.swift */; };
 		CAAF9D0622737951003232C4 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF9CB722737951003232C4 /* Array+Extensions.swift */; };
 		CAAF9D0722737951003232C4 /* UISegmentedControl+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF9CB822737951003232C4 /* UISegmentedControl+Extensions.swift */; };
 		CAAF9D0822737951003232C4 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAF9CB922737951003232C4 /* UIImageView+Extensions.swift */; };
@@ -270,6 +276,10 @@
 		CA98922122413B2300D824B0 /* LiveGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveGraph.swift; sourceTree = "<group>"; };
 		CA99676422D4AB3F00096581 /* SessionParentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionParentCell.swift; sourceTree = "<group>"; };
 		CA9C4D5A22B0FDFD001A7A9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CA9C5EBD232F9C9A00DD033F /* Public.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Public.swift; sourceTree = "<group>"; };
+		CA9C5EBF232FBE6600DD033F /* LiveBreath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveBreath.swift; sourceTree = "<group>"; };
+		CA9C5EC1232FBECC00DD033F /* CoreBreath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreBreath.swift; sourceTree = "<group>"; };
+		CA9C5EE3232FC05B00DD033F /* LivePosture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LivePosture.swift; sourceTree = "<group>"; };
 		CA9D65C522CDF2A80074253B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		CA9D65C722CEC0E00074253B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CAA21A1422777D090004F5E0 /* Prana.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Prana.xcdatamodel; sourceTree = "<group>"; };
@@ -287,6 +297,8 @@
 		CAAC198522710471001DC02D /* ProgramParentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramParentCell.swift; sourceTree = "<group>"; };
 		CAADAFAC229460ED00518444 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		CAADAFAE22947D5000518444 /* SessionSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSettings.swift; sourceTree = "<group>"; };
+		CAAF58A2233F3DFF0028FAFD /* Live2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Live2.swift; sourceTree = "<group>"; };
+		CAAF58A4233F3F5B0028FAFD /* LiveGraph2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveGraph2.swift; sourceTree = "<group>"; };
 		CAAF9CB722737951003232C4 /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		CAAF9CB822737951003232C4 /* UISegmentedControl+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Extensions.swift"; sourceTree = "<group>"; };
 		CAAF9CB922737951003232C4 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
@@ -559,6 +571,8 @@
 				CA9892162240EB1000D824B0 /* Buzzer.swift */,
 				CA9892182240ED9A00D824B0 /* Pattern.swift */,
 				CAD207E722B91BAC00589BC0 /* Body.swift */,
+				CA9C5EBD232F9C9A00DD033F /* Public.swift */,
+				CAAF58A2233F3DFF0028FAFD /* Live2.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -596,6 +610,7 @@
 			children = (
 				D7BA34A22256FBFE00B4689E /* LiveGraphViewController.swift */,
 				CA98922122413B2300D824B0 /* LiveGraph.swift */,
+				CAAF58A4233F3F5B0028FAFD /* LiveGraph2.swift */,
 			);
 			path = LiveGraph;
 			sourceTree = "<group>";
@@ -611,6 +626,7 @@
 		CAA21A1222777CEB0004F5E0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CA9C5EE3232FC05B00DD033F /* LivePosture.swift */,
 				CAA21A1322777D090004F5E0 /* Prana.xcdatamodeld */,
 				CAA21A16227780F10004F5E0 /* DataController.swift */,
 				CA69E8432278977900984324 /* TrainingSession.swift */,
@@ -622,6 +638,8 @@
 				CAEEB01322C13A6C002C3139 /* SavedBodyNotification.swift */,
 				CA9D65C722CEC0E00074253B /* User.swift */,
 				CAFA6DF822E98202005D005D /* Sensitivities.swift */,
+				CA9C5EBF232FBE6600DD033F /* LiveBreath.swift */,
+				CA9C5EC1232FBECC00DD033F /* CoreBreath.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1371,6 +1389,7 @@
 				CAADAFAD229460EE00518444 /* Notifications.swift in Sources */,
 				CAAF9D1722737952003232C4 /* AttributedTextBlock.swift in Sources */,
 				CAEEB01622C15BF4002C3139 /* SessionHistoryViewController.swift in Sources */,
+				CAAF58A3233F3DFF0028FAFD /* Live2.swift in Sources */,
 				CAAF9D2622737952003232C4 /* SearchHistoryManager.swift in Sources */,
 				CAC1250D22C2463B008D6C7D /* RRGraph.swift in Sources */,
 				CAAF9D2A22737952003232C4 /* ContactsPickerViewController.swift in Sources */,
@@ -1395,6 +1414,7 @@
 				D79A36D9222838820085D3FA /* APIClient.swift in Sources */,
 				CA48E58B22671D93002CFA19 /* UIColor+colorFromHex.swift in Sources */,
 				CAB2AFDD227AAE570085146C /* PranaCircleProgressView.swift in Sources */,
+				CA9C5EE4232FC05C00DD033F /* LivePosture.swift in Sources */,
 				CAC52F682282F8C1000CFF96 /* Program.swift in Sources */,
 				CAD207E622B8DF4100589BC0 /* BMButton.swift in Sources */,
 				CAAF9D3922737952003232C4 /* TextField.swift in Sources */,
@@ -1428,6 +1448,7 @@
 				CAEEB01022C0F290002C3139 /* PassiveSession.swift in Sources */,
 				CA69E8442278977900984324 /* TrainingSession.swift in Sources */,
 				CAFA6DF922E98202005D005D /* Sensitivities.swift in Sources */,
+				CAAF58A5233F3F5C0028FAFD /* LiveGraph2.swift in Sources */,
 				CAA44A31224425EF0050D619 /* ConnectionTestViewController.swift in Sources */,
 				CA9892152240C86D00D824B0 /* Live.swift in Sources */,
 				CAC1252F22C35C2B008D6C7D /* MonthlyGraph.swift in Sources */,
@@ -1439,7 +1460,9 @@
 				CAC1252922C2E4F7008D6C7D /* WeeklyCell2.swift in Sources */,
 				CAAB4ED5226E7FF9000C8802 /* ProgramChildCell.swift in Sources */,
 				CAAF9D2722737952003232C4 /* Location.swift in Sources */,
+				CA9C5EC2232FBECC00DD033F /* CoreBreath.swift in Sources */,
 				CAAF9D1A22737952003232C4 /* LocaleStore.swift in Sources */,
+				CA9C5EC0232FBE6600DD033F /* LiveBreath.swift in Sources */,
 				D7B12F602243972A002D2E0F /* PrepareViewController.swift in Sources */,
 				D71D37462253527300D98376 /* PranaDesignableView.swift in Sources */,
 				CAAF9D3622737952003232C4 /* Label.swift in Sources */,
@@ -1459,6 +1482,7 @@
 				CAAF9D0922737951003232C4 /* UIViewController+Extensions.swift in Sources */,
 				CAB1062A22B8D2EB00A7D8A1 /* BodyMeasurementsViewController.swift in Sources */,
 				CAD7D34E2229364D00F3C805 /* FirstViewController.swift in Sources */,
+				CA9C5EBE232F9C9A00DD033F /* Public.swift in Sources */,
 				D76F20FC223AF63E006B15E7 /* TutorialLowerbackViewController.swift in Sources */,
 				CAAF9D1222737951003232C4 /* UIAlertController+Extensions.swift in Sources */,
 				CAD502FB2231C0B200F97B31 /* Log.swift in Sources */,

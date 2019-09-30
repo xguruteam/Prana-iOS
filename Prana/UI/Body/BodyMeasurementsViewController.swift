@@ -505,25 +505,13 @@ extension BodyMeasurementsViewController: BodyDelegate {
 
 
 extension BodyMeasurementsViewController: PranaDeviceManagerDelegate {
-    func PranaDeviceManagerDidStartScan() {
-        
-    }
-    
-    func PranaDeviceManagerDidStopScan(with error: String?) {
-        
-    }
-    
-    func PranaDeviceManagerDidDiscover(_ device: PranaDevice) {
-        
-    }
-    
     func PranaDeviceManagerDidConnect(_ deviceName: String) {
         DispatchQueue.main.async {
             self.batteryStatus.isEnabled = true
         }
     }
     
-    func PranaDeviceManagerFailConnect() {
+    func PranaDeviceManagerDidDisconnect() {
         DispatchQueue.main.async {
             self.batteryStatus.isEnabled = false
             self.reset()
@@ -533,18 +521,6 @@ extension BodyMeasurementsViewController: PranaDeviceManagerDelegate {
             ToastView.appearance().font = UIFont(name: "Quicksand-Medium", size: 14)
             toast.show()
         }
-    }
-    
-    func PranaDeviceManagerDidOpenChannel() {
-        
-    }
-    
-    func PranaDeviceManagerDidReceiveData(_ parameter: CBCharacteristic) {
-        
-    }
-    
-    func PranaDeviceManagerDidReceiveLiveData(_ data: String!) {
-        
     }
     
     

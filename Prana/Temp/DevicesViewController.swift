@@ -58,10 +58,10 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var status = false {
         didSet {
-            var title = "Start"
-            if status == true {
-                title = "Stop"
-            }
+//            var title = "Start"
+//            if status == true {
+//                title = "Stop"
+//            }
 //            self.rightBarButtonItem.setTitle(title, for: .normal)
         }
     }
@@ -77,13 +77,11 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func startScanning() {
         self.devices = [PranaDevice]()
-        PranaDeviceManager.shared.delegate = self
         PranaDeviceManager.shared.startScan()
     }
     
     func stopScanning() {
         PranaDeviceManager.shared.stopScan()
-        PranaDeviceManager.shared.delegate = nil
         self.status = false
     }
     
@@ -100,7 +98,7 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DeviceCell", for: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DeviceCell", for: indexPath)
         
         //        if cell == nil {
         //            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "reuseIdentifier")
@@ -153,7 +151,6 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func PranaDeviceManagerDidStopScan(with error: String?) {
         self.status = false
-        PranaDeviceManager.shared.delegate = nil
     }
     
     func PranaDeviceManagerDidDiscover(_ device: PranaDevice) {
@@ -165,7 +162,7 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func PranaDeviceManagerDidConnect(_ deviceName: String) {
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: "ClubRow", message: "\(deviceName) is connected successfully!", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Prana", message: "\(deviceName) is connected successfully!", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action: UIAlertAction!) in
                 //            C2ConnectionManager.shared.removeDelegate(self)
@@ -177,25 +174,14 @@ class DevicesViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func PranaDeviceManagerFailConnect() {
+    func PranaDeviceManagerDidDisconnect() {
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: "ClubRow", message: "This device is unable to connect.\n Please try another device!", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Prana", message: "This device is unable to connect.\n Please try another device!", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action: UIAlertAction!) in
             }))
             
             self.present(alert, animated: true, completion: nil)
         }
-    }
-    
-    func PranaDeviceManagerDidReceiveData(_ parameter: CBCharacteristic) {
-    }
-    
-    func PranaDeviceManagerDidReceiveLiveData(_ data: String!) {
-        
-    }
-    
-    func PranaDeviceManagerDidOpenChannel() {
-        
     }
 }
