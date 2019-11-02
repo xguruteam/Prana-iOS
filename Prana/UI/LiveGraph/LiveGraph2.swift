@@ -81,24 +81,24 @@ class LiveGraph2: UIView {
 
 extension LiveGraph2: Live2Delegate {
     func liveNew(graphY: Double) {
-        DispatchQueue.main.async { [unowned self] in
-            self.data.append(graphY)
-            self.data.removeFirst()
-            self.setNeedsDisplay()
+        DispatchQueue.main.async { [weak self] in
+            self?.data.append(graphY)
+            self?.data.removeFirst()
+            self?.setNeedsDisplay()
         }
     }
     
     func liveNew(endBreathLineY: Double) {
-        DispatchQueue.main.async { [unowned self] in
-            self.endBreathY = endBreathLineY
-            self.setNeedsDisplay()
+        DispatchQueue.main.async { [weak self] in
+            self?.endBreathY = endBreathLineY
+            self?.setNeedsDisplay()
         }
     }
     
     func liveNew(bottomReversalLineY: Double) {
-        DispatchQueue.main.async { [unowned self] in
-            self.bottomReversalY = bottomReversalLineY
-            self.setNeedsDisplay()
+        DispatchQueue.main.async { [weak self] in
+            self?.bottomReversalY = bottomReversalLineY
+            self?.setNeedsDisplay()
         }
     }
 }

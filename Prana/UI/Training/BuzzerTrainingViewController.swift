@@ -397,8 +397,9 @@ class BuzzerTrainingViewController: SuperViewController {
         if isLiving {
             onComplete()
             btnStartStop.isEnabled = false
-            btnStartStop.setTitle("Session End", for: .normal)
-            btnStartStop.isHidden = true
+            btnStartStop.alpha = 0.5
+            btnStartStop.setTitle("Session Ended Early", for: .normal)
+            btnStartStop.isHidden = false
 //            self.btnStartStop.isEnabled = false
 //            self.btnStartStop.alpha = 0.5
             //            self.btnNext.isEnabled = true
@@ -636,15 +637,20 @@ class BuzzerTrainingViewController: SuperViewController {
     @objc func appMovedToBackground() {
         print("App moved to background!")
         
-        if !isCompleted {
-            if isTutorial {
-                onBack(btnBack)
-                return
-            }
-            onComplete()
+        if isTutorial {
+            onBack(btnBack)
+            return
         }
         
-        onBack(btnBack)
+        if !isCompleted {
+            onComplete()
+            self.btnStartStop.isEnabled = false
+            self.btnStartStop.alpha = 0.5
+            self.btnStartStop.setTitle("Session Ended Early", for: .normal)
+            self.btnStartStop.isHidden = false
+        }
+        
+//        onBack(btnBack)
     }
     
     func onComplete() {
@@ -1149,10 +1155,10 @@ class BuzzerTrainingViewController: SuperViewController {
             DispatchQueue.main.async { [unowned self] in
                 self.onComplete()
                 self.btnStartStop.isEnabled = false
-                //            self.btnStartStop.alpha = 0.5
+                self.btnStartStop.alpha = 0.5
                 self.btnStartStop.setTitle("Session Completed!", for: .normal)
                 //            self.btnNext.isEnabled = true
-                self.btnStartStop.isHidden = true
+                self.btnStartStop.isHidden = false
             }
             print("Session Completed!")
             
@@ -1262,10 +1268,10 @@ extension BuzzerTrainingViewController: BuzzerDelegate {
         DispatchQueue.main.async { [unowned self] in
             self.onComplete()
             self.btnStartStop.isEnabled = false
-//            self.btnStartStop.alpha = 0.5
+            self.btnStartStop.alpha = 0.5
             self.btnStartStop.setTitle("Session Completed!", for: .normal)
 //            self.btnNext.isEnabled = true
-            self.btnStartStop.isHidden = true
+            self.btnStartStop.isHidden = false
         }
         print("Session Completed!")
     }

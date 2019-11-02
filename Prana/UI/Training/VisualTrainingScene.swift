@@ -294,7 +294,7 @@ class VisualTrainingScene: SKScene {
         _messageNode.position = CGPoint(x: size.width / 2, y: size.height * 3 / 4)
         _messageNode.color = .white
         _messageNode.fontName = "Quicksand-Bold"
-        _messageNode.fontSize = 20
+        _messageNode.fontSize = 24
         _messageNode.zPosition = 20
         
         _patternNameNode = SKLabelNode(text: patternName)
@@ -662,7 +662,7 @@ class VisualTrainingScene: SKScene {
         if trainingDuration == 0 {
             stopSession()
 //            clearGame()
-            _messageNode.text = "Session Completed!"
+            _messageNode.text = "Session Complete!"
             addChild(_messageNode)
             self.visualDelegate?.visualOnComplete()
         }
@@ -1032,6 +1032,9 @@ class VisualTrainingScene: SKScene {
         objLive?.removeDelegate(self)
         objLive?.stopMode(reset: (UIApplication.shared.delegate as? AppDelegate)?.dataController.isAutoReset ?? false)
         objLive = nil
+        
+        _messageNode.text = "Session Ended Early"
+        addChild(_messageNode)
     }
     
     func startMode() {
