@@ -257,6 +257,7 @@ extension ConnectViewController: PranaDeviceManagerDelegate {
 //            self.lblSuccessMessage.textColor = UIColor.black
             self.lbl_success_connect.text = "Failed to connect Prana!"
             self.lbl_success_connect.isHidden = false
+            self.lblGuide.isHidden = true
         }
     }
     
