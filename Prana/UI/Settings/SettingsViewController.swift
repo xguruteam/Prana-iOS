@@ -148,7 +148,7 @@ class SettingsViewController: SuperViewController {
         tableView.backgroundColor = .clear
 
         tableView.tableHeaderView = container
-        container.bounds.size.height = 605
+        container.bounds.size.height = 645
         
         container.addSubview(titleLabel)
         titleLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 16).isActive = true
