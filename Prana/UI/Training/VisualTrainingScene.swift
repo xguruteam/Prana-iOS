@@ -1030,7 +1030,7 @@ class VisualTrainingScene: SKScene {
         PranaDeviceManager.shared.stopGettingLiveData()
         
         objLive?.removeDelegate(self)
-        objLive?.stopMode()
+        objLive?.stopMode(reset: (UIApplication.shared.delegate as? AppDelegate)?.dataController.isAutoReset ?? false)
         objLive = nil
     }
     

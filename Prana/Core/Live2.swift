@@ -71,10 +71,11 @@ class Live2: NSObject {
         self.delegates.remove(at: i)
     }
     
-    func stopMode() {
+    func stopMode(reset: Bool = false) {
         backButtonHandler()
         PranaDeviceManager.shared.removeDelegate(self)
         delegates.removeAll()
+        if reset { resetBreathRange() }
     }
     
     // MARK: New Properties
@@ -111,8 +112,6 @@ class Live2: NSObject {
     var bottomReversalFound: Int = 0;
     var topReversalFound: Int = 0;
     //    var scrollX: Int;
-    var currentStrainGaugeLowest: Double = 0;
-    var currentStrainGaugeHighest: Double = 0;
     var breathEnding: Int = 0;
     var strainGauge: Double = 1;
     var uprightPostureAngle: Double = 0;
@@ -130,10 +129,7 @@ class Live2: NSObject {
     var noisyMovements: Int = 0;
     var dampingLevel: Int = 0;
     var postureAttenuatorLevel: Int = 0;
-    var currentStrainGaugeLowestNew: Double = 0;
-    var currentStrainGaugeHighestNew: Double = 0;
     var newStrainGaugeRange: Double = 0;
-    var currentStrainGaugeHighestPrev: Double = 0;
     var breathTopExceeded: Int = 0;
     
     var strainGaugeMinRange: Double = 0.0005;
@@ -1156,13 +1152,6 @@ class Live2: NSObject {
         PranaDeviceManager.shared.stopGettingLiveData()
     }
 
-    func resetBreathRange() {
-        currentStrainGaugeHighest = currentStrainGaugeLowest + 0.003; //JULY 13:New1k
-        currentStrainGaugeHighestPrev = currentStrainGaugeHighest;  //JULY 13:New1k
-        currentStrainGaugeLowestNew = currentStrainGaugeLowest; //JULY 13:New1k
-        currentStrainGaugeHighestNew = currentStrainGaugeHighest;    //JULY 13:New1k
-    }
-    
     func startMode() {
         exhaleCorrectionFactor = 0; //May 31st ADDED
         EIAvgSessionRatio = 0; //May 31st ADDED

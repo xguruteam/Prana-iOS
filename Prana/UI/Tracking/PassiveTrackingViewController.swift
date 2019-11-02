@@ -234,7 +234,7 @@ class PassiveTrackingViewController: SuperViewController {
 
     @IBAction func onBack(_ sender: Any) {
         objLive?.removeDelegate(self)
-        objLive?.stopMode()
+        objLive?.stopMode(reset: dataController.isAutoReset)
         objLive = nil
         
         self.dismiss(animated: true) {
@@ -470,7 +470,7 @@ class PassiveTrackingViewController: SuperViewController {
         buzzCount = 0;
         prevPostureState = 0;
         objLive?.removeDelegate(self)
-        objLive?.stopMode()
+        objLive?.stopMode(reset: dataController.isAutoReset)
         objLive = nil
     }
     

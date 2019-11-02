@@ -167,7 +167,7 @@ class LiveGraphViewController: SuperViewController {
         breathingGraphView.objLive = nil
         objLive?.removeDelegate(self)
         
-        objLive?.stopMode()
+        objLive?.stopMode(reset: dataController.isAutoReset)
         
         objLive = nil
     }

@@ -9,7 +9,7 @@
 import UIKit
 import Macaw
 
-class LiveFeedViewController: UIViewController {
+class LiveFeedViewController: SuperViewController {
     
     @IBOutlet weak var breathingGraphView: LiveGraph2!
     
@@ -135,7 +135,7 @@ class LiveFeedViewController: UIViewController {
         breathingGraphView.objLive = nil
         objLive?.removeDelegate(self)
         
-        objLive?.stopMode()
+        objLive?.stopMode(reset: dataController.isAutoReset)
         
         objLive = nil
     }

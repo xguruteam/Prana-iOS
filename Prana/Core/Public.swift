@@ -8,6 +8,19 @@
 
 import Foundation
 
+var currentStrainGaugeLowest: Double = 0;
+var currentStrainGaugeHighest: Double = 0;
+var currentStrainGaugeLowestNew: Double = 0;
+var currentStrainGaugeHighestNew: Double = 0;
+var currentStrainGaugeHighestPrev: Double = 0;
+
+func resetBreathRange() {
+    currentStrainGaugeHighest = currentStrainGaugeLowest + 0.003; //JULY 13:New1k
+    currentStrainGaugeHighestPrev = currentStrainGaugeHighest;  //JULY 13:New1k
+    currentStrainGaugeLowestNew = currentStrainGaugeLowest; //JULY 13:New1k
+    currentStrainGaugeHighestNew = currentStrainGaugeHighest;    //JULY 13:New1k
+}
+
 //MARK: RoundNumber
 func roundNumber(num:Double, dec:Double) -> Double {
     return round(num*dec)/dec

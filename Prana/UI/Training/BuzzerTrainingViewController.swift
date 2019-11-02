@@ -560,7 +560,7 @@ class BuzzerTrainingViewController: SuperViewController {
         btnStartStop.setTitle("START SESSION", for: .normal)
         
         objLive?.removeDelegate(self)
-        objLive?.stopMode()
+        objLive?.stopMode(reset: dataController.isAutoReset)
         objLive = nil
         
         btnBack.isHidden = false
