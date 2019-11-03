@@ -91,6 +91,18 @@ class SessionDetailViewController: SuperViewController {
         return graph
     }()
     
+    let eiGraphScroll: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    let rrGraphScroll: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
     let postureView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = UIView.ContentMode.scaleAspectFit
@@ -253,11 +265,12 @@ class SessionDetailViewController: SuperViewController {
                 summaryView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
             }
         } else {
-            containerView.addSubview(rrGraph)
-            rrGraph.topAnchor.constraint(equalTo: lblOverview.bottomAnchor, constant: 10).isActive = true
-            rrGraph.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
-            rrGraph.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
-            rrGraph.heightAnchor.constraint(equalToConstant: 150).isActive = true
+            containerView.addSubview(rrGraphScroll)
+            rrGraphScroll.topAnchor.constraint(equalTo: lblOverview.bottomAnchor, constant: 10).isActive = true
+            rrGraphScroll.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
+            rrGraphScroll.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
+            rrGraphScroll.heightAnchor.constraint(equalToConstant: 150).isActive = true
+            rrGraphScroll.addSubview(rrGraph)
             
             let rrLabel = UILabel()
             rrLabel.text = "RR"
@@ -265,8 +278,8 @@ class SessionDetailViewController: SuperViewController {
             rrLabel.font = UIFont(name: "Quicksand-Bold", size: 13)
             containerView.addSubview(rrLabel)
             rrLabel.translatesAutoresizingMaskIntoConstraints = false
-            rrLabel.topAnchor.constraint(equalTo: rrGraph.topAnchor, constant: -20).isActive = true
-            rrLabel.leftAnchor.constraint(equalTo: rrGraph.leftAnchor, constant: 0).isActive = true
+            rrLabel.topAnchor.constraint(equalTo: rrGraphScroll.topAnchor, constant: -20).isActive = true
+            rrLabel.leftAnchor.constraint(equalTo: rrGraphScroll.leftAnchor, constant: 0).isActive = true
             
             var minLabel = UILabel()
             minLabel.text = "Mins"
@@ -274,19 +287,20 @@ class SessionDetailViewController: SuperViewController {
             minLabel.font = UIFont(name: "Quicksand-Bold", size: 13)
             containerView.addSubview(minLabel)
             minLabel.translatesAutoresizingMaskIntoConstraints = false
-            minLabel.topAnchor.constraint(equalTo: rrGraph.bottomAnchor, constant: 0).isActive = true
-            minLabel.rightAnchor.constraint(equalTo: rrGraph.rightAnchor, constant: 0).isActive = true
+            minLabel.topAnchor.constraint(equalTo: rrGraphScroll.bottomAnchor, constant: 0).isActive = true
+            minLabel.rightAnchor.constraint(equalTo: rrGraphScroll.rightAnchor, constant: 0).isActive = true
             
             containerView.addSubview(breathSummaryView)
-            breathSummaryView.topAnchor.constraint(equalTo: rrGraph.bottomAnchor, constant: 0).isActive = true
+            breathSummaryView.topAnchor.constraint(equalTo: rrGraphScroll.bottomAnchor, constant: 0).isActive = true
             breathSummaryView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
             breathSummaryView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
 
-            containerView.addSubview(eiGraph)
-            eiGraph.topAnchor.constraint(equalTo: breathSummaryView.bottomAnchor, constant: 30).isActive = true
-            eiGraph.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
-            eiGraph.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
-            eiGraph.heightAnchor.constraint(equalToConstant: 150).isActive = true
+            containerView.addSubview(eiGraphScroll)
+            eiGraphScroll.topAnchor.constraint(equalTo: breathSummaryView.bottomAnchor, constant: 30).isActive = true
+            eiGraphScroll.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
+            eiGraphScroll.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
+            eiGraphScroll.heightAnchor.constraint(equalToConstant: 150).isActive = true
+            eiGraphScroll.addSubview(eiGraph)
             
             let eiLabel = UILabel()
             eiLabel.text = "E/I"
@@ -294,8 +308,8 @@ class SessionDetailViewController: SuperViewController {
             eiLabel.font = UIFont(name: "Quicksand-Bold", size: 13)
             containerView.addSubview(eiLabel)
             eiLabel.translatesAutoresizingMaskIntoConstraints = false
-            eiLabel.topAnchor.constraint(equalTo: eiGraph.topAnchor, constant: -20).isActive = true
-            eiLabel.leftAnchor.constraint(equalTo: eiGraph.leftAnchor, constant: 0).isActive = true
+            eiLabel.topAnchor.constraint(equalTo: eiGraphScroll.topAnchor, constant: -20).isActive = true
+            eiLabel.leftAnchor.constraint(equalTo: eiGraphScroll.leftAnchor, constant: 0).isActive = true
             
             minLabel = UILabel()
             minLabel.text = "Mins"
@@ -303,14 +317,14 @@ class SessionDetailViewController: SuperViewController {
             minLabel.font = UIFont(name: "Quicksand-Bold", size: 13)
             containerView.addSubview(minLabel)
             minLabel.translatesAutoresizingMaskIntoConstraints = false
-            minLabel.topAnchor.constraint(equalTo: eiGraph.bottomAnchor, constant: 0).isActive = true
-            minLabel.rightAnchor.constraint(equalTo: eiGraph.rightAnchor, constant: 0).isActive = true
+            minLabel.topAnchor.constraint(equalTo: eiGraphScroll.bottomAnchor, constant: 0).isActive = true
+            minLabel.rightAnchor.constraint(equalTo: eiGraphScroll.rightAnchor, constant: 0).isActive = true
             
             
             containerView.addSubview(postureView)
             postureView.widthAnchor.constraint(equalToConstant: 100).isActive = true
             postureView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-            postureView.topAnchor.constraint(equalTo: eiGraph.bottomAnchor, constant: 10).isActive = true
+            postureView.topAnchor.constraint(equalTo: eiGraphScroll.bottomAnchor, constant: 10).isActive = true
             postureView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
             
             containerView.addSubview(postureBar)
@@ -328,10 +342,20 @@ class SessionDetailViewController: SuperViewController {
         renderSessionData()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        eiGraph.frame = CGRect(x: 0.0, y: 0.0, width: eiGraphScroll.frame.width * CGFloat(eiPages), height: eiGraphScroll.frame.height)
+        eiGraphScroll.contentSize = eiGraph.frame.size
+        rrGraph.frame = eiGraph.frame
+        rrGraphScroll.contentSize = rrGraph.frame.size
+    }
+    
     var type: SessionType = .session
     
     var session: TrainingSession!
     var passive: PassiveSession!
+    
+    var eiPages: CGFloat = 0
     
     func renderSessionData() {
         if type == .session {
@@ -426,7 +450,9 @@ class SessionDetailViewController: SuperViewController {
             
             let duration = passive.duration / 60
             var xlabels = (0...duration).map { Double($0) }
-            xlabels.append(Double(duration) + 0.5)
+            if passive.duration > duration * 60 {
+                xlabels.append(Double(duration) + 1)
+            }
             rrGraph.xLabels = xlabels
             
             var data = passive.breaths.map { (breath) -> (Double, Double) in
@@ -450,6 +476,7 @@ class SessionDetailViewController: SuperViewController {
             series.area = true
             
             eiGraph.add(series)
+            eiPages = CGFloat(xlabels.count - 1) / 5.0
             
             
             if passive.wearing == 0 {
