@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct LivePosture {
+struct LivePosture: Codable {
     var time: Int
     var isGood: Int
 }

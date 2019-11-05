@@ -100,6 +100,7 @@ class SessionDetailViewController: SuperViewController {
     let rrGraphScroll: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.alwaysBounceHorizontal = true
         return scrollView
     }()
     
@@ -117,6 +118,13 @@ class SessionDetailViewController: SuperViewController {
         return bar
     }()
     
+    let postureBar2: PostureBar2 = {
+        let bar = PostureBar2()
+        bar.translatesAutoresizingMaskIntoConstraints = false
+        bar.backgroundColor = UIColor(hexString: "#5eb839")
+        return bar
+    }()
+    
     let summaryView: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
@@ -124,6 +132,14 @@ class SessionDetailViewController: SuperViewController {
         label.font = UIFont(name: "Quicksand-Medium", size: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    let rrGraph2: RRGraph = {
+        let graph = RRGraph()
+        graph.translatesAutoresizingMaskIntoConstraints = false
+        graph.backgroundColor = .clear
+        graph.clipsToBounds = false
+        return graph
     }()
     
     @objc func onBack() {
@@ -172,11 +188,12 @@ class SessionDetailViewController: SuperViewController {
         if type == .session {
             
             if session.kind == 0 {
-                containerView.addSubview(rrGraph)
-                rrGraph.topAnchor.constraint(equalTo: lblOverview.bottomAnchor, constant: 20).isActive = true
-                rrGraph.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
-                rrGraph.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
-                rrGraph.heightAnchor.constraint(equalToConstant: 200).isActive = true
+                containerView.addSubview(rrGraphScroll)
+                rrGraphScroll.topAnchor.constraint(equalTo: lblOverview.bottomAnchor, constant: 20).isActive = true
+                rrGraphScroll.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
+                rrGraphScroll.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
+                rrGraphScroll.heightAnchor.constraint(equalToConstant: 200).isActive = true
+                rrGraphScroll.addSubview(rrGraph2)
                 
                 let rrLabel = UILabel()
                 rrLabel.text = "RR"
@@ -184,8 +201,8 @@ class SessionDetailViewController: SuperViewController {
                 rrLabel.font = UIFont(name: "Quicksand-Bold", size: 13)
                 containerView.addSubview(rrLabel)
                 rrLabel.translatesAutoresizingMaskIntoConstraints = false
-                rrLabel.topAnchor.constraint(equalTo: rrGraph.topAnchor, constant: -20).isActive = true
-                rrLabel.leftAnchor.constraint(equalTo: rrGraph.leftAnchor, constant: 0).isActive = true
+                rrLabel.topAnchor.constraint(equalTo: rrGraphScroll.topAnchor, constant: -20).isActive = true
+                rrLabel.leftAnchor.constraint(equalTo: rrGraphScroll.leftAnchor, constant: 0).isActive = true
                 
                 let minLabel = UILabel()
                 minLabel.text = "Mins"
@@ -193,11 +210,11 @@ class SessionDetailViewController: SuperViewController {
                 minLabel.font = UIFont(name: "Quicksand-Bold", size: 13)
                 containerView.addSubview(minLabel)
                 minLabel.translatesAutoresizingMaskIntoConstraints = false
-                minLabel.topAnchor.constraint(equalTo: rrGraph.bottomAnchor, constant: 0).isActive = true
-                minLabel.rightAnchor.constraint(equalTo: rrGraph.rightAnchor, constant: 0).isActive = true
+                minLabel.topAnchor.constraint(equalTo: rrGraphScroll.bottomAnchor, constant: 0).isActive = true
+                minLabel.rightAnchor.constraint(equalTo: rrGraphScroll.rightAnchor, constant: 0).isActive = true
                 
                 containerView.addSubview(breathSummaryView)
-                breathSummaryView.topAnchor.constraint(equalTo: rrGraph.bottomAnchor, constant: 20).isActive = true
+                breathSummaryView.topAnchor.constraint(equalTo: rrGraphScroll.bottomAnchor, constant: 20).isActive = true
                 breathSummaryView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
                 breathSummaryView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
                 
@@ -207,22 +224,23 @@ class SessionDetailViewController: SuperViewController {
                 postureView.topAnchor.constraint(equalTo: breathSummaryView.bottomAnchor, constant: 40).isActive = true
                 postureView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
                 
-                containerView.addSubview(postureBar)
-                postureBar.topAnchor.constraint(equalTo: postureView.bottomAnchor, constant: 20).isActive = true
-                postureBar.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
-                postureBar.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
-                postureBar.heightAnchor.constraint(equalToConstant: 20).isActive = true
+                containerView.addSubview(postureBar2)
+                postureBar2.topAnchor.constraint(equalTo: postureView.bottomAnchor, constant: 20).isActive = true
+                postureBar2.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
+                postureBar2.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
+                postureBar2.heightAnchor.constraint(equalToConstant: 20).isActive = true
                 
                 containerView.addSubview(summaryView)
-                summaryView.topAnchor.constraint(equalTo: postureBar.bottomAnchor, constant: 20).isActive = true
+                summaryView.topAnchor.constraint(equalTo: postureBar2.bottomAnchor, constant: 20).isActive = true
                 summaryView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
                 summaryView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
             } else if session.kind == 1 {
-                containerView.addSubview(rrGraph)
-                rrGraph.topAnchor.constraint(equalTo: lblOverview.bottomAnchor, constant: 20).isActive = true
-                rrGraph.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
-                rrGraph.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
-                rrGraph.heightAnchor.constraint(equalToConstant: 200).isActive = true
+                containerView.addSubview(rrGraphScroll)
+                rrGraphScroll.topAnchor.constraint(equalTo: lblOverview.bottomAnchor, constant: 20).isActive = true
+                rrGraphScroll.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
+                rrGraphScroll.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
+                rrGraphScroll.heightAnchor.constraint(equalToConstant: 200).isActive = true
+                rrGraphScroll.addSubview(rrGraph2)
                 
                 let rrLabel = UILabel()
                 rrLabel.text = "RR"
@@ -230,8 +248,8 @@ class SessionDetailViewController: SuperViewController {
                 rrLabel.font = UIFont(name: "Quicksand-Bold", size: 13)
                 containerView.addSubview(rrLabel)
                 rrLabel.translatesAutoresizingMaskIntoConstraints = false
-                rrLabel.topAnchor.constraint(equalTo: rrGraph.topAnchor, constant: -20).isActive = true
-                rrLabel.leftAnchor.constraint(equalTo: rrGraph.leftAnchor, constant: 0).isActive = true
+                rrLabel.topAnchor.constraint(equalTo: rrGraphScroll.topAnchor, constant: -20).isActive = true
+                rrLabel.leftAnchor.constraint(equalTo: rrGraphScroll.leftAnchor, constant: 0).isActive = true
                 
                 let minLabel = UILabel()
                 minLabel.text = "Mins"
@@ -239,11 +257,11 @@ class SessionDetailViewController: SuperViewController {
                 minLabel.font = UIFont(name: "Quicksand-Bold", size: 13)
                 containerView.addSubview(minLabel)
                 minLabel.translatesAutoresizingMaskIntoConstraints = false
-                minLabel.topAnchor.constraint(equalTo: rrGraph.bottomAnchor, constant: 0).isActive = true
-                minLabel.rightAnchor.constraint(equalTo: rrGraph.rightAnchor, constant: 0).isActive = true
+                minLabel.topAnchor.constraint(equalTo: rrGraphScroll.bottomAnchor, constant: 0).isActive = true
+                minLabel.rightAnchor.constraint(equalTo: rrGraphScroll.rightAnchor, constant: 0).isActive = true
                 
                 containerView.addSubview(summaryView)
-                summaryView.topAnchor.constraint(equalTo: rrGraph.bottomAnchor, constant: 40).isActive = true
+                summaryView.topAnchor.constraint(equalTo: rrGraphScroll.bottomAnchor, constant: 40).isActive = true
                 summaryView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
                 summaryView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
             } else {
@@ -253,14 +271,14 @@ class SessionDetailViewController: SuperViewController {
                 postureView.topAnchor.constraint(equalTo: lblOverview.bottomAnchor, constant: 20).isActive = true
                 postureView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
                 
-                containerView.addSubview(postureBar)
-                postureBar.topAnchor.constraint(equalTo: postureView.bottomAnchor, constant: 20).isActive = true
-                postureBar.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
-                postureBar.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
-                postureBar.heightAnchor.constraint(equalToConstant: 20).isActive = true
+                containerView.addSubview(postureBar2)
+                postureBar2.topAnchor.constraint(equalTo: postureView.bottomAnchor, constant: 20).isActive = true
+                postureBar2.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
+                postureBar2.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
+                postureBar2.heightAnchor.constraint(equalToConstant: 20).isActive = true
                 
                 containerView.addSubview(summaryView)
-                summaryView.topAnchor.constraint(equalTo: postureBar.bottomAnchor, constant: 20).isActive = true
+                summaryView.topAnchor.constraint(equalTo: postureBar2.bottomAnchor, constant: 20).isActive = true
                 summaryView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
                 summaryView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
             }
@@ -344,10 +362,19 @@ class SessionDetailViewController: SuperViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        eiGraph.frame = CGRect(x: 0.0, y: 0.0, width: eiGraphScroll.frame.width * CGFloat(eiPages), height: eiGraphScroll.frame.height)
-        eiGraphScroll.contentSize = eiGraph.frame.size
-        rrGraph.frame = eiGraph.frame
-        rrGraphScroll.contentSize = rrGraph.frame.size
+        if type == .session {
+            if session.kind == 0 || session.kind == 1 {
+                rrGraph2.frame = CGRect(x: 0.0, y: 0.0, width: rrGraphScroll.frame.width * CGFloat(rrPages), height: rrGraphScroll.frame.height)
+                rrGraph2.setNeedsDisplay()
+                rrGraphScroll.contentSize = rrGraph2.frame.size
+            }
+            postureBar2.setNeedsDisplay()
+        } else {
+            eiGraph.frame = CGRect(x: 0.0, y: 0.0, width: eiGraphScroll.frame.width * CGFloat(eiPages), height: eiGraphScroll.frame.height)
+            eiGraphScroll.contentSize = eiGraph.frame.size
+            rrGraph.frame = CGRect(x: 0.0, y: 0.0, width: rrGraphScroll.frame.width * CGFloat(eiPages), height: rrGraphScroll.frame.height)
+            rrGraphScroll.contentSize = rrGraph.frame.size
+        }
     }
     
     var type: SessionType = .session
@@ -356,6 +383,7 @@ class SessionDetailViewController: SuperViewController {
     var passive: PassiveSession!
     
     var eiPages: CGFloat = 0
+    var rrPages: CGFloat = 0
     
     func renderSessionData() {
         if type == .session {
@@ -370,7 +398,18 @@ class SessionDetailViewController: SuperViewController {
             """
 
             if session.kind == 0 || session.kind == 1 {
-                let duration = session.duration / 60
+                var duration = session.duration / 60
+                if session.duration > duration * 60 {
+                   duration += 1
+                }
+                
+                var pages = Int(session.duration) / 300
+                
+                if session.duration > pages * 300 {
+                    pages += 1
+                }
+                rrPages = CGFloat(pages)
+                
                 var xlabels = (0...duration).map { Double($0) }
                 xlabels.append(Double(duration) + 0.5)
                 rrGraph.xLabels = xlabels
@@ -420,6 +459,8 @@ class SessionDetailViewController: SuperViewController {
                 targetRRSeries.area = false
                 rrGraph.add(targetRRSeries)
                 
+                rrGraph2.session = session
+                
                 if session.kind == 0 {
                     breathSummaryView.text = session.breathingSummary
                 } else {
@@ -436,6 +477,8 @@ class SessionDetailViewController: SuperViewController {
                 
                 postureBar.duration = session.duration
                 postureBar.slouches = session.slouches
+                
+                postureBar2.session = session
                 
                 summaryView.text = session.postureSummary
             }

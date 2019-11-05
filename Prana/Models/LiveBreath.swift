@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct LiveBreath {
+struct LiveBreath: Codable {
     var target: CoreBreath?
     var actuals: [CoreBreath]
     var breathStatus: Int

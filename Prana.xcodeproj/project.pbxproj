@@ -21,6 +21,7 @@
 		CA48E58822664A5B002CFA19 /* LiveFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48E58722664A5B002CFA19 /* LiveFeedViewController.swift */; };
 		CA48E58B22671D93002CFA19 /* UIColor+colorFromHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48E58922671D93002CFA19 /* UIColor+colorFromHex.swift */; };
 		CA48E58C22671D93002CFA19 /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48E58A22671D93002CFA19 /* UIColor+Utils.swift */; };
+		CA5B1F2C2371643F006D3760 /* PostureBar2.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5B1F2B2371643F006D3760 /* PostureBar2.swift */; };
 		CA603B7A228053860019A648 /* SessionStartStopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA603B79228053860019A648 /* SessionStartStopCell.swift */; };
 		CA69E8442278977900984324 /* TrainingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA69E8432278977900984324 /* TrainingSession.swift */; };
 		CA8C7F1922EECB5A00551DFE /* UIViewController+Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8C7F1822EECB5A00551DFE /* UIViewController+Orientation.swift */; };
@@ -261,6 +262,7 @@
 		CA48E58722664A5B002CFA19 /* LiveFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveFeedViewController.swift; sourceTree = "<group>"; };
 		CA48E58922671D93002CFA19 /* UIColor+colorFromHex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+colorFromHex.swift"; sourceTree = "<group>"; };
 		CA48E58A22671D93002CFA19 /* UIColor+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Utils.swift"; sourceTree = "<group>"; };
+		CA5B1F2B2371643F006D3760 /* PostureBar2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostureBar2.swift; sourceTree = "<group>"; };
 		CA603B79228053860019A648 /* SessionStartStopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStartStopCell.swift; sourceTree = "<group>"; };
 		CA69E8432278977900984324 /* TrainingSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingSession.swift; sourceTree = "<group>"; };
 		CA8C7F1822EECB5A00551DFE /* UIViewController+Orientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Orientation.swift"; sourceTree = "<group>"; };
@@ -1087,6 +1089,7 @@
 				CAC1252C22C34FC7008D6C7D /* MeasurementsHistoryViewController.swift */,
 				CAC1252E22C35C2B008D6C7D /* MonthlyGraph.swift */,
 				CAB0723D22C36862007136FF /* WeeklyGraph2.swift */,
+				CA5B1F2B2371643F006D3760 /* PostureBar2.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -1505,6 +1508,7 @@
 				CA97DB112229893F002C5592 /* Constants.swift in Sources */,
 				CAAF9D0A22737951003232C4 /* UIView+Extensions.swift in Sources */,
 				CAAF9D1D22737952003232C4 /* PhoneCodeCell.swift in Sources */,
+				CA5B1F2C2371643F006D3760 /* PostureBar2.swift in Sources */,
 				CAEEB01422C13A6C002C3139 /* SavedBodyNotification.swift in Sources */,
 				CAAF9D2E22737952003232C4 /* ColorPickerViewController.swift in Sources */,
 				CA98922222413B2300D824B0 /* LiveGraph.swift in Sources */,

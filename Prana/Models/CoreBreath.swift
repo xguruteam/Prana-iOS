@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct CoreBreath {
+struct CoreBreath: Codable {
     // inhale time
     var it: Double
     // respiration rate

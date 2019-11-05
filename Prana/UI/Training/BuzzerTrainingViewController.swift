@@ -562,6 +562,10 @@ class BuzzerTrainingViewController: SuperViewController {
         
         objLive?.removeDelegate(self)
         objLive?.stopMode(reset: dataController.isAutoReset)
+        if let live = objLive {
+            currentSessionObject?.judgedBreaths = live.judgedBreaths
+            currentSessionObject?.judgedPosture = live.judgedPosture
+        }
         objLive = nil
         
         btnBack.isHidden = false
@@ -588,46 +592,14 @@ class BuzzerTrainingViewController: SuperViewController {
     
     func makeSessionObject() {
         var duration = sessionDuration * 60
-        if sessionKind == 0 {
-            if timeRemaining < duration, breathCount > 0 {
-                if timeRemaining > 0 {
-                    duration -= timeRemaining
-                }
-                
-                let mindful = duration * mindfulBreaths / breathCount
-                let upright = uprightDuration
-                
-                currentSessionObject?.duration = duration
-//                currentSessionObject?.mindful = mindful
-//                currentSessionObject?.upright = upright
+        
+        if timeRemaining < duration {
+            if timeRemaining > 0 {
+                duration -= timeRemaining
             }
         }
-        else if sessionKind == 1{
-            if timeRemaining < duration, breathCount > 0 {
-                if timeRemaining > 0 {
-                    duration -= timeRemaining
-                }
-                
-                let mindful = duration * mindfulBreaths / breathCount
-                
-                currentSessionObject?.duration = duration
-//                currentSessionObject?.mindful = mindful
-//                currentSessionObject?.upright = 0
-            }
-        }
-        else {
-            if timeRemaining < duration {
-                if timeRemaining > 0 {
-                    duration -= timeRemaining
-                }
-                
-                let upright = uprightDuration
-                
-                currentSessionObject?.duration = duration
-//                currentSessionObject?.mindful = 0
-//                currentSessionObject?.upright = upright
-            }
-        }
+        
+        currentSessionObject?.duration = duration
     }
     
     @objc func onBuzzWhenUnmindfulChange(_ sender: UISwitch) {
@@ -655,6 +627,7 @@ class BuzzerTrainingViewController: SuperViewController {
     
     func onComplete() {
         isCompleted = true
+        makeSessionObject()
         stopLiving()
         
         if isTutorial == false {
@@ -885,6 +858,7 @@ class BuzzerTrainingViewController: SuperViewController {
                     guard self.totalBreaths > 0 else { return }
                     self.lblMindfulBreaths.text = "Mindful Breaths: \(Int(self.mindfulBreathsCount*100/self.totalBreaths))% (\(self.mindfulBreathsCount) of \(self.totalBreaths))"
                 }
+                self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: true, respRate: actualRR, targetRate: targetRR, eiRatio: 0, oneMinuteRR: 0)
                 //buzzerTrainingUI.mindfulBreaths.text = String(mindfulBreathsCount) + " of " + String(totalBreaths); //AUG 1st changed
                 
             }
@@ -1080,6 +1054,7 @@ class BuzzerTrainingViewController: SuperViewController {
             guard self.totalBreaths > 0 else { return }
             self.lblMindfulBreaths.text = "Mindful Breaths: \(Int(self.mindfulBreathsCount*100/self.totalBreaths))% (\(self.mindfulBreathsCount) of \(self.totalBreaths))"
         }
+        self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: false, respRate: actualRR, targetRate: targetRR, eiRatio: 0, oneMinuteRR: 0)
 //        buzzerTrainingUI.mindfulBreaths.text = String(mindfulBreathsCount) + " of " + String(totalBreaths); //AUG 1st changed
     }
     
@@ -1114,11 +1089,17 @@ class BuzzerTrainingViewController: SuperViewController {
         
         if (objLiveGraph.postureIsGood == 1) {
             uprightPostureTime+=1;
+            let slouchDuration = (self.sessionDuration * 60 - self.timeRemaining) - slouchStartSeconds
+            if slouchDuration > 0 {
+                self.currentSessionObject?.addSlouch(timeStamp: slouchStartSeconds, duration: slouchDuration)
+            }
+            slouchStartSeconds = 0
         }
         
         if (prevPostureState == 1) {
             if (objLiveGraph.postureIsGood == 0) {
                 slouchesCount+=1;
+                slouchStartSeconds = self.sessionDuration * 60 - self.timeRemaining
             }
         }
         

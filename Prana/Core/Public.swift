@@ -15,6 +15,7 @@ var currentStrainGaugeHighestNew: Double = 0;
 var currentStrainGaugeHighestPrev: Double = 0;
 
 func resetBreathRange() {
+    currentStrainGaugeLowest = 0
     currentStrainGaugeHighest = currentStrainGaugeLowest + 0.003; //JULY 13:New1k
     currentStrainGaugeHighestPrev = currentStrainGaugeHighest;  //JULY 13:New1k
     currentStrainGaugeLowestNew = currentStrainGaugeLowest; //JULY 13:New1k

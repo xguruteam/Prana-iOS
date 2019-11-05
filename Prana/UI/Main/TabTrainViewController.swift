@@ -143,7 +143,7 @@ class TabTrainViewController: UIViewController {
                 if session.kind == 0 || session.kind == 1 {
                     result.0 += session.breaths.count
 
-                    let (_, _, mindfuls)  = session.sumMindfulTime()
+                    let (_, _, mindfuls, _)  = session.sumBreaths()
                     result.2 += mindfuls
                     result.4 += session.duration
                 }

@@ -144,11 +144,11 @@ class SessionHistoryViewController: SuperViewController {
             guard let session = object as? TrainingSession else { continue }
             if session.kind == 0 || session.kind == 1 {
                 breathTime += session.duration
-                let sum = session.sumMindfulTime()
-                mindfulTime += sum.0
+                let sum = session.sumBreaths()
+                mindfulTime += sum.3
                 rrSum += sum.1
                 mindfulCount += sum.2
-                breathCount += session.breaths.count
+                breathCount += sum.0
                 sessionCount += 1
             }
             

@@ -107,6 +107,7 @@ class VisualTrainingScene: SKScene {
     var _backgrounds: [SKSpriteNode]!
     
     var newGraphY: Double = 0
+    var isAutoReset = false
     
     //
     var flyingObjects: [Breath] = []
@@ -483,7 +484,8 @@ class VisualTrainingScene: SKScene {
                 objLiveGraph.judgedBreaths.append(LiveBreath(target: nil, actuals: objLiveGraph.actualBreathsWithinAPattern, breathStatus: -1)); //AUG 12th NEW the concat() here is to copy the array (to avoid possible reference problem),saving all non-judged breaths here during 15 second calibration
                 
                 objLiveGraph.actualBreathsWithinAPattern = []; //AUG 12th NEW
-                previousExpectedBreathStartTime = roundNumber(num: (objLiveGraph.timeElapsed-graphStartTime)+0.5,dec: 10); //AUG 12th NEW, the 0.5 here is to add back the 1/2 second due to 320+xStep above THIS IS THE EXPECTED OR TARGET breath
+                let temp_previousExpectedBreathStartTime = roundNumber(num: (objLiveGraph.timeElapsed-graphStartTime)+0.5,dec: 10); //AUG 12th NEW, the 0.5 here is to add back the 1/2 second due to 320+xStep above THIS IS THE EXPECTED OR TARGET breath
+                if temp_previousExpectedBreathStartTime > previousExpectedBreathStartTime { previousExpectedBreathStartTime = temp_previousExpectedBreathStartTime }
                 enteredPatternWhileExhaling = objLiveGraph.breathEnding; //AUG 12th NEW, idea here is if user did not finish exhaling during last breath, and that exhale carries into the current breath, then the current breath is bad
                 
                 //DC.objLiveGraph.testUI.indicator4.txt1.text = String(DC.objLiveGraph.judgedBreaths.length);
@@ -512,7 +514,9 @@ class VisualTrainingScene: SKScene {
                     
                 }
                 
-                previousExpectedBreathStartTime = roundNumber(num: (objLiveGraph.timeElapsed-graphStartTime)+0.5,dec: 10); //AUG 12th NEW, the 0.5 here is to add back the 1/2 second due to 320+xStep above THIS IS THE EXPECTED OR TARGET breath
+                let temp_previousExpectedBreathStartTime = roundNumber(num: (objLiveGraph.timeElapsed-graphStartTime)+0.5,dec: 10); //AUG 12th NEW, the 0.5 here is to add back the 1/2 second due to 320+xStep above THIS IS THE EXPECTED OR TARGET breath
+                if temp_previousExpectedBreathStartTime > previousExpectedBreathStartTime { previousExpectedBreathStartTime = temp_previousExpectedBreathStartTime }
+                
                 previousExpectedBreathRR = flyingObjects[0].rate; //AUG 12th NEW
                 objLiveGraph.actualBreathsWithinAPattern = []; //AUG 12th NEW
                 
@@ -660,11 +664,11 @@ class VisualTrainingScene: SKScene {
         prevPostureState = (objLive?.postureIsGood)!
         
         if trainingDuration == 0 {
+            self.visualDelegate?.visualOnComplete()
             stopSession()
 //            clearGame()
             _messageNode.text = "Session Complete!"
             addChild(_messageNode)
-            self.visualDelegate?.visualOnComplete()
         }
     }
     
@@ -1019,6 +1023,13 @@ class VisualTrainingScene: SKScene {
 //        }
     }
     
+    func onStop() {
+        _messageNode.text = "Session Ended Early"
+        addChild(_messageNode)
+        
+        stopSession()
+    }
+    
     func stopSession() {
         self._playOrPause = false
         
@@ -1030,11 +1041,8 @@ class VisualTrainingScene: SKScene {
         PranaDeviceManager.shared.stopGettingLiveData()
         
         objLive?.removeDelegate(self)
-        objLive?.stopMode(reset: (UIApplication.shared.delegate as? AppDelegate)?.dataController.isAutoReset ?? false)
+        objLive?.stopMode(reset: isAutoReset)
         objLive = nil
-        
-        _messageNode.text = "Session Ended Early"
-        addChild(_messageNode)
     }
     
     func startMode() {

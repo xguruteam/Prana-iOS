@@ -613,6 +613,8 @@ extension Date {
         
         if consider && calendar.component(.weekday, from: self) == searchWeekdayIndex {
             return self
+            .previous(weekDay, considerToday: false)
+            .next(weekDay, considerToday: false)
         }
         
         var nextDateComponent = DateComponents()

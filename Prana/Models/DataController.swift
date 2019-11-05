@@ -453,7 +453,7 @@ class DataController {
         let fetchRequest = NSFetchRequest<LocalDB>(entityName: "LocalDB")
         
         let begin = date.previous(.monday, considerToday: true)
-        let end = date.next(.sunday, considerToday: true)
+        let end = date.next(.monday, considerToday: false)
         
         do {
             let result = try managedContext.fetch(fetchRequest)

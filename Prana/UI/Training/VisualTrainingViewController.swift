@@ -231,6 +231,7 @@ class VisualTrainingViewController: SuperViewController {
         scene.whichPattern = whichPattern
         scene.subPattern = subPattern
         scene.skipCalibration = 0 // skipCalibration
+        scene.isAutoReset = dataController.isAutoReset
         if skipCalibration == 1 {
             scene.initialMessage = "Breathe normally here to set your initial Average Breath Depth."
         } else {
@@ -471,7 +472,9 @@ class VisualTrainingViewController: SuperViewController {
             
             showHideStartButton()
         } else if isStarted {
-            objVisual?.stopSession()
+            currentSessionObject?.judgedBreaths = objVisual?.objLive?.judgedBreaths ?? []
+            currentSessionObject?.judgedPosture = objVisual?.objLive?.judgedPosture ?? []
+            objVisual?.onStop()
             objVisual?.visualDelegate = nil
             objVisual = nil
             liveGraphView.objLive = nil
@@ -499,6 +502,8 @@ class VisualTrainingViewController: SuperViewController {
         }
         
         if isCompleted == false {
+            currentSessionObject?.judgedBreaths = objVisual?.objLive?.judgedBreaths ?? []
+            currentSessionObject?.judgedPosture = objVisual?.objLive?.judgedPosture ?? []
             objVisual?.stopSession()
             objVisual = nil
             objVisual?.visualDelegate = nil
@@ -624,6 +629,8 @@ extension VisualTrainingViewController: VisualDelegate {
     }
 
     func visualOnComplete() {
+        currentSessionObject?.judgedBreaths = objVisual?.objLive?.judgedBreaths ?? []
+        currentSessionObject?.judgedPosture = objVisual?.objLive?.judgedPosture ?? []
         DispatchQueue.main.async { [unowned self] in
             self.onComplete()
         }
