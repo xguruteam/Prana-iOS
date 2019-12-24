@@ -14,7 +14,7 @@ class PassiveTrackingViewController: SuperViewController {
     @IBOutlet weak var btnHelp: UIButton!
     @IBOutlet weak var batteryView: BatteryStateView!
     @IBOutlet weak var lblTimeElapsed: UILabel!
-    @IBOutlet weak var liveGraph: LiveGraph2!
+    @IBOutlet weak var liveGraph: LiveGraph!
     @IBOutlet weak var lblStatus1: UILabel!
     @IBOutlet weak var lblStatus2: UILabel!
     @IBOutlet weak var lblStatus3: UILabel!
@@ -139,7 +139,7 @@ class PassiveTrackingViewController: SuperViewController {
     var tempBuzzIn: Int = 0
     var sessionWearing: Int = 0
     
-    var objLive: Live2?
+    var objLive: Live?
     
     var currentSessionObject: PassiveSession?
     
@@ -166,7 +166,7 @@ class PassiveTrackingViewController: SuperViewController {
 
         isPassiveTrackingActive = 0; // AUG 1st ADDED
         
-        objLive = Live2()
+        objLive = Live()
         objLive?.appMode = 1
         objLive?.addDelegate(self)
         liveGraph.objLive = objLive
@@ -615,7 +615,7 @@ class PassiveTrackingViewController: SuperViewController {
 
 }
 
-extension PassiveTrackingViewController: Live2Delegate {
+extension PassiveTrackingViewController: LiveDelegate {
     
     func liveMainLoop(timeElapsed: Double, sensorData: [Double]) {
         passiveTrackingMainLoop()

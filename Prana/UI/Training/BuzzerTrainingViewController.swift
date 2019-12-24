@@ -44,7 +44,7 @@ class BuzzerTrainingViewController: SuperViewController {
     
     @IBOutlet weak var btnStartStop: UIButton!
     
-    @IBOutlet weak var liveGraph: LiveGraph2!
+    @IBOutlet weak var liveGraph: LiveGraph!
     @IBOutlet weak var lblPostureValue: UILabel!
     @IBOutlet weak var btnBack: UIButton!
     
@@ -76,7 +76,7 @@ class BuzzerTrainingViewController: SuperViewController {
     
     var isLiving = false
     
-    var objLive: Live2?
+    var objLive: Live?
     var isTutorial = false
     var isCompleted = false
     
@@ -177,7 +177,7 @@ class BuzzerTrainingViewController: SuperViewController {
             return
         }
         
-        let objLiveGraph = Live2()
+        let objLiveGraph = Live()
         objLive = objLiveGraph
         objLiveGraph.graphStartTime = 0;  //AUG 12th New
         
@@ -1159,7 +1159,7 @@ class BuzzerTrainingViewController: SuperViewController {
     }
 }
 
-extension BuzzerTrainingViewController: Live2Delegate {
+extension BuzzerTrainingViewController: LiveDelegate {
     
     func liveMainLoop(timeElapsed: Double, sensorData: [Double]) {
         buzzerTrainingMainLoop()
@@ -1177,84 +1177,4 @@ extension BuzzerTrainingViewController: Live2Delegate {
     func liveUprightHasBeenSet() {
         uprightHasBeenSetHandler()
     }
-}
-
-extension BuzzerTrainingViewController: BuzzerDelegate {
-    func buzzerNewActualRR(actualRR: Double) {
-        DispatchQueue.main.async { [unowned self] in
-            self.actualRR = actualRR
-        }
-    }
-    
-    func buzzerNewMindfulBreaths(_ mindfuls: Int, goods: Int, ofTotalBreaths totals: Int) {
-//        print("new mindful \(mindfuls) in \(totals)")
-        if breathCount < totals {
-            let isMindful = ((mindfuls > mindfulBreaths) ? true : false)
-            self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: isMindful, respRate: actualRR, targetRate: targetRR, eiRatio: 0, oneMinuteRR: 0)
-        }
-        mindfulBreaths = mindfuls
-        breathCount = totals
-        DispatchQueue.main.async { [unowned self] in
-            self.lblMindfulBreaths.text = "Mindful Breaths: \(Int(mindfuls*100/totals))% (\(mindfuls) of \(totals))"
-        }
-    }
-    
-    func buzzerNewBuzzerReason(_ reason: String) {
-        DispatchQueue.main.async { [unowned self] in
-            self.lblBuzzerReason.text = "Buzzer Reason: " + reason
-        }
-    }
-    
-    func burzzerNewTargetRR(targetRR: Double) {
-        DispatchQueue.main.async { [unowned self] in
-            self.targetRR = targetRR
-        }
-    }
-    
-    func buzzerTimeElapsed(_ elapsed: Int) {
-        DispatchQueue.main.async { [unowned self] in
-            self.timeRemaining = elapsed
-//            if elapsed % 60 == 0 {
-                self.makeSessionObject()
-//            }
-        }
-    }
-    
-    func buzzerNewUprightTime(_ uprightTime: Int, ofElapsed elapsed: Int) {
-//        print("new upright \(uprightTime) in \(elapsed)")
-        if uprightDuration < uprightTime {
-            // end slouch
-            let slouchDuration = (self.sessionDuration * 60 - self.timeRemaining) - slouchStartSeconds
-            if slouchDuration > 0 {
-                self.currentSessionObject?.addSlouch(timeStamp: slouchStartSeconds, duration: slouchDuration)
-            }
-            slouchStartSeconds = 0
-        }
-        uprightDuration = uprightTime
-        DispatchQueue.main.async { [unowned self] in
-            self.lblUprightPosture.text = "Upright Posture: \(Int(uprightTime*100/elapsed))% (\(uprightTime) of \(elapsed) s)"
-        }
-    }
-    
-    func buzzerNewSlouches(_ slouches: Int) {
-//        print("new slouches \(slouches)")
-        slouchStartSeconds = self.sessionDuration * 60 - self.timeRemaining
-//        self.currentSessionObject?.addSlouch(timeStamp: self.sessionDuration * 60 - self.timeRemaining)
-        DispatchQueue.main.async { [unowned self] in
-            self.lblSlouches.text = "Slouches: \(slouches)"
-        }
-    }
-    
-    func buzzerDidSessionComplete() {
-        DispatchQueue.main.async { [unowned self] in
-            self.onComplete()
-            self.btnStartStop.isEnabled = false
-            self.btnStartStop.alpha = 0.5
-            self.btnStartStop.setTitle("Session Completed!", for: .normal)
-//            self.btnNext.isEnabled = true
-            self.btnStartStop.isHidden = false
-        }
-        print("Session Completed!")
-    }
-    
 }

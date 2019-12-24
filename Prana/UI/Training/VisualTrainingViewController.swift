@@ -14,7 +14,7 @@ import Macaw
 class VisualTrainingViewController: SuperViewController {
 
     @IBOutlet weak var gameView: SKView!
-    @IBOutlet weak var liveGraphView: LiveGraph2!
+    @IBOutlet weak var liveGraphView: LiveGraph!
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnSetUpright: UIButton!

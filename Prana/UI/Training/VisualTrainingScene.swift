@@ -69,7 +69,7 @@ class VisualTrainingScene: SKScene {
         static let FLOWER_SCALE: CGFloat = 0.5
     }
     
-    var objLive: Live2?
+    var objLive: Live?
     
     weak var visualDelegate: VisualDelegate?
     
@@ -228,7 +228,7 @@ class VisualTrainingScene: SKScene {
         self._playRegionY = CGFloat(yStartPos)
         self._playRegionH = CGFloat(fullBreathGraphHeight)
         
-        let objLiveGraph = Live2()
+        let objLiveGraph = Live()
         objLive = objLiveGraph
         objLive?.addDelegate(self)
         objLive?.setBreathingResponsiveness(val: 2)
@@ -1156,7 +1156,7 @@ class VisualTrainingScene: SKScene {
     }
 }
 
-extension VisualTrainingScene: Live2Delegate {
+extension VisualTrainingScene: LiveDelegate {
     func liveMainLoop(timeElapsed: Double, sensorData: [Double]) {
         self.visualDelegate?.visualBattery(battery: Int(sensorData[6]))
     }

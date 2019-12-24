@@ -2,38 +2,63 @@
 //  Live.swift
 //  Prana
 //
-//  Created by Luccas on 3/19/19.
+//  Created by Guru on 9/28/19.
 //  Copyright © 2019 Prana. All rights reserved.
 //
 
 import Foundation
-import CoreBluetooth
 
-
-protocol LiveDelegate {
-    func liveNewBreathingCalculated()
-    func liveNewPostureCalculated()
-    func liveNewRespRateCaclculated()
-    func liveDidUprightSet()
-    func liveDebug(para1: String, para2: String, para3: String, para4: String)
-    func liveProcess(sensorData: [Double])
+@objc protocol LiveDelegate {
+    @objc optional func liveMainLoop(timeElapsed: Double, sensorData: [Double])
+    @objc optional func liveUprightHasBeenSet()
+    @objc optional func liveNew(graphY: Double)
+    @objc optional func liveNew(postureFrame: Int)
+    @objc optional func liveNew(oneMinuteRespirationRate: Int)
+    @objc optional func liveNew(respirationRate: Double)
+    @objc optional func liveNew(breathCount: Int)
+    @objc optional func liveNew(endBreathLineY: Double)
+    @objc optional func liveNew(bottomReversalLineY: Double)
 }
 
 class Live: NSObject {
     
-    public struct Constants {
-        static let numberOfBeathingSamples: Int = 280
-        static let maxYOfBreathing: Float = 500
-        static let maxXOfPosture: Float = 598
+    let liveQueue = DispatchQueue(label: "liveQueue")
+    
+    func setPostureResponsiveness(val: Int) {
+        liveQueue.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.postureSelectorHandler(level: val)
+        }
+    }
+    
+    func setBreathingResponsiveness(val: Int) {
+        liveQueue.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.breathSelectorHandler(level: val)
+        }
+    }
+    
+    func setUpright() {
+        liveQueue.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.learnUprightAngleHandler()
+        }
     }
     
     var delegates: [LiveDelegate] = []
     
-    open func addDelegate(_ delegate: LiveDelegate) {
-        self.delegates.append(delegate)
+    func addDelegate(_ delegate: LiveDelegate) {
+        delegates.append(delegate)
     }
     
-    open func removeDelegate(_ delegate: LiveDelegate) {
+    func removeDelegate(_ delegate: LiveDelegate) {
+        guard !delegates.isEmpty else { return }
         var i: Int = 0
         for item in self.delegates {
             let obj1 = delegate as! NSObject
@@ -46,434 +71,345 @@ class Live: NSObject {
         self.delegates.remove(at: i)
     }
     
-    let liveQueue = DispatchQueue(label: "liveQueue")
-    
-    var yPos: [Double] {
-        var yPosCopy: [Double]!
-        
-        liveQueue.sync {
-            yPosCopy = self.graphYSeries
-        }
-        return yPosCopy
+    func stopMode(reset: Bool = false) {
+        backButtonHandler()
+        PranaDeviceManager.shared.removeDelegate(self)
+        delegates.removeAll()
+        if reset { resetBreathRange() }
     }
     
+    // MARK: New Properties
+    static var maxCount = 600
+    var appMode = 0 // DC.appMode
+    var isBuzzing = 0 // DC.objBuzzerTraining.isBuzzing
+    var calibrationBreathsDone = 0 // DC.objGame.calibrationBreathsDone
+    var graphStartTime: Double = 0 // DC.objGame.graphStartTime, DC.objBuzzerTraining.graphStartTime
     
-    var testDataOffset: Int = 0
+    // MARK: Properties from orignal Action Script
+    var count: Int = -1;
+    var fullBreathGraphHeight: Double = 400;
+    var yStartPos: Double = 500;
+    var graphYSeries: [Double] = Array(repeating: 0, count: maxCount + 1);
+    var breathSensor: [Double] = Array(repeating: 0, count: maxCount + 1);
+    var relativePosturePositionFiltered: [Double] = Array(repeating: 0, count: maxCount + 1);
+    var zSensor: [Double] = Array(repeating: 0, count: maxCount + 1);
+    var xSensor: [Double] = Array(repeating: 0, count: maxCount + 1);
+    var ySensor: [Double] = Array(repeating: 0, count: maxCount + 1);
+    var dampHistory: [Double] = Array(repeating: 0, count: maxCount + 1);
+    var rotationSensor: [Double] = Array(repeating: 0, count: maxCount + 1);
+    var relativeInhaleLevelSG: Double = 0;
+    var relativeInhaleLevelRS: Double = 0;
+    var bellyBreathHasStarted: Int = 0;
     
-    // init again later
-    var totalPoints: Int = 600
-    let initialPrepareCount: Int = 5
-    public var fullBreathGraphHeight: Double = 400.0
-    public var yStartPos: Double = 500
-    var count: Int = -1
+    var upStreak: Int = 0;
+    var downStreak: Int = 0;
+    var upStreakStart: Int = 0;
+    var downStreakStart: Int = 0;
+    var bottomReversalY: Double = 500;
+    var topReversalY: Double = 0;
+    var stuckBreaths: Int = 0;
+    var endBreathY: Double = 0;
+    var bottomReversalFound: Int = 0;
+    var topReversalFound: Int = 0;
+    //    var scrollX: Int;
+    var breathEnding: Int = 0;
+    var strainGauge: Double = 1;
+    var uprightPostureAngle: Double = 0;
+    var uprightSet: Int = 0;
+    var currentPostureAngle: [Double] = Array(repeating: 0, count: maxCount + 1);
     
     
-    var appMode: Int = 3 // DC.appMode
-    var isBuzzing: Int = 0// DC.objBuzzerTraining.isBuzzing
+    var useRotationSensor: Int = 0;
+    var postureRange: Double = 0.18;
+    var postureAttenuator: Double = 0.15;
+    var smoothBreathingCoef: Double = 1;
+    var lightBreathsInARow: Int = 0;
+    var deepBreathsInARow: Int = 0;
     
-    var xCoord: Int = 0
-    var dataArray: [Double] = []
+    var noisyMovements: Int = 0;
+    var dampingLevel: Int = 0;
+    var postureAttenuatorLevel: Int = 0;
+    var newStrainGaugeRange: Double = 0;
+    var breathTopExceeded: Int = 0;
+    
+    var strainGaugeMinRange: Double = 0.0005;
+    
+    //var RRtimer:Timer = new Timer(100);
+    var timeElapsed: Double = 0;
+    //var whenBreathsEnd:Array = new Array;    //AUG 1st REMOVED
+    var respRate: Double = 0;
+    var breathCount: Int = 0;
+    var stuckBreathsThreshold: Int = 3;  //AUG 1st CHANGED
+    var breathTopExceededThreshold: Int = 1;
+    var smoothBreathingCoefBaseLevel: Double = 0.40;
+    var postureIsGood: Int = 1;
+    var minBreathRange: Double = 0;  //***March16Change
+    var minBreathRangeForStuck: Double = 0;
+    var reversalThreshold: Int = 5; //AUG 1st CHANGED
+    var birdIncrements: Int = 20;
+    var avgRespRate: Double = 0;
+    
+    var EIRatio: [[Double]] = []; // May31st ADDED
+    var exhaleCorrectionFactor: Double = 0; // May31st ADDED
+    var inhaleStartTime: Double = 0; // May31st ADDED
+    var inhaleEndTime: Double = 0; // May31st ADDED
+    var exhaleEndTime: Double = 0; // May31st ADDED
+    var EIAvgSessionRatio: Double = 0; // May31st ADDED
+    var EIAvgSessionSummation: Double = 0; //AUG 1st ADDED
+    var EIRatioCount: Int = 0; // May31st ADDED
+    var EIGoodToMeasure: Int = 0; // May31st ADDED
+    var EI1Minute: Double = 0;  //JULY 13th:NEW1b
+    var lightBreathsThreshold: Int = 1; //JULY 13th:NEW1i
+    
+    var whenBreathsStart: [Double] = []; //Aug 1st ADDED
     
     
-    var graphY: Double = 0
-    var graphYSeries: [Double] = []
-    var breathSensor: [Double] = []
-    var relativePosturePositionFiltered: [Double] = []
-    var zSensor: [Double] = []
-    var xSensor: [Double] = []
-    var ySensor: [Double] = []
-    var dampHistory: [Double] = []
-    var rotationSensor: [Double] = []
-    var relativeInhaleLevelSG: Double = 0.0
-    var relativeInhaleLevelRS: Double = 0.0
-    var bellyBreathHasStarted: Int = 0
-    /*var bottomReversalLine:StartInhale = new StartInhale(); //blue line deoxygenated
-     var topReversalLine:StartExhale = new StartExhale(); //red line oxygenated
-     var endBreathLine:EndBreathThreshold = new EndBreathThreshold(); //yellow line
-     var zeroLine:ZeroLine = new ZeroLine(); //green line
-     var showDebugUI:ControlArrowUp = new ControlArrowUp();
-     var testUI:TestUI = new TestUI();
-     var postureUI:PostureUI = new PostureUI();*/
-    var upStreak: Int = 0
-    var downStreak: Int = 0
-    var upStreakStart: Int = 0
-    var downStreakStart: Int = 0
-    var bottomReversalY: Double = 500
-    var topReversalY: Double = 0
-    var isDrawTop: Bool = false
-    var isDrawBottom: Bool = false
-    var stuckBreaths: Int = 0
-    var endBreathY: Double = 0
-    var bottomReversalFound: Int = 0
-    var topReversalFound: Int = 0
-    var scrollX: Int = 0
-    var currentStrainGaugeLowest: Double = 0
-    var currentStrainGaugeHighest: Double = 0
-    var breathEnding: Int = 0
-    var strainGauge: Double = 1
-    var uprightPostureAngle: Double = 0
-    var uprightSet: Int = 0 {
-        didSet {
-            for item in self.delegates {
-                item.liveDidUprightSet()
-            }
-        }
-    }
-    var currentPostureAngle: [Double] = []
-    var xPos: Int = 0
-    var whichPostureFrame: Int = 1
-    var useRotationSensor: Int = 0
-    var postureRange: Double = 0.18
-    var postureAttenuator: Double = 0.15
-    var smoothBreathingCoef: Double = 1
-    var lightBreathsInARow: Int = 0
-    var deepBreathsInARow: Int = 0
-    var damp: Double = 0
-    var dampX: Double = 0
-    var dampY: Double = 0
-    var dampZ: Double = 0
-    var noisyMovements: Int = 0
-    var dampingLevel: Int = 0
-    var postureAttenuatorLevel: Int = 0
-    var currentStrainGaugeLowestNew: Double = 0
-    var currentStrainGaugeHighestNew: Double = 0
-    var newStrainGaugeRange: Double = 0
-    var currentStrainGaugeHighestPrev: Double = 0
-    var breathTopExceeded: Int = 0
-    var guidedPath: [Double] = []
-    var strainGaugeMinRange: Double = 0.0005
+    var calibrationRR: Double = 0; //AUG 1st ADDED
+    var timeElapsedAtCalibrationStart: Double = 0; //AUG 1st ADDED
+    var breathCountAtCalibrationStart: Int = 0; //AUG 1st ADDED
     
-    var birdY: Double = 500
-    var birdDeltaY: Double = 0
-    var birdVelocity: Double = 0
-    //var RRtimer:Timer = new Timer(100)
-    var timeElapsed: Double = 0
-    var whenBreathsEnd: [Double] = []
-    var respRate: Double = 0
-    var breathCount: Int = 0
-    var stuckBreathsThreshold: Int = 1
-    var breathTopExceededThreshold: Int = 1
-    var smoothBreathingCoefBaseLevel: Double = 0.4
-    var postureIsGood: Int = 0
-    var minBreathRange: Double = 10
-    var reversalThreshold: Int = 6
-    var birdIncrements: Int = 20
-    var avgRespRate: Double = 0
+    var postureLevel: Int = 2;  //AUG 1st ADDED
+    var breathLevel: Int = 2;  //AUG 1st ADDED
     
-    var calibrationBreathsDone: Int = 0 // used by Game
+    var enterFrameCount: Int = 0; //AUG 1st NEW
+    var inhaleIsValid: Int = 0; //AUG 1st NEW
+    var strainGaugeRangePrev: Double = 0.003; //AUG 1st NEW
     
-    var EIRatio: [[String: Any]] = []; // May31st ADDED
-    var exhaleCorrectionFactor:Double = 0; // May31st ADDED
-    var inhaleStartTime:Double = 0; // May31st ADDED
-    var inhaleEndTime:Double = 0; // May31st ADDED
-    var exhaleEndTime:Double = 0; // May31st ADDED
-    var EIAvgSessionRatio:Double = 0; // May31st ADDED
-    var EIRatioCount:Int = 0; // May31st ADDED
-    var EIGoodToMeasure:Int = 0; // May31st ADDED
-    var EI1Minute:Double = 0;  //JULY 13th:NEW1b
-    var lightBreathsThreshold:Int = 1; //JULY 13th:NEW1i
-
+    //    var breathsForGraph:Array = new Array; //AUG 12th NEW
+    var actualBreathsWithinAPattern: [CoreBreath] = []; //AUG 12th NEW
+    var judgedBreaths: [LiveBreath] = []; //AUG 12th NEW
+    var judgedPosture: [LivePosture] = []; //AUG 12th NEW
+    
     override init() {
         super.init()
-        totalPoints = Constants.numberOfBeathingSamples
-        yStartPos = Double(Constants.maxYOfBreathing) - 2
-        fullBreathGraphHeight = yStartPos * 0.8
-        birdY = yStartPos
-        count = -1
-        
-        testDataOffset = 0
-        
-        
-        graphYSeries = [Double](repeating: yStartPos, count: totalPoints)
-        breathSensor = [Double](repeating: 0.0, count: totalPoints)
-        relativePosturePositionFiltered = [Double](repeating: 0.0, count: totalPoints)
-        zSensor = [Double](repeating: 0.0, count: totalPoints)
-        xSensor = [Double](repeating: 0.0, count: totalPoints)
-        ySensor = [Double](repeating: 0.0, count: totalPoints)
-        dampHistory = [Double](repeating: 0.0, count: totalPoints)
-        rotationSensor = [Double](repeating: 0.0, count: totalPoints)
-        currentPostureAngle = [Double](repeating: 0.0, count: totalPoints)
-        guidedPath = [Double](repeating: fullBreathGraphHeight, count: totalPoints)
-        whenBreathsEnd = [Double]()
-        whenBreathsEnd.append(0)
-        
-        relativeInhaleLevelSG = 0.0
-        relativeInhaleLevelRS = 0.0
-        bellyBreathHasStarted = 0
-        upStreak = 0
-        downStreak = 0
-        upStreakStart = 0
-        downStreakStart = 0
-        bottomReversalY = yStartPos
-        topReversalY = 0
-        isDrawTop = false
-        isDrawBottom = false
-        stuckBreaths = 0
-        endBreathY = 0
-        bottomReversalFound = 0
-        topReversalFound = 0
-        scrollX = 0
-        currentStrainGaugeLowest = 0
-        currentStrainGaugeHighest = 0
-        breathEnding = 0
-        strainGauge = 1
-        uprightPostureAngle = 0
-        uprightSet = 0
-        xPos = 0
-        whichPostureFrame = 1
-        useRotationSensor = 0
-        postureRange = 0.18
-        postureAttenuator = 0.15
-        smoothBreathingCoef = 1
-        lightBreathsInARow = 0
-        deepBreathsInARow = 0
-        damp = 0
-        dampX = 0
-        dampY = 0
-        dampZ = 0
-        noisyMovements = 0
-        dampingLevel = 0
-        postureAttenuatorLevel = 0
-        currentStrainGaugeLowestNew = 0
-        currentStrainGaugeHighestNew = 0
-        newStrainGaugeRange = 0
-        currentStrainGaugeHighestPrev = 0
-        breathTopExceeded = 0
-        strainGaugeMinRange = 0.0005
-        birdDeltaY = 0
-        birdVelocity = 0
-        timeElapsed = 0
-        respRate = 0
-        breathCount = 0
-        stuckBreathsThreshold = 1
-        breathTopExceededThreshold = 1
-        smoothBreathingCoefBaseLevel = 0.4
-        postureIsGood = 1
-        minBreathRange = Double(fullBreathGraphHeight/16)
-        reversalThreshold = 6
-        birdIncrements = 20
-        avgRespRate = 0
-        
-        // from startMode()
-//        currentStrainGaugeHighest = currentStrainGaugeLowest + 0.003
-//        currentStrainGaugeHighestPrev = currentStrainGaugeHighest
-//        currentStrainGaugeLowestNew = currentStrainGaugeLowest
-//        currentStrainGaugeHighestNew = currentStrainGaugeHighest
-        
-        stuckBreathsThreshold = 1
-        breathTopExceededThreshold = 1
-        lightBreathsThreshold = 1; //JULY 13th:NEW1i
-        lightBreathsInARow = 0; //JULY 13th:NEW1i
-        breathTopExceeded = 0; //JULY 13th:NEW1i
-        stuckBreaths = 0; //JULY 13th:NEW1i
-        minBreathRange = fullBreathGraphHeight/16.0
-        
-        exhaleCorrectionFactor = 0; //May 31st ADDED
-        EIAvgSessionRatio = 0; //May 31st ADDED
-        EIRatio = [];  //May 31st ADDED
-        inhaleStartTime = 0; //May 31st ADDED
-        inhaleEndTime = 0; //May 31st ADDED
-        exhaleEndTime = 0; //May 31st ADDED
-        EIRatioCount = 0; //May 31st ADDED
-        EI1Minute = 0;  //JULY 13th:NEW1b
-        
-        PranaDeviceManager.shared.addDelegate(self)
     }
     
     deinit {
-        PranaDeviceManager.shared.removeDelegate(self)
-    }
-    
-    func displayDebugStats() {
-        let strln1: String = "strainGauge = " + String(roundNumber(num: strainGauge, dec: 100000)) + "  magneticAngle = " + String(roundNumber(num: rotationSensor[count], dec: 1000)) + " " + String(useRotationSensor)
-        let strln2: String = "Z = " + String(roundNumber(num: zSensor[count], dec: 1000)) + "  Y = " + String(roundNumber(num: ySensor[count], dec: 1000)) + "  X = " + String(roundNumber(num: xSensor[count], dec: 1000)) + "  " + String(roundNumber(num: currentPostureAngle[count], dec: 1000))
-        let strln3: String = String(roundNumber(num: currentStrainGaugeHighest, dec: 100000)) + "  " + String(roundNumber(num: currentStrainGaugeLowest, dec: 100000)) + "  " + String(roundNumber(num: currentStrainGaugeHighest - currentStrainGaugeLowest, dec: 100000)) + "  " + String(breathTopExceeded) + "  " + String(lightBreathsInARow) + " noisy " + String(dampingLevel) + " stuck " + String(stuckBreaths)
-        let strln4: String = ""
-        for item in self.delegates {
-            item.liveDebug(para1: strln1, para2: strln2, para3: strln3, para4: strln4)
-        }
+        print("Live2 deinit")
     }
     
     func resetCount() {
-        
-        if (count == totalPoints) {
-            xSensor.removeFirst()
-            ySensor.removeFirst()
-            zSensor.removeFirst()
-            currentPostureAngle.removeFirst()
-            rotationSensor.removeFirst()
-            breathSensor.removeFirst()
-            graphYSeries.removeFirst()
-            dampHistory.removeFirst()
-            relativePosturePositionFiltered.removeFirst()
+        if (count == Live.maxCount) { //***march18
             
-            xSensor.append(0.0)
-            ySensor.append(0.0)
-            zSensor.append(0.0)
-            currentPostureAngle.append(0.0)
-            rotationSensor.append(0.0)
-            breathSensor.append(0.0)
-            graphYSeries.append(0.0)
-            dampHistory.append(0.0)
-            relativePosturePositionFiltered.append(0.0)
+            for i in 500 ... 600
+            {
+                
+                xSensor[i-500] = xSensor[i];
+                ySensor[i-500] = ySensor[i];
+                zSensor[i-500] = zSensor[i];
+                currentPostureAngle[i-500] = currentPostureAngle[i];
+                rotationSensor[i-500] = rotationSensor[i];
+                breathSensor[i-500] = breathSensor[i];
+                graphYSeries[i-500] = graphYSeries[i];
+                dampHistory[i-500] = dampHistory[i];
+                relativePosturePositionFiltered[i-500] = relativePosturePositionFiltered[i];
+                
+            }
             
-            count = totalPoints - 1
+            count = 100;
         }
     }
     
-    func storeSensorData(sensorData: [Double]) {
+    func roundSensorArrays() {
+        xSensor[count] = roundNumber(xSensor[count], 1000000000); //***march18
+        ySensor[count] = roundNumber(ySensor[count], 1000000000); //***march18
+        zSensor[count] = roundNumber(zSensor[count], 1000000000); //***march18
+        rotationSensor[count] = roundNumber(rotationSensor[count], 1000000000); //***march18
+        breathSensor[count] = roundNumber(breathSensor[count], 1000000000); //***march18
+        currentPostureAngle[count] = roundNumber(currentPostureAngle[count], 1000000000); //***march18
+    }
+    
+    func storeSensorData(_ sensorData: [Double]) {
+        let dataArray = sensorData;
         
-        dataArray = sensorData
+        count+=1;
         
-        count += 1
+        resetCount();
         
-        resetCount()
-        
-        if (count < 8) {
-            xSensor[count] = dataArray[3]
-            ySensor[count] = dataArray[2]
-            zSensor[count] = dataArray[4]
+        if (count < 8) { //JULY 13:Change1m
+            
+            xSensor[count] = Double(dataArray[3]);
+            ySensor[count] = Double(dataArray[2]);
+            zSensor[count] = Double(dataArray[4]);
             
             if (xSensor[count] == 0 && ySensor[count] == 0) {
-                currentPostureAngle[count] = 2*(asin(zSensor[count]/Double.pi))
-            } else {
-                currentPostureAngle[count] = 2*(atan(zSensor[count]/sqrt(pow(xSensor[count], 2) + pow(ySensor[count], 2)))/Double.pi)
+                currentPostureAngle[count] = 2*(asin(zSensor[count])/Double.pi);
+            }
+            else {
+                currentPostureAngle[count] = 2*(atan(zSensor[count]/sqrt(pow(xSensor[count],2)+pow(ySensor[count],2)))/Double.pi);
             }
             
-            rotationSensor[count] = -Double(dataArray[5])
-            breathSensor[count] = 2.0 - Double(dataArray[1]);     //strainGauge = Number(dataArray[4]); Use this version instead if signal INCREASES when inhaling
+            rotationSensor[count] = -Double(dataArray[5]);
+            breathSensor[count] = 2 - Double(dataArray[1]);     //strainGauge = Number(dataArray[4]); Use this version instead if signal INCREASES when inhaling
             
-            graphYSeries[count] = yStartPos
-            dampHistory[count] = 1
-            relativePosturePositionFiltered[count] = currentPostureAngle[count]
-            currentStrainGaugeLowest = strainGauge
-            currentStrainGaugeHighest = currentStrainGaugeLowest + 0.003
-            currentStrainGaugeHighestPrev = currentStrainGaugeHighest
-        } else {
-            xSensor[count] = 0.5*Double(dataArray[3]) + (1.0-0.5)*xSensor[count-1]
-            ySensor[count] = 0.5*Double(dataArray[2]) + (1.0-0.5)*ySensor[count-1]
-            zSensor[count] = 0.5*Double(dataArray[4]) + (1.0-0.5)*zSensor[count-1]
+            graphYSeries[count] = yStartPos;
+            dampHistory[count] = 1;
+            relativePosturePositionFiltered[count] = currentPostureAngle[count];
+            currentStrainGaugeLowest = strainGauge;
+            currentStrainGaugeHighest = currentStrainGaugeLowest + 0.003;
+            currentStrainGaugeHighestPrev = currentStrainGaugeHighest;
+            
+            
+        }
+            
+        else {
+            
+            xSensor[count] = 0.50 * Double(dataArray[3]) + (1.0 - 0.50) * xSensor[count-1];
+            ySensor[count] = 0.50 * Double(dataArray[2]) + (1.0 - 0.50) * ySensor[count-1];
+            zSensor[count] = 0.50 * Double(dataArray[4]) + (1.0 - 0.50) * zSensor[count-1];
             
             if (xSensor[count] == 0 && ySensor[count] == 0) {
-                currentPostureAngle[count] = 2*(asin(zSensor[count])/Double.pi)
-            } else {
-                currentPostureAngle[count] = 2*(atan(zSensor[count]/sqrt(pow(xSensor[count], 2)+pow(ySensor[count], 2)))/Double.pi)
+                currentPostureAngle[count] = 2*(asin(zSensor[count])/Double.pi);
+            }
+            else {
+                currentPostureAngle[count] = 2*(atan(zSensor[count]/sqrt(pow(xSensor[count],2)+pow(ySensor[count],2)))/Double.pi);
             }
             
-            rotationSensor[count] = 0.5*(-Double(dataArray[5])) + (1.0-0.5)*rotationSensor[count-1]
-            breathSensor[count] = 0.5*(2-Double(dataArray[1])) + (1.0-0.5)*breathSensor[count-1]
+            rotationSensor[count] = 0.50 * (-Double(dataArray[5])) + (1.0 - 0.50) * rotationSensor[count-1];
+            //breathSensor[count] = 0.5 * (Number(dataArray[1])) + (1.0 - 0.5) * breathSensor[count-1];
+            breathSensor[count] = 0.5 * (2 - Double(dataArray[1])) + (1.0 - 0.5) * breathSensor[count-1];
+            //breathSensor[count] = 2 - Number(dataArray[4]);     //strainGauge = Number(dataArray[4]); Use this version instead if signal INCREASES when inhaling
+            
         }
         
-//        if testDataOffset < gstretchSensor.count {
-//            xSensor[count] = gxSensor[testDataOffset]
-//            ySensor[count] = gySensor[testDataOffset]
-//            zSensor[count] = gzSensor[testDataOffset]
-//            
-//            if (xSensor[count] == 0 && ySensor[count] == 0) {
-//                currentPostureAngle[count] = 2*(asin(zSensor[count])/Double.pi)
-//            } else {
-//                currentPostureAngle[count] = 2*(atan(zSensor[count]/sqrt(pow(xSensor[count], 2)+pow(ySensor[count], 2)))/Double.pi)
-//            }
-//            
-//            rotationSensor[count] = grotationSensor[testDataOffset]
-//            breathSensor[count] = gstretchSensor[testDataOffset]
-//            
-//            testDataOffset += 1
-//            
-//        }
         
-        strainGauge = breathSensor[count]
+        roundSensorArrays(); //***march18
         
-        if (count == 8) {
-            currentStrainGaugeHighest = currentStrainGaugeLowest + 0.003
-            currentStrainGaugeHighestPrev = currentStrainGaugeHighest
+        strainGauge = breathSensor[count];
+        
+        
+        if (count == 8) { //JULY 13:Change1m
+            
+            currentStrainGaugeHighest = currentStrainGaugeLowest + 0.003;
+            currentStrainGaugeHighestPrev = currentStrainGaugeHighest;
+            
         }
         
-        if (count > (initialPrepareCount + 1)) {
-            if (abs(rotationSensor[count] - rotationSensor[count-(initialPrepareCount + 1)]) > 0.3) {
-                useRotationSensor = 1
-            } else {
+        if (count > 6) {
+            
+            if (abs(rotationSensor[count] - rotationSensor[count-6]) > 0.3) {
+                
+                useRotationSensor = 1;
+                
+            }
+                
+            else {
+                
                 if (useRotationSensor == 1) {
-                    useRotationSensor = 0
+                    
+                    useRotationSensor = 0;
+                    //currentStrainGaugeLowest = strainGauge - (((graphYSeries[count-1] - yStartPos)/(-fullBreathGraphHeight)) * (currentStrainGaugeHighest - currentStrainGaugeLowest));
+                    
+                    //noisyMovements = 0;
+                    //dampingLevel = 1; //dampingLevel is usually around 5 when rotating, so when transitioning back to strain gauge, it should be set lower, otherwise graph gets momentarily stuck
                 }
+                
             }
+            
         }
     }
     
     func setSmoothingAndDamping() {
+        let dampX = 0.005/abs(xSensor[count] - xSensor[count-3]);
+        let dampY = 0.005/abs(ySensor[count] - ySensor[count-3]);
+        let dampZ = 0.005/abs(zSensor[count] - zSensor[count-3]);
         
-        dampX = 0.005/abs(xSensor[count]-xSensor[count-3])
-        dampY = 0.005/abs(ySensor[count]-ySensor[count-3])
-        dampZ = 0.005/abs(zSensor[count]-zSensor[count-3])
-        
-        damp = min(dampX, dampY, dampZ)
+        var damp = min(dampX, dampY, dampZ);
+        //damp = 0.005/Math.abs(currentPostureAngle[count] - currentPostureAngle[count-3]);
         
         if (damp > 1) {
-            damp = 1
+            damp = 1;
         }
         
-        dampHistory[count] = damp
+        dampHistory[count] = damp;
         
         if (dampHistory[count] < 0.4) {
-            dampingLevel += 1
-        } else {
-            dampingLevel -= 1
+            dampingLevel+=1;
+        }
+            
+        else {
+            dampingLevel-=1;
         }
         
         if (dampingLevel > 10) {
-            dampingLevel = 10
-        } else if (dampingLevel < 0) {
-            dampingLevel = 0
+            dampingLevel = 10;
+        }
+        else if (dampingLevel < 0) {
+            dampingLevel = 0;
         }
         
-        if (appMode != 3) {   //Don't set noisyMovements during Buzzer Training, because a noisy movement is almost gauranteed during a breath cycle due to the buzzer occuring at some point (hard to be sure isBuzzing would eliminate that, really need to add a buzzer flag status to the datastream to be sure).
+        if (appMode != 3) {  //Don't set noisyMovements during Buzzer Training, because a noisy movement is almost gauranteed during a breath cycle due to the buzzer occuring at some point (hard to be sure isBuzzing would eliminate that, really need to add a buzzer flag status to the datastream to be sure).
             if (dampingLevel >= 7) {
-                noisyMovements = 1
+                noisyMovements = 1;
             }
         }
+        
         
         if (topReversalFound == 1) {
-            smoothBreathingCoef = smoothBreathingCoefBaseLevel
-        } else {
-            smoothBreathingCoef = smoothBreathingCoefBaseLevel - 0.05
+            
+            smoothBreathingCoef = smoothBreathingCoefBaseLevel;
+        }
+        else {
+            
+            smoothBreathingCoef = smoothBreathingCoefBaseLevel - 0.05;
         }
         
+        
         if (isBuzzing == 0) {
-            var a: Double = 0
+            
+            var a:Double = 0;
+            
             if (dampingLevel > 0) {
-                smoothBreathingCoef = smoothBreathingCoef*Double(truncating: pow(0.8, dampingLevel) as NSNumber)
                 
-                a = (currentStrainGaugeHighest - currentStrainGaugeLowest) / 0.015
+                smoothBreathingCoef = smoothBreathingCoef * Double(truncating: pow(0.80, dampingLevel) as NSNumber);
                 
-                if (a>0 && a<1) {
-                    smoothBreathingCoef = smoothBreathingCoef * a
+                a = (currentStrainGaugeHighest - currentStrainGaugeLowest)/0.015; //to further dampen when the range is very sensitive
+                
+                if (a > 0  && a < 1) {
+                    smoothBreathingCoef = smoothBreathingCoef * a;
                 }
+                
             }
+            
         }
+            
+        else if (isBuzzing == 1) { //May 19 ADDED
+            
+            smoothBreathingCoef = smoothBreathingCoef * 0.5; //May 19 ADDED
+            
+        } //May 19 ADDED
     }
     
     func setRelativeInhaleLevelStrainGauge() {
+        relativeInhaleLevelSG = (strainGauge - currentStrainGaugeLowest) / (currentStrainGaugeHighest - currentStrainGaugeLowest);
         
-        relativeInhaleLevelSG = (strainGauge-currentStrainGaugeLowest) / (currentStrainGaugeHighest-currentStrainGaugeLowest)
         
-        if (relativeInhaleLevelSG > 1) {
-            relativeInhaleLevelSG = 1
+        if (relativeInhaleLevelSG > 1)  {
             
-            currentStrainGaugeHighest = 0.5*strainGauge + (1-0.5)*currentStrainGaugeHighest
+            relativeInhaleLevelSG = 1;
             
-            if ((currentStrainGaugeHighest-currentStrainGaugeLowest) < strainGaugeMinRange) {
-                currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange
+            //if (noisyMovements == 0) { //AUG 1st NEW
+            currentStrainGaugeHighest = 0.5*strainGauge + (1-0.5)*currentStrainGaugeHighest;
+            //} //AUG 1st NEW
+            
+            if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
+                currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
             }
-        } else if (relativeInhaleLevelSG < 0) {
-            relativeInhaleLevelSG = 0
             
-            currentStrainGaugeHighest = (currentStrainGaugeHighest - currentStrainGaugeLowest) + strainGauge
-            currentStrainGaugeLowest = strainGauge
-            
-            if ((currentStrainGaugeHighest-currentStrainGaugeLowest) < strainGaugeMinRange) {
-                currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange
-            }
         }
+            
+        else if (relativeInhaleLevelSG < 0)  {
+            
+            relativeInhaleLevelSG = 0;
+            currentStrainGaugeHighest = (currentStrainGaugeHighest - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
+            currentStrainGaugeLowest = strainGauge;
+            
+            if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
+                currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
+            }
+            
+        }
+            
         else {
             
             if (appMode != 3) { // JULY 13:Change1n  (all the rest of the code below in this function was updated, about 20 lines)
@@ -508,19 +444,22 @@ class Live: NSObject {
     
     func displayBreathingGraph() {
         
-        graphY = -Double(fullBreathGraphHeight)*relativeInhaleLevelSG + Double(yStartPos)
-        let beforeValue = graphYSeries[count-1]
-        let value = smoothBreathingCoef*graphY + (1.0 - smoothBreathingCoef)*beforeValue
-        graphYSeries[count] = value
+        let graphY = (-fullBreathGraphHeight*relativeInhaleLevelSG) + yStartPos;
+        graphYSeries[count] = smoothBreathingCoef*graphY + (1.0 - smoothBreathingCoef)*graphYSeries[count-1]; //dampen the sensor signal
         
-        for item in self.delegates {
-            item.liveNewBreathingCalculated()
+        delegates.forEach { $0.liveNew?(graphY: graphYSeries[count]) }
+        
+        //Guided path
+        
+        if (appMode == 2) {
+            
+            // TODO: move bird
         }
     }
     
     func displayPostureIndicator() {
-        
         if (uprightSet == 1) {
+            
             if (isBuzzing == 1) { //Don't evaluate posture if buzzer is buzzing! The buzzer TOTALLY messes up the accelerometer signal
                 postureAttenuator = 0;
             }
@@ -528,54 +467,70 @@ class Live: NSObject {
                 postureAttenuator = 0.10;
             }
             
+            
             if (useRotationSensor == 1) {
-                postureAttenuatorLevel += 1
+                
+                postureAttenuatorLevel+=1;
                 
                 if (postureAttenuatorLevel > 5) {
-                    postureAttenuatorLevel = 5
+                    postureAttenuatorLevel = 5;
                 }
-            } else {
-                postureAttenuatorLevel -= 1
+                
+            }
+                
+            else {
+                
+                postureAttenuatorLevel-=1;
                 if (postureAttenuatorLevel < 0) {
-                    postureAttenuatorLevel = 0
+                    postureAttenuatorLevel = 0;
                 }
+                
             }
             
-            switch (postureAttenuatorLevel) {
+            
+            switch postureAttenuatorLevel {
+                
             case 1:
-                postureAttenuator = postureAttenuator * 0.7
+                postureAttenuator = postureAttenuator * 0.70;
                 break;
+                
             case 2:
-                postureAttenuator = postureAttenuator * 0.7*0.8
-                break
-            case 3:
-                postureAttenuator = postureAttenuator * 0.7*0.8*0.8
-                break
-            case 4:
-                postureAttenuator = postureAttenuator * 0.7*0.8*0.8*0.8
-                break
-            case 5:
-                postureAttenuator = postureAttenuator * 0.7*0.8*0.8*0.8*0.8
-                break
-            default:
+                postureAttenuator = postureAttenuator * 0.70 * 0.80;
                 break;
+                
+            case 3:
+                postureAttenuator = postureAttenuator * 0.70 * 0.80 * 0.80;
+                break;
+                
+            case 4:
+                postureAttenuator = postureAttenuator * 0.70 * 0.80 * 0.80 * 0.80;
+                break;
+                
+            case 5:
+                postureAttenuator = postureAttenuator * 0.70 * 0.80 * 0.80 * 0.80 * 0.80;
+                break;
+            default:
+                break
             }
             
-            relativePosturePositionFiltered[count] = Double(postureAttenuator * currentPostureAngle[count] + (1-postureAttenuator) * relativePosturePositionFiltered[count-1])
-            xPos = Int(Double(Constants.maxXOfPosture)*(1-(abs(relativePosturePositionFiltered[count] - uprightPostureAngle)/postureRange)))
+            relativePosturePositionFiltered[count] = Double(postureAttenuator*currentPostureAngle[count] + (1-postureAttenuator)*relativePosturePositionFiltered[count-1]);
             
-            if (xPos > Int(Constants.maxXOfPosture)) {
-                xPos = Int(Constants.maxXOfPosture)
-            }
-            if (xPos < 0) {
-                xPos = 0
+            var xPos = Double(598*(1 - (abs(relativePosturePositionFiltered[count] - uprightPostureAngle)/postureRange)));
+            //note, the absolute value here is needed because we don't know for sure antomy of user! For example,if you wear on belly, then angle goes other way when leaning forward, and without absolute value, it does not work.
+            
+            
+            
+            if (xPos > 598) {
+                xPos = 598;
             }
             
-            for item in self.delegates {
-                item.liveNewPostureCalculated()
+            if (xPos < 2) {
+                xPos = 2;
             }
-
-            whichPostureFrame = Int(round(30*((Constants.maxXOfPosture - Float(xPos))/Constants.maxXOfPosture)));
+            
+//            postureUI.sliderGraph.postureMarker.x = xPos;
+            
+            var whichPostureFrame = Int(30*((598 - xPos)/598));
             
             if (whichPostureFrame < 1) {
                 whichPostureFrame = 1;
@@ -591,162 +546,232 @@ class Live: NSObject {
                 postureIsGood = 1;
             }
             
-        } else {
+            
+            //postureUI.postureAnim.gotoAndStop(whichPostureFrame);
+
+            delegates.forEach { $0.liveNew?(postureFrame: whichPostureFrame) }
+            
+        }
+            
+        else {
+            
             if (xSensor[count] == 0 && ySensor[count] == 0) {
-                relativePosturePositionFiltered[count] = 2*(sin(zSensor[count])/Double.pi)
-            } else {
-                relativePosturePositionFiltered[count] = 2*(atan(zSensor[count]/sqrt(pow(xSensor[count],2) + pow(ySensor[count], 2)))/Double.pi)
+                relativePosturePositionFiltered[count] = 2*(asin(zSensor[count])/Double.pi);
             }
+            else {
+                relativePosturePositionFiltered[count] = 2*(atan(zSensor[count]/sqrt(pow(xSensor[count],2)+pow(ySensor[count],2)))/Double.pi);
+            }
+            
+            
         }
     }
     
-    func processBreathingPosture(sensorData: [Double]) {
-        
+    func processBreathingandPosture(_ sensorData: [Double]) {
         timeElapsed = timeElapsed + (1/20.0);    // May 19th, ADDED THIS LINE, note it is 1/20, not 1/60 as previously in enterFrameHandler
         
-        for item in self.delegates {
-            item.liveProcess(sensorData: sensorData)
-        }
+        enterFrameCount+=1; //AUG 1st NEW
         
-        storeSensorData(sensorData: sensorData)
+        if (enterFrameCount >= 20) {  //AUG 1st NEW
+            enterFrameCount = 0; //AUG 1st NEW
+            if (timeElapsed >= 60) { //AUG 1st NEW
+                delegates.forEach { $0.liveNew?(oneMinuteRespirationRate: calculateOneMinuteRespRate()) }
+            } //AUG 1st NEW
+            
+        } //AUG 1st NEW
         
-        if (count < 8) {
-            return
-        }
-        
-        setSmoothingAndDamping()
-        setRelativeInhaleLevelStrainGauge()
-        displayPostureIndicator()
-        displayBreathingGraph()
-        reversalDetector()
-        displayDebugStats()
 
+        delegates.forEach { $0.liveMainLoop?(timeElapsed: timeElapsed, sensorData: sensorData) }
+        /*
+        if (DC.objBuzzerTraining.isBuzzerTrainingActive == 1) {  // May 19th, ADDED THIS LINE
+            DC.objBuzzerTraining.buzzerTrainingMainLoop()  // May 19th, ADDED THIS LINE
+        }  // May 19th, ADDED THIS LINE
+        
+        if (DC.objPassiveTracking.isPassiveTrackingActive == 1) {  // May 19th, ADDED THIS LINE
+            DC.objPassiveTracking.passiveTrackingMainLoop()  // May 19th, ADDED THIS LINE
+        }  // May 19th, ADDED THIS LINE
+        */
+        
+        storeSensorData(sensorData);
+        
+        if (count < 8) { //JULY 13:Change1m   Changed 5 to 8 here. This could have been causing crashes. For example, in setRelativeInhaleLevelStrainGauge(), I was accessing arrays based on count-6, which is a negative index value when count = 5  (and now I have count-8 there)
+            return;
+        }
+        
+        setSmoothingAndDamping();
+        setRelativeInhaleLevelStrainGauge();
+        displayPostureIndicator();
+        displayBreathingGraph();
+        reversalDetector();
+        
         if (breathEnding == 1) {
+            
             if (graphYSeries[count] > endBreathY) {
-                if (EIGoodToMeasure == 1 && exhaleCorrectionFactor < 1.3 && stuckBreaths == 0) {  // JULY 13th:CHANGE1a, if stuckBreaths > 0, then EIRatio can sometimes be negative
-
+                
+                if (EIGoodToMeasure == 1 && exhaleCorrectionFactor < 1.3 && stuckBreaths == 0 && (inhaleEndTime - inhaleStartTime > 0)) {  // AUG 1st CHANGED, if stuckBreaths > 0, then EIRatio can sometimes be negative
+                    
                     exhaleEndTime = timeElapsed; //May 31st ADDED
+                    //EIRatio[EIRatioCount] = [(exhaleCorrectionFactor*(exhaleEndTime - inhaleEndTime))/((1-(0.05/smoothBreathingCoefBaseLevel))*(inhaleEndTime - inhaleStartTime)),timeElapsed]; // JULY 13th:CHANGE1c  REMOVED
+                    let ratio = [roundNumber((exhaleCorrectionFactor*(exhaleEndTime - inhaleEndTime))/(inhaleEndTime - inhaleStartTime),10),timeElapsed]; // JULY 13th:NEW1c
                     
-                    var ratio = (exhaleCorrectionFactor*(exhaleEndTime - inhaleEndTime))/(inhaleEndTime - inhaleStartTime) // JULY 13th:NEW1c
-                    
-                    ratio = roundNumber(num: ratio, dec: 10)
-                    
-                    let ratioDic = [
-                        "time": Int(timeElapsed) as Any,
-                        "ratio": ratio]
-                    
-                    EIRatio.append(ratioDic); // May 31st ADDED
-//                    EIRatio[EIRatioCount][0] = roundNumber(EIRatio[EIRatioCount][0],10); // May 31st ADDED
-                    EIAvgSessionRatio = EIAvgSessionRatio + ratio; // May 31st ADDED
+                    EIRatio.append(ratio) ; // May 31st ADDED
+                    EIAvgSessionSummation = EIAvgSessionSummation + ratio[0]; // AUG 1st NEW
+                    EIAvgSessionRatio = roundNumber(EIAvgSessionSummation/Double(EIRatio.count),10); // AUG 1st CHANGED
                     EIRatioCount+=1;  // May 31st ADDED
                     EIGoodToMeasure = 0; //May31st ADDED
                     
-                }
-                //                endBreathLine
-//                stuckBreaths = 0
-                breathEnding = 0
-                breathCount += 1
-                calculateRespRate()
+                }  // May 31st ADDED
                 
-                if (timeElapsed >= 60) { //JULY 13th:NEW1d
-//                    postureUI.oneMinuteRespirationRateIndicator.text = String(calculateOneMinuteRespRate()); //JULY 13th:NEW1d
-                } //JULY 13th:NEW1d
+                delegates.forEach { $0.liveNew?(endBreathLineY: 5000) }
+//                endBreathLine.y = 5000;
                 
-                if (appMode == 1 && timeElapsed >= 60) { //JULY 13th:NEW1b   NOTE: appMode == 1 means it is Passive Tracking mode
-                    calculateOneMinuteEI(); //JULY 13th:NEW1b
-                } //JULY 13th:NEW1b
+                //stuckBreaths = 0;  JULY 13th REMOVED
+                breathEnding = 0;
+                //breathCount++;  //Aug 1st REMOVED
+                //calculateRealTimeRR();    //Aug 1st REMOVED
                 
-                if (stuckBreaths == 0) { //JULY 13th:NEW1i
-                    setNewStrainGaugeRange();
-                } //JULY 13th:NEW1i
-                else {  //JULY 13th:NEW1i
-                    currentStrainGaugeHighest = (currentStrainGaugeHighestPrev - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor. JULY 13th:NEW1i
+                
+                //if (timeElapsed >= 60) { //AUG 1st REMOVED
+                //postureUI.oneMinuteRespirationRateIndicator.text = String(calculateOneMinuteRespRate()); //AUG 1st REMOVED
+                //} //AUG 1st REMOVED
+                
+                //if (DC.appMode == 1 && timeElapsed >= 60) { //AUG 1st REMOVED    NOTE: appMode == 1 means it is Passive Tracking mode
+                //calculateOneMinuteEI(); //AUG 1st REMOVED
+                //if (DC.objPassiveTracking.isPassiveTrackingActive == 1) { //Aug 1st REMOVED
+                //DC.objPassiveTracking.passiveTrackingUI.lastMinuteEI.text = String(EI1Minute); //Aug 1st REMOVED
+                //} //Aug 1st REMOVED
+                //} //AUG 1st REMOVED
+                
+                //if (stuckBreaths == 0) { //AUG 1st REMOVED
+                setNewStrainGaugeRange(); //AUG 1st CHANGED (indent spacing)
+                //} //AUG 1st REMOVED
+                //else {  //AUG 1st REMOVED
+                //currentStrainGaugeHighest = (currentStrainGaugeHighestPrev - currentStrainGaugeLowest) + strainGauge; //AUG 1st REMOVED //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor. JULY 13th:NEW1i
+                
+                //if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) { //AUG 1st REMOVED //JULY 13th:NEW1i
+                //currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange; //AUG 1st REMOVED //JULY 13th:NEW1i
+                //} //AUG 1st REMOVED //JULY 13th:NEW1i
+                //} //AUG 1st REMOVED //JULY 13th:NEW1i
+                
+                if (stuckBreaths == 0) { //AUG 1st NEW
                     
-                    if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) { //JULY 13th:NEW1i
-                        currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange; //JULY 13th:NEW1i
-                    } //JULY 13th:NEW1i
-                } //JULY 13th:NEW1i
-                stuckBreaths = 0; //JULY 13th:NEW1i
+                    currentStrainGaugeHighestPrev = currentStrainGaugeHighest; // //AUG 1st NEW     only set this when the breath is not stuck! Otherwise it could be set much higher (to the value which exceeded the ceiling)
+                    strainGaugeRangePrev = currentStrainGaugeHighest - currentStrainGaugeLowest; //AUG 1st NEW
+                    
+                    if (strainGaugeRangePrev < strainGaugeMinRange) { //AUG 1st NEW
+                        strainGaugeRangePrev = strainGaugeMinRange; //AUG 1st NEW
+                    } //AUG 1st NEW
+                    
+                } //AUG 1st NEW
                 
-                noisyMovements = 0
-                currentStrainGaugeLowest = strainGauge
+                stuckBreaths = 0; //JULY 13th:NEW1i
+                noisyMovements = 0; //This is where to reset this. Thus, ANY noisy movement during inhalation will trigger a higher endBreathY
+                currentStrainGaugeLowest = strainGauge;
+                
             }
         }
     }
     
-    func calculateOneMinuteEI() { // May 31st ADDED
+    func calculateOneMinuteEI() {
+        guard EIRatio.count > 0 else { return }
         
-        var EI1Minute: Double = 0;  // May 31st ADDED
+        EI1Minute = 0;  //JULY 13th:CHANGE1b
         var breathsInLastMinute:Int = 0; // May 31st ADDED
         
-        guard EIRatio.count > 1 else { return }
-        
-        for i in (1...(EIRatio.count-1)).reversed() {
-            let ratioDic = EIRatio[i]
-            let timestamp = ratioDic["time"] as! Int
-            let ratio = ratioDic["ratio"] as! Double
-            if (timestamp >= Int(timeElapsed - 60)) { // May 31st ADDED
-                EI1Minute = EI1Minute + ratio; // May 31st ADDED
+        for i in ((0..<(EIRatio.count - 1)).map { Int($0) }.reversed()) { // May 31st ADDED
+            
+            if (EIRatio[i][1] >= (timeElapsed - 60)) { // May 31st ADDED
+                EI1Minute = EI1Minute + EIRatio[i][0]; // May 31st ADDED
                 breathsInLastMinute+=1; // May 31st ADDED
             } // May 31st ADDED
             else { // May 31st ADDED
                 break; // May 31st ADDED
             } // May 31st ADDED
-        }
+        } // May 31st ADDED
         
         if (breathsInLastMinute > 0) { // May 31st ADDED
-            self.EI1Minute = roundNumber(num: EI1Minute / Double(breathsInLastMinute),dec: 10); // May 31st ADDED
+            EI1Minute = roundNumber(EI1Minute / Double(breathsInLastMinute),10); // May 31st ADDED
         } // May 31st ADDED
         else { // May 31st ADDED
-            self.EI1Minute = 1; // May 31st ADDED
+            EI1Minute = 1; // May 31st ADDED
         } // May 31st ADDED
         
-//        return(EI1Minute); // May 31st ADDED
-        
-    } // May 31st ADDED
-    
-    func calculateRespRate() {
-        let now = Date().timeIntervalSince1970
-        
-        let elapsed = now - timeElapsed
-        
-        whenBreathsEnd.append(timeElapsed)
-        
-        if (breathCount > 2 && breathCount < 5) {
-            respRate = 2 * (60.0 / (whenBreathsEnd[breathCount] - whenBreathsEnd[breathCount-2]))
-        } else if (breathCount >= 5) {
-            respRate = 4 * (60.0 / (whenBreathsEnd[breathCount] - whenBreathsEnd[breathCount-4]))
-            avgRespRate = 60*(Double(breathCount)/timeElapsed)
-        }
-        
-        respRate = roundNumber(num:respRate, dec:10.0)
-        avgRespRate = roundNumber(num:avgRespRate, dec:10.0)
-        
-        for item in self.delegates {
-            item.liveNewRespRateCaclculated()
-        }
+        //return(EI1Minute); //JULY 13th:CHANGE1b  REMOVE THIS LINE
     }
     
-    func calculateOneMinuteRespRate() -> Int {    //JULY 13th:NEW1d  New FUNCTION
+    func calculateRealTimeAndSessionAverageRR() {
+        whenBreathsStart.append(timeElapsed);
         
-        var breathsInLastMinute:Int = 0;
-        for i in ((0..<(whenBreathsEnd.count - 1)).map { Int($0) + 1 }.reversed()) {
-            if (whenBreathsEnd[i] >= (timeElapsed - 60)) {
-                breathsInLastMinute+=1;
+        if (whenBreathsStart.count == 1) {
+            if ((whenBreathsStart[0] - 0) > 0) {
+                respRate = 1 * (60.0 / (whenBreathsStart[0] - 0));
+                respRate = roundNumber(respRate, 10);
             }
         }
-        return breathsInLastMinute;
+            
+        else if (whenBreathsStart.count >= 2) {
+            let lastIndex = whenBreathsStart.count-1;
+            breathCount+=1; //only start to increment this when there are at least 2 breath starts (as complete breath is defined by 2 breath starts), Big bug previously, not counting stuck breaths towards breathCount, so every time there is a VALID inhale, increase this count even if stuck
+            
+            if ((whenBreathsStart[lastIndex] - whenBreathsStart[lastIndex-1]) > 0) {
+                respRate = 1 * (60.0 / (whenBreathsStart[lastIndex] - whenBreathsStart[lastIndex-1]));
+            }
+            
+            if (timeElapsed > 0) {
+                avgRespRate = 60*(Double(breathCount)/timeElapsed);
+                
+            }
+            
+            if (appMode == 2 && calibrationBreathsDone == 0) {  //Aug 1st  NEW
+                if (timeElapsed-timeElapsedAtCalibrationStart > 0) { //Aug 1st  NEW
+                    calibrationRR = 60*(Double(breathCount-breathCountAtCalibrationStart)/(timeElapsed-timeElapsedAtCalibrationStart)); //Aug 1st  NEW
+                    calibrationRR = roundNumber(calibrationRR, 10); //Aug 1st  NEW
+                } //Aug 1st  NEW
+            } //Aug 1st  NEW
+            
+            respRate = roundNumber(respRate, 10);
+            avgRespRate = roundNumber(avgRespRate, 10);
+
+            delegates.forEach { $0.liveNew?(respirationRate: respRate) }
+//            postureUI.respirationRateIndicator.text = String(respRate);
+            
+        }
+        
+        if (appMode == 2) { //Aug 12th  NEW
+            actualBreathsWithinAPattern.append(CoreBreath(it: roundNumber(timeElapsed-graphStartTime,10), rr: respRate)); //Aug 12th  NEW
+        } //Aug 12th  NEW
+        else if (appMode == 3) { //AUG 1st NEW for BT
+            actualBreathsWithinAPattern.append(CoreBreath(it: roundNumber(timeElapsed-graphStartTime,10), rr: respRate)); //Aug 12th  NEW
+        } //Aug 12th  NEW
+    }
+    
+    func calculateOneMinuteRespRate() -> Int {
+        
+        var breathsInLastMinute: Int = 0;
+        
+        guard !whenBreathsStart.isEmpty else { return breathsInLastMinute }
+        
+        for i in ((0..<(whenBreathsStart.count - 1)).map { Int($0) }.reversed()) {
+            if (whenBreathsStart[i] >= (timeElapsed - 60)) {
+                breathsInLastMinute+=1;
+            } else {
+                break
+            }
+        }
+        return breathsInLastMinute - 1;
         
     }
     
     func setNewStrainGaugeRange() {
-        if (noisyMovements == 1) {
+        if (noisyMovements == 1 || stuckBreaths > 0) {    //AUG 1st CHANGED
             
-            currentStrainGaugeHighest = (currentStrainGaugeHighestPrev - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
+            //currentStrainGaugeHighest = (currentStrainGaugeHighestPrev - currentStrainGaugeLowest) + strainGauge; // //AUG 1st REMOVED Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
             
-            if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
-                currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
-            }
+            currentStrainGaugeLowest = strainGauge; //AUG 1st NEW
+            currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeRangePrev; //AUG 1st NEW
+            
+            //if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) { //AUG 1st REMOVED
+            //currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange; //AUG 1st REMOVED
+            //}    //AUG 1st REMOVED
             
             return;
         }
@@ -765,6 +790,7 @@ class Live: NSObject {
                 
                 currentStrainGaugeHighest = (currentStrainGaugeHighest - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
                 
+                currentStrainGaugeLowest = strainGauge; //AUG 1st NEW
                 if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
                     currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
                 }
@@ -781,7 +807,7 @@ class Live: NSObject {
         }
         
         
-        if ( (currentStrainGaugeHighest-currentStrainGaugeLowest) > 1.5*(currentStrainGaugeHighestPrev-currentStrainGaugeLowest)) {
+        if ( (currentStrainGaugeHighest-currentStrainGaugeLowest) > 1.25*(currentStrainGaugeHighestPrev-currentStrainGaugeLowest)) {    //AUG 1st change
             
             breathTopExceeded+=1;
             lightBreathsInARow = 0;
@@ -790,9 +816,11 @@ class Live: NSObject {
                 currentStrainGaugeHighest = ((0.3*currentStrainGaugeHighest + (1-0.3)*currentStrainGaugeHighestPrev) - currentStrainGaugeLowest) + strainGauge;
             }
             else {
-                currentStrainGaugeHighest = (currentStrainGaugeHighestPrev - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
+                //currentStrainGaugeHighest = (currentStrainGaugeHighestPrev - currentStrainGaugeLowest) + strainGauge; // AUG 1st REMOVED Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
+                currentStrainGaugeHighest = strainGauge + strainGaugeRangePrev; //AUG 1st NEW
             }
             
+            currentStrainGaugeLowest = strainGauge; //AUG 1st NEW
             if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
                 currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
             }
@@ -802,7 +830,9 @@ class Live: NSObject {
         else {
             
             breathTopExceeded = 0;
-            currentStrainGaugeHighest = (currentStrainGaugeHighestPrev - currentStrainGaugeLowest) + strainGauge; //Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
+            //currentStrainGaugeHighest = (currentStrainGaugeHighestPrev - currentStrainGaugeLowest) + strainGauge; //AUG 1st REMOVED Since currentStrainGaugeLowest is being set to strainGauge below, this preserves the range but relative to the new floor.
+            currentStrainGaugeHighest = strainGauge + strainGaugeRangePrev; //AUG 1st NEW
+            currentStrainGaugeLowest = strainGauge; //AUG 1st NEW
             if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
                 currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
             }
@@ -811,123 +841,185 @@ class Live: NSObject {
     }
     
     func reversalDetector() {
-        
         if (count <= reversalThreshold + 1) {
-            return
+            return;
         }
         
-        var up:Int = 0
-        var down:Int = 0
-        //        var i:Int = 0
+        var up:Int = 0;
+        var down:Int = 0;
+//        var i:Int = 0;
+        
+        if (bottomReversalFound == 1) {  //AUG 1st NEW
+            
+            if ( (breathEnding == 1 && (bottomReversalY - graphYSeries[count] > (minBreathRangeForStuck))) || (breathEnding == 0 && (yStartPos - graphYSeries[count] > minBreathRange)) ) { //This means the breath is not a false positive breath (not due to noise)  //AUG 1st NEW
+                
+                if (inhaleIsValid == 0) { //AUG 1st NEW
+                    
+                    inhaleIsValid = 1; //AUG 1st NEW
+                    
+                    calculateRealTimeAndSessionAverageRR(); //AUG 1st NEW
+                    
+                    delegates.forEach { $0.liveNew?(breathCount: breathCount) }
+//                    postureUI.howManyBreaths.text = String(breathCount); //AUG 1st NEW REMOVE THIS, for testing only
+                    
+                    delegates.forEach { $0.liveNew?(bottomReversalLineY: bottomReversalY) }
+//                    bottomReversalLine.y = bottomReversalY; //AUG 1st NEW
+                    
+                    delegates.forEach { $0.liveNew?(endBreathLineY: 5000) }
+//                    endBreathLine.y = 5000; //AUG 1st NEW, Hide this end breath line (for case when stuck breaths and a new valid inhale is happening)
+                    
+                    if (breathEnding == 1) {  // //AUG 1st NEW This means a bottom reversal occured BEFORE the previous breath ended! (ie before the previous breath crossed the endBreathLine)
+                        
+                        stuckBreaths+=1; //AUG 1st NEW
+                        
+                    } //AUG 1st NEW
+                    
+                    
+                } //AUG 1st NEW
+            } //AUG 1st NEW
+        } //AUG 1st NEW
+        
         
         if (upStreak == 0) {
-            for i:Int in 0...reversalThreshold {
+            
+            for i in 0 ... reversalThreshold  {
+                
                 if (graphYSeries[count-i] < graphYSeries[count-i-1]) {
-                    up += 1
+                    up+=1; //BECAUSE graph is negative going up!!!!!!!!!!!!!!!
                     if (up == reversalThreshold+1) {
-                        upStreak = 1
-                        upStreakStart = count - (reversalThreshold + 1)
+                        upStreak = 1;
+                        upStreakStart = count-(reversalThreshold+1);
                     }
                 }
             }
         }
         
+        
         if (downStreak == 0) {
-            for i:Int in 0...reversalThreshold {
+            
+            for i in 0 ... reversalThreshold  {
+                
                 if (graphYSeries[count-i] > graphYSeries[count-i-1]) {
-                    down += 1;
+                    down+=1; //BECAUSE graph is positive going down!!!!!!!!!!!!!!!
                     if (down == reversalThreshold+1) {
                         downStreak = 1;
                         downStreakStart = count-(reversalThreshold+1);
                     }
+                    
                 }
             }
         }
         
-        if (up == (reversalThreshold+1)) {
-            if (downStreak == 1) {
-                downStreak = 0
-                bottomReversalFound = 1
-                inhaleStartTime = timeElapsed - (Double(reversalThreshold)+1.0)*(1.0/20.0); //May 31st ADDED
-                bottomReversalY = graphYSeries[downStreakStart]
+        
+        if (up == reversalThreshold+1) {
+            
+            if (downStreak == 1) { //downStreak must have been previously set, thus a bottom reversal has just been found
                 
-                currentStrainGaugeLowestNew = breathSensor[count - (reversalThreshold+2)]
+                downStreak = 0;
+                bottomReversalFound = 1;
+                inhaleIsValid = 0; //AUG 1st NEW
+                inhaleStartTime = timeElapsed - Double(reversalThreshold+1)*(1/20); //May 31st ADDED
+                
+                bottomReversalY = graphYSeries[downStreakStart];
+                
+                currentStrainGaugeLowestNew = breathSensor[count-(reversalThreshold+2)];
                 
                 if downStreakStart <= upStreakStart {
-                    for i:Int in downStreakStart...upStreakStart {
-                        if (graphYSeries[i] > bottomReversalY) {
-                            bottomReversalY = graphYSeries[i]
+                    for i in downStreakStart ... upStreakStart { //This is needed because upStreakStart could conceivably be higher than downStreakStart
+                        
+                        if (graphYSeries[i] > bottomReversalY){ //Find the lowest point on the graph within the bounds
+                            bottomReversalY = graphYSeries[i];
                         }
+                        
                     }
                 }
                 
+                //bottomReversalLine.y = bottomReversalY; // AUG 1st REMOVED
+
+//                topReversalLine.y = 5000;
                 
-                //                bottomReversalLine.y = bottomReversalY
-                //                topReversalLine.y = 5000
-                isDrawTop = false
-                isDrawBottom = true
+                //if (breathEnding == 1) {  // // AUG 1st REMOVED  This means a bottom reversal occured BEFORE the previous breath ended! (ie before the previous breath crossed the endBreathLine)
                 
-                if (breathEnding == 1) {
-                    stuckBreaths += 1
-                }
+                //stuckBreaths++;  // AUG 1st REMOVED
+                //} // AUG 1st REMOVED
                 
-                if (stuckBreaths == 0) {
-                    currentStrainGaugeHighestPrev = currentStrainGaugeHighest
-                }
                 
-                topReversalFound = 0
+                //if (stuckBreaths == 0) { //AUG 1st REMOVED
+                
+                //currentStrainGaugeHighestPrev = currentStrainGaugeHighest; // AUG 1st REMOVED  only set this when the breath is not stuck! Otherwise it could be set much higher (to the value which exceeded the ceiling)
+                
+                //} //AUG 1st REMOVED
+                
+                topReversalFound = 0;
+                
             }
+            
         }
         
+        
+        
         if (down == (reversalThreshold+1)) {
-            if (upStreak == 1) {
-                upStreak = 0
-                topReversalY = graphYSeries[upStreakStart]
+            
+            if (upStreak == 1) { //upStreak must have been previously set, thus a top reversal has just been found
+                
+                upStreak = 0;
+                
+                topReversalY = graphYSeries[upStreakStart];
                 
                 if upStreakStart <= downStreakStart {
-                    for i:Int in upStreakStart...downStreakStart {
-                        if (graphYSeries[i] < topReversalY) {
-                            topReversalY = graphYSeries[i]
+                    for i in upStreakStart ... downStreakStart {
+                        
+                        if (graphYSeries[i] < topReversalY){
+                            topReversalY = graphYSeries[i];
                         }
                     }
                 }
                 
+                //if (DC.appMode != 3 && DC.appMode != 1 ) { // AUG 1st REMOVED
+                //if ( ((bottomReversalY - topReversalY < minBreathRange) && stuckBreaths > 0) || (yStartPos - topReversalY < minBreathRange) ) { //AUG 1st REMOVED, minBreathRange/3 changed to just minBreathRange (now just setting minBreathRange in BT and VT and PT)
+                if (inhaleIsValid == 0) {  //AUG 1st ADDED
+                    bottomReversalFound = 0; //AUG 1st ADDED
+                    return; // Require a min breath range when breath is stuck, otherwise breath holding does not work and breath range sensitivity can artificially spike due to noise
+                }
+                //}  // AUG 1st REMOVED
+                //else { // AUG 1st REMOVED
+                //if ( ((bottomReversalY - topReversalY < minBreathRange) && stuckBreaths > 0) || (yStartPos - topReversalY < (minBreathRange*3)) ) {  //JULY 13:New1o  changed to *3 here to make a greater requirement to be considered a breath during BT  (to help reduce BT false positives)  // AUG 1st REMOVED
+                //bottomReversalFound = 0; // AUG 1st REMOVED
+                //return; // Require a min breath range when breath is stuck, otherwise breath holding does not work and breath range sensitivity can artificially spike due to noise   // AUG 1st REMOVED
+                //} // AUG 1st REMOVED
+                //}  // AUG 1st REMOVED
                 
-                if (appMode != 3) { //JULY 13:New1o
-                    if ( ((bottomReversalY - topReversalY < minBreathRange) && stuckBreaths > 0) || (yStartPos - topReversalY < (minBreathRange/3)) ) { //***March16Change Just changed to divided by 3 here from 2 to allow smaller breaths from baseline to be detected
-                        return; // Require a min breath range when breath is stuck, otherwise breath holding does not work and breath range sensitivity can artificially spike due to noise
-                    }
-                }  //JULY 13:New1o
-                else { //JULY 13:New1o
-                    if ( ((bottomReversalY - topReversalY < minBreathRange) && stuckBreaths > 0) || (yStartPos - topReversalY < (minBreathRange*3)) ) {  //JULY 13:New1o  changed to *3 here to make a greater requirement to be considered a breath during BT  (to help reduce BT false positives)
-                        return; // Require a min breath range when breath is stuck, otherwise breath holding does not work and breath range sensitivity can artificially spike due to noise   //JULY 13:New1o
-                    } //JULY 13:New1o
-                }  //JULY 13:New1o
+                topReversalFound = 1;
                 
-                topReversalFound = 1
+                currentStrainGaugeHighestNew = breathSensor[count-(reversalThreshold+2)];
                 
-                currentStrainGaugeHighestNew = breathSensor[count-(reversalThreshold+2)]
+                //topReversalLine.y = topReversalY;    //AUG 1st REMOVED (no longer showing the top reversal line, since the peak of the graph already indicates that)
                 
-                //                topReversalLine.y = topReversalY
-                isDrawBottom = false
-                isDrawTop = true
+                
                 
                 if (bottomReversalFound == 1 || breathCount < 2) {
+                    
                     if (bottomReversalFound == 1 && breathCount >= 2 ) { //May 31st ADDED
-                        inhaleEndTime = timeElapsed - (Double(reversalThreshold)+1.0)*(1.0/20.0); //May 31st ADDED
+                        inhaleEndTime = timeElapsed - Double(reversalThreshold+1)*(1/20); //May 31st ADDED
                         EIGoodToMeasure = 1; //May 31st ADDED
                     } //May 31st ADDED
-                    bottomReversalFound = 0
-                    breathEnding = 1
                     
+                    bottomReversalFound = 0;
+                    breathEnding = 1;
                     exhaleCorrectionFactor = 1; //May 31st ADDED
                     
-                    if breathCount < 2 && appMode != 2 { //***March16Change    May 30th Change
-                        endBreathY = bottomReversalY - 0.95 * (bottomReversalY - topReversalY)
+                    //DC.objStartConnection.socket.writeUTFBytes("Buzz,0.2" + "\n");
+                    //DC.objStartConnection.socket.flush();
+                    
+                    if (breathCount < 2 && appMode != 2) { //***March16Change    May 30th Change
+                        endBreathY = bottomReversalY - 0.95*(bottomReversalY - topReversalY); //***March16Change, This addresses scnenario if user plugs in belt AFTER starting LiveGraph which can cause strainGauge value to suddenly greatly jump, and create situation where breath graph is stuck far above the yellow line
                         exhaleCorrectionFactor = 1/(1-0.95); //May 31st ADDED
-                    } else if (appMode == 2) {
+                    } //***March16Change
+                        
+                    else if (appMode == 2) { //***March16Change  (else added)
+                        
                         if (calibrationBreathsDone == 1) {
-                            endBreathY = yStartPos + (0.20*(-fullBreathGraphHeight));
+                            endBreathY = yStartPos + Double(0.20*(-fullBreathGraphHeight));
                             exhaleCorrectionFactor = 1/(1-0.20); //May 31st ADDED
                         }
                         else if (calibrationBreathsDone == 0) {
@@ -944,36 +1036,99 @@ class Live: NSObject {
                             endBreathY = bottomReversalY - 0.50*(bottomReversalY - topReversalY); //end breath line
                             exhaleCorrectionFactor = 1/(1-0.50); //May 31st ADDED
                         }
-
-                    } else if (appMode == 1 || appMode == 3) {
-                        endBreathY = bottomReversalY - 0.2*(bottomReversalY-topReversalY)
+                        
+                    }
+                        
+                    else if (appMode == 1 || appMode == 3) {
+                        
+                        endBreathY = bottomReversalY - 0.20*(bottomReversalY - topReversalY); //end breath line
                         exhaleCorrectionFactor = 1/(1-0.20); //May 31st ADDED
                         
                         if (noisyMovements == 1) {
-                            endBreathY = bottomReversalY - 0.5*(bottomReversalY - topReversalY)
+                            endBreathY = bottomReversalY - 0.50*(bottomReversalY - topReversalY); //end breath line
                             exhaleCorrectionFactor = 1/(1-0.50); //May 31st ADDED
                         }
                         
                         if (stuckBreaths >= stuckBreathsThreshold) {
-                            endBreathY = bottomReversalY - 0.5*(bottomReversalY - topReversalY)
+                            endBreathY = bottomReversalY - 0.50*(bottomReversalY - topReversalY); //end breath line
                             exhaleCorrectionFactor = 1/(1-0.50); //May 31st ADDED
                         }
                     }
                     
-                    //                    endBreathLine.y = endBreathY
+                    delegates.forEach { $0.liveNew?(endBreathLineY: endBreathY) }
+//                    endBreathLine.y = endBreathY;
+//                    bottomReversalLine.y = 5000; //AUG 1st NEW  Hide this line when endBreath line appears, idea is green line appears when valid breath starts, and yellow line appears then when exhale starts (and green line disappears)
+                    
                 }
+                
             }
+            
+            
         }
     }
     
-    func resetBreathRange() {     //JULY 13:New1k
+    func postureSelectorHandler(level: Int) {
         
-        currentStrainGaugeHighest = currentStrainGaugeLowest + 0.003; //JULY 13:New1k
-        currentStrainGaugeHighestPrev = currentStrainGaugeHighest;  //JULY 13:New1k
-        currentStrainGaugeLowestNew = currentStrainGaugeLowest; //JULY 13:New1k
-        currentStrainGaugeHighestNew = currentStrainGaugeHighest;    //JULY 13:New1k
+        if (level == 1) {  //AUG 1st CHANGE (just changed the property name to level1, but this may not affect you Luccas)
+            
+            //postureRange = 0.25;
+            postureRange = 0.15;
+            postureLevel = 1;  // AUG 1st NEW
+        }
+        else if (level == 2) {  //AUG 1st CHANGE (just changed the property name to level2, but this may not affect you Luccas)
+            //postureRange = 0.15;
+            postureRange = 0.10;
+            postureLevel = 2;  // AUG 1st NEW
+        }
+        else if (level == 3) {  //AUG 1st CHANGE (just changed the property name to level3, but this may not affect you Luccas)
+            //postureRange = 0.08;
+            postureRange = 0.05;
+            postureLevel = 3;  // AUG 1st NEW
+        }
+    }
+    
+    func breathSelectorHandler(level: Int) {
+        if (level == 1) {  //AUG 1st CHANGED name
+            smoothBreathingCoefBaseLevel = 0.15;
+            reversalThreshold = 6;
+            birdIncrements = 24;
+            breathLevel = 1;  // AUG 1st NEW
+            minBreathRange = (fullBreathGraphHeight/16); //AUG 1st NEW, make even less prone to noise for level 1
+            minBreathRangeForStuck = (fullBreathGraphHeight/16); //AUG 1st NEW
+            
+        }
+        else if (level == 2) {  //AUG 1st CHANGED name
+            smoothBreathingCoefBaseLevel = 0.4;
+            reversalThreshold = 5;
+            birdIncrements = 20;
+            breathLevel = 2;  // AUG 1st NEW
+            minBreathRange = (fullBreathGraphHeight/16)/2; //AUG 1st NEW, make even less prone to noise for level 1
+            minBreathRangeForStuck = (fullBreathGraphHeight/16); //AUG 1st NEW
+        }
+        else if (level == 3) { //AUG 1st CHANGED name
+            smoothBreathingCoefBaseLevel = 0.6;
+            reversalThreshold = 3;
+            birdIncrements = 12;
+            breathLevel = 3;  // AUG 1st NEW
+            minBreathRange = (fullBreathGraphHeight/16)/2; //AUG 1st NEW, make even less prone to noise for level 1
+            minBreathRangeForStuck = (fullBreathGraphHeight/16); //AUG 1st NEW
+        }
+    }
+    
+    func learnUprightAngleHandler() {
+        if count < 0 { return }
         
-    } //JULY 13:New1k
+        uprightSet = 1;
+        
+        if (xSensor[count] == 0 && ySensor[count] == 0) {
+            uprightPostureAngle = 2*(asin(zSensor[count])/Double.pi);
+        }
+        else {
+            uprightPostureAngle = 2*(atan(zSensor[count]/sqrt(pow(xSensor[count],2)+pow(ySensor[count],2)))/Double.pi);
+        }
+        
+        delegates.forEach { $0.liveUprightHasBeenSet?() }
+    }
     
     func setUprightButtonPush(sensorData a:[Double])  {
         
@@ -990,136 +1145,92 @@ class Live: NSObject {
             uprightPostureAngle = 2*(atan(a[3]/sqrt(pow(a[1],2)+pow(a[2],2)))/Double.pi);
         }
         
+        delegates.forEach { $0.liveUprightHasBeenSet?() }
     }
     
-    //MARK: Handlers
-    
-    func setPostureResponsiveness(val: Int) {
-        liveQueue.async { [weak self] in
-            guard let self = self else {
-                return
-            }
-            switch(val) {
-            case 1:
-                self.postureRange = 0.15
-            case 2:
-                self.postureRange = 0.1
-            case 3:
-                self.postureRange = 0.05
-            default:
-                break
-            }
-        }
+    func backButtonHandler() {
+        PranaDeviceManager.shared.stopGettingLiveData()
     }
-    
-    func setBreathingResponsiveness(val: Int) {
-        liveQueue.async { [weak self] in
-            guard let self = self else {
-                return
-            }
-            switch(val) {
-            case 1:
-                self.smoothBreathingCoefBaseLevel = 0.15
-                self.reversalThreshold = 6
-                self.birdIncrements = 24
-            case 2:
-                self.smoothBreathingCoefBaseLevel = 0.4
-                self.reversalThreshold = 5
-                self.birdIncrements = 20
-            case 3:
-                self.smoothBreathingCoefBaseLevel = 0.6
-                self.reversalThreshold = 3
-                self.birdIncrements = 12
-            default:
-                break
-            }
-        }
-    }
-    
-    func learnUprightAngleHandler() {
-        liveQueue.async { [weak self] in
-            guard let self = self else {
-                return
-            }
-            self.learnUprightAngle()
-        }
-    }
-    
-    private func learnUprightAngle()  {
-        if (count < 0) {
-            return
-        }
+
+    func startMode() {
+        exhaleCorrectionFactor = 0; //May 31st ADDED
+        EIAvgSessionRatio = 0; //May 31st ADDED
+        EIAvgSessionSummation = 0; //AUG 1st ADDED
+        EIRatio = [];  //May 31st ADDED
+        inhaleStartTime = 0; //May 31st ADDED
+        inhaleEndTime = 0; //May 31st ADDED
+        exhaleEndTime = 0; //May 31st ADDED
+        EIRatioCount = 0; //May 31st ADDED
+        EI1Minute = 0;  //JULY 13th:NEW1b
+        //whenBreathsEnd = []; //AUG 1st REMOVED
+        //whenBreathsEnd[0] = 0; AUG 1st REMOVED
+        whenBreathsStart = []; // Aug 1st ADDED
+        calibrationRR = 12; //AUG 1st ADDED
         
-        uprightSet = 1;
+        actualBreathsWithinAPattern = []; //AUG 12th NEW
         
-        if (xSensor[count] == 0 && ySensor[count] == 0) {
-            uprightPostureAngle = 2*(asin(zSensor[count])/Double.pi);
-        }
-        else {
-            uprightPostureAngle = 2*(atan(zSensor[count]/sqrt(pow(xSensor[count],2)+pow(ySensor[count],2)))/Double.pi);
-        }
+        enterFrameCount = 0; //AUG 1st NEW
+        inhaleIsValid = 0; //AUG 1st NEW
+        breathCount = 0;
+        timeElapsed = 0;
+        respRate = 0;
+        avgRespRate = 0;
         
+        currentStrainGaugeHighest = currentStrainGaugeLowest + 0.003; //AUG 1st ADDED
+        currentStrainGaugeHighestPrev = currentStrainGaugeHighest;  //AUG 1st ADDED
+        currentStrainGaugeLowestNew = currentStrainGaugeLowest; //AUG 1st ADDED
+        currentStrainGaugeHighestNew = currentStrainGaugeHighest;    ///AUG 1st ADDED
+        strainGaugeRangePrev = 0.003; //AUG 1st NEW
+        
+        relativeInhaleLevelSG = 0; //AUG 1st NEW
+        currentStrainGaugeHighest = (currentStrainGaugeHighest - currentStrainGaugeLowest) + strainGauge; //AUG 1st NEW
+        currentStrainGaugeLowest = strainGauge;        //AUG 1st NEW
+        if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) { //AUG 1st NEW
+            currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange; //AUG 1st NEW
+        } //AUG 1st NEW
+        
+        PranaDeviceManager.shared.addDelegate(self)
+        PranaDeviceManager.shared.startGettingLiveData()
+        
+        //RRtimer.start();
+        //addEventListener(Event.ENTER_FRAME, enterFrameHandler);  May 19th, REMOVED THIS LINE
+        stuckBreathsThreshold = 3; //AUG 1st CHANGED
+        breathTopExceededThreshold = 1;
+        lightBreathsThreshold = 1; //JULY 13th:NEW1i
+        lightBreathsInARow = 0; //JULY 13th:NEW1i
+        breathTopExceeded = 0; //JULY 13th:NEW1i
+        stuckBreaths = 0; //JULY 13th:NEW1i
+        //minBreathRange = (fullBreathGraphHeight/16)/2; //AUG 1st REMOVED (setting it below),  This is important because resolutions on devices are different. Previously it was set to 25, which is an absolute value. Now it is set relative to the fullBreathGraphHeight (whatever that is set to for the particular device, it was 400 on desktop)
+        
+        
+        if (breathLevel == 1) {  //AUG 1st NEW
+            smoothBreathingCoefBaseLevel = 0.15;  //AUG 1st NEW
+            reversalThreshold = 6;   //AUG 1st NEW
+            birdIncrements = 24;     //AUG 1st NEW
+            minBreathRange = (fullBreathGraphHeight/16); //AUG 1st NEW, make even less prone to noise for level 1
+            minBreathRangeForStuck = (fullBreathGraphHeight/16); //AUG 1st NEW
+        } //AUG 1st NEW
+        else if (breathLevel == 2) { //AUG 1st NEW
+            smoothBreathingCoefBaseLevel = 0.4; //AUG 1st NEW
+            reversalThreshold = 5; //AUG 1st NEW
+            birdIncrements = 20; //AUG 1st NEW
+            minBreathRange = (fullBreathGraphHeight/16)/2; //AUG 1st NEW
+            minBreathRangeForStuck = (fullBreathGraphHeight/16); //AUG 1st NEW
+        } //AUG 1st NEW
+        else if (breathLevel == 3) { //AUG 1st NEW
+            smoothBreathingCoefBaseLevel = 0.6; //AUG 1st NEW
+            reversalThreshold = 3; //AUG 1st NEW
+            birdIncrements = 12; //AUG 1st NEW
+            minBreathRange = (fullBreathGraphHeight/16)/2; //AUG 1st NEW
+            minBreathRangeForStuck = (fullBreathGraphHeight/16); //AUG 1st NEW
+        }     //AUG 1st NEW
     }
     
-    func setInhaledHandler() {
-        liveQueue.async { [weak self] in
-            guard let self = self else {
-                return
-            }
-            self.setInhaled()
-        }
-    }
-    
-    private func setInhaled() {
-        currentStrainGaugeHighest = strainGauge;
-        currentStrainGaugeHighestPrev = strainGauge;
-        
-        if ( (currentStrainGaugeHighest - currentStrainGaugeLowest) < strainGaugeMinRange) {
-            currentStrainGaugeHighest = currentStrainGaugeLowest + strainGaugeMinRange;
-        }
-        
-        lightBreathsInARow = 0;
-        breathTopExceeded = 0;
-        
-    }
-    
-    
-    //MARK: RoundNumber
-    func roundNumber(num:Double, dec:Double) -> Double {
-        return round(num*dec)/dec
-    }
 }
 
 extension Live: PranaDeviceManagerDelegate {
-    func PranaDeviceManagerDidStartScan() {
-        
-    }
     
-    func PranaDeviceManagerDidStopScan(with error: String?) {
-        
-    }
-    
-    func PranaDeviceManagerDidDiscover(_ device: PranaDevice) {
-        
-    }
-    
-    func PranaDeviceManagerDidConnect(_ deviceName: String) {
-        
-    }
-    
-    func PranaDeviceManagerFailConnect() {
-        
-    }
-    
-    func PranaDeviceManagerDidOpenChannel() {
-        
-    }
-    
-    func PranaDeviceManagerDidReceiveData(_ parameter: CBCharacteristic) {
-        
-    }
-    
-    func PranaDeviceManagerDidReceiveLiveData(_ data: String!) {
+    func PranaDeviceManagerDidReceiveLiveData(_ data: String) {
         let raw = data.split(separator: ",")
         
         if raw[0] == "20hz" {
@@ -1141,7 +1252,7 @@ extension Live: PranaDeviceManagerDelegate {
                     return
                 }
                 
-                self.processBreathingPosture(sensorData: paras)
+                self.processBreathingandPosture(paras)
             }
         }
         else if raw[0] == "Upright" {

@@ -13,7 +13,7 @@ import Macaw
 class LiveGraphViewController: SuperViewController {
     
 //    @IBOutlet weak var btStartStop: UIButton!
-    @IBOutlet weak var breathingGraphView: LiveGraph2!
+    @IBOutlet weak var breathingGraphView: LiveGraph!
     
     //    @IBOutlet weak var postureIndicatorView: PostureIndicator!
     @IBOutlet weak var breathSensitivityGroup: UIView!
@@ -46,7 +46,7 @@ class LiveGraphViewController: SuperViewController {
     @IBOutlet weak var batteryView: BatteryStateView!
     
     var isLive = false
-    var objLive: Live2?
+    var objLive: Live?
     var isLowerBack = true
     var isFinish = false
 
@@ -59,7 +59,7 @@ class LiveGraphViewController: SuperViewController {
         
         initView()
         
-        objLive = Live2()
+        objLive = Live()
         objLive?.appMode = 1
         objLive?.addDelegate(self)
         breathingGraphView.objLive = objLive
@@ -121,9 +121,6 @@ class LiveGraphViewController: SuperViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is DevicesViewController {
-            stopLive()
-        }
     }
     
     @IBAction func onBack(_ sender: Any) {
@@ -259,7 +256,7 @@ class LiveGraphViewController: SuperViewController {
 
 }
 
-extension LiveGraphViewController: Live2Delegate {
+extension LiveGraphViewController: LiveDelegate {
     
     func liveMainLoop(timeElapsed: Double, sensorData: [Double]) {
         DispatchQueue.main.async {

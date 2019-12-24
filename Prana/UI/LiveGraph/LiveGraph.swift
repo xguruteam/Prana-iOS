@@ -1,135 +1,104 @@
 //
-//  LiveGraph.swift
+//  LiveGraph2.swift
 //  Prana
 //
-//  Created by Luccas on 3/19/19.
+//  Created by Guru on 9/28/19.
 //  Copyright © 2019 Prana. All rights reserved.
 //
 
 import UIKit
 
 class LiveGraph: UIView {
-    
+
     var objLive: Live? {
-        didSet {
-            objLive?.addDelegate(self)
+        willSet{
+            objLive?.removeDelegate(self)
+            newValue?.addDelegate(self)
+            data = Array(repeating: 500, count: LiveGraph.max)
+            bottomReversalY = 5000
+            endBreathY = 5000
         }
     }
-    
-//    private var width: CGFloat {
-//        return bounds.width
-//    }
-//    
-//    private var height: CGFloat {
-//        return bounds.height
-//    }
-    
-    let lineWith: CGFloat = 4.0
-    
-    @IBInspectable var lineColor: UIColor = UIColor.colorFromHex(hexString: "#5EB839")
-    @IBInspectable var topLineColor: UIColor = UIColor.colorFromHex(hexString: "#FA9797")
-    @IBInspectable var bottomLineColor: UIColor = UIColor.colorFromHex(hexString: "#A3C53C")
-    @IBInspectable var endLineColor: UIColor = UIColor.yellow
     
     deinit {
         objLive?.removeDelegate(self)
     }
     
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
+    let lineWith: CGFloat = 4.0
+    
+    var lineColor: UIColor = UIColor.colorFromHex(hexString: "#5EB839")
+    var topLineColor: UIColor = UIColor.colorFromHex(hexString: "#FA9797")
+    var bottomLineColor: UIColor = UIColor.colorFromHex(hexString: "#A3C53C")
+    var endLineColor: UIColor = UIColor.yellow
+    
+    static let max = 280
+    var data: [Double] = Array(repeating: 500, count: max)
+    var bottomReversalY: Double = 5000
+    var endBreathY: Double = 5000
+    
     override func draw(_ rect: CGRect) {
-        // Drawing code
-        guard let live = objLive else {
-            return
-        }
         
-        let yPos = live.yPos
-        
-        let count = live.count
-        
-        if count <= 1 {
-            return
-        }
-        
-        if count > (live.totalPoints-1) {
+        guard let _ = objLive else {
             return
         }
         
         let path = UIBezierPath()
+        
         lineColor.setStroke()
         path.lineWidth = lineWith
+        path.lineCapStyle = .round
+        path.lineJoinStyle = .round
         
-        let xStep = (width - 50) / CGFloat(live.totalPoints - 1)
+        let xStep = (width - 50) / CGFloat(LiveGraph.max - 1)
         
-        path.move(to: CGPoint(x: 0, y: scale(yPos[0])))
-        for i: Int in 1 ... count {
-            let y = yPos[i]
-//            if y > live.yStartPos {
-//                break
-//            }
-            path.addLine(to: CGPoint(x: CGFloat(i) * xStep, y: scale(y)))
+        path.move(to: CGPoint(x: 0, y: scale(data[0])))
+        for i: Int in 1 ..< LiveGraph.max {
+            path.addLine(to: CGPoint(x: CGFloat(i) * xStep, y: scale(data[i])))
         }
         
         path.stroke()
         
-//        if (live.isDrawTop) {
-//            let topPath = UIBezierPath()
-//            topLineColor.setStroke()
-//
-//            topPath.move(to: CGPoint(x: 0, y: scale(live.topReversalY)))
-//            topPath.addLine(to: CGPoint(x: width, y: scale(live.topReversalY)))
-//            topPath.stroke()
-//        }
+        let bottomPath = UIBezierPath()
+        bottomLineColor.setStroke()
         
-        if (live.isDrawBottom) {
-            let bottomPath = UIBezierPath()
-            bottomLineColor.setStroke()
-            
-            bottomPath.move(to: CGPoint(x: 0, y: scale(live.bottomReversalY)))
-            bottomPath.addLine(to: CGPoint(x: width, y: scale(live.bottomReversalY)))
-            bottomPath.stroke()
-        }
+        bottomPath.move(to: CGPoint(x: 0, y: scale(bottomReversalY)))
+        bottomPath.addLine(to: CGPoint(x: width, y: scale(bottomReversalY)))
+        bottomPath.stroke()
+
+        let endPath = UIBezierPath()
+        endLineColor.setStroke()
         
-        if (live.breathEnding == 1) {
-            let endPath = UIBezierPath()
-            endLineColor.setStroke()
-            
-            endPath.move(to: CGPoint(x: 0, y: scale(live.endBreathY)))
-            endPath.addLine(to: CGPoint(x: width, y: scale(live.endBreathY)))
-            endPath.stroke()
-        }
+        endPath.move(to: CGPoint(x: 0, y: scale(endBreathY)))
+        endPath.addLine(to: CGPoint(x: width, y: scale(endBreathY)))
+        endPath.stroke()
     }
     
     func scale(_ value: Double) -> CGFloat {
-        return CGFloat(value / Double(Live.Constants.maxYOfBreathing) * Double(height))
+        return CGFloat(value / objLive!.yStartPos * Double(height)) - 5.0
     }
 
 }
 
 extension LiveGraph: LiveDelegate {
-    func liveProcess(sensorData: [Double]) {
-        
-    }
-    
-    func liveDebug(para1: String, para2: String, para3: String, para4: String) {
-        
-    }
-    
-    func liveDidUprightSet() {
-        
-    }
-    
-    func liveNewBreathingCalculated() {
-        DispatchQueue.main.async {
-            self.setNeedsDisplay()
+    func liveNew(graphY: Double) {
+        DispatchQueue.main.async { [weak self] in
+            self?.data.append(graphY)
+            self?.data.removeFirst()
+            self?.setNeedsDisplay()
         }
     }
     
-    func liveNewPostureCalculated() {
+    func liveNew(endBreathLineY: Double) {
+        DispatchQueue.main.async { [weak self] in
+            self?.endBreathY = endBreathLineY
+            self?.setNeedsDisplay()
+        }
     }
     
-    func liveNewRespRateCaclculated() {
+    func liveNew(bottomReversalLineY: Double) {
+        DispatchQueue.main.async { [weak self] in
+            self?.bottomReversalY = bottomReversalLineY
+            self?.setNeedsDisplay()
+        }
     }
-    
-    
 }

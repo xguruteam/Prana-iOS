@@ -11,7 +11,7 @@ import Macaw
 
 class LiveFeedViewController: SuperViewController {
     
-    @IBOutlet weak var breathingGraphView: LiveGraph2!
+    @IBOutlet weak var breathingGraphView: LiveGraph!
     
     @IBOutlet weak var breathSensitivityGroup: UIView!
     @IBOutlet weak var btnUpright: UIButton!
@@ -38,7 +38,7 @@ class LiveFeedViewController: SuperViewController {
     @IBOutlet weak var lblDescription: UILabel!
     
     var isLive = false
-    var objLive: Live2?
+    var objLive: Live?
     var isLowerBack = true
     
 
@@ -69,9 +69,6 @@ class LiveFeedViewController: SuperViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is DevicesViewController {
-            stopLive()
-        }
     }
     
     @IBAction func onUpright(_ sender: Any) {
@@ -112,7 +109,7 @@ class LiveFeedViewController: SuperViewController {
             return
         }
         
-        objLive = Live2()
+        objLive = Live()
         objLive?.appMode = 1
         objLive?.addDelegate(self)
         breathingGraphView.objLive = objLive
@@ -209,7 +206,7 @@ class LiveFeedViewController: SuperViewController {
 
 }
 
-extension LiveFeedViewController: Live2Delegate {
+extension LiveFeedViewController: LiveDelegate {
     
     func liveNew(postureFrame: Int) {
         DispatchQueue.main.async { [weak self] in
