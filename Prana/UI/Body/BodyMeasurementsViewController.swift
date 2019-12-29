@@ -296,6 +296,7 @@ class BodyMeasurementsViewController: SuperViewController {
     func deinitLive() {
         objBody?.delegate = nil
         objBody = nil
+        objLive?.stopMode()
         objLive = nil
     }
     
@@ -303,6 +304,7 @@ class BodyMeasurementsViewController: SuperViewController {
         if isLive == true { return }
         
         isLive = true
+        objLive?.startMode()
         PranaDeviceManager.shared.startGettingLiveData()
     }
     
@@ -361,6 +363,7 @@ class BodyMeasurementsViewController: SuperViewController {
         let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ConnectViewController") as! ConnectViewController
         firstVC.isTutorial = false
         firstVC.completionHandler = { [unowned self] in
+            self.startLive()
             self.gotoSelectStep()
         }
         let navVC = UINavigationController(rootViewController: firstVC)

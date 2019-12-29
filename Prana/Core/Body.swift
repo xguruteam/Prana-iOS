@@ -70,31 +70,9 @@ class Body {
 }
 
 extension Body: LiveDelegate {
-    func liveNewBreathingCalculated() {
-        
-    }
-    
-    func liveNewPostureCalculated() {
-        
-    }
-    
-    func liveNewRespRateCaclculated() {
-        
-    }
-    
-    func liveDidUprightSet() {
-        
-    }
-    
-    func liveDebug(para1: String, para2: String, para3: String, para4: String) {
-        
-    }
-    
-    func liveProcess(sensorData: [Double]) {
+    func liveMainLoop(timeElapsed: Double, sensorData: [Double]) {
         DispatchQueue.main.async {
             self.dataArray = sensorData
         }
     }
-    
-    
 }
