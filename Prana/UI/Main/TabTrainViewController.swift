@@ -55,7 +55,7 @@ class TabTrainViewController: UIViewController {
         PranaDeviceManager.shared.addDelegate(self)
         bluetoothView.isEnabled = PranaDeviceManager.shared.isConnected
         
-        let dayNumber = dataController?.currentDay ?? 0
+        let dayNumber = dataController?.numberOfDaysPast ?? 0
         if let currentProgram = dataController?.currentProgram, dayNumber > 14 {
             if currentProgram.type == .fourteen {
                 let alert = UIAlertController(style: .alert, title: "14 day Program", message: "Congratulation! You have completed the 14 day training program.")
@@ -73,7 +73,7 @@ class TabTrainViewController: UIViewController {
             lblUprightPostureTime.text = "0"
             lblPostureResult.text = "0% Upright"
             if currentProgram.type == .fourteen {
-                let dayNumber = dataController?.currentDay ?? 0
+                let dayNumber = dataController?.numberOfDaysPast ?? 0
                 let (breathingGoal, postureGoal, _) = fourteenGoals[dayNumber]
                 lblBreathGoal.text = "\(breathingGoal) mins"
                 lblPostureGoal.text = "\(postureGoal) mins"
@@ -198,7 +198,7 @@ class TabTrainViewController: UIViewController {
             
             if let currentProgram = dataController?.currentProgram {
                 if currentProgram.type == .fourteen {
-                    let dayNumber = dataController?.currentDay ?? 0
+                    let dayNumber = dataController?.numberOfDaysPast ?? 0
                     let (breathingGoal, postureGoal, _) = fourteenGoals[dayNumber]
                     breathCircle.progress = CGFloat(breathingElapsed / 60) / CGFloat(breathingGoal)
                     postureCircle.progress = CGFloat(postureElapsed / 60) / CGFloat(postureGoal)

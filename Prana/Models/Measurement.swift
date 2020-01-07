@@ -19,3 +19,24 @@ class Measurement: Codable {
         self.data = data
     }
 }
+
+enum BMPosition: String, Codable {
+    case neck = "NECK"
+    case shoulders = "SHOULDERS"
+    case chest = "CHEST"
+    case waist = "WAIST"
+    case hips = "HIPS"
+    case larm = "L ARM"
+    case lfarm = "L FOREARM"
+    case lwrist = "L WRIST"
+    case rarm = "R ARM"
+    case rfarm = "R FOREARM"
+    case rwrist = "R WRIST"
+    case lthigh = "L THIGH"
+    case lcalf = "L CALF"
+    case rthigh = "R THIGH"
+    case rcalf = "R CALF"
+    case custom1 = "CUSTOM 1"
+    case custom2 = "CUSTOM 2"
+    case custom3 = "CUSTOM 3"
+}

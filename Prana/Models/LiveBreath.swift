@@ -13,3 +13,10 @@ struct LiveBreath: Codable {
     var actuals: [CoreBreath]
     var breathStatus: Int
 }
+
+struct CoreBreath: Codable {
+    // inhale time
+    var it: Double
+    // respiration rate
+    var rr: Double
+}

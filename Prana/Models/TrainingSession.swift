@@ -8,26 +8,6 @@
 
 import Foundation
 
-func getPercent(_ child: Int, _ parent: Int) -> Float {
-    let x = Float(child * 100)
-    let y = x / Float(parent)
-    
-    return y
-}
-
-func roundFloat(_ value: Float, point: Int) -> Any {
-    if point <= 0 {
-        let per = Float(Int(value * Float(10 * 1))) / Float(10 * 1)
-        return per
-    }
-    let per = Float(Int(value * Float(powf(10.0, Float(point))))) / Float(powf(10.0, Float(point)))
-    if per == floorf(per) {
-        return Int(per)
-    }
-    
-    return per
-}
-
 class TrainingSession: Codable {
     var startedAt: Date
     var type: Int // 0: Visual, 1: Buzzer

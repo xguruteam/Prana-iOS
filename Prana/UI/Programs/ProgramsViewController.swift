@@ -51,7 +51,7 @@ class ProgramsViewController: UIViewController {
         dataController = appDelegate.dataController
         
         
-        let dayNumber = dataController?.currentDay ?? 0
+        let dayNumber = dataController?.numberOfDaysPast ?? 0
         if let currentProgram = dataController?.currentProgram, dayNumber > 14 {
             if currentProgram.type == .fourteen {
                 let alert = UIAlertController(style: .alert, title: "14 day Program", message: "Congratulation! You have completed the 14 day training program.")
@@ -89,7 +89,7 @@ class ProgramsViewController: UIViewController {
             }
             
             if programType == 0 {
-                let dayNumber = dataController?.currentDay ?? 0
+                let dayNumber = dataController?.numberOfDaysPast ?? 0
                 let (_, _, wearing) = fourteenGoals[dayNumber]
                 sessionPosition = wearing
             }
@@ -100,7 +100,7 @@ class ProgramsViewController: UIViewController {
                 titleSubLabel.isHidden = false
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MMMM d, yyyy"
-                titleSubLabel.text = "Day \((dataController?.currentDay ?? 0) + 1): " + dateFormatter.string(from: Date())
+                titleSubLabel.text = "Day \((dataController?.numberOfDaysPast ?? 0) + 1): " + dateFormatter.string(from: Date())
                 titleConstrain.constant = -20
             }
             else {

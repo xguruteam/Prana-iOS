@@ -43,7 +43,6 @@
 		CA9C4D5B22B0FDFD001A7A9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CA9C4D5A22B0FDFD001A7A9C /* GoogleService-Info.plist */; };
 		CA9C5EBE232F9C9A00DD033F /* Public.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9C5EBD232F9C9A00DD033F /* Public.swift */; };
 		CA9C5EC0232FBE6600DD033F /* LiveBreath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9C5EBF232FBE6600DD033F /* LiveBreath.swift */; };
-		CA9C5EC2232FBECC00DD033F /* CoreBreath.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9C5EC1232FBECC00DD033F /* CoreBreath.swift */; };
 		CA9C5EE4232FC05C00DD033F /* LivePosture.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9C5EE3232FC05B00DD033F /* LivePosture.swift */; };
 		CA9D65C622CDF2A80074253B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9D65C522CDF2A80074253B /* SettingsViewController.swift */; };
 		CA9D65C822CEC0E00074253B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9D65C722CEC0E00074253B /* User.swift */; };
@@ -278,7 +277,6 @@
 		CA9C4D5A22B0FDFD001A7A9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CA9C5EBD232F9C9A00DD033F /* Public.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Public.swift; sourceTree = "<group>"; };
 		CA9C5EBF232FBE6600DD033F /* LiveBreath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveBreath.swift; sourceTree = "<group>"; };
-		CA9C5EC1232FBECC00DD033F /* CoreBreath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreBreath.swift; sourceTree = "<group>"; };
 		CA9C5EE3232FC05B00DD033F /* LivePosture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LivePosture.swift; sourceTree = "<group>"; };
 		CA9D65C522CDF2A80074253B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		CA9D65C722CEC0E00074253B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -633,20 +631,19 @@
 		CAA21A1222777CEB0004F5E0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				CA9C5EE3232FC05B00DD033F /* LivePosture.swift */,
 				CAA21A1322777D090004F5E0 /* Prana.xcdatamodeld */,
 				CAA21A16227780F10004F5E0 /* DataController.swift */,
-				CA69E8432278977900984324 /* TrainingSession.swift */,
-				CAEEB00F22C0F290002C3139 /* PassiveSession.swift */,
+				CA9D65C722CEC0E00074253B /* User.swift */,
 				CAC52F672282F8C1000CFF96 /* Program.swift */,
 				CA8F3F082289A9E600EBC02B /* SavedPattern.swift */,
 				CAADAFAE22947D5000518444 /* SessionSettings.swift */,
-				CAEEB01122C11321002C3139 /* Measurement.swift */,
 				CAEEB01322C13A6C002C3139 /* SavedBodyNotification.swift */,
-				CA9D65C722CEC0E00074253B /* User.swift */,
 				CAFA6DF822E98202005D005D /* Sensitivities.swift */,
+				CA69E8432278977900984324 /* TrainingSession.swift */,
+				CAEEB00F22C0F290002C3139 /* PassiveSession.swift */,
 				CA9C5EBF232FBE6600DD033F /* LiveBreath.swift */,
-				CA9C5EC1232FBECC00DD033F /* CoreBreath.swift */,
+				CA9C5EE3232FC05B00DD033F /* LivePosture.swift */,
+				CAEEB01122C11321002C3139 /* Measurement.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1449,7 +1446,6 @@
 				CAC1252922C2E4F7008D6C7D /* WeeklyCell2.swift in Sources */,
 				CAAB4ED5226E7FF9000C8802 /* ProgramChildCell.swift in Sources */,
 				CAAF9D2722737952003232C4 /* Location.swift in Sources */,
-				CA9C5EC2232FBECC00DD033F /* CoreBreath.swift in Sources */,
 				CAAF9D1A22737952003232C4 /* LocaleStore.swift in Sources */,
 				CA9C5EC0232FBE6600DD033F /* LiveBreath.swift in Sources */,
 				D71D37462253527300D98376 /* PranaDesignableView.swift in Sources */,

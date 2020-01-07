@@ -9,7 +9,6 @@
 import UIKit
 import GameplayKit
 import SpriteKit
-import Macaw
 
 class VisualTrainingViewController: SuperViewController {
 
