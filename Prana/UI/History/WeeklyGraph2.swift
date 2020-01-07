@@ -117,9 +117,9 @@ class WeeklyGraph2: UIView {
         let hc: CGFloat = 6
         let dh: CGFloat = 30
         
-        let uh = (height - dh) / hc
+//        let uh = (height - dh) / hc
         
-        let th: CGFloat = 20
+//        let th: CGFloat = 20
         let bw: CGFloat = 20
         
         for i in 0..<letters.count {

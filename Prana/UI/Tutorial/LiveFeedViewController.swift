@@ -176,7 +176,7 @@ class LiveFeedViewController: SuperViewController {
     }
     
     func displayPostureAnimation(_ whichFrame: Int) {
-        var frame = whichFrame
+        let frame = whichFrame
 //        if frame > 30 {
 //            frame = 30
 //        }

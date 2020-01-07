@@ -558,7 +558,7 @@ class VisualTrainingScene: SKScene {
     
     //
     func moveBird() {
-        guard let live = objLive else {
+        guard objLive != nil else {
             return
         }
         

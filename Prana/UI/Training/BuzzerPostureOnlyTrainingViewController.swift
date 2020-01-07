@@ -472,7 +472,7 @@ class BuzzerPostureOnlyTrainingViewController: BaseBuzzerTrainingViewController 
             uprightPostureTime+=1;
             let slouchDuration = (self.sessionDuration * 60 - self.timeRemaining) - slouchStartSeconds
             if slouchDuration > 0 {
-                self.currentSessionObject?.addSlouch(timeStamp: slouchStartSeconds, duration: slouchDuration)
+//                self.currentSessionObject?.addSlouch(timeStamp: slouchStartSeconds, duration: slouchDuration)
             }
             slouchStartSeconds = 0
         }

@@ -574,7 +574,7 @@ class BuzzerBreathingOnlyTrainingViewController: BaseBuzzerTrainingViewControlle
                     guard self.totalBreaths > 0 else { return }
                     self.lblMindfulBreaths.text = "Mindful Breaths: \(Int(self.mindfulBreathsCount*100/self.totalBreaths))% (\(self.mindfulBreathsCount) of \(self.totalBreaths))"
                 }
-                self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: true, respRate: actualRR, targetRate: targetRR, eiRatio: 0, oneMinuteRR: 0)
+//                self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: true, respRate: actualRR, targetRate: targetRR, eiRatio: 0, oneMinuteRR: 0)
             }
             
             
@@ -733,7 +733,7 @@ class BuzzerBreathingOnlyTrainingViewController: BaseBuzzerTrainingViewControlle
             guard self.totalBreaths > 0 else { return }
             self.lblMindfulBreaths.text = "Mindful Breaths: \(Int(self.mindfulBreathsCount*100/self.totalBreaths))% (\(self.mindfulBreathsCount) of \(self.totalBreaths))"
         }
-        self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: false, respRate: actualRR, targetRate: targetRR, eiRatio: 0, oneMinuteRR: 0)
+//        self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: false, respRate: actualRR, targetRate: targetRR, eiRatio: 0, oneMinuteRR: 0)
     }
     
     func badPosture() {
@@ -769,7 +769,7 @@ class BuzzerBreathingOnlyTrainingViewController: BaseBuzzerTrainingViewControlle
             uprightPostureTime+=1;
             let slouchDuration = (self.sessionDuration * 60 - self.timeRemaining) - slouchStartSeconds
             if slouchDuration > 0 {
-                self.currentSessionObject?.addSlouch(timeStamp: slouchStartSeconds, duration: slouchDuration)
+//                self.currentSessionObject?.addSlouch(timeStamp: slouchStartSeconds, duration: slouchDuration)
             }
             slouchStartSeconds = 0
         }

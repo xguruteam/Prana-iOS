@@ -159,9 +159,8 @@ class TabTrainViewController: UIViewController {
                     return result
                 }
                 if session.kind == 0 || session.kind == 1 {
-                    result.0 += session.breaths.count
-
-                    let (_, _, mindfuls, _)  = session.sumBreaths()
+                    let (breaths, _, mindfuls, _)  = session.sumBreaths()
+                    result.0 += breaths
                     result.2 += mindfuls
                     result.4 += session.duration
                 }
@@ -169,7 +168,7 @@ class TabTrainViewController: UIViewController {
                 if session.kind == 0 || session.kind == 2 {
                     result.1 += session.duration
 
-                    let slouchDuration = session.sumSlouchTime()
+                    let slouchDuration = session.sumSlouches().0
                     let uprightDuration = session.duration - slouchDuration
                     if uprightDuration > 0 {
                         result.3 += uprightDuration

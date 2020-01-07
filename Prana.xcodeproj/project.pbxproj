@@ -553,6 +553,15 @@
 			path = Prana;
 			sourceTree = "<group>";
 		};
+		CA323E2E23C535C500260322 /* Connect */ = {
+			isa = PBXGroup;
+			children = (
+				CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */,
+				CAE21AFF223E818D00CC7A4D /* ChargingGuideViewController.swift */,
+			);
+			path = Connect;
+			sourceTree = "<group>";
+		};
 		CA48E58622664994002CFA19 /* Tutorial */ = {
 			isa = PBXGroup;
 			children = (
@@ -594,6 +603,7 @@
 				CAB1062822B8D2CF00A7D8A1 /* Body */,
 				CAC4B96922C03951006DD7E8 /* History */,
 				CA9D65C422CDF2730074253B /* Settings */,
+				CA323E2E23C535C500260322 /* Connect */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1085,8 +1095,6 @@
 		CAD502F32231BC9800F97B31 /* Device */ = {
 			isa = PBXGroup;
 			children = (
-				CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */,
-				CAE21AFF223E818D00CC7A4D /* ChargingGuideViewController.swift */,
 				CAD502F42231BCF500F97B31 /* PranaDeviceManager.swift */,
 				CAD502F62231BEB900F97B31 /* PranaDevice.swift */,
 			);

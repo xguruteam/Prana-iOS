@@ -8,6 +8,33 @@
 
 import Foundation
 
+struct SlouchRecord: Codable {
+    var timeStamp: Int = 0
+    var duration: Int = 0
+    init(timeStamp: Int, duration: Int) {
+        self.timeStamp = timeStamp
+        self.duration = duration
+    }
+}
+
+struct BreathRecord: Codable {
+    var timeStamp: Int = 0
+    var isMindful: Bool = false
+    var respRate: Double = 0
+    var targetRate: Double = 0
+    var eiRatio: Double = 0
+    var oneMinuteRR: Double = 0
+    
+    init(timeStamp: Int, isMindful: Bool, respRate: Double, targetRate: Double, eiRatio: Double, oneMinuteRR: Double) {
+        self.timeStamp = timeStamp
+        self.isMindful = isMindful
+        self.respRate = respRate
+        self.targetRate = targetRate
+        self.eiRatio = eiRatio
+        self.oneMinuteRR = oneMinuteRR
+    }
+}
+
 class PassiveSession: Codable {
     var startedAt: Date
     var duration: Int = 0

@@ -410,55 +410,6 @@ class SessionDetailViewController: SuperViewController {
                 }
                 rrPages = CGFloat(pages)
                 
-                var xlabels = (0...duration).map { Double($0) }
-                xlabels.append(Double(duration) + 0.5)
-                rrGraph.xLabels = xlabels
-                
-                var series: [([(Double, Double)], Bool)] = []
-                var segment: [(Double, Double)] = []
-                var prevMindful = false
-                var targetRRs: [(Double, Double)] = []
-                session.breaths.enumerated().forEach { (i, breath) in
-                    let value = (Double(breath.timeStamp) / 60.0, breath.respRate)
-                    segment.append(value)
-                    
-                    let targetRRValue = (Double(breath.timeStamp) / 60.0, breath.targetRate)
-                    targetRRs.append(targetRRValue)
-                    
-                    if i == 0 {
-                        prevMindful = breath.isMindful
-                    }
-                    
-                    if prevMindful == breath.isMindful {
-                        if i == session.breaths.count - 1 {
-                            series.append((segment, prevMindful))
-                        }
-                    } else {
-                        series.append((segment, prevMindful))
-                        if i < session.breaths.count - 1 {
-                            segment = [value]
-                            prevMindful = breath.isMindful
-                        }
-                    }
-                }
-                
-                series.forEach { (line) in
-                    let (data, isMindful) = line
-                    let series = ChartSeries(data: data)
-                    if isMindful {
-                        series.color = UIColor(hexString: "#5eb839")
-                    } else {
-                        series.color = UIColor(hexString: "#ff0000")
-                    }
-                    series.area = true
-                    rrGraph.add(series)
-                }
-                
-                let targetRRSeries = ChartSeries(data: targetRRs)
-                targetRRSeries.color = UIColor(hexString: "#0000ff")
-                targetRRSeries.area = false
-                rrGraph.add(targetRRSeries)
-                
                 rrGraph2.session = session
                 
                 if session.kind == 0 {
@@ -475,9 +426,6 @@ class SessionDetailViewController: SuperViewController {
                     postureView.image = UIImage(named: "stand (1)")
                 }
                 
-                postureBar.duration = session.duration
-                postureBar.slouches = session.slouches
-                
                 postureBar2.session = session
                 
                 summaryView.text = session.postureSummary
@@ -491,7 +439,8 @@ class SessionDetailViewController: SuperViewController {
             Tracking
             """
             
-            let duration = passive.duration / 60
+            var duration = passive.duration / 60
+            if duration < 5 { duration = 5 }
             var xlabels = (0...duration).map { Double($0) }
             if passive.duration > duration * 60 {
                 xlabels.append(Double(duration) + 1)

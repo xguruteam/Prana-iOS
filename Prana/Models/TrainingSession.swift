@@ -49,8 +49,6 @@ class TrainingSession: Codable {
     }
     var duration: Int = 0
     
-    var slouches: [SlouchRecord] = []
-    var breaths: [BreathRecord] = []
     var judgedBreaths: [LiveBreath] = []
     var judgedPosture: [LivePosture] = []
     
@@ -60,16 +58,6 @@ class TrainingSession: Codable {
         self.type = type
         self.pattern = pattern
         self.wearing = wearing
-    }
-    
-    func addSlouch(timeStamp: Int, duration: Int) {
-        guard timeStamp > 0, duration > 0 else { return }
-        self.slouches.append(SlouchRecord(timeStamp: timeStamp, duration: duration))
-    }
-    
-    func addBreath(timeStamp: Int, isMindful: Bool, respRate: Double, targetRate: Double, eiRatio: Double, oneMinuteRR: Double) {
-        guard timeStamp > 0 else { return }
-        self.breaths.append(BreathRecord(timeStamp: timeStamp, isMindful: isMindful, respRate: respRate, targetRate: targetRate, eiRatio: eiRatio, oneMinuteRR: oneMinuteRR))
     }
     
     func floorSessionDuration() {
@@ -86,8 +74,8 @@ class TrainingSession: Codable {
     }
     
     var summary: String {
-        var breathTime = 0
-        var mindfulTime = 0
+//        var breathTime = 0
+//        var mindfulTime = 0
         var breathCount = 0
         var mindfulCount = 0
         var rrSum: Double = 0
@@ -95,11 +83,12 @@ class TrainingSession: Codable {
         var postureTime = 0
         var uprightTime = 0
         var slouchTime = 0
+        var slouches = 0
         
         if kind == 0 || kind == 1 {
-            breathTime = duration
+//            breathTime = duration
             let sum = sumBreaths()
-            mindfulTime = sum.3
+//            mindfulTime = sum.3
             rrSum = sum.1
             mindfulCount = sum.2
             breathCount = sum.0
@@ -107,7 +96,9 @@ class TrainingSession: Codable {
         
         if kind == 0 || kind == 2 {
             postureTime += duration
-            slouchTime += sumSlouchTime()
+            let sum = sumSlouches()
+            slouchTime = sum.0
+            slouches = sum.1
         }
         
         uprightTime = postureTime - slouchTime
@@ -128,7 +119,7 @@ class TrainingSession: Codable {
             Training: \(kindString), \(duration / 60) Mins completed
             Mindful Breaths: \(roundFloat(mindfulPercent, point: 1))%, Avg. RR: \(roundFloat(Float(rrSum), point: 2))
             Pattern: \(patternString)
-            Upright Posture: \(roundFloat(uprightPercent, point: 1))%, Slouches: \(slouches.count), Wearing: \(wearingString)
+            Upright Posture: \(roundFloat(uprightPercent, point: 1))%, Slouches: \(slouches), Wearing: \(wearingString)
             """
         } else if kind == 1 {
             return """
@@ -140,21 +131,21 @@ class TrainingSession: Codable {
 
         return """
         Training: \(kindString), \(duration / 60) Mins completed
-        Upright Posture: \(roundFloat(uprightPercent, point: 1))%, Slouches: \(slouches.count), Wearing: \(wearingString)
+        Upright Posture: \(roundFloat(uprightPercent, point: 1))%, Slouches: \(slouches), Wearing: \(wearingString)
         """
     }
     
     var breathingSummary: String {
-        var breathTime = 0
-        var mindfulTime = 0
+//        var breathTime = 0
+//        var mindfulTime = 0
         var breathCount = 0
         var rrSum: Double = 0
         var mindfulCount = 0
         
         if kind == 0 || kind == 1 {
-            breathTime = duration
+//            breathTime = duration
             let sum = sumBreaths()
-            mindfulTime = sum.3
+//            mindfulTime = sum.3
             rrSum = sum.1
             mindfulCount = sum.2
             breathCount = sum.0
@@ -167,7 +158,7 @@ class TrainingSession: Codable {
 
         if kind == 0 || kind == 1 {
             return """
-            Mindful Breaths: \(roundFloat(mindfulPercent, point: 1))% (\(mindfulCount) of \(breaths.count))
+            Mindful Breaths: \(roundFloat(mindfulPercent, point: 1))% (\(mindfulCount) of \(breathCount))
             Avg. RR: \(roundFloat(Float(rrSum), point: 2))
             Pattern: \(patternString)
             """
@@ -180,10 +171,13 @@ class TrainingSession: Codable {
         var postureTime = 0
         var uprightTime = 0
         var slouchTime = 0
+        var slouches = 0
         
         if kind == 0 || kind == 2 {
             postureTime = duration
-            slouchTime = sumSlouchTime()
+            let sum = sumSlouches()
+            slouchTime = sum.0
+            slouches = sum.1
         }
         
         uprightTime = postureTime - slouchTime
@@ -197,7 +191,7 @@ class TrainingSession: Codable {
         if kind == 0 || kind == 2 {
             return """
             Upright Posture: \(roundFloat(uprightPercent, point: 1))% (\(uprightTime) of \(postureTime) seconds)
-            Slouches: \(slouches.count)
+            Slouches: \(slouches)
             Wearing: \(wearingString)
             """
         }
@@ -235,33 +229,9 @@ class TrainingSession: Codable {
         return (breathCount, avgRR, mindfulCount, mindfulTime)
     }
     
-    func sumMindfulTime() -> (Int, Double, Int) {
-        var mindfulTime = 0
-        var avgRR: Double = 0
-        var mindfulCount = 0
-        for i in 0..<breaths.count {
-            let breath = breaths[i]
-            if breath.isMindful {
-                mindfulCount += 1
-                if i == 0 {
-                    mindfulTime += breath.timeStamp
-                } else {
-                    mindfulTime += (breath.timeStamp - breaths[i - 1].timeStamp)
-                }
-            }
-            avgRR += breath.respRate
-        }
-        if breaths.count > 2 {
-            avgRR = (avgRR / Double(breaths.count - 2))
-        } else {
-            avgRR = 0
-        }
-        
-        return (mindfulTime, avgRR, mindfulCount)
-    }
-    
-    func sumSlouchTime() -> Int {
+    func sumSlouches() -> (Int, Int) {
         var slouchTime = 0
+        var slouches = 0
         
         let postures = judgedPosture
         
@@ -279,35 +249,8 @@ class TrainingSession: Codable {
             }
             
             slouchTime += slouchDuration
+            slouches += 1
         }
-        return slouchTime
-    }
-}
-
-
-struct SlouchRecord: Codable {
-    var timeStamp: Int = 0
-    var duration: Int = 0
-    init(timeStamp: Int, duration: Int) {
-        self.timeStamp = timeStamp
-        self.duration = duration
-    }
-}
-
-struct BreathRecord: Codable {
-    var timeStamp: Int = 0
-    var isMindful: Bool = false
-    var respRate: Double = 0
-    var targetRate: Double = 0
-    var eiRatio: Double = 0
-    var oneMinuteRR: Double = 0
-    
-    init(timeStamp: Int, isMindful: Bool, respRate: Double, targetRate: Double, eiRatio: Double, oneMinuteRR: Double) {
-        self.timeStamp = timeStamp
-        self.isMindful = isMindful
-        self.respRate = respRate
-        self.targetRate = targetRate
-        self.eiRatio = eiRatio
-        self.oneMinuteRR = oneMinuteRR
+        return (slouchTime, slouches)
     }
 }

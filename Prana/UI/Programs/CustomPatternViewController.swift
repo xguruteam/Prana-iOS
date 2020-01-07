@@ -163,7 +163,7 @@ class CustomPatternViewController: UIViewController {
                 NSAttributedString.Key.foregroundColor : UIColor.white,
                 NSAttributedString.Key.shadow : shadow] as [NSAttributedString.Key : Any]
             
-            var titleStr = NSAttributedString(string: title, attributes: attributes) //1
+            let titleStr = NSAttributedString(string: title, attributes: attributes) //1
             
             lblTitle.attributedText = titleStr //3
         }

@@ -45,7 +45,7 @@ class PatternsViewController: UIViewController {
     @IBAction func onHelp(_ sender: Any) {
         let alert = UIAlertController(style: .actionSheet)
         
-        var text: [AttributedTextBlock] = [
+        let text: [AttributedTextBlock] = [
             .header2("Slow Your Breathing"),
             .normal("Dynamic pattern changes to gradually slow your breathing. It starts off by measuring your current respiration rate, and then starts the pattern at that rate."),
             .header2("Focus"),

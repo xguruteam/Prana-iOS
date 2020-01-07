@@ -103,7 +103,8 @@ class WeeklyCell2: UITableViewCell {
                 
                 if session.kind == 0 || session.kind == 2 {
                     postureTime += session.duration
-                    slouchTime += session.sumSlouchTime()
+                    let sum = session.sumSlouches()
+                    slouchTime += sum.0
                 }
             }
             

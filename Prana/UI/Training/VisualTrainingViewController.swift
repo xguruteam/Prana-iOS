@@ -505,7 +505,7 @@ extension VisualTrainingViewController: VisualDelegate {
             // end slouch
             let slouchDuration = (self.sessionDuration * 60 - self.timeRemaining) - slouchStartSeconds
             if slouchDuration > 0 {
-                self.currentSessionObject?.addSlouch(timeStamp: slouchStartSeconds, duration: slouchDuration)
+//                self.currentSessionObject?.addSlouch(timeStamp: slouchStartSeconds, duration: slouchDuration)
             }
             slouchStartSeconds = 0
         }
@@ -531,8 +531,8 @@ extension VisualTrainingViewController: VisualDelegate {
     func visualNewBreathDone(total: Int, mindful: Int) {
         if breathCount < total {
             // new breath
-            let isMindful = (self.mindfulBreaths != mindful)
-            self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: isMindful, respRate: actualRR, targetRate: targetRR, eiRatio: 0, oneMinuteRR: 0)
+//            let isMindful = (self.mindfulBreaths != mindful)
+//            self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: isMindful, respRate: actualRR, targetRate: targetRR, eiRatio: 0, oneMinuteRR: 0)
         }
         DispatchQueue.main.async { [unowned self] in
             self.breathCount = total
