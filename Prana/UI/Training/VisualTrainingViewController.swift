@@ -23,28 +23,15 @@ class VisualTrainingViewController: SuperViewController {
     
     @IBOutlet weak var imgPostureAnimation: UIImageView!
     @IBOutlet weak var lblPostureValue: UILabel!
-    @IBOutlet weak var lblStatus1: UILabel!
-    @IBOutlet weak var lblStatus2: UILabel!
-    @IBOutlet weak var lblStatus5: UILabel!
-    @IBOutlet weak var lblStatus3: UILabel!
-    @IBOutlet weak var lblStatus4: UILabel!
-    @IBOutlet weak var lblStatus6: UILabel!
+    @IBOutlet weak var lbUprisePosture: UILabel!
+    @IBOutlet weak var lbSlouches: UILabel!
     
-    @IBOutlet weak var btnBreathSensitivityRadio1: UIButton!
-    @IBOutlet weak var btnBreathSensitivityTitle1: UIButton!
-    @IBOutlet weak var btnBreathSensitivityRadio2: UIButton!
-    @IBOutlet weak var btnBreathSensitivityTitle2: UIButton!
-    @IBOutlet weak var btnBreathSensitivityRadio3: UIButton!
-    @IBOutlet weak var btnBreathSensitivityTitle3: UIButton!
-    
-    @IBOutlet weak var postureSensetivityGroup: UIView!
-    @IBOutlet weak var btnPostureSensitivityRadio1: UIButton!
-    @IBOutlet weak var btnPostureSensitivityTitle1: UIButton!
-    @IBOutlet weak var btnPostureSensitivityRadio2: UIButton!
-    @IBOutlet weak var btnPostureSensitivityTitle2: UIButton!
-    @IBOutlet weak var btnPostureSensitivityRadio3: UIButton!
-    @IBOutlet weak var btnPostureSensitivityTitle3: UIButton!
-    
+    @IBOutlet weak var postureRadioGroup: RadioGroupButton!
+    @IBOutlet weak var lbMindfulBreaths: UILabel!
+    @IBOutlet weak var lbTrargetActual: UILabel!
+    @IBOutlet weak var breathRadioGroup: RadioGroupButton!
+
+    @IBOutlet weak var postureSensetivityGroup: UIStackView!
     @IBOutlet weak var controlPanel: UIView!
     
     @IBOutlet weak var btnStart: UIButton!
@@ -81,10 +68,10 @@ class VisualTrainingViewController: SuperViewController {
     var mindfulBreaths: Int = 0 {
         didSet {
             if mindfulBreaths < 0 {
-                lblStatus1.text = "Mindful Breaths:"
+                lbMindfulBreaths.text = "---"
             }
             else {
-                lblStatus1.text = "Mindful Breaths: \(Int(mindfulBreaths * 100 / breathCount))% (\(mindfulBreaths) of \(breathCount))"
+                lbMindfulBreaths.text = "\(Int(mindfulBreaths * 100 / breathCount))% (\(mindfulBreaths) of \(breathCount))"
             }
         }
     }
@@ -92,10 +79,10 @@ class VisualTrainingViewController: SuperViewController {
     var breathCount: Int = 0 {
         didSet {
             if mindfulBreaths < 0 {
-                lblStatus1.text = "Mindful Breaths:"
+                lbMindfulBreaths.text = "---"
             }
             else {
-                lblStatus1.text = "Mindful Breaths: \(Int(mindfulBreaths * 100 / breathCount))% (\(mindfulBreaths) of \(breathCount))"
+                lbMindfulBreaths.text = "\(Int(mindfulBreaths * 100 / breathCount))% (\(mindfulBreaths) of \(breathCount))"
             }
         }
     }
@@ -103,10 +90,10 @@ class VisualTrainingViewController: SuperViewController {
     var targetRR: Double = 0 {
         didSet {
             if targetRR < 0 {
-                lblStatus2.text = "Target/Real-time Respiration Rate:"
+                lbTrargetActual.text = "-- / --"
             }
             else {
-                lblStatus2.text = "Target/Real-time Respiration Rate: \(roundDouble(double: targetRR))/\(roundDouble(double: actualRR)) bpm"
+                lbTrargetActual.text = "\(roundDouble(double: targetRR))/\(roundDouble(double: actualRR))"
             }
         }
     }
@@ -114,16 +101,10 @@ class VisualTrainingViewController: SuperViewController {
     var actualRR: Double = 0 {
         didSet {
             if targetRR < 0 {
-                lblStatus2.text = "Target/Real-time Respiration Rate:"
+                lbTrargetActual.text = "-- / --"
             }
             else {
-                lblStatus2.text = "Target/Real-time Respiration Rate: \(roundDouble(double: targetRR))/\(roundDouble(double: actualRR)) bpm"
-            }
-            if targetRR < 0 {
-                lblStatus5.text = "Actual:"
-            }
-            else {
-                lblStatus5.text = "Actual: \(roundDouble(double: actualRR))"
+                lbTrargetActual.text = "\(roundDouble(double: targetRR))/\(roundDouble(double: actualRR))"
             }
         }
     }
@@ -131,10 +112,10 @@ class VisualTrainingViewController: SuperViewController {
     var postureDuration: Int = 0 {
         didSet {
             if postureDuration < 0 {
-                lblStatus3.text = "Upright Posture:"
+                lbUprisePosture.text = "---"
             }
             else {
-                lblStatus3.text = "Upright Posture: \(Int(uprightDuration * 100 / postureDuration))% (\(uprightDuration) of \(postureDuration) seconds)"
+                lbUprisePosture.text = "\(Int(uprightDuration * 100 / postureDuration))% (\(uprightDuration) of \(postureDuration) sec)"
             }
         }
     }
@@ -142,10 +123,10 @@ class VisualTrainingViewController: SuperViewController {
     var uprightDuration: Int = 0 {
         didSet {
             if postureDuration < 0 {
-                lblStatus3.text = "Upright Posture:"
+                lbUprisePosture.text = "---"
             }
             else {
-                lblStatus3.text = "Upright Posture: \(Int(uprightDuration * 100 / postureDuration))% (\(uprightDuration) of \(postureDuration) seconds)"
+                lbUprisePosture.text = "\(Int(uprightDuration * 100 / postureDuration))% (\(uprightDuration) of \(postureDuration) sec)"
             }
         }
     }
@@ -153,10 +134,10 @@ class VisualTrainingViewController: SuperViewController {
     var slouches: Int = 0 {
         didSet {
             if slouches < 0 {
-                lblStatus4.text = "Slouches:"
+                lbSlouches.text = "--"
             }
             else {
-                lblStatus4.text = "Slouches: \(slouches)"
+                lbSlouches.text = "\(slouches)"
             }
         }
     }
@@ -196,31 +177,30 @@ class VisualTrainingViewController: SuperViewController {
         postureDuration = -1
         slouches = -1
         
+        postureRadioGroup.delegate = self
+        breathRadioGroup.delegate = self
         switch dataController.sensitivities.vtbr {
         case 0:
-            onBreathSensitivityChange(btnBreathSensitivityRadio1)
+            setBreathSensitivityChange(val: 1)
         case 1:
-            onBreathSensitivityChange(btnBreathSensitivityRadio2)
+            setBreathSensitivityChange(val: 2)
         default:
-            onBreathSensitivityChange(btnBreathSensitivityRadio3)
+            setBreathSensitivityChange(val: 3)
         }
+        
         switch dataController.sensitivities.vtps {
         case 0:
-            onPostureSensitivityChange(btnPostureSensitivityRadio1)
+            setPostureSensitivityChange(val: 1)
         case 1:
-            onPostureSensitivityChange(btnPostureSensitivityRadio2)
+            setPostureSensitivityChange(val: 2)
         default:
-            onPostureSensitivityChange(btnPostureSensitivityRadio3)
+            setPostureSensitivityChange(val: 3)
         }
         
         displayPostureAnimation(1)
         
         btnStart.isHidden = true
-        
-//        lblPostureValue.isHidden = true
         controlPanel.isHidden = false
-        
-//        batteryView.progress = 0
         
         isStarted = false
         isShowControls = true
@@ -248,19 +228,13 @@ class VisualTrainingViewController: SuperViewController {
         gameView.presentScene(scene)
         
         gameView.ignoresSiblingOrder = true
-        
-//        gameView.showsFPS = true
-//        gameView.showsNodeCount = true
-        
         objVisual = scene
-        
         
         liveGraphView.objLive = objVisual?.objLive
 
         if sessionKind == 1 {
             imgPostureAnimation.isHidden = true
-            lblStatus3.isHidden = true
-            lblStatus4.isHidden = true
+
             postureSensetivityGroup.isHidden = true
             liveGraphView.isHidden = false
             btnSetUpright.isHidden = true
@@ -271,10 +245,7 @@ class VisualTrainingViewController: SuperViewController {
             liveGraphView.isHidden = true
         }
         
-        lblStatus6.text = "Wearing: " + (sessionWearing == 0 ? "Lower Back" : "Upper Chest")
-        
         // Do any additional setup after loading the view.
-        
         if isTutorial {
             onHelp(self.btnHelp)
         }
@@ -287,17 +258,7 @@ class VisualTrainingViewController: SuperViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
+   
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         if !isStarted {
@@ -335,12 +296,6 @@ class VisualTrainingViewController: SuperViewController {
     
     @IBAction func onSetUpright(_ sender: Any) {
         objVisual!.setUpright()
-        
-//        if !isStarted {
-//            btnStart.isHidden = false
-//        }
-//        btnStart.alpha = 1.0
-//        btnStart.isEnabled = true
     }
     
     @IBAction func onHelp(_ sender: Any) {
@@ -373,46 +328,16 @@ class VisualTrainingViewController: SuperViewController {
         alert.show()
     }
     
-    @IBAction func onBreathSensitivityChange(_ sender: UIButton) {
-        let val = sender.tag
-        
-        btnBreathSensitivityRadio1.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        btnBreathSensitivityRadio2.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        btnBreathSensitivityRadio3.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        
-        switch val {
-        case 1:
-            btnBreathSensitivityRadio1.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal);
-        case 2:
-            btnBreathSensitivityRadio2.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-        case 3:
-            btnBreathSensitivityRadio3.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-        default:
-            return
-        }
+    func setBreathSensitivityChange(val: Int) {
+        breathRadioGroup.selectedIndex = val
         dataController.sensitivities.vtbr = val - 1
         dataController.saveSettings()
         
         objVisual?.setBreathSensitivity(val)
     }
     
-    @IBAction func onPostureSensitivityChange(_ sender: UIButton) {
-        let val = sender.tag
-        
-        btnPostureSensitivityRadio1.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        btnPostureSensitivityRadio2.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        btnPostureSensitivityRadio3.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        
-        switch val {
-        case 1:
-            btnPostureSensitivityRadio1.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal);
-        case 2:
-            btnPostureSensitivityRadio2.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-        case 3:
-            btnPostureSensitivityRadio3.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-        default:
-            return
-        }
+    func setPostureSensitivityChange(val: Int) {
+        postureRadioGroup.selectedIndex = val
         dataController.sensitivities.vtps = val - 1
         dataController.saveSettings()
         
@@ -420,7 +345,7 @@ class VisualTrainingViewController: SuperViewController {
     }
     
     func displayPostureAnimation(_ whichFrame: Int) {
-        var frame = whichFrame
+        let frame = whichFrame
         
         if sessionWearing == 0 {
             imgPostureAnimation.image = UIImage(named: "sit (\(frame))")
@@ -441,11 +366,9 @@ class VisualTrainingViewController: SuperViewController {
     func showHideControls() {
         if isShowControls {
             isShowControls = false
-//            btnStart.isHidden = true
             controlPanel.isHidden = true
         } else {
             isShowControls = true
-//            btnStart.isHidden = false
             controlPanel.isHidden = false
         }
     }
@@ -524,7 +447,6 @@ class VisualTrainingViewController: SuperViewController {
            showHideStartButton()
         }
         
-        //        makeSessionObject()
         if isTutorial == false {
             currentSessionObject?.floorSessionDuration()
             
@@ -544,17 +466,17 @@ class VisualTrainingViewController: SuperViewController {
                 duration -= timeRemaining
             }
             
-            let mindful = duration * mindfulBreaths / breathCount
-            
-            
-            var upright = uprightDuration
-            if sessionKind == 1 {
-                upright = 0
-            }
-            
             currentSessionObject?.duration = duration
-//            currentSessionObject?.mindful = mindful
-//            currentSessionObject?.upright = upright
+        }
+    }
+}
+
+extension VisualTrainingViewController: RadioGroupButtonDelegate {
+    func onSelectedIndex(index: Int, sender: RadioGroupButton) {
+        if sender.tag == 1 {
+            setBreathSensitivityChange(val: index)
+        } else {
+            setPostureSensitivityChange(val: index)
         }
     }
 }
@@ -575,7 +497,7 @@ extension VisualTrainingViewController: VisualDelegate {
     
     func visualPostureFrameCalculated(frameIndex: Int) {
         DispatchQueue.main.async { [unowned self] in
-            self.displayPostureAnimation(frameIndex ?? 1)
+            self.displayPostureAnimation(frameIndex)
         }
     }
 

@@ -52,30 +52,39 @@ class BMButton: UIButton {
     func configure() {
         
         if isSelected {
-            self.backgroundColor = UIColor(hexString: "#9fd93f")
-            self.setTitleColor(.black, for: .normal)
+            self.backgroundColor = #colorLiteral(red: 0.6235294118, green: 0.8509803922, blue: 0.2470588235, alpha: 1)
+            self.setTitleColor(.white, for: .normal)
         }
         else {
-//            self.backgroundColor = UIColor(hexString: "#7668738b")
-            self.backgroundColor = UIColor(red: 0x68 / 255.0, green: 0x73 / 255.0, blue: 0x8b / 255.0, alpha: 0x76 / 255.0)
-//            self.alpha = 0x76 / 255.0
-            
+            self.backgroundColor = UIColor.white
             if value == 0 {
-                self.setTitleColor(.black, for: .normal)
+                self.setTitleColor(#colorLiteral(red: 0.3568627451, green: 0.7294117647, blue: 0.1215686275, alpha: 1), for: .normal)
             }
             else {
                 self.setTitleColor(.white, for: .normal)
             }
         }
         
-        self.layer.cornerRadius = 2
+        self.titleEdgeInsets = UIEdgeInsets(top: 7, left: 0, bottom: 0, right: 0)
         
-        
+        self.layer.cornerRadius = 3
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        self.titleLabel?.font = UIFont(name: "Quicksand-Medium", size: 11)
+        self.titleLabel?.font = UIFont(name: "Quicksand-Bold", size: 11)
         self.titleLabel?.textAlignment = .center
         self.titleLabel?.numberOfLines = 2
+        
+        self.borderWidth = 1
+        self.borderColor = #colorLiteral(red: 0.3568627451, green: 0.7294117647, blue: 0.1215686275, alpha: 0.6549295775)
+        
+        let shadowPath = UIBezierPath(rect: self.bounds)
+        self.layer.masksToBounds = false
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 0.5)
+        self.layer.shadowOpacity = 0.15
+        self.layer.shadowRadius = 8
+        self.layer.shadowPath = shadowPath.cgPath
+        
     }
     
     func updateTitle() {

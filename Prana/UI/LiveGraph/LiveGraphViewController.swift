@@ -12,18 +12,10 @@ import Macaw
 
 class LiveGraphViewController: SuperViewController {
     
-//    @IBOutlet weak var btStartStop: UIButton!
     @IBOutlet weak var breathingGraphView: LiveGraph!
-    
-    //    @IBOutlet weak var postureIndicatorView: PostureIndicator!
     @IBOutlet weak var breathSensitivityGroup: UIView!
     @IBOutlet weak var btnUpright: UIButton!
-    @IBOutlet weak var btnBreathSensitivityRadio1: UIButton!
-    @IBOutlet weak var btnBreathSensitivityTitle1: UIButton!
-    @IBOutlet weak var btnBreathSensitivityRadio2: UIButton!
-    @IBOutlet weak var btnBreathSensitivityTitle2: UIButton!
-    @IBOutlet weak var btnBreathSensitivityRadio3: UIButton!
-    @IBOutlet weak var btnBreathSensitivityTitle3: UIButton!
+    @IBOutlet weak var breathButtonGroup: RadioGroupButton!
     
     @IBOutlet weak var lblRespirationRate: UILabel!
     @IBOutlet weak var lblBreathCount: UILabel!
@@ -33,12 +25,8 @@ class LiveGraphViewController: SuperViewController {
     @IBOutlet weak var imgPostureAnimation: UIImageView!
     
     @IBOutlet weak var postureSensitivityGroup: UIView!
-    @IBOutlet weak var btnPostureSensitivityRadio1: UIButton!
-    @IBOutlet weak var btnPostureSensitivityTitle1: UIButton!
-    @IBOutlet weak var btnPostureSensitivityRadio2: UIButton!
-    @IBOutlet weak var btnPostureSensitivityTitle2: UIButton!
-    @IBOutlet weak var btnPostureSensitivityRadio3: UIButton!
-    @IBOutlet weak var btnPostureSensitivityTitle3: UIButton!
+    
+    @IBOutlet weak var postureButtonGroup: RadioGroupButton!
     
     @IBOutlet weak var btnWearLowerBack: UIButton!
     @IBOutlet weak var btnWearUpperChest: UIButton!
@@ -54,7 +42,6 @@ class LiveGraphViewController: SuperViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
         self.navigationController?.isNavigationBarHidden = true
         
         initView()
@@ -100,27 +87,14 @@ class LiveGraphViewController: SuperViewController {
         stopLive()
     }
     
-    func initView() {
+    func initView() {        
+        postureButtonGroup.delegate = self
+        breathButtonGroup.delegate = self
+        
         btnWearLowerBack.titleLabel?.textAlignment = .center
         btnWearUpperChest.titleLabel?.textAlignment = .center
-        
-        let border1 = CALayer()
-        border1.backgroundColor = UIColor(red: 224.0/256.0, green: 224.0/256.0, blue: 224.0/256.0, alpha: 1).cgColor
-        border1.frame = CGRect(x: 0.0, y: breathSensitivityGroup.frame.height + 4.0, width: breathSensitivityGroup.frame.width, height: 1.0)
-        
-        breathSensitivityGroup.layer.addSublayer(border1)
-        
-        let border2 = CALayer()
-        border2.backgroundColor = UIColor(red: 224.0/256.0, green: 224.0/256.0, blue: 224.0/256.0, alpha: 1).cgColor
-        border2.frame = CGRect(x: 0.0, y: postureSensitivityGroup.frame.height + 4.0, width: postureSensitivityGroup.frame.width, height: 1.0)
-        
-        postureSensitivityGroup.layer.addSublayer(border2)
-    }
-    
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        btnUpright.applyButtonGradient(colors: [#colorLiteral(red: 0.6, green: 0.8392156863, blue: 0.2392156863, alpha: 1), #colorLiteral(red: 0.4039215686, green: 0.7411764706, blue: 0.2274509804, alpha: 1)], points: [0.0, 1.0])
     }
     
     @IBAction func onBack(_ sender: Any) {
@@ -132,15 +106,7 @@ class LiveGraphViewController: SuperViewController {
     @IBAction func onUpright(_ sender: Any) {
         objLive?.learnUprightAngleHandler()
     }
-    
-    @IBAction func onBreathSensitivityChange(_ sender: UIButton) {
-        setBreathSensitivity(val: sender.tag)
-    }
-    
-    @IBAction func onPostureSensitivityChange(_ sender: UIButton) {
-        setPostureSensitivity(val: sender.tag)
-    }
-    
+
     @IBAction func onWearPositionChange(_ sender: UIButton) {
         setWearPosition(val: sender.tag)
     }
@@ -170,21 +136,7 @@ class LiveGraphViewController: SuperViewController {
     }
     
     func setBreathSensitivity(val: Int) {
-        
-        btnBreathSensitivityRadio1.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        btnBreathSensitivityRadio2.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        btnBreathSensitivityRadio3.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        
-        switch val {
-        case 1:
-            btnBreathSensitivityRadio1.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-        case 2:
-            btnBreathSensitivityRadio2.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-        case 3:
-            btnBreathSensitivityRadio3.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-        default:
-            return
-        }
+        breathButtonGroup.selectedIndex = val
         dataController.sensitivities.lgbr = val - 1
         dataController.saveSettings()
         
@@ -192,20 +144,7 @@ class LiveGraphViewController: SuperViewController {
     }
     
     func setPostureSensitivity(val: Int) {
-        btnPostureSensitivityRadio1.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        btnPostureSensitivityRadio2.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        btnPostureSensitivityRadio3.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        
-        switch val {
-        case 1:
-            btnPostureSensitivityRadio1.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-        case 2:
-            btnPostureSensitivityRadio2.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-        case 3:
-            btnPostureSensitivityRadio3.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-        default:
-            return
-        }
+        postureButtonGroup.selectedIndex = val
         dataController.sensitivities.lgps = val - 1
         dataController.saveSettings()
 
@@ -214,30 +153,31 @@ class LiveGraphViewController: SuperViewController {
     
     func setWearPosition(val: Int) {
         if val == 0 {
-            btnWearLowerBack.backgroundColor
-             = UIColor(red: 0.43, green: 0.75, blue: 0.23, alpha: 1)
-            btnWearLowerBack.setTitleColor(UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
+            btnWearLowerBack.backgroundColor = #colorLiteral(red: 0.168627451, green: 0.7176470588, blue: 0.7215686275, alpha: 1)
+            btnWearLowerBack.setTitleColor(UIColor.white, for: .normal)
+            btnWearLowerBack.setImage(#imageLiteral(resourceName: "ic_lower_back_white"), for: .normal)
             
-            btnWearUpperChest.backgroundColor
-                = UIColor(red: 0.965, green: 0.97, blue: 0.98, alpha: 1)
-            btnWearUpperChest.setTitleColor(UIColor(red: 0.47, green: 0.52, blue: 0.62, alpha: 1.0), for: .normal)
+            btnWearUpperChest.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9568627451, blue: 0.9568627451, alpha: 1)
+            btnWearUpperChest.setTitleColor(#colorLiteral(red: 0.3882352941, green: 0.4392156863, blue: 0.5254901961, alpha: 1), for: .normal)
+            btnWearUpperChest.setImage(#imageLiteral(resourceName: "ic_upper_chest_grey"), for: .normal)
+            
             isLowerBack = true
         } else {
-            btnWearLowerBack.backgroundColor
-                = UIColor(red: 0.965, green: 0.97, blue: 0.98, alpha: 1)
-            btnWearLowerBack.setTitleColor(UIColor(red: 0.47, green: 0.52, blue: 0.62, alpha: 1.0), for: .normal)
+            btnWearLowerBack.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9568627451, blue: 0.9568627451, alpha: 1)
+            btnWearLowerBack.setTitleColor(#colorLiteral(red: 0.3882352941, green: 0.4392156863, blue: 0.5254901961, alpha: 1), for: .normal)
+            btnWearLowerBack.setImage(#imageLiteral(resourceName: "ic_lower_back_grey"), for: .normal)
             
-            btnWearUpperChest.backgroundColor
-                = UIColor(red: 0.43, green: 0.75, blue: 0.23, alpha: 1)
-            btnWearUpperChest.setTitleColor(UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
+            btnWearUpperChest.backgroundColor = #colorLiteral(red: 0.168627451, green: 0.7176470588, blue: 0.7215686275, alpha: 1)
+            btnWearUpperChest.setTitleColor(UIColor.white, for: .normal)
+            btnWearUpperChest.setImage(#imageLiteral(resourceName: "ic_upper_chest_white"), for: .normal)
             isLowerBack = false
         }
+        
         displayPostureAnimation(1)
     }
     
     func displayPostureAnimation(_ whichFrame: Int) {
-        var frame = whichFrame
-        
+        let frame = whichFrame
         if isLowerBack {
             imgPostureAnimation.image = UIImage(named: "sit (\(frame))")
         }
@@ -253,7 +193,16 @@ class LiveGraphViewController: SuperViewController {
     func displayBreathCount(val: Int) {
         lblBreathCount.text = String(val)
     }
+}
 
+extension LiveGraphViewController: RadioGroupButtonDelegate {
+    func onSelectedIndex(index: Int, sender: RadioGroupButton) {
+        if sender.tag == 1 {
+            setBreathSensitivity(val: index)
+        } else {
+            setPostureSensitivity(val: index)
+        }
+    }
 }
 
 extension LiveGraphViewController: LiveDelegate {
@@ -300,6 +249,5 @@ extension LiveGraphViewController: LiveDelegate {
             
             self.displayBreathCount(val: breathCount)
         }
-    }
-    
+    }    
 }

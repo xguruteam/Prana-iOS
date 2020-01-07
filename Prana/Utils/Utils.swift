@@ -44,8 +44,8 @@ class Utils {
         return true
     }
     
-    static func getStoryboardWithIdentifier(identifier: String) -> UIViewController {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    static func getStoryboardWithIdentifier(name: String = "Main", identifier: String) -> UIViewController {
+        let storyboard = UIStoryboard(name: name, bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: identifier)
         return controller;
     }

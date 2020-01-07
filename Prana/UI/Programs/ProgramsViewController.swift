@@ -521,70 +521,78 @@ class ProgramsViewController: UIViewController {
         
         dataController?.sessionSettings = newSessionSettings
         dataController?.saveSettings()
-        
 
         if sessionType == 1 {
-            let vc = Utils.getStoryboardWithIdentifier(identifier: "BuzzerTrainingViewController") as! BuzzerTrainingViewController
-            vc.isTutorial = false
-            vc.sessionWearing = newSessionSettings.lastWearing
-            vc.sessionDuration = sessionDuration
-            vc.sessionKind = sessionKind
-            
-            if programType == 0 {
-                vc.whichPattern = 0
-                vc.subPattern = 5
-                vc.maxSubPattern = 34
-                vc.patternTitle = patternNames[0].0
+            var viewController: BaseBuzzerTrainingViewController?
+            if sessionKind == 0 {
+                viewController = Utils.getStoryboardWithIdentifier(name:"BuzzerTraining", identifier: "BuzzerTrainingViewController") as? BuzzerTrainingViewController
+            } else if sessionKind == 1 {
+                viewController = Utils.getStoryboardWithIdentifier(name:"BuzzerTraining", identifier: "BuzzerBreathingOnlyTrainingViewController") as! BuzzerBreathingOnlyTrainingViewController
+            } else {
+                viewController = Utils.getStoryboardWithIdentifier(name:"BuzzerTraining", identifier: "BuzzerPostureOnlyTrainingViewController") as! BuzzerPostureOnlyTrainingViewController
             }
-            else {
-                if let savedPattern = dataController?.btPattern {
-                    if savedPattern.type == 16 {
-                        if savedPattern.sub == 0 {
-                            vc.whichPattern = 0
-                            vc.subPattern = savedPattern.startResp
-                            vc.startSubPattern = savedPattern.startResp
-                            vc.maxSubPattern = savedPattern.minResp
-                            vc.patternTitle = patternNames[savedPattern.type].0
+            
+            if let vc = viewController {
+                vc.isTutorial = false
+                vc.sessionWearing = newSessionSettings.lastWearing
+                vc.sessionDuration = sessionDuration
+                vc.sessionKind = sessionKind
+                
+                if programType == 0 {
+                    vc.whichPattern = 0
+                    vc.subPattern = 5
+                    vc.maxSubPattern = 34
+                    vc.patternTitle = patternNames[0].0
+                }
+                else {
+                    if let savedPattern = dataController?.btPattern {
+                        if savedPattern.type == 16 {
+                            if savedPattern.sub == 0 {
+                                vc.whichPattern = 0
+                                vc.subPattern = savedPattern.startResp
+                                vc.startSubPattern = savedPattern.startResp
+                                vc.maxSubPattern = savedPattern.minResp
+                                vc.patternTitle = patternNames[savedPattern.type].0
+                            }
+                            else {
+                                Pattern.patternSequence[16][0] = [savedPattern.inhalationTime, savedPattern.retentionTime, savedPattern.exhalationTime, savedPattern.timeBetweenBreaths, "Custom"]
+                                vc.whichPattern = 16
+                                vc.subPattern = 0
+                                vc.maxSubPattern = 34
+                                vc.patternTitle = patternNames[savedPattern.type].0
+                            }
                         }
                         else {
-                            Pattern.patternSequence[16][0] = [savedPattern.inhalationTime, savedPattern.retentionTime, savedPattern.exhalationTime, savedPattern.timeBetweenBreaths, "Custom"]
-                            vc.whichPattern = 16
-                            vc.subPattern = 0
-                            vc.maxSubPattern = 34
-                            vc.patternTitle = patternNames[savedPattern.type].0
+                            vc.whichPattern = patternNumbers[savedPattern.type]
+                            if vc.whichPattern == 0 {
+                                vc.subPattern = 5
+                                vc.maxSubPattern = 34
+                                vc.patternTitle = patternNames[savedPattern.type].0
+                            }
+                            else {
+                                vc.subPattern = 0
+                                vc.maxSubPattern = 34
+                                vc.patternTitle = patternNames[savedPattern.type].0
+                            }
                         }
                     }
                     else {
-                        vc.whichPattern = patternNumbers[savedPattern.type]
-                        if vc.whichPattern == 0 {
-                            vc.subPattern = 5
-                            vc.maxSubPattern = 34
-                            vc.patternTitle = patternNames[savedPattern.type].0
-                        }
-                        else {
-                            vc.subPattern = 0
-                            vc.maxSubPattern = 34
-                            vc.patternTitle = patternNames[savedPattern.type].0
-                        }
+                        fatalError()
                     }
                 }
-                else {
-                    fatalError()
+                
+                self.present(vc, animated: true) {
+                    
                 }
             }
-            
-            self.present(vc, animated: true) {
-                
-            }
+
         }
         else {
             if sessionKind == 2 {
                 
             }
-            else {
-//                UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-              
-                let vc = Utils.getStoryboardWithIdentifier(identifier: "VisualTrainingViewController") as! VisualTrainingViewController
+            else {              
+                let vc = Utils.getStoryboardWithIdentifier(name: "VisualTraining", identifier: "VisualTrainingViewController") as! VisualTrainingViewController
                 vc.isTutorial = false
                 vc.sessionKind = sessionKind
                 vc.sessionDuration = sessionDuration

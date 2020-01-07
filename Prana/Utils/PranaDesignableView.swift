@@ -8,9 +8,8 @@
 
 import Foundation
 import UIKit
-@IBDesignable
 
-class ImageButton: UIButton {
+@IBDesignable class ImageButton: UIButton {
     
     @IBInspectable
     var titleText: String? {
@@ -67,7 +66,6 @@ class PranaButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -75,29 +73,28 @@ class PranaButton: UIButton {
         commonInit()
     }
     
+    public override func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        commonInit()
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-//        isClicked = isClicked ? true : false
     }
     
     func commonInit() {
         if isClicked {
             backgroundColor = UIColor.colorFromHex(hexString: "#2BB7B8")
-            //                titleLabel?.textColor = .white
             tintColor = .white
-            
             layer.shadowColor = UIColor.colorFromHex(hexString: "#2BB7B8").cgColor
         }
         else {
             backgroundColor = UIColor.colorFromHex(hexString: "#F8F9FB")
-            //                titleLabel?.textColor = .white
             tintColor = UIColor.colorFromHex(hexString: "#79859F")
-            
             layer.shadowColor = UIColor.colorFromHex(hexString: "#79859F").cgColor
         }
         
         titleLabel?.font = UIFont(name: "Quicksand-Medium", size: 15.0)
-        
         layer.cornerRadius = 4.0
         
         layer.shadowOpacity = 0.2
@@ -113,16 +110,12 @@ class PranaButton: UIButton {
         didSet {
             if isClicked {
                 backgroundColor = UIColor.colorFromHex(hexString: "#2BB7B8")
-//                titleLabel?.textColor = .white
                 tintColor = .white
-                
                 layer.shadowColor = UIColor.colorFromHex(hexString: "#2BB7B8").cgColor
             }
             else {
                 backgroundColor = UIColor.colorFromHex(hexString: "#F8F9FB")
-//                titleLabel?.textColor = .white
                 tintColor = UIColor.colorFromHex(hexString: "#79859F")
-
                 layer.shadowColor = UIColor.colorFromHex(hexString: "#79859F").cgColor
             }
             

@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6429C99923B9BC97000B0C89 /* BuzzerTraining.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6429C99823B9BC97000B0C89 /* BuzzerTraining.storyboard */; };
+		648E2ACE23BA0D0400BF7EED /* BuzzerBreathingOnlyTrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648E2ACD23BA0D0400BF7EED /* BuzzerBreathingOnlyTrainingViewController.swift */; };
+		648E2AD023BA183300BF7EED /* BuzzerPostureOnlyTrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648E2ACF23BA183300BF7EED /* BuzzerPostureOnlyTrainingViewController.swift */; };
+		648E2AD223BA2BED00BF7EED /* BaseBuzzerTrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648E2AD123BA2BED00BF7EED /* BaseBuzzerTrainingViewController.swift */; };
+		64CB95EE23B85499009CA4F5 /* UIView+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CB95ED23B85499009CA4F5 /* UIView+Gradient.swift */; };
+		64CB95F023B9033D009CA4F5 /* OvalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CB95EF23B9033D009CA4F5 /* OvalButton.swift */; };
+		64CB95F223B908DF009CA4F5 /* RadioGroupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CB95F123B908DF009CA4F5 /* RadioGroupButton.swift */; };
+		64CB95F623B93C8D009CA4F5 /* VisualTraining.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64CB95F523B93C8D009CA4F5 /* VisualTraining.storyboard */; };
+		64D077B723B422EE00909484 /* BreathingPosture.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64D077B623B422EE00909484 /* BreathingPosture.storyboard */; };
+		64D0781B23B7BD8C00909484 /* BodyMeasurement.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64D0781A23B7BD8C00909484 /* BodyMeasurement.storyboard */; };
 		90218A1D06D09F772C7F8DB2 /* Pods_Prana.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C6652367A132E9EB12D69F8 /* Pods_Prana.framework */; };
 		AA17201B222670420080BD71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA17201A222670420080BD71 /* AppDelegate.swift */; };
 		AA172022222670420080BD71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA172020222670420080BD71 /* Main.storyboard */; };
@@ -228,6 +238,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6429C99823B9BC97000B0C89 /* BuzzerTraining.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BuzzerTraining.storyboard; sourceTree = "<group>"; };
+		648E2ACD23BA0D0400BF7EED /* BuzzerBreathingOnlyTrainingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuzzerBreathingOnlyTrainingViewController.swift; sourceTree = "<group>"; };
+		648E2ACF23BA183300BF7EED /* BuzzerPostureOnlyTrainingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuzzerPostureOnlyTrainingViewController.swift; sourceTree = "<group>"; };
+		648E2AD123BA2BED00BF7EED /* BaseBuzzerTrainingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseBuzzerTrainingViewController.swift; sourceTree = "<group>"; };
+		64CB95ED23B85499009CA4F5 /* UIView+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Gradient.swift"; sourceTree = "<group>"; };
+		64CB95EF23B9033D009CA4F5 /* OvalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OvalButton.swift; sourceTree = "<group>"; };
+		64CB95F123B908DF009CA4F5 /* RadioGroupButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioGroupButton.swift; sourceTree = "<group>"; };
+		64CB95F523B93C8D009CA4F5 /* VisualTraining.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VisualTraining.storyboard; sourceTree = "<group>"; };
+		64D077B623B422EE00909484 /* BreathingPosture.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BreathingPosture.storyboard; sourceTree = "<group>"; };
+		64D0781A23B7BD8C00909484 /* BodyMeasurement.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BodyMeasurement.storyboard; sourceTree = "<group>"; };
 		8C6652367A132E9EB12D69F8 /* Pods_Prana.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Prana.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A59A087C0077029F20DCF11B /* Pods-Prana.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Prana.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Prana/Pods-Prana.debug.xcconfig"; sourceTree = "<group>"; };
 		AA172017222670420080BD71 /* Prana.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Prana.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -473,6 +493,28 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		64CB95EC23B8348B009CA4F5 /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				64CB95ED23B85499009CA4F5 /* UIView+Gradient.swift */,
+				CA8C7F1822EECB5A00551DFE /* UIViewController+Orientation.swift */,
+			);
+			path = Extentions;
+			sourceTree = "<group>";
+		};
+		64D077B823B422F700909484 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				AA172020222670420080BD71 /* Main.storyboard */,
+				CAC4B96E22C03CAF006DD7E8 /* History.storyboard */,
+				64D077B623B422EE00909484 /* BreathingPosture.storyboard */,
+				64D0781A23B7BD8C00909484 /* BodyMeasurement.storyboard */,
+				64CB95F523B93C8D009CA4F5 /* VisualTraining.storyboard */,
+				6429C99823B9BC97000B0C89 /* BuzzerTraining.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
 		AA17200E222670420080BD71 = {
 			isa = PBXGroup;
 			children = (
@@ -505,8 +547,6 @@
 				D7992ACC225C218100C5C8F2 /* Resources */,
 				AA17201A222670420080BD71 /* AppDelegate.swift */,
 				CA97DB102229893F002C5592 /* Constants.swift */,
-				AA172020222670420080BD71 /* Main.storyboard */,
-				CAC4B96E22C03CAF006DD7E8 /* History.storyboard */,
 				AA172025222670450080BD71 /* LaunchScreen.storyboard */,
 				AA172023222670450080BD71 /* Assets.xcassets */,
 				AA172028222670450080BD71 /* Info.plist */,
@@ -543,6 +583,8 @@
 		CA98921A2241283800D824B0 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				64CB95EC23B8348B009CA4F5 /* Extentions */,
+				64D077B823B422F700909484 /* Storyboards */,
 				CAC191C0226E58FB009E04B5 /* Reusable */,
 				CAB6530E229840AE001EAE37 /* Main */,
 				CAB6530D22984090001EAE37 /* Initial */,
@@ -561,6 +603,9 @@
 		CA98921D2241286100D824B0 /* Training */ = {
 			isa = PBXGroup;
 			children = (
+				648E2AD123BA2BED00BF7EED /* BaseBuzzerTrainingViewController.swift */,
+				648E2ACF23BA183300BF7EED /* BuzzerPostureOnlyTrainingViewController.swift */,
+				648E2ACD23BA0D0400BF7EED /* BuzzerBreathingOnlyTrainingViewController.swift */,
 				D7172B752258A026007AA168 /* BuzzerTrainingViewController.swift */,
 				D7172B7722596179007AA168 /* VisualTrainingViewController.swift */,
 				D7B12F5D22438B19002D2E0F /* VisualTrainingScene.swift */,
@@ -885,8 +930,8 @@
 		CAB1062822B8D2CF00A7D8A1 /* Body */ = {
 			isa = PBXGroup;
 			children = (
-				CAB1062922B8D2EB00A7D8A1 /* BodyMeasurementsViewController.swift */,
 				CAD207E522B8DF4100589BC0 /* BMButton.swift */,
+				CAB1062922B8D2EB00A7D8A1 /* BodyMeasurementsViewController.swift */,
 				CA0D604922BC4B270057DCF7 /* HelpBodyMeasurementsViewController.swift */,
 				CAA51F1722BD397A00D12DED /* NotificationSettingViewController.swift */,
 				CAEA71CB22BE1FD1002A8B66 /* BodyCellTableViewCell.swift */,
@@ -997,13 +1042,14 @@
 		CAC191C0226E58FB009E04B5 /* Reusable */ = {
 			isa = PBXGroup;
 			children = (
-				CA8C7F1822EECB5A00551DFE /* UIViewController+Orientation.swift */,
 				CAB2AFDC227AAE570085146C /* PranaCircleProgressView.swift */,
 				CAAC19812270D2EF001DC02D /* PranaDropDown.swift */,
 				CAAC19832270D309001DC02D /* PranaDropDown.xib */,
 				CAA626B722970B010036FC31 /* BluetoothStateView.swift */,
 				CAA626B9229717BE0036FC31 /* BatteryStateView.swift */,
 				CAA626BB229717D50036FC31 /* BatteryStateView.xib */,
+				64CB95EF23B9033D009CA4F5 /* OvalButton.swift */,
+				64CB95F123B908DF009CA4F5 /* RadioGroupButton.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -1191,6 +1237,7 @@
 				CAE670622271FCFB0099D72C /* sit (20).png in Resources */,
 				CAAF9D1922737952003232C4 /* Countries.bundle in Resources */,
 				CAE670822271FCFB0099D72C /* stand (4).png in Resources */,
+				64CB95F623B93C8D009CA4F5 /* VisualTraining.storyboard in Resources */,
 				CAE6706E2271FCFB0099D72C /* stand (10).png in Resources */,
 				CAE670792271FCFB0099D72C /* sit (18).png in Resources */,
 				CAE670592271FCFB0099D72C /* sit (11).png in Resources */,
@@ -1199,8 +1246,10 @@
 				CAE6705A2271FCFB0099D72C /* stand (12).png in Resources */,
 				CAE670502271FCFB0099D72C /* stand (25).png in Resources */,
 				CAE670752271FCFB0099D72C /* stand (3).png in Resources */,
+				6429C99923B9BC97000B0C89 /* BuzzerTraining.storyboard in Resources */,
 				CAE670672271FCFB0099D72C /* sit (17).png in Resources */,
 				AA172024222670450080BD71 /* Assets.xcassets in Resources */,
+				64D0781B23B7BD8C00909484 /* BodyMeasurement.storyboard in Resources */,
 				CAE6704A2271FCFB0099D72C /* sit (21).png in Resources */,
 				CAE6706D2271FCFB0099D72C /* stand (22).png in Resources */,
 				CAE670532271FCFB0099D72C /* sit (16).png in Resources */,
@@ -1208,6 +1257,7 @@
 				CAE6707C2271FCFB0099D72C /* sit (15).png in Resources */,
 				CAE6706F2271FCFB0099D72C /* sit (2).png in Resources */,
 				CAE670772271FCFB0099D72C /* sit (27).png in Resources */,
+				64D077B723B422EE00909484 /* BreathingPosture.storyboard in Resources */,
 				CAE6706C2271FCFB0099D72C /* sit (19).png in Resources */,
 				CAE6704D2271FCFB0099D72C /* stand (1).png in Resources */,
 				CAE670542271FCFB0099D72C /* sit (9).png in Resources */,
@@ -1342,6 +1392,7 @@
 				CAAF9D2522737952003232C4 /* LocationPickerViewController.swift in Sources */,
 				CAAF9D2422737952003232C4 /* LocationSearchResultsViewController.swift in Sources */,
 				CAA626B822970B010036FC31 /* BluetoothStateView.swift in Sources */,
+				648E2ACE23BA0D0400BF7EED /* BuzzerBreathingOnlyTrainingViewController.swift in Sources */,
 				AA7FE2D82227213F0092E8A6 /* SignupViewController.swift in Sources */,
 				CAAF9D0622737951003232C4 /* Array+Extensions.swift in Sources */,
 				D7BA34A122565DDD00B4689E /* TutorialBuzzerViewController.swift in Sources */,
@@ -1392,6 +1443,7 @@
 				CA99676522D4AB3F00096581 /* SessionParentCell.swift in Sources */,
 				CAEEB01222C11321002C3139 /* Measurement.swift in Sources */,
 				CAA626BA229717BE0036FC31 /* BatteryStateView.swift in Sources */,
+				648E2AD023BA183300BF7EED /* BuzzerPostureOnlyTrainingViewController.swift in Sources */,
 				CA46D27423B29B6A004FBD7A /* RepeatingTimer.swift in Sources */,
 				CAC1252D22C34FC7008D6C7D /* MeasurementsHistoryViewController.swift in Sources */,
 				CAC1252922C2E4F7008D6C7D /* WeeklyCell2.swift in Sources */,
@@ -1406,6 +1458,7 @@
 				CAAF9D1F22737952003232C4 /* CountryCell.swift in Sources */,
 				CA8F3F092289A9E600EBC02B /* SavedPattern.swift in Sources */,
 				CAAF9D1422737951003232C4 /* Common+Extensions.swift in Sources */,
+				648E2AD223BA2BED00BF7EED /* BaseBuzzerTrainingViewController.swift in Sources */,
 				CAC1252722C2E4DF008D6C7D /* WeeklyCell1.swift in Sources */,
 				D73610002239C70700CCAD48 /* TutorialStartViewController.swift in Sources */,
 				CAAF9D0C22737951003232C4 /* String+Extensions.swift in Sources */,
@@ -1417,6 +1470,7 @@
 				CAB1062A22B8D2EB00A7D8A1 /* BodyMeasurementsViewController.swift in Sources */,
 				CA9C5EBE232F9C9A00DD033F /* Public.swift in Sources */,
 				CAAF9D1222737951003232C4 /* UIAlertController+Extensions.swift in Sources */,
+				64CB95EE23B85499009CA4F5 /* UIView+Gradient.swift in Sources */,
 				AA7FE2D4222720EB0092E8A6 /* WelcomeViewController.swift in Sources */,
 				D7172B762258A026007AA168 /* BuzzerTrainingViewController.swift in Sources */,
 				CAE6B14A2268DBBD00881B18 /* ProgramsViewController.swift in Sources */,
@@ -1424,6 +1478,7 @@
 				CAAF9D1122737951003232C4 /* UIApplication+Extensions.swift in Sources */,
 				CAAF9D2122737952003232C4 /* OneTextFieldViewController.swift in Sources */,
 				CAD502F72231BEB900F97B31 /* PranaDevice.swift in Sources */,
+				64CB95F223B908DF009CA4F5 /* RadioGroupButton.swift in Sources */,
 				CAAF9D0B22737951003232C4 /* Date+Extension.swift in Sources */,
 				D7C6AC1722611A77004A4388 /* TabTrainViewController.swift in Sources */,
 				CAADAFAF22947D5100518444 /* SessionSettings.swift in Sources */,
@@ -1454,6 +1509,7 @@
 				D7A6AC9F22559A44001DD8F9 /* TutorialWearUpperchestViewController.swift in Sources */,
 				CA9D65C822CEC0E00074253B /* User.swift in Sources */,
 				CA8C7F1922EECB5A00551DFE /* UIViewController+Orientation.swift in Sources */,
+				64CB95F023B9033D009CA4F5 /* OvalButton.swift in Sources */,
 				CAA782E42285F28A00EB5122 /* PatternCell.swift in Sources */,
 				D732BDB02255FC86008AFF76 /* TutorialWearLowerbackViewController.swift in Sources */,
 				CAAF9D2D22737952003232C4 /* ContactCell.swift in Sources */,
@@ -1618,7 +1674,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 53;
 				DEVELOPMENT_TEAM = U37J473DVK;
 				INFOPLIST_FILE = Prana/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1642,7 +1698,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 53;
 				DEVELOPMENT_TEAM = U37J473DVK;
 				INFOPLIST_FILE = Prana/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;

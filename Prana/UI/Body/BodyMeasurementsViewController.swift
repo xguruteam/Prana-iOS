@@ -103,8 +103,6 @@ class BodyMeasurementsViewController: SuperViewController {
             case .take:
                 btnStart.isHidden = true
                 btnTake.isHidden = false
-            default:
-                break
             }
         }
     }
@@ -125,21 +123,79 @@ class BodyMeasurementsViewController: SuperViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        btnStart.applyButtonGradient(colors: [#colorLiteral(red: 0.6, green: 0.8392156863, blue: 0.2392156863, alpha: 1), #colorLiteral(red: 0.4039215686, green: 0.7411764706, blue: 0.2274509804, alpha: 1)], points: [0.0, 1.0])
+        adjustButtons()
+        status = 0
+    }
+    
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let todayMeasurement = dataController.fetchDailyMeasurement(date: Date()) {
+            measurements = todayMeasurement.data
+            note = todayMeasurement.note
+            updateMeasurementValues()
+        }
+        
+        PranaDeviceManager.shared.addDelegate(self)
+        batteryStatus.isEnabled = PranaDeviceManager.shared.isConnected
+        
+        reset()
+        status = 0
+        
+        initLive()
+        
+        if PranaDeviceManager.shared.isConnected {
+            startLive()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        if isLive {
+            stopLive()
+        }
+        
+        deinitLive()
+        PranaDeviceManager.shared.removeDelegate(self)
+    }
+    
+    func setupButton(button: BMButton) {
+        var buttonWidth: CGFloat = 60.0
+        let buttonHeight: CGFloat = 28.0
+        
+        let title = button.position
+        
+        if title.count > 7 {
+            buttonWidth = 85
+        }
+        
+        bodyContainer.addSubview(button)
+        button.addTarget(self, action: #selector(onButtonClick(_:)), for: .touchUpInside)
+        
+        button.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
+        button.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
+    }
+    
+    
+    func adjustButtons() {
         var button = buttons[.neck]!
         setupButton(button: button)
         button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 62.0).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 60.0).isActive = true
         
         button = buttons[.shoulders]!
         setupButton(button: button)
         button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 90.0).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 92.0).isActive = true
         
         button = buttons[.chest]!
         setupButton(button: button)
         button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 118.0).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 122.0).isActive = true
         
         button = buttons[.waist]!
         setupButton(button: button)
@@ -158,7 +214,7 @@ class BodyMeasurementsViewController: SuperViewController {
         
         button = buttons[.lfarm]!
         setupButton(button: button)
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -70.0).isActive = true
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -86.0).isActive = true
         button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 186.0).isActive = true
         
         button = buttons[.lwrist]!
@@ -173,7 +229,7 @@ class BodyMeasurementsViewController: SuperViewController {
         
         button = buttons[.rfarm]!
         setupButton(button: button)
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: 70.0).isActive = true
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: 86.0).isActive = true
         button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 186.0).isActive = true
         
         button = buttons[.rwrist]!
@@ -203,78 +259,23 @@ class BodyMeasurementsViewController: SuperViewController {
         
         button = buttons[.custom1]!
         setupButton(button: button)
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -140.0).isActive = true
+        button.isSelected = true
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -125.0).isActive = true
         button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 360).isActive = true
         
         button = buttons[.custom2]!
         setupButton(button: button)
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -140.0).isActive = true
+        button.isSelected = true
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -125.0).isActive = true
         button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 400).isActive = true
         
         button = buttons[.custom3]!
         setupButton(button: button)
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -140.0).isActive = true
+        button.isSelected = true
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -125.0).isActive = true
         button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 440).isActive = true
-        
-        
-        status = 0
     }
-    
-    func setupButton(button: BMButton) {
-        var buttonWidth: CGFloat = 60.0
-        var buttonHeight: CGFloat = 25.0
-        
-        let title = button.position
-        
-        if title.count > 7 {
-            buttonWidth = 70
-        }
-        
-        bodyContainer.addSubview(button)
-        button.addTarget(self, action: #selector(onButtonClick(_:)), for: .touchUpInside)
-        
-        button.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
-        button.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-//        NotificationCenter.default.addObserver(self, selector: #selector(onConnectViewControllerNextToSession), name: .connectViewControllerDidNextToSession, object: nil)
-        
-        if let todayMeasurement = dataController.fetchDailyMeasurement(date: Date()) {
-            measurements = todayMeasurement.data
-            note = todayMeasurement.note
-            updateMeasurementValues()
-        }
-        
-        PranaDeviceManager.shared.addDelegate(self)
-        batteryStatus.isEnabled = PranaDeviceManager.shared.isConnected
-        
-        reset()
-        status = 0
-        
-        initLive()
-        
-        if PranaDeviceManager.shared.isConnected {
-            startLive()
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-
-//        NotificationCenter.default.removeObserver(self, name: .connectViewControllerDidNextToSession, object: nil)
-        
-        if isLive {
-            stopLive()
-        }
-        
-        deinitLive()
-        
-        PranaDeviceManager.shared.removeDelegate(self)
-    }
-    
+ 
     func updateStatus() {
         lblStatus.text = statuses[status]
         lblStatus.alpha = 0
@@ -317,7 +318,6 @@ class BodyMeasurementsViewController: SuperViewController {
     
     func reset() {
         self.position = nil
-//        unselectAllButtons()
         step = .ready
     }
     
@@ -370,55 +370,6 @@ class BodyMeasurementsViewController: SuperViewController {
         self.present(navVC, animated: true, completion: nil)
     }
     
-    @objc func onConnectViewControllerNextToSession() {
-        gotoSelectStep()
-    }
-    
-    @objc func onButtonClick(_ sender: BMButton) {
-        
-        switch step {
-        case .ready:
-            status = 0
-        case .select:
-            status = 2
-        case .take:
-            status = 3
-        }
-        
-        guard step == .select else {
-            
-//            var message = ""
-//            if step == .take {
-//                message = "Please try from start again. Press Referesh button."
-//            }
-//            else {
-//                message = "Please press Start Measurement button first."
-//            }
-//            let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-//
-//            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-//
-//            self.present(alert, animated: true, completion: nil)
-            
-            return
-        }
-        
-        let title = sender.position
-        self.position = BMPosition(rawValue: title)
-        btnStart.isHidden = true
-        btnTake.isHidden = false
-    }
-    
-    @IBAction func onStart(_ sender: Any) {
-        
-        if PranaDeviceManager.shared.isConnected == false || isLive == false {
-            gotoConnectViewController()
-            return
-        }
-        
-        gotoSelectStep()
-    }
-    
     func gotoSelectStep() {
         guard step == .ready else { return }
         
@@ -429,17 +380,43 @@ class BodyMeasurementsViewController: SuperViewController {
         status = 1
     }
     
+    @objc func onConnectViewControllerNextToSession() {
+        gotoSelectStep()
+    }
+        
+    @objc func onButtonClick(_ sender: BMButton) {
+        switch step {
+        case .ready:
+            status = 0
+        case .select:
+            status = 2
+        case .take:
+            status = 3
+        }
+        
+        guard step == .select else {
+            return
+        }
+        
+        let title = sender.position
+        self.position = BMPosition(rawValue: title)
+        btnStart.isHidden = true
+        btnTake.isHidden = false
+    }
+    
+    @IBAction func onStart(_ sender: Any) {
+        if PranaDeviceManager.shared.isConnected == false || isLive == false {
+            gotoConnectViewController()
+            return
+        }
+        
+        gotoSelectStep()
+    }
+    
+    
     @IBAction func onTake(_ sender: Any) {
         guard let position = position else {
-            
             status = 1
-            
-//            let alert = UIAlertController(title: nil, message: "Please select Position.", preferredStyle: .alert)
-//
-//            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-//
-//            self.present(alert, animated: true, completion: nil)
-            
             return
         }
         
@@ -455,7 +432,7 @@ class BodyMeasurementsViewController: SuperViewController {
     }
     
     @IBAction func onHelp(_ sender: Any) {
-//        let vc = Utils.getStoryboardWithIdentifier(identifier: "HelpBodyMeasurementsViewController") as! HelpBodyMeasurementsViewController
+
     }
     
     @IBAction func onReset(_ sender: Any) {
@@ -481,7 +458,6 @@ class BodyMeasurementsViewController: SuperViewController {
     
     
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
@@ -525,6 +501,4 @@ extension BodyMeasurementsViewController: PranaDeviceManagerDelegate {
             toast.show()
         }
     }
-    
-    
 }

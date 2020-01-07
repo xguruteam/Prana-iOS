@@ -9,7 +9,7 @@
 import UIKit
 import Macaw
 
-class BuzzerTrainingViewController: SuperViewController {
+class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
 
     @IBOutlet weak var lblTimeRemaining: UILabel!
     @IBOutlet weak var lblBuzzerReason: UILabel!
@@ -17,56 +17,22 @@ class BuzzerTrainingViewController: SuperViewController {
     @IBOutlet weak var lblMindfulBreaths: UILabel!
     @IBOutlet weak var lblTargetRespirationRate: UILabel!
     @IBOutlet weak var lblBreathingPattern: UILabel!
+    @IBOutlet weak var breathRadioGroup: RadioGroupButton!
     
-    @IBOutlet weak var breathSensitivityGroup: UIView!
-    @IBOutlet weak var btnBreathSensitivityRadio1: UIButton!
-    @IBOutlet weak var btnBreathSensitivityTitle1: UIButton!
-    @IBOutlet weak var btnBreathSensitivityRadio2: UIButton!
-    @IBOutlet weak var btnBreathSensitivityTitle2: UIButton!
-    @IBOutlet weak var btnBreathSensitivityRadio3: UIButton!
-    @IBOutlet weak var btnBreathSensitivityTitle3: UIButton!
+    @IBOutlet weak var postureRadioGroup: RadioGroupButton!
+    
     @IBOutlet weak var lblUprightPosture: UILabel!
-    
     @IBOutlet weak var btnUpright: UIButton!
     @IBOutlet weak var lblSlouches: UILabel!
-    @IBOutlet weak var lblWearing: UILabel!
-    //    @IBOutlet weak var btnNext: UIBarButtonItem!
     
     @IBOutlet weak var imgPostureAnimation: UIImageView!
-    
-    @IBOutlet weak var postureSensitivityGroup: UIView!
-    @IBOutlet weak var btnPostureSensitivityRadio1: UIButton!
-    @IBOutlet weak var btnPostureSensitivityTitle1: UIButton!
-    @IBOutlet weak var btnPostureSensitivityRadio2: UIButton!
-    @IBOutlet weak var btnPostureSensitivityTitle2: UIButton!
-    @IBOutlet weak var btnPostureSensitivityRadio3: UIButton!
-    @IBOutlet weak var btnPostureSensitivityTitle3: UIButton!
-    
+   
     @IBOutlet weak var btnStartStop: UIButton!
     
     @IBOutlet weak var liveGraph: LiveGraph!
-    @IBOutlet weak var lblPostureValue: UILabel!
     @IBOutlet weak var btnBack: UIButton!
     
-    @IBOutlet weak var lblBreathingLabel: UILabel!
-    @IBOutlet weak var con1: NSLayoutConstraint!
-    @IBOutlet weak var con2: NSLayoutConstraint!
-    @IBOutlet weak var con3: NSLayoutConstraint!
-    @IBOutlet weak var con4: NSLayoutConstraint!
-    @IBOutlet weak var con5: NSLayoutConstraint!
-    @IBOutlet weak var con6: NSLayoutConstraint!
-    @IBOutlet weak var con7: NSLayoutConstraint!
-    @IBOutlet weak var con8: NSLayoutConstraint!
-    @IBOutlet weak var con9: NSLayoutConstraint!
-    @IBOutlet weak var con10: NSLayoutConstraint!
-    
-    @IBOutlet weak var lblPostureLabel: UILabel!
-    @IBOutlet weak var con11: NSLayoutConstraint!
-    @IBOutlet weak var con12: NSLayoutConstraint!
-    @IBOutlet weak var con13: NSLayoutConstraint!
-    @IBOutlet weak var con14: NSLayoutConstraint!
-    @IBOutlet weak var con15: NSLayoutConstraint!
-    
+   
     @IBOutlet weak var lblGuide: UILabel!
     @IBOutlet weak var btnHelp: UIButton!
     @IBOutlet weak var lblBuzzWhenUnmindful: UILabel!
@@ -77,26 +43,13 @@ class BuzzerTrainingViewController: SuperViewController {
     var isLiving = false
     
     var objLive: Live?
-    var isTutorial = false
     var isCompleted = false
-    
-    var sessionWearing: Int = 0 // Lower Back, 1: Upper Chest
-    var sessionDuration: Int = 0
-    var sessionKind: Int = 0 // 0: Breathing and Posture, 1: Breathing Only, 2: Posture Only
-    
+
     var mindfulBreaths: Int = 0
     var breathCount: Int = 0
     var uprightDuration: Int = 0
     
     var currentSessionObject: TrainingSession?
-    
-    var whichPattern: Int = 0
-    var subPattern: Int = 0
-    var startSubPattern: Int = 5
-    var maxSubPattern: Int = 8
-    
-    var patternTitle: String = ""
-    
     var slouchStartSeconds: Int = 0
     
     var isFinished = false
@@ -112,14 +65,14 @@ class BuzzerTrainingViewController: SuperViewController {
     var targetRR: Double = 0 {
         didSet {
             DispatchQueue.main.async {
-                self.lblTargetRespirationRate.text = "Target/Real-time Respiration Rate: \(self.targetRR)/\(self.actualRR) bpm"
+                self.lblTargetRespirationRate.text = "\(self.targetRR)/\(self.actualRR) bpm"
             }
         }
     }
     var actualRR: Double = 0 {
         didSet {
             DispatchQueue.main.async {
-                self.lblTargetRespirationRate.text = "Target/Real-time Respiration Rate: \(self.targetRR)/\(self.actualRR) bpm"
+                self.lblTargetRespirationRate.text = "\(self.targetRR)/\(self.actualRR) bpm"
             }
         }
     }
@@ -127,7 +80,7 @@ class BuzzerTrainingViewController: SuperViewController {
     var buzzReasonText: String? {
         didSet {
             DispatchQueue.main.async {
-                self.lblBuzzerReason.text = "Buzzer Reason: " + (self.buzzReasonText ?? "")
+                self.lblBuzzerReason.text = " " + (self.buzzReasonText ?? "")
             }
         }
     }
@@ -141,41 +94,51 @@ class BuzzerTrainingViewController: SuperViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
         self.navigationController?.navigationBar.isHidden = true
-        
         NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
         swBuzzWhenUnmindful.addTarget(self, action: #selector(onBuzzWhenUnmindfulChange(_:)), for: .valueChanged)
         
+
         if isTutorial {
             onHelp(self.btnHelp)
         }
     }
-    
-    func initView() {
-        
-        let border1 = CALayer()
-        border1.backgroundColor = UIColor(red: 224.0/256.0, green: 224.0/256.0, blue: 224.0/256.0, alpha: 1).cgColor
-        border1.frame = CGRect(x: 0.0, y: breathSensitivityGroup.frame.height + 4.0, width: breathSensitivityGroup.frame.width, height: 1.0)
-        
-        breathSensitivityGroup.layer.addSublayer(border1)
-        
-        let border2 = CALayer()
-        border2.backgroundColor = UIColor(red: 224.0/256.0, green: 224.0/256.0, blue: 224.0/256.0, alpha: 1).cgColor
-        border2.frame = CGRect(x: 0.0, y: postureSensitivityGroup.frame.height + 4.0, width: postureSensitivityGroup.frame.width, height: 1.0)
-        
-        postureSensitivityGroup.layer.addSublayer(border2)
-        
-        swBuzzWhenUnmindful.onTintColor = UIColor(hexString: "#2bb7b8")
 
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
+        configure()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        btnUpright.applyButtonGradient(colors: [#colorLiteral(red: 0.6, green: 0.8392156863, blue: 0.2392156863, alpha: 1), #colorLiteral(red: 0.4039215686, green: 0.7411764706, blue: 0.2274509804, alpha: 1)], points: [0.0, 1.0])
+        btnStartStop.applyButtonGradient(colors: [#colorLiteral(red: 0.2980392157, green: 0.8470588235, blue: 0.8509803922, alpha: 1), #colorLiteral(red: 0.168627451, green: 0.7176470588, blue: 0.7215686275, alpha: 1)], points: [0.0, 1.0])
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         if isFinished {
             return
         }
+        
+        stopLiving()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if isMovingFromParent {
+        }
+    }
+    
+    func configure() {
+        if isFinished {
+            return
+        }
+        
+        breathRadioGroup.delegate = self
+        postureRadioGroup.delegate = self
         
         let objLiveGraph = Live()
         objLive = objLiveGraph
@@ -211,45 +174,12 @@ class BuzzerTrainingViewController: SuperViewController {
         
         targetRR = 0
         actualRR = 0
-
-        /*
-        if (DC.objGame.trainingPosture == 1) {
-            buzzerTrainingUI.postureType.text = "LOWER BACK SEATED";
-        }
-        else if (DC.objGame.trainingPosture == 2) {
-            buzzerTrainingUI.postureType.text = "UPPER BACK SEATED";
-        }
-            
-        else if (DC.objGame.trainingPosture == 3) {
-            buzzerTrainingUI.postureType.text = "UPPER BACK STANDING";
-        }
-        
-        var nameOfPattern:String;
-        
-        if (DC.objGame.whichPattern != 0) {
-            
-            nameOfPattern = DC.objGame.patternSequence[DC.objGame.whichPattern][0][4];
-            
-        }
-            
-        else {
-            
-            nameOfPattern = "SLOWING PATTERN";
-        }
-        
-        buzzerTrainingUI.patternName.text = nameOfPattern;
-        
-        
-        whichPattern = DC.objGame.whichPattern;
-        subPattern = DC.objGame.subPattern;
-        
-        */
         
         inhalationTimeEnd = Int(Pattern.getPatternValue(value: Pattern.patternSequence[whichPattern][subPattern][0]) * 20.0)
         retentionTimeEnd = inhalationTimeEnd + Int(Pattern.getPatternValue(value: Pattern.patternSequence[whichPattern][subPattern][1]) * 20.0)
         exhalationTimeEnd = retentionTimeEnd + Int(Pattern.getPatternValue(value: Pattern.patternSequence[whichPattern][subPattern][2]) * 20.0)
         timeBetweenBreathsEnd = exhalationTimeEnd + Int(Pattern.getPatternValue(value: Pattern.patternSequence[whichPattern][subPattern][3]) * 20.0)
-
+        
         slouchesCount = 0;
         uprightPostureTime = 0;
         hasUprightBeenSet = 0;
@@ -259,110 +189,18 @@ class BuzzerTrainingViewController: SuperViewController {
         
         trainingDuration = sessionDuration * 60;
         gameSetTime = trainingDuration;
-        
-        
+
         isCompleted = false
         btnStartStop.isEnabled = true
-        
-        lblBuzzerReason.text = "Buzzer Reason:"
-//        lblTimeRemaining.text = "_:__"
-        
-        lblMindfulBreaths.text = "Mindful Breaths:"
-        lblTargetRespirationRate.text = "Target/Real-time Respiration Rate:"
-        lblBreathingPattern.text = "Breathing Pattern: SLOWING PATTERN"
-        
-        lblUprightPosture.text = "Upright Posture:"
-        
-        lblWearing.text = "Wearing: " + (sessionWearing == 0 ? "Lower Back" : "Upper Chest")
-        
-        lblBreathingPattern.text = "Breathing Pattern: \(self.patternTitle)"
-        
-        
-        initView()
-        
+
+        lblBuzzerReason.text = ""
+        lblBreathingPattern.text = " \(self.patternTitle)"
         btnStartStop.setTitle("START SESSION", for: .normal)
         btnStartStop.isHidden = true
         displayPostureAnimation(1)
         lblGuide.isHidden = false
-        
-        
-        if sessionKind == 1 {
-            lblPostureLabel.isHidden = true
-            imgPostureAnimation.isHidden = true
-            lblUprightPosture.isHidden = true
-            lblSlouches.isHidden = true
-            lblWearing.isHidden = true
-            btnUpright.isHidden = true
-            postureSensitivityGroup.isHidden = true
-            
-            con11.constant = 300
-            con12.constant = 30
-            con13.constant = 10
-            con14.priority = .required
-            
-            useBuzzerForPosture = 0
-            buzzerTrainingForPostureOnly = 0
-            uprightHasBeenSetHandler()
-            lblGuide.isHidden = true
-            doWarningBuzzesforUnmindful = 1
-        }
-        else if sessionKind == 2{
-            lblBuzzerReason.isHidden = true
-            liveGraph.isHidden = true
-            lblBreathingLabel.isHidden = true
-            lblMindfulBreaths.isHidden = true
-            lblTargetRespirationRate.isHidden = true
-            lblBreathingPattern.isHidden = true
-            breathSensitivityGroup.isHidden = true
-            con1.priority = .required
-            con2.priority = .required
-            con3.priority = .required
-            con4.priority = .required
-            con5.priority = .required
-            con7.priority = .defaultLow
-            con6.priority = .required
-            con8.priority = .required
-            con15.priority = .required
-            con9.constant = 200
-            con10.constant = 200
-            useBuzzerForPosture = 1
-            buzzerTrainingForPostureOnly = 1
-            doWarningBuzzesforUnmindful = 0
-            lblBuzzWhenUnmindful.isHidden = true
-            swBuzzWhenUnmindful.isHidden = true
-        }
-        else {
-            useBuzzerForPosture = 1
-            buzzerTrainingForPostureOnly = 0
-            doWarningBuzzesforUnmindful = 1
-        }
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        if isFinished {
-            return
-        }
-        
-        stopLiving()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        if isMovingFromParent {
-        }
-    }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     @IBAction func onBack(_ sender: Any) {
         if isTutorial {
@@ -381,13 +219,6 @@ class BuzzerTrainingViewController: SuperViewController {
         }
     }
     
-    @IBAction func onBreathingResponseChange(_ sender: UIButton) {
-        setBreathSensitivity(val: sender.tag)
-    }
-    
-    @IBAction func onPostureResponseChange(_ sender: UIButton) {
-        setPostureSensitivity(val: sender.tag)
-    }
     
     @IBAction func onSetUpright(_ sender: Any) {
         objLive?.learnUprightAngleHandler()
@@ -400,9 +231,6 @@ class BuzzerTrainingViewController: SuperViewController {
             btnStartStop.alpha = 0.5
             btnStartStop.setTitle("Session Ended Early", for: .normal)
             btnStartStop.isHidden = false
-//            self.btnStartStop.isEnabled = false
-//            self.btnStartStop.alpha = 0.5
-            //            self.btnNext.isEnabled = true
         }
         else {
             startLiving()
@@ -457,8 +285,7 @@ class BuzzerTrainingViewController: SuperViewController {
         if hasUprightBeenSet == 0 {
             hasUprightBeenSet = 1
             DispatchQueue.main.async {
-//                self.btnStartStop.isEnabled = true
-//                self.btnStartStop.alpha = 1.0
+
                 self.btnStartStop.isHidden = false
                 self.lblGuide.isHidden = true
             }
@@ -468,39 +295,12 @@ class BuzzerTrainingViewController: SuperViewController {
     func setBreathSensitivity(val: Int) {
         objLive?.setBreathingResponsiveness(val: val)
         
-        btnBreathSensitivityRadio1.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        btnBreathSensitivityRadio2.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        btnBreathSensitivityRadio3.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        
-        switch val {
-        case 1:
-            btnBreathSensitivityRadio1.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-            objLive?.reversalThreshold = 9;
-        case 2:
-            btnBreathSensitivityRadio2.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-        case 3:
-            btnBreathSensitivityRadio3.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-        default:
-            return
-        }
-        
+        breathRadioGroup.selectedIndex = val
     }
     
     func setPostureSensitivity(val: Int) {
-        btnPostureSensitivityRadio1.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        btnPostureSensitivityRadio2.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        btnPostureSensitivityRadio3.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        
-        switch val {
-        case 1:
-            btnPostureSensitivityRadio1.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-        case 2:
-            btnPostureSensitivityRadio2.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-        case 3:
-            btnPostureSensitivityRadio3.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-        default:
-            return
-        }
+        postureRadioGroup.selectedIndex = val
+    
         dataController.sensitivities.btps = val - 1
         dataController.saveSettings()
         
@@ -508,7 +308,7 @@ class BuzzerTrainingViewController: SuperViewController {
     }
     
     func displayPostureAnimation(_ whichFrame: Int) {
-        var frame = whichFrame
+        let frame = whichFrame
         if sessionWearing == 0 {
             imgPostureAnimation.image = UIImage(named: "sit (\(frame))")
         }
@@ -571,7 +371,6 @@ class BuzzerTrainingViewController: SuperViewController {
         btnBack.isHidden = false
         btnHelp.isHidden = false
         
-        //removeEventListener(Event.ENTER_FRAME, enterFrameHandler);  May 19th, REMOVED THIS LINE
         isBuzzerTrainingActive = 0; //May 19th, ADDED THIS LINE
         
         objLive?.isBuzzing = 0;
@@ -581,13 +380,6 @@ class BuzzerTrainingViewController: SuperViewController {
         prevPostureState = 0;
         breathsOnCurrentLevel = 0;
         goodBreaths = 0;
-        
-//        if isTutorial {
-//            objLive?.removeDelegate(self as! LiveDelegate)
-//            let vc = Utils.getStoryboardWithIdentifier(identifier: "TutorialEndViewController")
-//            self.navigationController?.pushViewController(vc, animated: true)
-//        }
-        
     }
     
     func makeSessionObject() {
@@ -621,8 +413,6 @@ class BuzzerTrainingViewController: SuperViewController {
             self.btnStartStop.setTitle("Session Ended Early", for: .normal)
             self.btnStartStop.isHidden = false
         }
-        
-//        onBack(btnBack)
     }
     
     func onComplete() {
@@ -657,10 +447,7 @@ class BuzzerTrainingViewController: SuperViewController {
     var retentionTimeEnd:Int = 0;
     var exhalationTimeEnd:Int = 0;
     var timeBetweenBreathsEnd:Int = 0;
-    
-//    var whichPattern:Int = 0;
-//    var subPattern:Int = 0;
-    
+
     var hasInhaled:Int = 0;
     var hasExhaled:Int = 0;
     var numOfInhales:Int = 0;
@@ -744,9 +531,6 @@ class BuzzerTrainingViewController: SuperViewController {
     func buzzerTrainingMainLoop() {
         
         guard isBuzzerTrainingActive == 1, let objLiveGraph = objLive else { return }
-        
-//        buzzerTrainingUI.status.text = String(breathTime) + "  " + String(numOfInhales) +  "  " + String(numOfExhales) + "  " + String(whichPattern) + "  " + String(subPattern) + "  " + String(breathsOnCurrentLevel);
-        
         buzzerTimerHandler();
         
         actualRR = objLiveGraph.respRate // buzzerTrainingUI.actualRR.text = String(DC.objLiveGraph.respRate);
@@ -754,8 +538,7 @@ class BuzzerTrainingViewController: SuperViewController {
         totalElapsedTime+=1;  //May 19th, this does NOT seem to be used
         
         
-        if (buzzCount > 0) {
-            
+        if (buzzCount > 0) {            
             buzzCount-=1;
             
             if (buzzCount == 0) {
@@ -859,8 +642,6 @@ class BuzzerTrainingViewController: SuperViewController {
                     self.lblMindfulBreaths.text = "Mindful Breaths: \(Int(self.mindfulBreathsCount*100/self.totalBreaths))% (\(self.mindfulBreathsCount) of \(self.totalBreaths))"
                 }
                 self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: true, respRate: actualRR, targetRate: targetRR, eiRatio: 0, oneMinuteRR: 0)
-                //buzzerTrainingUI.mindfulBreaths.text = String(mindfulBreathsCount) + " of " + String(totalBreaths); //AUG 1st changed
-                
             }
             
             
@@ -874,22 +655,10 @@ class BuzzerTrainingViewController: SuperViewController {
                     }
                 }
             }
-            
-            
         }
-        
-        
-        /* if (takenFirstBreath == 0 && (DC.objLiveGraph.bottomReversalFound == 1 || DC.objLiveGraph.breathEnding == 1)) {
-         return; //don't start buzzer training until user finishes the breath they were in (if any), same after bad breath
-         }
-         else {
-         takenFirstBreath = 1;
-         
-         } */
-        
+
         
         if (breathTime == 0) {
-            
             PranaDeviceManager.shared.sendCommand("Buzz,0.10");
             
             if (breathInterrupted == 1) {
@@ -915,17 +684,10 @@ class BuzzerTrainingViewController: SuperViewController {
             numOfExhales = 0;
             
             if (cycles >= 2) { //JULY
-                
                 totalBreaths+=1;
                 
                 if (whichPattern == 0) {
                     breathsOnCurrentLevel+=1;
-                    
-                    //if (breathsOnCurrentLevel == 6) {//JULY 13:Change1r REMOVED
-                    //    breathsOnCurrentLevel = 1;//JULY 13:Change1r REMOVED
-                    //goodBreaths = 0;        //JULY 13:Change1r REMOVED
-                    //}            //JULY 13:Change1r REMOVED
-                    
                     if (breathsOnCurrentLevel == 6) {
                         if (goodBreaths >= 4) {
                             subPattern+=1;
@@ -941,22 +703,15 @@ class BuzzerTrainingViewController: SuperViewController {
                         }
                         breathsOnCurrentLevel = 1; //JULY 13:NEW1r
                         goodBreaths = 0;     //JULY 13:NEW1r
-                        
                     }
-                    
                 }
-                
             }
-            
-            //buzzerTrainingUI.status0.text = "New Breath Start";
         }
         
         if (breathTime == inhalationTimeEnd) {
             PranaDeviceManager.shared.sendCommand("Buzz,0.10");
             objLiveGraph.isBuzzing = 1;
             buzzCount = 10; //May 19th changed from 30
-            
-            
         }
         
         
@@ -998,7 +753,6 @@ class BuzzerTrainingViewController: SuperViewController {
         
         if (numOfInhales > 1) {
             buzzReasonText = "Multiple inhales"//buzzerTrainingUI.buzzerReason.text = "Multiple inhales";
-            //buzzerTrainingUI.status0.text = "numOfInhales > 1";
             badBreath();
             return;
         }
@@ -1055,7 +809,6 @@ class BuzzerTrainingViewController: SuperViewController {
             self.lblMindfulBreaths.text = "Mindful Breaths: \(Int(self.mindfulBreathsCount*100/self.totalBreaths))% (\(self.mindfulBreathsCount) of \(self.totalBreaths))"
         }
         self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: false, respRate: actualRR, targetRate: targetRR, eiRatio: 0, oneMinuteRR: 0)
-//        buzzerTrainingUI.mindfulBreaths.text = String(mindfulBreathsCount) + " of " + String(totalBreaths); //AUG 1st changed
     }
     
     func badPosture() {
@@ -1118,17 +871,9 @@ class BuzzerTrainingViewController: SuperViewController {
             guard elapsed > 0 else { return }
             self.lblUprightPosture.text = "Upright Posture: \(Int(self.uprightPostureTime*100/elapsed))% (\(self.uprightPostureTime) of \(elapsed) s)"
         }
-//        buzzerTrainingUI.timeUpright.text = String(uprightPostureTime) + " of " + String(gameSetTime - trainingDuration);
-//        buzzerTrainingUI.slouches.text = String(slouchesCount);
         
         prevPostureState = objLiveGraph.postureIsGood;
-        
-        
-        
         if (trainingDuration == 0) {
-            
-//            buzzerTrainingUI.sessionCompleteIndicator.visible = true;
-            
             clearBuzzerTraining();
             
             PranaDeviceManager.shared.sendCommand("Buzz,2.5");
@@ -1138,7 +883,6 @@ class BuzzerTrainingViewController: SuperViewController {
                 self.btnStartStop.isEnabled = false
                 self.btnStartStop.alpha = 0.5
                 self.btnStartStop.setTitle("Session Completed!", for: .normal)
-                //            self.btnNext.isEnabled = true
                 self.btnStartStop.isHidden = false
             }
             print("Session Completed!")
@@ -1156,6 +900,16 @@ class BuzzerTrainingViewController: SuperViewController {
         breathsOnCurrentLevel = 0;
         goodBreaths = 0;
         
+    }
+}
+
+extension BuzzerTrainingViewController: RadioGroupButtonDelegate {
+    func onSelectedIndex(index: Int, sender: RadioGroupButton) {
+        if sender.tag == 1 {
+            setBreathSensitivity(val: index)
+        } else {
+            setPostureSensitivity(val: index)
+        }
     }
 }
 
