@@ -71,7 +71,7 @@ class WeeklyGraph: UIView {
         paragraphStyle.alignment = .center
         let attributes: [NSAttributedString.Key : Any] = [
             .paragraphStyle: paragraphStyle,
-            .font: UIFont(name: "Quicksand-Bold", size: 13),
+            .font: UIFont.bold(ofSize: 13),
             .foregroundColor: UIColor(hexString: "#79859f")
         ]
         

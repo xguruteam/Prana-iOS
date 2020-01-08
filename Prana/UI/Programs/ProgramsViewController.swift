@@ -148,34 +148,26 @@ class ProgramsViewController: UIViewController {
     }
     
     func setTitle(_ title: String) {
-        if let titleFont = UIFont(name: "Quicksand-Bold", size: 24.0)  {
-            let shadow : NSShadow = NSShadow()
-            shadow.shadowOffset = CGSize(width: 0, height: 2)
-            shadow.shadowColor = UIColor(hexString: "#910c5274")
-            shadow.shadowBlurRadius = 4
-            
-            let attributes = [
-                NSAttributedString.Key.font : titleFont,
-                NSAttributedString.Key.foregroundColor : UIColor.white,
-                NSAttributedString.Key.shadow : shadow] as [NSAttributedString.Key : Any]
-            
-            let titleStr = NSAttributedString(string: title, attributes: attributes) //1
-            
-            titleLabel.attributedText = titleStr //3
-        }
+        let shadow : NSShadow = NSShadow()
+        shadow.shadowOffset = CGSize(width: 0, height: 2)
+        shadow.shadowColor = UIColor(hexString: "#910c5274")
+        shadow.shadowBlurRadius = 4
+        
+        let attributes = [
+            NSAttributedString.Key.font : UIFont.bold(ofSize: 24),
+            NSAttributedString.Key.foregroundColor : UIColor.white,
+            NSAttributedString.Key.shadow : shadow] as [NSAttributedString.Key : Any]
+        
+        let titleStr = NSAttributedString(string: title, attributes: attributes) //1
+        
+        titleLabel.attributedText = titleStr //3
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-      
-        
         PranaDeviceManager.shared.addDelegate(self)
-        
         bluetoothView.isEnabled = PranaDeviceManager.shared.isConnected
-        
-//        tableView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -1131,7 +1123,7 @@ extension ProgramsViewController: PranaDeviceManagerDelegate {
             let toast  = Toast(text: "Prana is disconnected.", duration: Delay.short)
             ToastView.appearance().backgroundColor = UIColor(hexString: "#995ad598")
             ToastView.appearance().textColor = .white
-            ToastView.appearance().font = UIFont(name: "Quicksand-Medium", size: 14)
+            ToastView.appearance().font = UIFont.medium(ofSize: 14)
             toast.show()
         }
     }

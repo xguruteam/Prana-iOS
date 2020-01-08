@@ -181,27 +181,9 @@ class ConnectViewController: UIViewController {
         
         isConnected = true
         
-//        let toast  = Toast(text: "Now Prana is ready to use.", duration: Delay.short)
-//        ToastView.appearance().backgroundColor = UIColor(hexString: "#995ad598")
-//        ToastView.appearance().textColor = .white
-//        ToastView.appearance().font = UIFont(name: "Quicksand-Medium", size: 14)
-//        toast.show()
-
-//        self.lbl_success_connect.isHidden = false
         self.btn_next.setBackgroundImage(UIImage(named: "button-green-lg"), for: .normal)
         self.btn_next.isEnabled = true
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension ConnectViewController: PranaDeviceManagerDelegate {

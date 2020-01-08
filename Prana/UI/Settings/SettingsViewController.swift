@@ -37,7 +37,7 @@ class SettingsViewController: SuperViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Account & Help"
-        label.font = UIFont(name: "Quicksand-Medium", size: 15)
+        label.font = UIFont.medium(ofSize: 15)
         label.textColor = UIColor(hexString: "#415165")
         return label
     }()
@@ -78,7 +78,7 @@ class SettingsViewController: SuperViewController {
         let button = UIButton()
         button.setTitle(title, for: .normal)
         button.setTitleColor(UIColor(hexString: "#79859f"), for: .normal)
-        button.titleLabel?.font = UIFont(name: "Quicksand-Medium", size: 16)
+        button.titleLabel?.font = UIFont.medium(ofSize: 16)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.contentHorizontalAlignment = .left
         return button
@@ -88,7 +88,7 @@ class SettingsViewController: SuperViewController {
         let button = UIButton()
         button.setTitle(title, for: .normal)
         button.setTitleColor(UIColor(hexString: "#79859f"), for: .normal)
-        button.titleLabel?.font = UIFont(name: "Quicksand-Regular", size: 16)
+        button.titleLabel?.font = UIFont.regular(ofSize: 16)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.contentHorizontalAlignment = .left
         return button
@@ -117,7 +117,6 @@ class SettingsViewController: SuperViewController {
     
     let sAutoDisconnect: UISwitch = {
         let uiSwitch = UISwitch()
-//        uiSwitch.tintColor = UIColor(hexString: "#2bb7b8")
         uiSwitch.onTintColor = UIColor(hexString: "#2bb7b8")
         uiSwitch.translatesAutoresizingMaskIntoConstraints = false
         return uiSwitch
@@ -125,7 +124,6 @@ class SettingsViewController: SuperViewController {
     
     let sAutoReset: UISwitch = {
         let uiSwitch = UISwitch()
-//        uiSwitch.tintColor = UIColor(hexString: "#2bb7b8")
         uiSwitch.onTintColor = UIColor(hexString: "#2bb7b8")
         uiSwitch.translatesAutoresizingMaskIntoConstraints = false
         return uiSwitch
@@ -249,30 +247,6 @@ class SettingsViewController: SuperViewController {
         bApp.contentEdgeInsets = insets
         
         
-        // Tutorials
-//        roundedContainer.addSubview(bTutorials)
-//        bTutorials.topAnchor.constraint(equalTo: bApp.bottomAnchor, constant: buttonSpacing).isActive = true
-//        bTutorials.leftAnchor.constraint(equalTo: roundedContainer.leftAnchor, constant: largeButtonInset).isActive = true
-//        bTutorials.rightAnchor.constraint(equalTo: roundedContainer.rightAnchor, constant: 0 - largeButtonInset).isActive = true
-//
-//        roundedContainer.addSubview(bTutorial1)
-//        bTutorial1.topAnchor.constraint(equalTo: bTutorials.bottomAnchor, constant: buttonSpacing).isActive = true
-//        bTutorial1.leftAnchor.constraint(equalTo: roundedContainer.leftAnchor, constant: largeButtonInset).isActive = true
-//        bTutorial1.rightAnchor.constraint(equalTo: roundedContainer.rightAnchor, constant: 0 - largeButtonInset).isActive = true
-//        bTutorial1.contentEdgeInsets = insets
-//
-//        roundedContainer.addSubview(bTutorial2)
-//        bTutorial2.topAnchor.constraint(equalTo: bTutorial1.bottomAnchor, constant: buttonSpacing).isActive = true
-//        bTutorial2.leftAnchor.constraint(equalTo: roundedContainer.leftAnchor, constant: largeButtonInset).isActive = true
-//        bTutorial2.rightAnchor.constraint(equalTo: roundedContainer.rightAnchor, constant: 0 - largeButtonInset).isActive = true
-//        bTutorial2.contentEdgeInsets = insets
-//
-//        roundedContainer.addSubview(bTutorial3)
-//        bTutorial3.topAnchor.constraint(equalTo: bTutorial2.bottomAnchor, constant: buttonSpacing).isActive = true
-//        bTutorial3.leftAnchor.constraint(equalTo: roundedContainer.leftAnchor, constant: largeButtonInset).isActive = true
-//        bTutorial3.rightAnchor.constraint(equalTo: roundedContainer.rightAnchor, constant: 0 - largeButtonInset).isActive = true
-//        bTutorial3.contentEdgeInsets = insets
-        
         // FAQ
         roundedContainer.addSubview(bFaq)
         bFaq.topAnchor.constraint(equalTo: bApp.bottomAnchor, constant: buttonSpacing).isActive = true
@@ -354,17 +328,6 @@ class SettingsViewController: SuperViewController {
             PranaDeviceManager.shared.disconnect()
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension SettingsViewController: PranaDeviceManagerDelegate {
@@ -380,7 +343,7 @@ extension SettingsViewController: PranaDeviceManagerDelegate {
             let toast  = Toast(text: "Prana is disconnected.", duration: Delay.short)
             ToastView.appearance().backgroundColor = UIColor(hexString: "#995ad598")
             ToastView.appearance().textColor = .white
-            ToastView.appearance().font = UIFont(name: "Quicksand-Medium", size: 14)
+            ToastView.appearance().font = UIFont.medium(ofSize: 14)
             toast.show()
         }
     }

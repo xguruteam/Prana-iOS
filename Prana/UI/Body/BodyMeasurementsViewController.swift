@@ -476,7 +476,7 @@ extension BodyMeasurementsViewController: PranaDeviceManagerDelegate {
             let toast  = Toast(text: "Prana is disconnected.", duration: Delay.short)
             ToastView.appearance().backgroundColor = UIColor(hexString: "#995ad598")
             ToastView.appearance().textColor = .white
-            ToastView.appearance().font = UIFont(name: "Quicksand-Medium", size: 14)
+            ToastView.appearance().font = UIFont.medium(ofSize: 14)
             toast.show()
         }
     }

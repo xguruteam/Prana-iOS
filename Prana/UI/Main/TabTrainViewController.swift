@@ -128,23 +128,21 @@ class TabTrainViewController: UIViewController {
         
         lblTitle.text = "Today's Achievements"
         
-        if let titleFont = UIFont(name: "Quicksand-Bold", size: 24.0)  {
-            let shadow : NSShadow = NSShadow()
-            shadow.shadowOffset = CGSize(width: 0, height: 2)
-            shadow.shadowColor = UIColor(hexString: "#910c5274")
-            shadow.shadowBlurRadius = 4
-            
-            let attributes = [
-                NSAttributedString.Key.font : titleFont,
-                NSAttributedString.Key.foregroundColor : UIColor.white,
-                NSAttributedString.Key.strokeWidth : -1.0,
-                .strokeColor : UIColor.black,
-                NSAttributedString.Key.shadow : shadow] as [NSAttributedString.Key : Any]
-            
-            let title = NSAttributedString(string: "Today's Achievements", attributes: attributes) //1
-            
-            lblTitle.attributedText = title //3
-        }
+        let shadow : NSShadow = NSShadow()
+        shadow.shadowOffset = CGSize(width: 0, height: 2)
+        shadow.shadowColor = UIColor(hexString: "#910c5274")
+        shadow.shadowBlurRadius = 4
+        
+        let attributes = [
+            NSAttributedString.Key.font: UIFont.bold(ofSize: 24),
+            NSAttributedString.Key.foregroundColor : UIColor.white,
+            NSAttributedString.Key.strokeWidth : -1.0,
+            .strokeColor : UIColor.black,
+            NSAttributedString.Key.shadow : shadow] as [NSAttributedString.Key : Any]
+        
+        let title = NSAttributedString(string: "Today's Achievements", attributes: attributes) //1
+        
+        lblTitle.attributedText = title //3
     }
     
     func calculateSummary() {
@@ -297,7 +295,7 @@ extension TabTrainViewController: PranaDeviceManagerDelegate {
             let toast  = Toast(text: "Prana is disconnected.", duration: Delay.short)
             ToastView.appearance().backgroundColor = UIColor(hexString: "#995ad598")
             ToastView.appearance().textColor = .white
-            ToastView.appearance().font = UIFont(name: "Quicksand-Medium", size: 14)
+            ToastView.appearance().font = UIFont.medium(ofSize: 14)
             toast.show()
         }
     }

@@ -56,15 +56,8 @@ class PranaDropDown: UIView {
     
     func commonInit() {
         Bundle.main.loadNibNamed("PranaDropDown", owner: self, options: nil)
-        
-//        backgroundColor = UIColor.colorFromHex(hexString: "#2BB7B8")
-        
         layer.shadowColor = UIColor.colorFromHex(hexString: "#2BB7B8").cgColor
-
-//        titleLabel?.font = UIFont(name: "Quicksand-Medium", size: 15.0)
-        
         layer.cornerRadius = 4.0
-        
         layer.shadowOpacity = 0.2
         layer.shadowOffset = CGSize(width: 0, height: 2)
         layer.shadowRadius = 7.0
@@ -82,15 +75,6 @@ class PranaDropDown: UIView {
     @IBAction func onClick(_ sender: Any) {
         clickListener?()
     }
-    
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-
 }
 
 extension UIView

@@ -94,7 +94,7 @@ class PranaButton: UIButton {
             layer.shadowColor = UIColor.colorFromHex(hexString: "#79859F").cgColor
         }
         
-        titleLabel?.font = UIFont(name: "Quicksand-Medium", size: 15.0)
+        titleLabel?.font = UIFont.medium(ofSize: 15)
         layer.cornerRadius = 4.0
         
         layer.shadowOpacity = 0.2
@@ -119,7 +119,7 @@ class PranaButton: UIButton {
                 layer.shadowColor = UIColor.colorFromHex(hexString: "#79859F").cgColor
             }
             
-            titleLabel?.font = UIFont(name: "Quicksand-Medium", size: 15.0)
+            titleLabel?.font = UIFont.medium(ofSize: 15)
             
             layer.cornerRadius = 4.0
             
