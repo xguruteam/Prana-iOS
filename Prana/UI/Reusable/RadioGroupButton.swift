@@ -57,8 +57,7 @@ protocol RadioGroupButtonDelegate {
     func initItems() {
         self.spacing = 10
         
-        itemFont = UIFont(name: "Quicksand-Medium", size: 10.0) ?? UIFont.systemFont(ofSize: 14)
-        
+        itemFont = UIFont.medium(ofSize: 14)        
         for i in 0 ..< count {
             let button = UIButton()
             button.setTitle(String(i + 1), for: .normal)

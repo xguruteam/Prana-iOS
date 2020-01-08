@@ -26,7 +26,7 @@ class SessionDetailViewController: SuperViewController {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "History"
-        label.font = UIFont(name: "Quicksand-Medium", size: 15)
+        label.font = UIFont.medium(ofSize: 15)
         label.textColor = UIColor(hexString: "#45494d")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -34,7 +34,7 @@ class SessionDetailViewController: SuperViewController {
     let subTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Session Details"
-        label.font = UIFont(name: "Quicksand-Medium", size: 15)
+        label.font = UIFont.medium(ofSize: 15)
         label.textColor = UIColor(hexString: "#45494d")
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
@@ -50,7 +50,7 @@ class SessionDetailViewController: SuperViewController {
     
     let lblOverview: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Quicksand-Bold", size: 16)
+        label.font = UIFont.bold(ofSize: 16)
         label.textColor = UIColor(hexString: "#79859f")
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
@@ -60,7 +60,7 @@ class SessionDetailViewController: SuperViewController {
     
     let rrGraph: Chart = {
         let graph = Chart()
-        graph.labelFont = UIFont(name: "Quicksand-Bold", size: 13)
+        graph.labelFont = UIFont.bold(ofSize: 13)
         graph.labelColor = UIColor(hexString: "#79859f")
         graph.axesColor = UIColor(hexString: "#ced3dc")
         graph.translatesAutoresizingMaskIntoConstraints = false
@@ -74,14 +74,14 @@ class SessionDetailViewController: SuperViewController {
         let label = UILabel()
         label.numberOfLines = 0
         label.textColor = UIColor(hexString: "#79859f")
-        label.font = UIFont(name: "Quicksand-Medium", size: 13)
+        label.font = UIFont.medium(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let eiGraph: Chart = {
         let graph = Chart()
-        graph.labelFont = UIFont(name: "Quicksand-Bold", size: 13)
+        graph.labelFont = UIFont.bold(ofSize: 13)
         graph.labelColor = UIColor(hexString: "#79859f")
         graph.axesColor = UIColor(hexString: "#ced3dc")
         graph.translatesAutoresizingMaskIntoConstraints = false
@@ -129,7 +129,7 @@ class SessionDetailViewController: SuperViewController {
         let label = UILabel()
         label.numberOfLines = 0
         label.textColor = UIColor(hexString: "#79859f")
-        label.font = UIFont(name: "Quicksand-Medium", size: 13)
+        label.font = UIFont.medium(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -165,10 +165,6 @@ class SessionDetailViewController: SuperViewController {
         } else {
             containerView.bounds.size.height = 649
         }
-
-//        containerView.addSubview(titleLabel)
-//        titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10).isActive = true
-//        titleLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
         
         containerView.addSubview(subTitleLabel)
         subTitleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10).isActive = true
@@ -198,7 +194,7 @@ class SessionDetailViewController: SuperViewController {
                 let rrLabel = UILabel()
                 rrLabel.text = "RR"
                 rrLabel.textColor = UIColor(hexString: "#79859f")
-                rrLabel.font = UIFont(name: "Quicksand-Bold", size: 13)
+                rrLabel.font = UIFont.bold(ofSize: 13)
                 containerView.addSubview(rrLabel)
                 rrLabel.translatesAutoresizingMaskIntoConstraints = false
                 rrLabel.topAnchor.constraint(equalTo: rrGraphScroll.topAnchor, constant: -20).isActive = true
@@ -207,7 +203,7 @@ class SessionDetailViewController: SuperViewController {
                 let minLabel = UILabel()
                 minLabel.text = "Mins"
                 minLabel.textColor = UIColor(hexString: "#79859f")
-                minLabel.font = UIFont(name: "Quicksand-Bold", size: 13)
+                minLabel.font = UIFont.bold(ofSize: 13)
                 containerView.addSubview(minLabel)
                 minLabel.translatesAutoresizingMaskIntoConstraints = false
                 minLabel.topAnchor.constraint(equalTo: rrGraphScroll.bottomAnchor, constant: 0).isActive = true
@@ -245,7 +241,7 @@ class SessionDetailViewController: SuperViewController {
                 let rrLabel = UILabel()
                 rrLabel.text = "RR"
                 rrLabel.textColor = UIColor(hexString: "#79859f")
-                rrLabel.font = UIFont(name: "Quicksand-Bold", size: 13)
+                rrLabel.font = UIFont.bold(ofSize: 13)
                 containerView.addSubview(rrLabel)
                 rrLabel.translatesAutoresizingMaskIntoConstraints = false
                 rrLabel.topAnchor.constraint(equalTo: rrGraphScroll.topAnchor, constant: -20).isActive = true
@@ -254,7 +250,7 @@ class SessionDetailViewController: SuperViewController {
                 let minLabel = UILabel()
                 minLabel.text = "Mins"
                 minLabel.textColor = UIColor(hexString: "#79859f")
-                minLabel.font = UIFont(name: "Quicksand-Bold", size: 13)
+                minLabel.font = UIFont.bold(ofSize: 13)
                 containerView.addSubview(minLabel)
                 minLabel.translatesAutoresizingMaskIntoConstraints = false
                 minLabel.topAnchor.constraint(equalTo: rrGraphScroll.bottomAnchor, constant: 0).isActive = true
@@ -293,7 +289,7 @@ class SessionDetailViewController: SuperViewController {
             let rrLabel = UILabel()
             rrLabel.text = "RR"
             rrLabel.textColor = UIColor(hexString: "#79859f")
-            rrLabel.font = UIFont(name: "Quicksand-Bold", size: 13)
+            rrLabel.font = UIFont.bold(ofSize: 13)
             containerView.addSubview(rrLabel)
             rrLabel.translatesAutoresizingMaskIntoConstraints = false
             rrLabel.topAnchor.constraint(equalTo: rrGraphScroll.topAnchor, constant: -20).isActive = true
@@ -302,7 +298,7 @@ class SessionDetailViewController: SuperViewController {
             var minLabel = UILabel()
             minLabel.text = "Mins"
             minLabel.textColor = UIColor(hexString: "#79859f")
-            minLabel.font = UIFont(name: "Quicksand-Bold", size: 13)
+            minLabel.font = UIFont.bold(ofSize: 13)
             containerView.addSubview(minLabel)
             minLabel.translatesAutoresizingMaskIntoConstraints = false
             minLabel.topAnchor.constraint(equalTo: rrGraphScroll.bottomAnchor, constant: 0).isActive = true
@@ -323,7 +319,7 @@ class SessionDetailViewController: SuperViewController {
             let eiLabel = UILabel()
             eiLabel.text = "E/I"
             eiLabel.textColor = UIColor(hexString: "#79859f")
-            eiLabel.font = UIFont(name: "Quicksand-Bold", size: 13)
+            eiLabel.font = UIFont.bold(ofSize: 13)
             containerView.addSubview(eiLabel)
             eiLabel.translatesAutoresizingMaskIntoConstraints = false
             eiLabel.topAnchor.constraint(equalTo: eiGraphScroll.topAnchor, constant: -20).isActive = true
@@ -332,7 +328,7 @@ class SessionDetailViewController: SuperViewController {
             minLabel = UILabel()
             minLabel.text = "Mins"
             minLabel.textColor = UIColor(hexString: "#79859f")
-            minLabel.font = UIFont(name: "Quicksand-Bold", size: 13)
+            minLabel.font = UIFont.bold(ofSize: 13)
             containerView.addSubview(minLabel)
             minLabel.translatesAutoresizingMaskIntoConstraints = false
             minLabel.topAnchor.constraint(equalTo: eiGraphScroll.bottomAnchor, constant: 0).isActive = true
@@ -484,16 +480,4 @@ class SessionDetailViewController: SuperViewController {
             summaryView.text = passive.postureSummary
         }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

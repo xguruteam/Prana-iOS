@@ -23,12 +23,11 @@ class MeasurementsHistoryViewController: SuperViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        btnUnit.titleLabel?.font = UIFont(name: "Quicksand-Bold", size: 16)
+        btnUnit.titleLabel?.font = UIFont.bold(ofSize: 16)
         ddArea.clickListener = { [unowned self] in
             self.openBodyAreaPicker()
         }
-        
-        
+                
         weeklyGraph.diaryClickHandler = { [unowned self] (id, note) in
             let vc = Utils.getStoryboardWithIdentifier(identifier: "DiaryViewController") as! DiaryViewController
             let date = self.wb.adding(.day, value: id)

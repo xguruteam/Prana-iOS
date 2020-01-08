@@ -152,31 +152,20 @@ class CustomPatternViewController: UIViewController {
     }
     
     func setTitle(_ title: String) {
-        if let titleFont = UIFont(name: "Quicksand-Bold", size: 24.0)  {
-            let shadow : NSShadow = NSShadow()
-            shadow.shadowOffset = CGSize(width: 0, height: 2)
-            shadow.shadowColor = UIColor(hexString: "#910c5274")
-            shadow.shadowBlurRadius = 4
-            
-            let attributes = [
-                NSAttributedString.Key.font : titleFont,
-                NSAttributedString.Key.foregroundColor : UIColor.white,
-                NSAttributedString.Key.shadow : shadow] as [NSAttributedString.Key : Any]
-            
-            let titleStr = NSAttributedString(string: title, attributes: attributes) //1
-            
-            lblTitle.attributedText = titleStr //3
-        }
+        let shadow : NSShadow = NSShadow()
+        shadow.shadowOffset = CGSize(width: 0, height: 2)
+        shadow.shadowColor = UIColor(hexString: "#910c5274")
+        shadow.shadowBlurRadius = 4
+        
+        let attributes = [
+            NSAttributedString.Key.font :  UIFont.medium(ofSize: 15),
+            NSAttributedString.Key.foregroundColor : UIColor.white,
+            NSAttributedString.Key.shadow : shadow] as [NSAttributedString.Key : Any]
+        
+        let titleStr = NSAttributedString(string: title, attributes: attributes) //1
+        
+        lblTitle.attributedText = titleStr //3
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     func openPicker1() {
         tempStartResp = startResp
