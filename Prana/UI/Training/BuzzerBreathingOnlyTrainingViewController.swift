@@ -575,7 +575,7 @@ class BuzzerBreathingOnlyTrainingViewController: BaseBuzzerTrainingViewControlle
                 
                 DispatchQueue.main.async {
                     guard self.totalBreaths > 0 else { return }
-                    self.lblMindfulBreaths.text = "Mindful Breaths: \(Int(self.mindfulBreathsCount*100/self.totalBreaths))% (\(self.mindfulBreathsCount) of \(self.totalBreaths))"
+                    self.lblMindfulBreaths.text = "\(Int(self.mindfulBreathsCount*100/self.totalBreaths))% (\(self.mindfulBreathsCount) of \(self.totalBreaths))"
                 }
 //                self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: true, respRate: actualRR, targetRate: targetRR, eiRatio: 0, oneMinuteRR: 0)
             }
@@ -734,7 +734,7 @@ class BuzzerBreathingOnlyTrainingViewController: BaseBuzzerTrainingViewControlle
         
         DispatchQueue.main.async {
             guard self.totalBreaths > 0 else { return }
-            self.lblMindfulBreaths.text = "Mindful Breaths: \(Int(self.mindfulBreathsCount*100/self.totalBreaths))% (\(self.mindfulBreathsCount) of \(self.totalBreaths))"
+            self.lblMindfulBreaths.text = "\(Int(self.mindfulBreathsCount*100/self.totalBreaths))% (\(self.mindfulBreathsCount) of \(self.totalBreaths))"
         }
 //        self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: false, respRate: actualRR, targetRate: targetRR, eiRatio: 0, oneMinuteRR: 0)
     }

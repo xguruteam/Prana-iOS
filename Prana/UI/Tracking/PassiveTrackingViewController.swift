@@ -204,7 +204,7 @@ class PassiveTrackingViewController: SuperViewController {
     
     func initView() {
         btnStartStop.setTitle("START TRACKING", for: .normal)
-        displayPostureAnimation(1)
+        setWearPosition(val: 0)
         
         lblGuide.isHidden = false
         btnStartStop.isHidden = true

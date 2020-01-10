@@ -638,7 +638,7 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
                 
                 DispatchQueue.main.async {
                     guard self.totalBreaths > 0 else { return }
-                    self.lblMindfulBreaths.text = "Mindful Breaths: \(Int(self.mindfulBreathsCount*100/self.totalBreaths))% (\(self.mindfulBreathsCount) of \(self.totalBreaths))"
+                    self.lblMindfulBreaths.text = "\(Int(self.mindfulBreathsCount*100/self.totalBreaths))% (\(self.mindfulBreathsCount) of \(self.totalBreaths))"
                 }
 //                self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: true, respRate: actualRR, targetRate: targetRR, eiRatio: 0, oneMinuteRR: 0)
             }
@@ -805,7 +805,7 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
         
         DispatchQueue.main.async {
             guard self.totalBreaths > 0 else { return }
-            self.lblMindfulBreaths.text = "Mindful Breaths: \(Int(self.mindfulBreathsCount*100/self.totalBreaths))% (\(self.mindfulBreathsCount) of \(self.totalBreaths))"
+            self.lblMindfulBreaths.text = "\(Int(self.mindfulBreathsCount*100/self.totalBreaths))% (\(self.mindfulBreathsCount) of \(self.totalBreaths))"
         }
 //        self.currentSessionObject?.addBreath(timeStamp: self.sessionDuration * 60 - self.timeRemaining, isMindful: false, respRate: actualRR, targetRate: targetRR, eiRatio: 0, oneMinuteRR: 0)
     }
@@ -865,10 +865,10 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
 //        drawPostureGraph(); //AUG 1st NEW
         
         DispatchQueue.main.async {
-            self.lblSlouches.text = "Slouches: " + String(self.slouchesCount);
+            self.lblSlouches.text = String(self.slouchesCount);
             let elapsed = self.gameSetTime - self.trainingDuration
             guard elapsed > 0 else { return }
-            self.lblUprightPosture.text = "Upright Posture: \(Int(self.uprightPostureTime*100/elapsed))% (\(self.uprightPostureTime) of \(elapsed) s)"
+            self.lblUprightPosture.text = "\(Int(self.uprightPostureTime*100/elapsed))% (\(self.uprightPostureTime) of \(elapsed) s)"
         }
         
         prevPostureState = objLiveGraph.postureIsGood;
