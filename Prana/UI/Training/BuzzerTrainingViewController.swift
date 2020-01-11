@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Toaster
 
 class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
 
@@ -55,7 +56,10 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
     
     var timeRemaining: Int = 0 {
         didSet {
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {
+                    return
+                }
                 self.lblTimeRemaining.text = "\(styledTime(v: self.timeRemaining))"
             }
         }
@@ -63,14 +67,20 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
     
     var targetRR: Double = 0 {
         didSet {
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {
+                    return
+                }
                 self.lblTargetRespirationRate.text = "\(self.targetRR)/\(self.actualRR) bpm"
             }
         }
     }
     var actualRR: Double = 0 {
         didSet {
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {
+                    return
+                }
                 self.lblTargetRespirationRate.text = "\(self.targetRR)/\(self.actualRR) bpm"
             }
         }
@@ -78,7 +88,10 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
     
     var buzzReasonText: String? {
         didSet {
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {
+                    return
+                }
                 self.lblBuzzerReason.text = " " + (self.buzzReasonText ?? "")
             }
         }
@@ -96,6 +109,7 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
         self.navigationController?.navigationBar.isHidden = true
         NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
         swBuzzWhenUnmindful.addTarget(self, action: #selector(onBuzzWhenUnmindfulChange(_:)), for: .valueChanged)
+        PranaDeviceManager.shared.addDelegate(self)
         
 
         if isTutorial {
@@ -122,6 +136,8 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
         }
         
         stopLiving()
+        currentSessionObject = nil
+        PranaDeviceManager.shared.removeDelegate(self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -283,7 +299,10 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
     func uprightHasBeenSetHandler() {
         if hasUprightBeenSet == 0 {
             hasUprightBeenSet = 1
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {
+                    return
+                }
 
                 self.btnStartStop.isHidden = false
                 self.lblGuide.isHidden = true
@@ -365,7 +384,6 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
             currentSessionObject?.judgedBreaths = live.judgedBreaths
             currentSessionObject?.judgedPosture = live.judgedPosture
         }
-        objLive = nil
         
         btnBack.isHidden = false
         btnHelp.isHidden = false
@@ -379,6 +397,9 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
         prevPostureState = 0;
         breathsOnCurrentLevel = 0;
         goodBreaths = 0;
+        
+        objLive = nil
+        liveGraph.objLive = nil
     }
     
     func makeSessionObject() {
@@ -398,8 +419,11 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
     }
     
     @objc func appMovedToBackground() {
-        print("App moved to background!")
-        
+        print("Buzzer Training: App moved to background!")
+        closeTraining()
+    }
+    
+    func closeTraining() {
         if isTutorial {
             onBack(btnBack)
             return
@@ -636,7 +660,10 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
                     goodBreaths+=1; //For breath pattern 0, for keeping track of 4 out of 5 good breaths to advance or recede
                 }
                 
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else {
+                        return
+                    }
                     guard self.totalBreaths > 0 else { return }
                     self.lblMindfulBreaths.text = "\(Int(self.mindfulBreathsCount*100/self.totalBreaths))% (\(self.mindfulBreathsCount) of \(self.totalBreaths))"
                 }
@@ -803,7 +830,10 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
         buzzReason = 1;
         breathInterrupted = 1; //AUG 12th NEW
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
             guard self.totalBreaths > 0 else { return }
             self.lblMindfulBreaths.text = "\(Int(self.mindfulBreathsCount*100/self.totalBreaths))% (\(self.mindfulBreathsCount) of \(self.totalBreaths))"
         }
@@ -864,7 +894,10 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
         
 //        drawPostureGraph(); //AUG 1st NEW
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
             self.lblSlouches.text = String(self.slouchesCount);
             let elapsed = self.gameSetTime - self.trainingDuration
             guard elapsed > 0 else { return }
@@ -877,7 +910,10 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
             
             PranaDeviceManager.shared.sendCommand("Buzz,2.5");
             
-            DispatchQueue.main.async { [unowned self] in
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {
+                    return
+                }
                 self.onComplete()
                 self.btnStartStop.isEnabled = false
                 self.btnStartStop.alpha = 0.5
@@ -916,18 +952,41 @@ extension BuzzerTrainingViewController: LiveDelegate {
     
     func liveMainLoop(timeElapsed: Double, sensorData: [Double]) {
         buzzerTrainingMainLoop()
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
             self.batteryView.progress = CGFloat(sensorData[6]) / 100.0
         }
     }
     
     func liveNew(postureFrame: Int) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
             self.displayPostureAnimation(postureFrame)
         }
     }
     
     func liveUprightHasBeenSet() {
         uprightHasBeenSetHandler()
+    }
+}
+
+extension BuzzerTrainingViewController: PranaDeviceManagerDelegate
+{
+    func PranaDeviceManagerDidDisconnect() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.closeTraining()
+            let toast  = Toast(text: "Prana is disconnected.", duration: Delay.short)
+            ToastView.appearance().backgroundColor = UIColor(hexString: "#995ad598")
+            ToastView.appearance().textColor = .white
+            ToastView.appearance().font = UIFont.medium(ofSize: 14)
+            toast.show()
+        }
     }
 }

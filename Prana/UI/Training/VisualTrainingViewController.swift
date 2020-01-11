@@ -9,6 +9,7 @@
 import UIKit
 import GameplayKit
 import SpriteKit
+import Toaster
 
 class VisualTrainingViewController: SuperViewController {
 
@@ -169,6 +170,7 @@ class VisualTrainingViewController: SuperViewController {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+        PranaDeviceManager.shared.addDelegate(self)
         
         mindfulBreaths = -1
         targetRR = -1.0
@@ -256,6 +258,7 @@ class VisualTrainingViewController: SuperViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        PranaDeviceManager.shared.removeDelegate(self)
     }
    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -413,7 +416,11 @@ class VisualTrainingViewController: SuperViewController {
     }
     
     @objc func appMovedToBackground() {
-        print("App moved to background!")
+        print("Visual Training: App moved to background!")
+        closeTraining()
+    }
+    
+    func closeTraining() {
         if isTutorial {
             onBack(btnStart)
             return
@@ -563,6 +570,20 @@ extension VisualTrainingViewController: VisualDelegate {
 //            if v % 60 == 0 {
                 self.makeSessionObject()
 //            }
+        }
+    }
+}
+
+extension VisualTrainingViewController: PranaDeviceManagerDelegate
+{
+    func PranaDeviceManagerDidDisconnect() {
+        DispatchQueue.main.async {
+            self.closeTraining()
+            let toast  = Toast(text: "Prana is disconnected.", duration: Delay.short)
+            ToastView.appearance().backgroundColor = UIColor(hexString: "#995ad598")
+            ToastView.appearance().textColor = .white
+            ToastView.appearance().font = UIFont.medium(ofSize: 14)
+            toast.show()
         }
     }
 }

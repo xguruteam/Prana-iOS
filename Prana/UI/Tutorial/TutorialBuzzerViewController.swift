@@ -47,7 +47,20 @@ class TutorialBuzzerViewController: UIViewController {
     }
 
     @IBAction func onNext(_ sender: Any) {
-        let vc = Utils.getStoryboardWithIdentifier(identifier:"BuzzerTrainingViewController") as! BuzzerTrainingViewController
+        if PranaDeviceManager.shared.isConnected {
+            gotoBuzzerTraining()
+            return
+        }
+        
+        gotoConnectViewController()
+    }
+    
+    @IBAction func onBack(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func gotoBuzzerTraining() {
+        let vc = Utils.getStoryboardWithIdentifier(name: "BuzzerTraining", identifier:"BuzzerTrainingViewController") as! BuzzerTrainingViewController
         vc.isTutorial = true
         vc.sessionKind = 0
         vc.sessionWearing = 0
@@ -60,8 +73,15 @@ class TutorialBuzzerViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    @IBAction func onBack(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+    func gotoConnectViewController() {
+        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ConnectViewController") as! ConnectViewController
+        firstVC.isTutorial = false
+        firstVC.completionHandler = { [unowned self] in
+            self.gotoBuzzerTraining()
+        }
+        
+        let navVC = UINavigationController(rootViewController: firstVC)
+        self.present(navVC, animated: true, completion: nil)
     }
     
 }

@@ -221,6 +221,7 @@ class PassiveTrackingViewController: SuperViewController {
     @IBAction func onBack(_ sender: Any) {
         objLive?.removeDelegate(self)
         objLive?.stopMode(reset: dataController.isAutoReset)
+        liveGraph.objLive = nil
         objLive = nil
         
         self.dismiss(animated: true) {
@@ -280,7 +281,7 @@ class PassiveTrackingViewController: SuperViewController {
     }
     
     @objc func appMovedToBackground() {
-        print("App moved to background!")
+        print("Passive Tracking: App moved to background!")
         if !isLive {
             onBack(btnStartStop)
             
@@ -423,6 +424,7 @@ class PassiveTrackingViewController: SuperViewController {
         prevPostureState = 0;
         objLive?.removeDelegate(self)
         objLive?.stopMode(reset: dataController.isAutoReset)
+        liveGraph.objLive = nil
         objLive = nil
     }
     

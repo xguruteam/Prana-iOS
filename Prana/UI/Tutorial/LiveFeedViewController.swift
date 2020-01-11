@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Toaster
 
 class LiveFeedViewController: SuperViewController {
     
@@ -41,9 +42,15 @@ class LiveFeedViewController: SuperViewController {
     var isLowerBack = true
     
 
+    deinit {
+        print("Live Feed deinit")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+        
         self.navigationController?.isNavigationBarHidden = true
         
         if isLowerBack {
@@ -100,6 +107,12 @@ class LiveFeedViewController: SuperViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @objc func appMovedToBackground() {
+        print("Live Feed: App moved to background!")
+        
+        onBack(self)
+    }
+    
     func startLive() {
         if !PranaDeviceManager.shared.isConnected {
             let alert = UIAlertController(title: "Prana", message: "No Prana Device is connected. Please Search and connect", preferredStyle: .alert)
@@ -107,6 +120,8 @@ class LiveFeedViewController: SuperViewController {
             self.present(alert, animated: true, completion: nil)
             return
         }
+        
+        PranaDeviceManager.shared.addDelegate(self)
         
         objLive = Live()
         objLive?.appMode = 1
@@ -126,6 +141,8 @@ class LiveFeedViewController: SuperViewController {
     }
     
     func stopLive() {
+        PranaDeviceManager.shared.removeDelegate(self)
+        
         isLive = false
         
         breathingGraphView.objLive = nil
@@ -223,6 +240,23 @@ extension LiveFeedViewController: LiveDelegate {
                 return
             }
             self.btnNext.isHidden = false
+        }
+    }
+}
+
+extension LiveFeedViewController: PranaDeviceManagerDelegate
+{
+    func PranaDeviceManagerDidDisconnect() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.onBack(self)
+            let toast  = Toast(text: "Prana is disconnected.", duration: Delay.short)
+            ToastView.appearance().backgroundColor = UIColor(hexString: "#995ad598")
+            ToastView.appearance().textColor = .white
+            ToastView.appearance().font = UIFont.medium(ofSize: 14)
+            toast.show()
         }
     }
 }

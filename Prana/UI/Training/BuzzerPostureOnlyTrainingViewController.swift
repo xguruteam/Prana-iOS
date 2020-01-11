@@ -323,7 +323,7 @@ class BuzzerPostureOnlyTrainingViewController: BaseBuzzerTrainingViewController 
     }
 
     @objc func appMovedToBackground() {
-        print("App moved to background!")
+        print("Buzzer Posture Only: App moved to background!")
         
         if isTutorial {
             onBack(btnBack)

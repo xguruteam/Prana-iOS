@@ -185,7 +185,7 @@ class Live: NSObject {
     }
     
     deinit {
-        print("Live2 deinit")
+        print("Core Live deinit")
     }
     
     func resetCount() {

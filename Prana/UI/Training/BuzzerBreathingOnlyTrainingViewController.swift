@@ -317,6 +317,7 @@ class BuzzerBreathingOnlyTrainingViewController: BaseBuzzerTrainingViewControlle
             currentSessionObject?.judgedPosture = live.judgedPosture
         }
         objLive = nil
+        liveGraph.objLive = nil
         
         btnBack.isHidden = false
         btnHelp.isHidden = false
@@ -349,7 +350,7 @@ class BuzzerBreathingOnlyTrainingViewController: BaseBuzzerTrainingViewControlle
     }
     
     @objc func appMovedToBackground() {
-        print("App moved to background!")
+        print("Buzzer Posture Only: App moved to background!")
         
         if isTutorial {
             onBack(btnBack)

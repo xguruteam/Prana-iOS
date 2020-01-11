@@ -15,6 +15,10 @@ class TutorialVisualViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if let nav = self.navigationController {
+            nav.viewControllers.remove(at: nav.viewControllers.count - 2)
+        }
+        
         NotificationCenter.default.addObserver(self, selector: #selector(onLandscapeViewControllerDismiss), name: .landscapeViewControllerDidDismiss, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onDeviceOrientationChange), name: .deviceOrientationDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onVisualViewControllerEnd), name: .visualViewControllerEndSession, object: nil)
@@ -78,7 +82,20 @@ class TutorialVisualViewController: UIViewController {
     }
 
     @IBAction func onNext(_ sender: Any) {
-        let vc = Utils.getStoryboardWithIdentifier(identifier:"VisualTrainingViewController") as! VisualTrainingViewController
+        if PranaDeviceManager.shared.isConnected {
+            gotoVisualTraining()
+            return
+        }
+        
+        gotoConnectViewController()
+    }
+    
+    @IBAction func onBack(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func gotoVisualTraining() {
+        let vc = Utils.getStoryboardWithIdentifier(name: "VisualTraining", identifier: "VisualTrainingViewController") as! VisualTrainingViewController
         vc.isTutorial = true
         vc.sessionKind = 0
         vc.sessionWearing = 0
@@ -88,13 +105,19 @@ class TutorialVisualViewController: UIViewController {
         vc.skipCalibration = 0
         vc.maxSubPattern = 34
         vc.patternTitle = patternNames[vc.whichPattern].0
-//        UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-      self.present(vc, as: .landscape, curtainColor: .white)
-//        self.present(vc, animated: false, completion: nil)
+        //        UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+        self.present(vc, as: .landscape, curtainColor: .white)
+        //        self.present(vc, animated: false, completion: nil)
     }
     
-    @IBAction func onBack(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+    func gotoConnectViewController() {
+        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ConnectViewController") as! ConnectViewController
+        firstVC.isTutorial = false
+        firstVC.completionHandler = { [unowned self] in
+            self.gotoVisualTraining()
+        }
+        
+        let navVC = UINavigationController(rootViewController: firstVC)
+        self.present(navVC, animated: true, completion: nil)
     }
-    
 }

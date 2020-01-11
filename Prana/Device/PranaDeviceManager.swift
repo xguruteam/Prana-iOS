@@ -240,6 +240,7 @@ extension PranaDeviceManager: CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         if isConnected == true {
             if peripheral.isEqual(currentDevice) {
+                isConnected = false
                 didDisconnect()
             }
         }
@@ -249,9 +250,11 @@ extension PranaDeviceManager: CBCentralManagerDelegate {
         // try to re-connect
         if isConnected == true {
             if peripheral.isEqual(currentDevice) {
+                isConnected = false
                 didDisconnect()
             }
         } else {
+            isConnected = false
             didDisconnect()
         }
     }

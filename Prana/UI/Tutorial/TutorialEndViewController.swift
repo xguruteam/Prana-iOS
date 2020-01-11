@@ -15,7 +15,9 @@ class TutorialEndViewController: UIViewController {
         super.viewDidLoad()
         
         self.navigationController?.isNavigationBarHidden = true
-        
+        if let nav = self.navigationController {
+            nav.viewControllers.remove(at: nav.viewControllers.count - 2)
+        }
         initView()
     }
     

@@ -44,13 +44,33 @@ class TutorialWearUpperchestViewController: UIViewController {
     }
 
     @IBAction func onNext(_ sender: Any) {
+        if PranaDeviceManager.shared.isConnected {
+            gotoLiveGraph()
+            return
+        }
+        
+        gotoConnectViewController()
+    }
+    
+    @IBAction func onBack(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func gotoLiveGraph() {
         let vc = Utils.getStoryboardWithIdentifier(identifier: "LiveFeedViewController") as! LiveFeedViewController
         vc.isLowerBack = false
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    @IBAction func onBack(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+    func gotoConnectViewController() {
+        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ConnectViewController") as! ConnectViewController
+        firstVC.isTutorial = false
+        firstVC.completionHandler = { [unowned self] in
+            self.gotoLiveGraph()
+        }
+
+        let navVC = UINavigationController(rootViewController: firstVC)
+        self.present(navVC, animated: true, completion: nil)
     }
     
 }

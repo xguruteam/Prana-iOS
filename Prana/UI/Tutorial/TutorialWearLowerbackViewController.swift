@@ -18,6 +18,9 @@ class TutorialWearLowerbackViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         self.navigationController?.isNavigationBarHidden = true
+        if let nav = self.navigationController {
+            nav.viewControllers.remove(at: nav.viewControllers.count - 2)
+        }
         
         initView()
     }
@@ -47,12 +50,32 @@ class TutorialWearLowerbackViewController: UIViewController {
     }
 
     @IBAction func onNextClick(_ sender: UIButton) {
+        if PranaDeviceManager.shared.isConnected {
+            gotoLiveGraph()
+            return
+        }
+        
+        gotoConnectViewController()
+    }
+    
+    @IBAction func onBack(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func gotoLiveGraph() {
         let vc = Utils.getStoryboardWithIdentifier(identifier: "LiveFeedViewController") as! LiveFeedViewController
         vc.isLowerBack = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    @IBAction func onBack(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+    func gotoConnectViewController() {
+        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ConnectViewController") as! ConnectViewController
+        firstVC.isTutorial = false
+        firstVC.completionHandler = { [unowned self] in
+            self.gotoLiveGraph()
+        }
+        
+        let navVC = UINavigationController(rootViewController: firstVC)
+        self.present(navVC, animated: true, completion: nil)
     }
 }
