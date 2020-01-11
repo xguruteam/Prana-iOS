@@ -10,6 +10,7 @@ import UIKit
 
 class BMButton: UIButton {
     
+    var isCustom: Bool = false
     var position: String = "Positions" {
         didSet {
             updateTitle()
@@ -51,26 +52,21 @@ class BMButton: UIButton {
     
     func configure() {
         
-        if isSelected {
-            self.backgroundColor = #colorLiteral(red: 0.6235294118, green: 0.8509803922, blue: 0.2470588235, alpha: 1)
-            self.setTitleColor(.white, for: .normal)
-        }
-        else {
-            self.backgroundColor = UIColor.white
-            if value == 0 {
-                self.setTitleColor(#colorLiteral(red: 0.3568627451, green: 0.7294117647, blue: 0.1215686275, alpha: 1), for: .normal)
-            }
-            else {
+        if !isCustom {
+            if isSelected {
+                self.backgroundColor = #colorLiteral(red: 0.6235294118, green: 0.8509803922, blue: 0.2470588235, alpha: 1)
                 self.setTitleColor(.white, for: .normal)
             }
+            else {
+                self.backgroundColor = UIColor.white
+                self.setTitleColor(#colorLiteral(red: 0.3568627451, green: 0.7294117647, blue: 0.1215686275, alpha: 1), for: .normal)
+            }
         }
-        
-        self.titleEdgeInsets = UIEdgeInsets(top: 7, left: 0, bottom: 0, right: 0)
         
         self.layer.cornerRadius = 3
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        self.titleLabel?.font = UIFont.bold(ofSize: 11)
+        self.titleLabel?.font = UIFont.bold(ofSize: 10)
         self.titleLabel?.textAlignment = .center
         self.titleLabel?.numberOfLines = 2
         

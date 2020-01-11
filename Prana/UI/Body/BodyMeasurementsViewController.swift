@@ -102,8 +102,7 @@ class BodyMeasurementsViewController: SuperViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        btnStart.applyButtonGradient(colors: [#colorLiteral(red: 0.6, green: 0.8392156863, blue: 0.2392156863, alpha: 1), #colorLiteral(red: 0.4039215686, green: 0.7411764706, blue: 0.2274509804, alpha: 1)], points: [0.0, 1.0])
+
         adjustButtons()
         status = 0
     }
@@ -129,6 +128,11 @@ class BodyMeasurementsViewController: SuperViewController {
         if PranaDeviceManager.shared.isConnected {
             startLive()
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        btnStart.applyButtonGradient(colors: [#colorLiteral(red: 0.6, green: 0.8392156863, blue: 0.2392156863, alpha: 1), #colorLiteral(red: 0.4039215686, green: 0.7411764706, blue: 0.2274509804, alpha: 1)], points: [0.0, 1.0])
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -239,19 +243,19 @@ class BodyMeasurementsViewController: SuperViewController {
         button = buttons[.custom1]!
         setupButton(button: button)
         button.isSelected = true
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -125.0).isActive = true
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -117.0).isActive = true
         button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 360).isActive = true
         
         button = buttons[.custom2]!
         setupButton(button: button)
         button.isSelected = true
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -125.0).isActive = true
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -117.0).isActive = true
         button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 400).isActive = true
         
         button = buttons[.custom3]!
         setupButton(button: button)
         button.isSelected = true
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -125.0).isActive = true
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -117.0).isActive = true
         button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 440).isActive = true
     }
  

@@ -22,6 +22,7 @@ class BuzzerPostureOnlyTrainingViewController: BaseBuzzerTrainingViewController 
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnHelp: UIButton!
+    @IBOutlet weak var lblGuide: UILabel!
     
     @IBOutlet weak var batteryView: BatteryStateView!
     
@@ -136,6 +137,7 @@ class BuzzerPostureOnlyTrainingViewController: BaseBuzzerTrainingViewController 
 
         btnStartStop.setTitle("START SESSION", for: .normal)
         btnStartStop.isHidden = true
+        lblGuide.isHidden = false
         displayPostureAnimation(1)
     }
     
@@ -169,6 +171,7 @@ class BuzzerPostureOnlyTrainingViewController: BaseBuzzerTrainingViewController 
             btnStartStop.alpha = 0.5
             btnStartStop.setTitle("Session Ended Early", for: .normal)
             btnStartStop.isHidden = false
+            lblGuide.isHidden = true
         }
         else {
             startLiving()
@@ -225,6 +228,7 @@ class BuzzerPostureOnlyTrainingViewController: BaseBuzzerTrainingViewController 
             DispatchQueue.main.async {
 
                 self.btnStartStop.isHidden = false
+                self.lblGuide.isHidden = true
             }
         }
     }
@@ -332,6 +336,7 @@ class BuzzerPostureOnlyTrainingViewController: BaseBuzzerTrainingViewController 
             self.btnStartStop.alpha = 0.5
             self.btnStartStop.setTitle("Session Ended Early", for: .normal)
             self.btnStartStop.isHidden = false
+            self.lblGuide.isHidden = true
         }
     }
     
@@ -516,6 +521,7 @@ class BuzzerPostureOnlyTrainingViewController: BaseBuzzerTrainingViewController 
                 self.btnStartStop.alpha = 0.5
                 self.btnStartStop.setTitle("Session Completed!", for: .normal)
                 self.btnStartStop.isHidden = false
+                self.lblGuide.isHidden = true
             }
             print("Session Completed!")
             

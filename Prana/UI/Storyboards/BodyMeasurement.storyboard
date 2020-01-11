@@ -68,7 +68,7 @@
                                 <rect key="frame" x="20" y="59" width="335" height="588"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ij-3i-7yY">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="610"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="606"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z1d-XG-HcK">
                                                 <rect key="frame" x="8" y="10" width="319" height="25"/>
@@ -81,11 +81,11 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lzE-gY-LWV">
-                                                <rect key="frame" x="94" y="562" width="147" height="28"/>
+                                                <rect key="frame" x="94" y="550" width="147" height="36"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="147" id="AlF-C2-oj2"/>
-                                                    <constraint firstAttribute="height" constant="28" id="iE7-Pw-Iyy"/>
+                                                    <constraint firstAttribute="height" constant="36" id="iE7-Pw-Iyy"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                                 <state key="normal" title="TAKE MEASUREMENT" backgroundImage="button-sky-lg"/>
@@ -118,15 +118,15 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YhM-zQ-P22" userLabel="Btn Submit">
-                                                <rect key="frame" x="104" y="550" width="211" height="40"/>
+                                                <rect key="frame" x="104" y="550" width="211" height="36"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="ghe-EA-YnH"/>
+                                                    <constraint firstAttribute="height" constant="36" id="ghe-EA-YnH"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                 <state key="normal" title="START MEASUREMENT"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="20"/>
+                                                        <real key="value" value="18"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -134,10 +134,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="38X-7S-ln1" customClass="PranaButton" customModule="Prana" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="550" width="64" height="40"/>
+                                                <rect key="frame" x="20" y="550" width="64" height="35"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="64" id="ZQ4-YT-XeS"/>
-                                                    <constraint firstAttribute="height" constant="40" id="fh1-8j-jgD"/>
+                                                    <constraint firstAttribute="height" constant="35" id="fh1-8j-jgD"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                 <state key="normal" title="INCHES">
@@ -596,7 +596,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YEn-rl-hLO">
-                                                    <rect key="frame" x="20" y="0.0" width="335" height="44"/>
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Part" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="poP-C7-5nw">
                                                             <rect key="frame" x="20" y="12" width="33.5" height="20"/>
@@ -605,7 +605,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Ni-qC-mKg">
-                                                            <rect key="frame" x="266" y="6.5" width="51" height="31"/>
+                                                            <rect key="frame" x="305" y="6.5" width="51" height="31"/>
                                                             <color key="onTintColor" red="0.16862745100000001" green="0.71764705880000002" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         </switch>
                                                     </subviews>
