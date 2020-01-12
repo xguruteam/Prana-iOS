@@ -42,10 +42,6 @@ class LiveFeedViewController: SuperViewController {
     var isLowerBack = true
     
 
-    deinit {
-        print("Live Feed deinit")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 

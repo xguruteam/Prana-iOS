@@ -71,7 +71,7 @@ class LiveGraphViewController: SuperViewController {
         displayPostureAnimation(1)
         displayBreathCount(val: 0)
         displayRespirationRate(val: 0)
-        lblOneMinutes.text = "1-minute: 0"
+        lblOneMinutes.text = "0"
         
         setWearPosition(val: 0)
         
@@ -207,7 +207,10 @@ extension LiveGraphViewController: RadioGroupButtonDelegate {
 extension LiveGraphViewController: LiveDelegate {
     
     func liveMainLoop(timeElapsed: Double, sensorData: [Double]) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
             self.batteryView.progress = CGFloat(sensorData[6]) / 100.0
             
             let v = Int(timeElapsed)
@@ -219,13 +222,19 @@ extension LiveGraphViewController: LiveDelegate {
     }
     
     func liveNew(oneMinuteRespirationRate: Int) {
-        DispatchQueue.main.async {
-            self.lblOneMinutes.text = "1-minute: \(oneMinuteRespirationRate)"
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.lblOneMinutes.text = "\(oneMinuteRespirationRate)"
         }
     }
     
     func liveNew(postureFrame: Int) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
             self.displayPostureAnimation(postureFrame)
         }
     }

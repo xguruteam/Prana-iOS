@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol RadioGroupButtonDelegate {
+protocol RadioGroupButtonDelegate: class {
     func onSelectedIndex(index: Int, sender: RadioGroupButton)
 }
 
 @IBDesignable class RadioGroupButton: UIStackView {
 
-    var delegate: RadioGroupButtonDelegate?
+    weak var delegate: RadioGroupButtonDelegate?
     var selectedIndex: Int = 0 {
         didSet {
             configure()

@@ -142,10 +142,6 @@ class PassiveTrackingViewController: SuperViewController {
     
     var isLive = false
 
-    deinit {
-        print("PassiveTrackingViewController deinit")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -10,6 +10,10 @@ import UIKit
 
 class SuperViewController: UIViewController {
 
+    deinit {
+        print("\(self.description) deinit")
+    }
+    
     var dataController: DataController {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return DataController() }
         

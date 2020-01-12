@@ -39,6 +39,7 @@
 		AA7FE2D82227213F0092E8A6 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7FE2D72227213F0092E8A6 /* SignupViewController.swift */; };
 		CA01754B228C483C0085455F /* BackgroundTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA01754A228C483C0085455F /* BackgroundTaskManager.swift */; };
 		CA0D604A22BC4B270057DCF7 /* HelpBodyMeasurementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0D604922BC4B270057DCF7 /* HelpBodyMeasurementsViewController.swift */; };
+		CA3C78B623CA8A2F0091121B /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3C78B523CA8A2F0091121B /* TestViewController.swift */; };
 		CA46D27423B29B6A004FBD7A /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA46D27323B29B6A004FBD7A /* RepeatingTimer.swift */; };
 		CA48E58822664A5B002CFA19 /* LiveFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48E58722664A5B002CFA19 /* LiveFeedViewController.swift */; };
 		CA48E58B22671D93002CFA19 /* UIColor+colorFromHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48E58922671D93002CFA19 /* UIColor+colorFromHex.swift */; };
@@ -232,6 +233,7 @@
 		AF7503FA2C2D971486D6AB1B /* Pods-Prana.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Prana.release.xcconfig"; path = "Pods/Target Support Files/Pods-Prana/Pods-Prana.release.xcconfig"; sourceTree = "<group>"; };
 		CA01754A228C483C0085455F /* BackgroundTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTaskManager.swift; sourceTree = "<group>"; };
 		CA0D604922BC4B270057DCF7 /* HelpBodyMeasurementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpBodyMeasurementsViewController.swift; sourceTree = "<group>"; };
+		CA3C78B523CA8A2F0091121B /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		CA46D27323B29B6A004FBD7A /* RepeatingTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingTimer.swift; sourceTree = "<group>"; };
 		CA48E58722664A5B002CFA19 /* LiveFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveFeedViewController.swift; sourceTree = "<group>"; };
 		CA48E58922671D93002CFA19 /* UIColor+colorFromHex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+colorFromHex.swift"; sourceTree = "<group>"; };
@@ -497,6 +499,14 @@
 			path = Connect;
 			sourceTree = "<group>";
 		};
+		CA3C78B423CA8A170091121B /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				CA3C78B523CA8A2F0091121B /* TestViewController.swift */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
 		CA48E58622664994002CFA19 /* Tutorial */ = {
 			isa = PBXGroup;
 			children = (
@@ -525,6 +535,7 @@
 		CA98921A2241283800D824B0 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				CA3C78B423CA8A170091121B /* Test */,
 				64CB95EC23B8348B009CA4F5 /* Extensions */,
 				64D077B823B422F700909484 /* Storyboards */,
 				CAC191C0226E58FB009E04B5 /* Reusable */,
@@ -1082,6 +1093,7 @@
 				D7E145AD2236F50100991D34 /* ResetPasswordViewController.swift in Sources */,
 				CAEEB01022C0F290002C3139 /* PassiveSession.swift in Sources */,
 				CA69E8442278977900984324 /* TrainingSession.swift in Sources */,
+				CA3C78B623CA8A2F0091121B /* TestViewController.swift in Sources */,
 				CAFA6DF922E98202005D005D /* Sensitivities.swift in Sources */,
 				CAAF58A5233F3F5C0028FAFD /* LiveGraph.swift in Sources */,
 				CAC1252F22C35C2B008D6C7D /* MonthlyGraph.swift in Sources */,

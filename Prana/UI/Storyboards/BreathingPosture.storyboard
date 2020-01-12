@@ -1551,8 +1551,8 @@ For each training session:
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G9b-df-eIy">
                                                 <rect key="frame" x="167.5" y="199.5" width="141.5" height="34"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1-minute" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mNu-gO-ymW">
-                                                        <rect key="frame" x="47" y="2" width="48" height="16"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Minute" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mNu-gO-ymW">
+                                                        <rect key="frame" x="47.5" y="2" width="47" height="16"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                                         <color key="textColor" red="0.32549019607843138" green="0.38431372549019605" blue="0.48627450980392156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1898,7 +1898,7 @@ For each training session:
                         <outlet property="btnWearUpperChest" destination="5ZJ-iH-gmw" id="0Q5-Zj-f3h"/>
                         <outlet property="imgPostureAnimation" destination="oSc-2U-4QO" id="g3p-K2-Ean"/>
                         <outlet property="lblBreathCount" destination="g3n-Sk-wIH" id="Ykf-rh-MWt"/>
-                        <outlet property="lblOneMinutes" destination="mNu-gO-ymW" id="oDv-tV-J3y"/>
+                        <outlet property="lblOneMinutes" destination="XcG-IH-agM" id="Q1V-HL-aMG"/>
                         <outlet property="lblRespirationRate" destination="xrc-Re-cmA" id="ubf-8V-wyQ"/>
                         <outlet property="lblTime" destination="aj9-Ra-Sg7" id="UMg-yo-fxK"/>
                         <outlet property="postureButtonGroup" destination="tZJ-DG-Efn" id="Pd3-Ku-n7l"/>

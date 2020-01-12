@@ -46,10 +46,6 @@ class BuzzerPostureOnlyTrainingViewController: BaseBuzzerTrainingViewController 
     }
     
     
-    deinit {
-        print("BuzzerTrainingViewController deinit")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 

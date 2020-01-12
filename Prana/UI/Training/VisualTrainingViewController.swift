@@ -161,10 +161,6 @@ class VisualTrainingViewController: SuperViewController {
     
     var objVisual: VisualTrainingScene?
     
-    deinit {
-        print("VisualTrianingViewController deinit")
-    }
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()
