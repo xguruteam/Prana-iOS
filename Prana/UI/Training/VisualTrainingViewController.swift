@@ -115,7 +115,7 @@ class VisualTrainingViewController: SuperViewController {
                 lbUprisePosture.text = "---"
             }
             else {
-                lbUprisePosture.text = "\(Int(uprightDuration * 100 / postureDuration))% (\(uprightDuration) of \(postureDuration) sec)"
+                lbUprisePosture.text = "\(Int(uprightDuration * 100 / postureDuration))% (\(uprightDuration) of \(postureDuration)s)"
             }
         }
     }
@@ -126,7 +126,7 @@ class VisualTrainingViewController: SuperViewController {
                 lbUprisePosture.text = "---"
             }
             else {
-                lbUprisePosture.text = "\(Int(uprightDuration * 100 / postureDuration))% (\(uprightDuration) of \(postureDuration) sec)"
+                lbUprisePosture.text = "\(Int(uprightDuration * 100 / postureDuration))% (\(uprightDuration) of \(postureDuration)s)"
             }
         }
     }
@@ -434,12 +434,11 @@ class VisualTrainingViewController: SuperViewController {
             objVisual?.visualDelegate = nil
             liveGraphView.objLive = nil
             onComplete()
-            onEnd()
+            onBack(btnStart)
         }
     }
     
     func onComplete() {
-        isCompleted = true
         isStarted = false
         if !isShowControls {
             showHideControls()
@@ -455,8 +454,11 @@ class VisualTrainingViewController: SuperViewController {
             if let session = currentSessionObject, session.duration > 0 {
                 if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
                     dataController.addRecord(training: session)
+                    isCompleted = true
                 }
             }
+        } else {
+            isCompleted = true
         }
         currentSessionObject = nil
     }

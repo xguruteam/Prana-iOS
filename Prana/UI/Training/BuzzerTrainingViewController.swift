@@ -127,13 +127,15 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        
+        PranaDeviceManager.shared.removeDelegate(self)
+        
         if isFinished {
             return
         }
         
         stopLiving()
         currentSessionObject = nil
-        PranaDeviceManager.shared.removeDelegate(self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -427,6 +429,7 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
         
         if !isCompleted {
             onComplete()
+            lblGuide.isHidden = true
             self.btnStartStop.isEnabled = false
             self.btnStartStop.alpha = 0.5
             self.btnStartStop.setTitle("Session Ended Early", for: .normal)
@@ -897,7 +900,7 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
             self.lblSlouches.text = String(self.slouchesCount);
             let elapsed = self.gameSetTime - self.trainingDuration
             guard elapsed > 0 else { return }
-            self.lblUprightPosture.text = "\(Int(self.uprightPostureTime*100/elapsed))% (\(self.uprightPostureTime) of \(elapsed) s)"
+            self.lblUprightPosture.text = "\(Int(self.uprightPostureTime*100/elapsed))% (\(self.uprightPostureTime) of \(elapsed)s)"
         }
         
         prevPostureState = objLiveGraph.postureIsGood;
@@ -978,6 +981,7 @@ extension BuzzerTrainingViewController: PranaDeviceManagerDelegate
                 return
             }
             self.closeTraining()
+            self.batteryView.progress = 0
             let toast  = Toast(text: "Prana is disconnected.", duration: Delay.short)
             ToastView.appearance().backgroundColor = UIColor(hexString: "#995ad598")
             ToastView.appearance().textColor = .white

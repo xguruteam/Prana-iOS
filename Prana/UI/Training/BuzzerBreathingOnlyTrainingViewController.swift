@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Toaster
 
 class BuzzerBreathingOnlyTrainingViewController: BaseBuzzerTrainingViewController {
 
@@ -80,6 +81,7 @@ class BuzzerBreathingOnlyTrainingViewController: BaseBuzzerTrainingViewControlle
         self.navigationController?.navigationBar.isHidden = true
         NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
         swBuzzWhenUnmindful.addTarget(self, action: #selector(onBuzzWhenUnmindfulChange(_:)), for: .valueChanged)
+        PranaDeviceManager.shared.addDelegate(self)
                 
         if isTutorial {
             onHelp(self.btnHelp)
@@ -99,11 +101,15 @@ class BuzzerBreathingOnlyTrainingViewController: BaseBuzzerTrainingViewControlle
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        
+        PranaDeviceManager.shared.removeDelegate(self)
+        
         if isFinished {
             return
         }
         
         stopLiving()
+        currentSessionObject = nil
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -312,7 +318,6 @@ class BuzzerBreathingOnlyTrainingViewController: BaseBuzzerTrainingViewControlle
             currentSessionObject?.judgedBreaths = live.judgedBreaths
             currentSessionObject?.judgedPosture = live.judgedPosture
         }
-        objLive = nil
         liveGraph.objLive = nil
         
         btnBack.isHidden = false
@@ -327,6 +332,9 @@ class BuzzerBreathingOnlyTrainingViewController: BaseBuzzerTrainingViewControlle
         prevPostureState = 0;
         breathsOnCurrentLevel = 0;
         goodBreaths = 0;
+        
+        objLive = nil
+        liveGraph.objLive = nil
     }
     
     func makeSessionObject() {
@@ -347,7 +355,10 @@ class BuzzerBreathingOnlyTrainingViewController: BaseBuzzerTrainingViewControlle
     
     @objc func appMovedToBackground() {
         print("Buzzer Posture Only: App moved to background!")
-        
+        closeTraining()
+    }
+    
+    func closeTraining() {
         if isTutorial {
             onBack(btnBack)
             return
@@ -841,5 +852,23 @@ extension BuzzerBreathingOnlyTrainingViewController: LiveDelegate {
     
     func liveUprightHasBeenSet() {
         uprightHasBeenSetHandler()
+    }
+}
+
+extension BuzzerBreathingOnlyTrainingViewController: PranaDeviceManagerDelegate
+{
+    func PranaDeviceManagerDidDisconnect() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.closeTraining()
+            self.batteryView.progress = 0
+            let toast  = Toast(text: "Prana is disconnected.", duration: Delay.short)
+            ToastView.appearance().backgroundColor = UIColor(hexString: "#995ad598")
+            ToastView.appearance().textColor = .white
+            ToastView.appearance().font = UIFont.medium(ofSize: 14)
+            toast.show()
+        }
     }
 }

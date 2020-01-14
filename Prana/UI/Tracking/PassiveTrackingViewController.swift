@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Toaster
 
 class PassiveTrackingViewController: SuperViewController {
 
@@ -109,7 +110,7 @@ class PassiveTrackingViewController: SuperViewController {
         didSet {
             DispatchQueue.main.async {
                 guard self.trainingDuration > 0 else { return }
-                self.lblStatus7.text = " \(Int(100.0 * Float(self.uprightPostureTime)/Float(self.trainingDuration)))% (\(self.uprightPostureTime) of \(self.trainingDuration) s)"
+                self.lblStatus7.text = " \(Int(100.0 * Float(self.uprightPostureTime)/Float(self.trainingDuration)))% (\(self.uprightPostureTime) of \(self.trainingDuration)s)"
             }
         }
     }
@@ -146,7 +147,7 @@ class PassiveTrackingViewController: SuperViewController {
         super.viewDidLoad()
 
         NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
-        
+        PranaDeviceManager.shared.addDelegate(self)
         // Do any additional setup after loading the view.
         initView()
         
@@ -219,6 +220,7 @@ class PassiveTrackingViewController: SuperViewController {
         objLive?.stopMode(reset: dataController.isAutoReset)
         liveGraph.objLive = nil
         objLive = nil
+        PranaDeviceManager.shared.removeDelegate(self)
         
         self.dismiss(animated: true) {
             
@@ -246,25 +248,29 @@ class PassiveTrackingViewController: SuperViewController {
     
     @IBAction func onStartStop(_ sender: Any) {
         if isLive {
-            stopLiving()
-            
-            currentSessionObject?.floorSessionDuration()
-            
-            if let session = currentSessionObject, session.duration > 0 {
-                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
-                    dataController.addRecord(passive: session)
-                }
-                let vc = getViewController(storyboard: "History", identifier: "SessionDetailViewController") as! SessionDetailViewController
-                vc.type = .passive
-                vc.passive = session
-                self.present(vc, animated: true, completion: nil)
-            }
-            
-            currentSessionObject = nil
+            closeTracking()
         }
         else {
             startLiving()
         }
+    }
+    
+    func closeTracking() {
+        stopLiving()
+        
+        currentSessionObject?.floorSessionDuration()
+        
+        if let session = currentSessionObject, session.duration > 0 {
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
+                dataController.addRecord(passive: session)
+            }
+            let vc = getViewController(storyboard: "History", identifier: "SessionDetailViewController") as! SessionDetailViewController
+            vc.type = .passive
+            vc.passive = session
+            self.present(vc, animated: true, completion: nil)
+        }
+        
+        currentSessionObject = nil
     }
     
     @IBAction func onEnableSlouchBuzzChange(_ sender: Any) {
@@ -279,7 +285,7 @@ class PassiveTrackingViewController: SuperViewController {
     @objc func appMovedToBackground() {
         print("Passive Tracking: App moved to background!")
         if !isLive {
-            onBack(btnStartStop)
+            closeTracking()
             
             if PranaDeviceManager.shared.isConnected {
                 PranaDeviceManager.shared.disconnect()
@@ -406,6 +412,8 @@ class PassiveTrackingViewController: SuperViewController {
     
     func stopLiving() {
         isLive = false
+        self.btnStartStop.isHidden = false
+        self.lblGuide.isHidden = true
         btnStartStop.setTitle("TRACKING ENDED", for: .normal)
         btnStartStop.isEnabled = false
         
@@ -554,5 +562,22 @@ extension PassiveTrackingViewController: LiveDelegate {
     
     func liveNew(breathCount: Int) {
         currentSessionObject?.addBreath(timeStamp: trainingDuration, isMindful: false, respRate: Double(currentRR), eiRatio: Double(lastMinuteEI), oneMinuteRR: Double(oneMinuteRR))
+    }
+}
+
+extension PassiveTrackingViewController: PranaDeviceManagerDelegate {
+    func PranaDeviceManagerDidDisconnect() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.closeTracking()
+            self.batteryView.progress = 0
+            let toast  = Toast(text: "Prana is disconnected.", duration: Delay.short)
+            ToastView.appearance().backgroundColor = UIColor(hexString: "#995ad598")
+            ToastView.appearance().textColor = .white
+            ToastView.appearance().font = UIFont.medium(ofSize: 14)
+            toast.show()
+        }
     }
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreBluetooth
+import Toaster
 
 class LiveGraphViewController: SuperViewController {
     
@@ -44,6 +45,8 @@ class LiveGraphViewController: SuperViewController {
         self.navigationController?.isNavigationBarHidden = true
         
         initView()
+        
+        PranaDeviceManager.shared.addDelegate(self)
         
         objLive = Live()
         objLive?.appMode = 1
@@ -132,6 +135,8 @@ class LiveGraphViewController: SuperViewController {
         objLive?.stopMode(reset: dataController.isAutoReset)
         
         objLive = nil
+        
+        PranaDeviceManager.shared.removeDelegate(self)
     }
     
     func setBreathSensitivity(val: Int) {
@@ -258,4 +263,22 @@ extension LiveGraphViewController: LiveDelegate {
             self.displayBreathCount(val: breathCount)
         }
     }    
+}
+
+extension LiveGraphViewController: PranaDeviceManagerDelegate {
+    func PranaDeviceManagerDidDisconnect() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.isFinish = true
+            self.stopLive()
+            self.batteryView.progress = 0
+            let toast  = Toast(text: "Prana is disconnected.", duration: Delay.short)
+            ToastView.appearance().backgroundColor = UIColor(hexString: "#995ad598")
+            ToastView.appearance().textColor = .white
+            ToastView.appearance().font = UIFont.medium(ofSize: 14)
+            toast.show()
+        }
+    }
 }
