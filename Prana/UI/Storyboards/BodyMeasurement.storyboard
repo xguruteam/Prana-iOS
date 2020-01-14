@@ -53,7 +53,7 @@
                                     <segue destination="8Wz-Qp-wp4" kind="show" id="zUH-Xr-YrP"/>
                                 </connections>
                             </button>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_bluetooth" translatesAutoresizingMaskIntoConstraints="NO" id="EGc-ay-mkA" customClass="BluetoothStateView" customModule="Prana" customModuleProvider="target">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_bluetooth" translatesAutoresizingMaskIntoConstraints="NO" id="EGc-ay-mkA" customClass="BluetoothStateView" customModule="Prana" customModuleProvider="target">
                                 <rect key="frame" x="287" y="27.5" width="24" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="52C-ap-kry"/>
@@ -596,7 +596,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YEn-rl-hLO">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
+                                                    <rect key="frame" x="20" y="0.0" width="335" height="44"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Part" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="poP-C7-5nw">
                                                             <rect key="frame" x="20" y="12" width="33.5" height="20"/>
@@ -605,7 +605,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Ni-qC-mKg">
-                                                            <rect key="frame" x="305" y="6.5" width="51" height="31"/>
+                                                            <rect key="frame" x="266" y="6.5" width="51" height="31"/>
                                                             <color key="onTintColor" red="0.16862745100000001" green="0.71764705880000002" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         </switch>
                                                     </subviews>

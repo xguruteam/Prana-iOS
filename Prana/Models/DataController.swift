@@ -514,8 +514,7 @@ class DataController {
                 guard object.type == "TS" || object.type == "PS" else { return false }
                 
                 guard let createdAt = object.time else { return false }
-                let diffInDays = Calendar.current.dateComponents([.day], from: createdAt, to: date).day
-                guard diffInDays == 0 else { return false }
+                guard Calendar.current.isDateInToday(createdAt) else { return false }
                 return true
                 }.map { (object) -> AnyObject in
                     let data = object.data!

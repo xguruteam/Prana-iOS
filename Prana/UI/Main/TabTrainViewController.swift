@@ -146,10 +146,13 @@ class TabTrainViewController: UIViewController {
     }
     
     func calculateSummary() {
+        print("-----> summary begin, today: \(Date())")
+        print("-----> summary begin, today: \(Calendar.current.timeZone)")
         if let sessions = dataController?.fetchDailySessions(date: Date()).filter({ (object) -> Bool in
             return object is TrainingSession
         }) as? [TrainingSession], let _ = sessions.first {
             let (breathCount, postureElapsed, mindfuls, uprightDuration, breathingElapsed) = sessions.reduce((0, 0, 0, 0, 0)) { (acc, session) -> (Int, Int, Int, Int, Int) in
+                print("session date: \(session.startedAt), duration: \(session.duration)")
                 var result = acc
                 
                 let calendar = Calendar.current
@@ -214,6 +217,7 @@ class TabTrainViewController: UIViewController {
                 self.postureCircle.startAnimation()
             })
         }
+        print("<------ summary end")
     }
     
 

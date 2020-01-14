@@ -37,7 +37,7 @@ class SettingsViewController: SuperViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Account & Help"
-        label.font = UIFont.medium(ofSize: 15)
+        label.font = UIFont.bold(ofSize: 18)
         label.textColor = UIColor(hexString: "#415165")
         return label
     }()
@@ -146,7 +146,7 @@ class SettingsViewController: SuperViewController {
         tableView.backgroundColor = .clear
 
         tableView.tableHeaderView = container
-        container.bounds.size.height = 645
+        container.bounds.size.height = 605
         
         container.addSubview(titleLabel)
         titleLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 16).isActive = true
@@ -173,7 +173,7 @@ class SettingsViewController: SuperViewController {
         let largeButtonInset: CGFloat = 16
         let smallButtonInset: CGFloat = 16
         
-        let buttonSpacing: CGFloat = 7
+        let buttonSpacing: CGFloat = 4
         let insets = UIEdgeInsets(top: 6, left: smallButtonInset, bottom: 6, right: 6)
         
         // Settings
@@ -183,7 +183,7 @@ class SettingsViewController: SuperViewController {
         bSetting.rightAnchor.constraint(equalTo: roundedContainer.rightAnchor, constant: 0 - largeButtonInset).isActive = true
         
         roundedContainer.addSubview(bEdit)
-        bEdit.topAnchor.constraint(equalTo: bSetting.bottomAnchor, constant: 10).isActive = true
+        bEdit.topAnchor.constraint(equalTo: bSetting.bottomAnchor, constant: buttonSpacing).isActive = true
         bEdit.leftAnchor.constraint(equalTo: roundedContainer.leftAnchor, constant: largeButtonInset).isActive = true
         bEdit.rightAnchor.constraint(equalTo: roundedContainer.rightAnchor, constant: 0 - largeButtonInset).isActive = true
         bEdit.contentEdgeInsets = insets
