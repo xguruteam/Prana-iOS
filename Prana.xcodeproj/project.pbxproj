@@ -86,7 +86,6 @@
 		CAC1251C22C2BFC5008D6C7D /* WeeklyGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1251B22C2BFC5008D6C7D /* WeeklyGraph.swift */; };
 		CAC1252722C2E4DF008D6C7D /* WeeklyCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1252622C2E4DF008D6C7D /* WeeklyCell1.swift */; };
 		CAC1252922C2E4F7008D6C7D /* WeeklyCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1252822C2E4F7008D6C7D /* WeeklyCell2.swift */; };
-		CAC1252B22C2E508008D6C7D /* WeeklyCell3.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1252A22C2E508008D6C7D /* WeeklyCell3.swift */; };
 		CAC1252D22C34FC7008D6C7D /* MeasurementsHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1252C22C34FC7008D6C7D /* MeasurementsHistoryViewController.swift */; };
 		CAC1252F22C35C2B008D6C7D /* MonthlyGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC1252E22C35C2B008D6C7D /* MonthlyGraph.swift */; };
 		CAC46CCD223A8E95004691F4 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */; };
@@ -281,7 +280,6 @@
 		CAC1251B22C2BFC5008D6C7D /* WeeklyGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyGraph.swift; sourceTree = "<group>"; };
 		CAC1252622C2E4DF008D6C7D /* WeeklyCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCell1.swift; sourceTree = "<group>"; };
 		CAC1252822C2E4F7008D6C7D /* WeeklyCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCell2.swift; sourceTree = "<group>"; };
-		CAC1252A22C2E508008D6C7D /* WeeklyCell3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCell3.swift; sourceTree = "<group>"; };
 		CAC1252C22C34FC7008D6C7D /* MeasurementsHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementsHistoryViewController.swift; sourceTree = "<group>"; };
 		CAC1252E22C35C2B008D6C7D /* MonthlyGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyGraph.swift; sourceTree = "<group>"; };
 		CAC46CCC223A8E95004691F4 /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
@@ -750,7 +748,6 @@
 				CAC1251B22C2BFC5008D6C7D /* WeeklyGraph.swift */,
 				CAC1252622C2E4DF008D6C7D /* WeeklyCell1.swift */,
 				CAC1252822C2E4F7008D6C7D /* WeeklyCell2.swift */,
-				CAC1252A22C2E508008D6C7D /* WeeklyCell3.swift */,
 				CAC1252C22C34FC7008D6C7D /* MeasurementsHistoryViewController.swift */,
 				CAC1252E22C35C2B008D6C7D /* MonthlyGraph.swift */,
 				CAB0723D22C36862007136FF /* WeeklyGraph2.swift */,
@@ -1087,7 +1084,6 @@
 				CAC1250F22C247F2008D6C7D /* PostureBar.swift in Sources */,
 				CAC1251522C2588A008D6C7D /* Chart.swift in Sources */,
 				CAA782E22285D20600EB5122 /* PatternsViewController.swift in Sources */,
-				CAC1252B22C2E508008D6C7D /* WeeklyCell3.swift in Sources */,
 				CAEA71CE22BE255F002A8B66 /* DiaryViewController.swift in Sources */,
 				64AE573223C60ED700387D4F /* Optional+Extensions.swift in Sources */,
 				D7E145AD2236F50100991D34 /* ResetPasswordViewController.swift in Sources */,

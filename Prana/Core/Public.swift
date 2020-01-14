@@ -58,3 +58,27 @@ func roundFloat(_ value: Float, point: Int) -> Any {
     return per
 }
 
+func getWeeklyRange(for date: Date) -> (Date, Date) {
+    var begin = Calendar.current.startOfWeek(date)
+    guard var end = Calendar.current.date(byAdding: .day, value: 7, to: begin) else {
+        return (begin, Calendar.current.endOfWeek(date))
+    }
+    
+    begin = Calendar.current.startOfDay(for: begin)
+    end = Calendar.current.startOfDay(for: end)
+    
+    return (begin, end)
+}
+
+func getMonthlyRange(for date: Date) -> (Date, Date) {
+    var begin = Calendar.current.startOfMonth(date)
+    var last = Calendar.current.endOfMonth(date)
+    guard var end = Calendar.current.date(byAdding: .day, value: 7, to: last) else {
+        return (begin, Calendar.current.endOfWeek(date))
+    }
+    
+    begin = Calendar.current.startOfDay(for: begin)
+    end = Calendar.current.startOfDay(for: end)
+    
+    return (begin, end)
+}

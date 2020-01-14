@@ -105,10 +105,12 @@ class MeasurementsHistoryViewController: SuperViewController {
     
     var currentDate: Date = Date() {
         didSet {
-            mb = currentDate.beginning(of: .month)!
-            me = currentDate.end(of: .month)!
-            wb = currentDate.previous(.monday, considerToday: true)
-            we = currentDate.next(.sunday, considerToday: true)
+            let (mbegin, mend) = getMonthlyRange(for: currentDate)
+            mb = mbegin
+            me = mend
+            let (wbegin, wend) = getWeeklyRange(for: currentDate)
+            wb = wbegin
+            we = wend
             
             lblWeekRange.text = "\(wb.dateString()) - \(we.dateString())"
             let fomatter = DateFormatter()

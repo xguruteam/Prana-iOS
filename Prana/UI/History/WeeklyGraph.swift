@@ -108,7 +108,8 @@ class WeeklyGraph: UIView {
         stringRect = CGRect(x: 0, y: height - th, width: uw, height: th)
         attributedString.draw(in: stringRect)
         
-        let letters = ["M", "T", "W", "T", "F", "S", "S"]
+//        let letters = ["M", "T", "W", "T", "F", "S", "S"]
+        let letters = Calendar.current.veryShortWeekdaySymbols
         for i in 0..<letters.count {
             if type == .stack {
                 let (total, part) = stackData[i]

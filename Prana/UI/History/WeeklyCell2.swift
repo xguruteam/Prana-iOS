@@ -52,8 +52,9 @@ class WeeklyCell2: UITableViewCell {
     var weekChangeHandler: ((Int) -> ())?
     var date: Date = Date() {
         didSet {
-            begin = date.previous(.monday, considerToday: true)
-            end = date.next(.sunday, considerToday: true)
+            let (begin, end) = getWeeklyRange(for: date)
+            self.begin = begin
+            self.end = end
             lblWeek.text = "\(begin.dateString()) - \(end.dateString())"
         }
     }

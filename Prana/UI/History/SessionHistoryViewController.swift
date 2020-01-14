@@ -68,8 +68,9 @@ class SessionHistoryViewController: SuperViewController {
 
     var currentDate: Date = Date() {
         didSet {
-            begin = currentDate.previous(.monday, considerToday: true)
-            end = currentDate.next(.sunday, considerToday: true)
+            let (begin, end) = getWeeklyRange(for: currentDate)
+            self.begin = begin
+            self.end = end
             lblWeekRange.text = "\(begin.dateString()) - \(end.dateString())"
             
             if rangeType == .daily {

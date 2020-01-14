@@ -541,12 +541,16 @@ class DataController {
     }
     
     func fetchWeeklySessions(date: Date, type: String? = nil) -> [AnyObject] {
+        print("-------> begin fetchWeeklySession: type: \(type)")
+        defer {
+            print("-------> end fetchWeeklySession: type: \(type)")
+        }
         guard let managedContext = managedObjectContext else { return [] }
         let fetchRequest = NSFetchRequest<LocalDB>(entityName: "LocalDB")
         
-        let begin = date.previous(.monday, considerToday: true)
-        let end = date.next(.monday, considerToday: false)
-        
+        let (begin, end) = getWeeklyRange(for: date)
+        print(">\(begin)-\(end)<")
+
         do {
             let result = try managedContext.fetch(fetchRequest)
             let sessions = result.filter { (object) -> Bool in
@@ -565,9 +569,11 @@ class DataController {
                     do {
                         if object.type == "TS" {
                             let session = try JSONDecoder().decode(TrainingSession.self, from: data.data(using: .utf8)!)
+                            print("session date: \(session.startedAt), duration: \(session.duration)")
                             return session
                         } else {
                             let session = try JSONDecoder().decode(PassiveSession.self, from: data.data(using: .utf8)!)
+                            print("session date: \(session.startedAt), duration: \(session.duration)")
                             return session
                         }
                     } catch {

@@ -28,7 +28,8 @@ class WeeklyGraph2: UIView {
         backgroundColor = .white
     }
     
-    let letters = ["M", "T", "W", "T", "F", "S", "S"]
+//    let letters = ["M", "T", "W", "T", "F", "S", "S"]
+    let letters = Calendar.current.veryShortWeekdaySymbols
 
     var color: UIColor = .black
     

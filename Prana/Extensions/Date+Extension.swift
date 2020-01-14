@@ -551,7 +551,7 @@ public extension Date {
     /// SwiftRandom extension
     static func randomWithinDaysBeforeToday(_ days: Int) -> Date {
         let today = Date()
-        let gregorian = Calendar(identifier: Calendar.Identifier.gregorian)
+        let gregorian = Calendar.current
         
         let r1 = arc4random_uniform(UInt32(days))
         let r2 = arc4random_uniform(UInt32(23))
@@ -609,7 +609,7 @@ extension Date {
         
         let searchWeekdayIndex = weekdaysName.index(of: dayName)! + 1
         
-        let calendar = Calendar(identifier: .gregorian)
+//        let calendar = Calendar(identifier: .gregorian)
         
         if consider && calendar.component(.weekday, from: self) == searchWeekdayIndex {
             return self
