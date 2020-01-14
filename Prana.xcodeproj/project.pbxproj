@@ -18,6 +18,7 @@
 		64457E1223C60AA300C5A027 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64457E1023C60AA200C5A027 /* Array+Extensions.swift */; };
 		64457E1323C60AA300C5A027 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64457E1123C60AA200C5A027 /* String+Extensions.swift */; };
 		64457E1523C60AE500C5A027 /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64457E1423C60AE500C5A027 /* UITextView+Extensions.swift */; };
+		645C27FA23CDD0CA00E33FFB /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 645C27F923CDD0CA00E33FFB /* Tutorial.storyboard */; };
 		648E2ACE23BA0D0400BF7EED /* BuzzerBreathingOnlyTrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648E2ACD23BA0D0400BF7EED /* BuzzerBreathingOnlyTrainingViewController.swift */; };
 		648E2AD023BA183300BF7EED /* BuzzerPostureOnlyTrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648E2ACF23BA183300BF7EED /* BuzzerPostureOnlyTrainingViewController.swift */; };
 		648E2AD223BA2BED00BF7EED /* BaseBuzzerTrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648E2AD123BA2BED00BF7EED /* BaseBuzzerTrainingViewController.swift */; };
@@ -207,6 +208,7 @@
 		64457E1023C60AA200C5A027 /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		64457E1123C60AA200C5A027 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		64457E1423C60AE500C5A027 /* UITextView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
+		645C27F923CDD0CA00E33FFB /* Tutorial.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tutorial.storyboard; sourceTree = "<group>"; };
 		648E2ACD23BA0D0400BF7EED /* BuzzerBreathingOnlyTrainingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuzzerBreathingOnlyTrainingViewController.swift; sourceTree = "<group>"; };
 		648E2ACF23BA183300BF7EED /* BuzzerPostureOnlyTrainingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuzzerPostureOnlyTrainingViewController.swift; sourceTree = "<group>"; };
 		648E2AD123BA2BED00BF7EED /* BaseBuzzerTrainingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseBuzzerTrainingViewController.swift; sourceTree = "<group>"; };
@@ -444,6 +446,7 @@
 				64D0781A23B7BD8C00909484 /* BodyMeasurement.storyboard */,
 				64CB95F523B93C8D009CA4F5 /* VisualTraining.storyboard */,
 				6429C99823B9BC97000B0C89 /* BuzzerTraining.storyboard */,
+				645C27F923CDD0CA00E33FFB /* Tutorial.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -936,6 +939,7 @@
 				CAE670542271FCFB0099D72C /* sit (9).png in Resources */,
 				D7992AD4225C21D100C5C8F2 /* Quicksand 700.ttf in Resources */,
 				CAE6705D2271FCFB0099D72C /* stand (2).png in Resources */,
+				645C27FA23CDD0CA00E33FFB /* Tutorial.storyboard in Resources */,
 				CAE670492271FCFB0099D72C /* sit (8).png in Resources */,
 				CAE670572271FCFB0099D72C /* stand (5).png in Resources */,
 				CAE670652271FCFB0099D72C /* sit (13).png in Resources */,
@@ -1305,9 +1309,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 53;
-				DEVELOPMENT_TEAM = D4J7AW2S69;
+				DEVELOPMENT_TEAM = 54KCXCZNQT;
 				INFOPLIST_FILE = Prana/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1317,7 +1321,7 @@
 				MARKETING_VERSION = 2.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.prana.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = All_Dev_160129;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1329,9 +1333,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 53;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 54KCXCZNQT;
 				INFOPLIST_FILE = Prana/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (

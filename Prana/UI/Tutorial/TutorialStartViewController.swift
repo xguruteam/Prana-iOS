@@ -52,10 +52,6 @@ class TutorialStartViewController: UIViewController {
         }
     }
     
-    @IBAction func onStartTutorialClick(_ sender: Any) {
-        
-    }
-    
     @IBAction func onSkipTutorialClick(_ sender: UIButton) {
         let alertController = UIAlertController(title: "Confirm", message:
             "Are you sure you wish to skip the tutorial?", preferredStyle: UIAlertController.Style.alert)

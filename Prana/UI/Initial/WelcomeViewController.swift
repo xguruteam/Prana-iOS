@@ -70,7 +70,7 @@ class WelcomeViewController: SuperViewController {
             return
         }
         
-        let firstVC = Utils.getStoryboardWithIdentifier(identifier: "TutorialStartViewController")
+        let firstVC = Utils.getStoryboardWithIdentifier(name: "Tutorial", identifier: "TutorialStartViewController")
         let navVC = UINavigationController(rootViewController: firstVC)
         self.present(navVC, animated: true, completion: nil)
     }

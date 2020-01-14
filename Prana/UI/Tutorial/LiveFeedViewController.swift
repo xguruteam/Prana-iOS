@@ -12,28 +12,12 @@ import Toaster
 class LiveFeedViewController: SuperViewController {
     
     @IBOutlet weak var breathingGraphView: LiveGraph!
-    
-    @IBOutlet weak var breathSensitivityGroup: UIView!
     @IBOutlet weak var btnUpright: UIButton!
-
-    @IBOutlet weak var btnBreathSensitivityRadio1: UIButton!
-    @IBOutlet weak var btnBreathSensitivityTitle1: UIButton!
-    @IBOutlet weak var btnBreathSensitivityRadio2: UIButton!
-    @IBOutlet weak var btnBreathSensitivityTitle2: UIButton!
-    @IBOutlet weak var btnBreathSensitivityRadio3: UIButton!
-    @IBOutlet weak var btnBreathSensitivityTitle3: UIButton!
-    
     @IBOutlet weak var imgPostureAnimation: UIImageView!
-    
-    @IBOutlet weak var postureSensitivityGroup: UIView!
-    @IBOutlet weak var btnPostureSensitivityRadio1: UIButton!
-    @IBOutlet weak var btnPostureSensitivityTitle1: UIButton!
-    @IBOutlet weak var btnPostureSensitivityRadio2: UIButton!
-    @IBOutlet weak var btnPostureSensitivityTitle2: UIButton!
-    @IBOutlet weak var btnPostureSensitivityRadio3: UIButton!
-    @IBOutlet weak var btnPostureSensitivityTitle3: UIButton!
-    
     @IBOutlet weak var btnNext: UIButton!
+    
+    @IBOutlet weak var breathRadioGroup: RadioGroupButton!
+    @IBOutlet weak var postureRadioGroup: RadioGroupButton!
     
     @IBOutlet weak var lblDescription: UILabel!
     
@@ -55,13 +39,19 @@ class LiveFeedViewController: SuperViewController {
         else {
             lblDescription.text = "Sit or stand upright and tap below to set your upright posture. You can also double-press the device button."
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         startLive()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        btnUpright.applyButtonGradient(colors: [#colorLiteral(red: 0.6, green: 0.8392156863, blue: 0.2392156863, alpha: 1), #colorLiteral(red: 0.4039215686, green: 0.7411764706, blue: 0.2274509804, alpha: 1)], points: [0.0, 1.0])
+        btnNext.applyButtonGradient(colors: [#colorLiteral(red: 0.2980392157, green: 0.8470588235, blue: 0.8509803922, alpha: 1), #colorLiteral(red: 0.168627451, green: 0.7176470588, blue: 0.7215686275, alpha: 1)], points: [0.0, 1.0])
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -87,16 +77,14 @@ class LiveFeedViewController: SuperViewController {
     }
     
     @IBAction func onNext(_ sender: Any) {
-        
         if !isLowerBack {
-            let vc = Utils.getStoryboardWithIdentifier(identifier: "TutorialLowerbackViewController")
+            let vc = Utils.getStoryboardWithIdentifier(name:"Tutorial", identifier: "TutorialLowerbackViewController")
             self.navigationController?.pushViewController(vc, animated: true)
         }
         else {
-            let vc = Utils.getStoryboardWithIdentifier(identifier: "TutorialVisualViewController")
+            let vc = Utils.getStoryboardWithIdentifier(name:"Tutorial", identifier: "TutorialVisualViewController")
             self.navigationController?.pushViewController(vc, animated: true)
         }
-        
     }
     
     @IBAction func onBack(_ sender: Any) {
@@ -150,54 +138,17 @@ class LiveFeedViewController: SuperViewController {
     }
     
     func setBreathSensitivity(val: Int) {
-        
-        btnBreathSensitivityRadio1.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        btnBreathSensitivityRadio2.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        btnBreathSensitivityRadio3.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        
-        switch val {
-        case 1:
-            btnBreathSensitivityRadio1.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-        case 2:
-            btnBreathSensitivityRadio2.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-        case 3:
-            btnBreathSensitivityRadio3.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-        default:
-            return
-        }
-        
+        breathRadioGroup.selectedIndex = val
         objLive?.setBreathingResponsiveness(val: val)
     }
     
     func setPostureSensitivity(val: Int) {
-        btnPostureSensitivityRadio1.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        btnPostureSensitivityRadio2.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        btnPostureSensitivityRadio3.setBackgroundImage(UIImage(named: "radio-blue-normal"), for: .normal)
-        
-        switch val {
-        case 1:
-            btnPostureSensitivityRadio1.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-        case 2:
-            btnPostureSensitivityRadio2.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-        case 3:
-            btnPostureSensitivityRadio3.setBackgroundImage(UIImage(named: "radio-blue-selected"), for: .normal)
-        default:
-            return
-        }
-        
+        postureRadioGroup.selectedIndex = val
         objLive?.setPostureResponsiveness(val: val)
     }
     
     func displayPostureAnimation(_ whichFrame: Int) {
         let frame = whichFrame
-//        if frame > 30 {
-//            frame = 30
-//        }
-//
-//        if frame < 1 {
-//            frame = 1
-//        }
-        
         if isLowerBack {
             imgPostureAnimation.image = UIImage(named: "sit (\(frame))")
         }
@@ -205,17 +156,6 @@ class LiveFeedViewController: SuperViewController {
             imgPostureAnimation.image = UIImage(named: "stand (\(frame))")
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension LiveFeedViewController: LiveDelegate {
@@ -236,6 +176,16 @@ extension LiveFeedViewController: LiveDelegate {
                 return
             }
             self.btnNext.isHidden = false
+        }
+    }
+}
+
+extension LiveFeedViewController: RadioGroupButtonDelegate {
+    func onSelectedIndex(index: Int, sender: RadioGroupButton) {
+        if sender.tag == 1 {
+            setBreathSensitivity(val: index)
+        } else {
+            setPostureSensitivity(val: index)
         }
     }
 }

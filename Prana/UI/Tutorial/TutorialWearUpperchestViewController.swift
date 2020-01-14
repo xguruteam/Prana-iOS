@@ -18,24 +18,12 @@ class TutorialWearUpperchestViewController: UIViewController {
         
         initView()
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     func initView() {
-        let background = UIImage(named: "app-background")
         let imageView = UIImageView(frame: view.bounds)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.image = background
+        imageView.image = UIImage(named: "app-background")
         imageView.center = view.center
         view.insertSubview(imageView, at: 0)
         view.sendSubviewToBack(imageView)
@@ -57,7 +45,7 @@ class TutorialWearUpperchestViewController: UIViewController {
     }
     
     func gotoLiveGraph() {
-        let vc = Utils.getStoryboardWithIdentifier(identifier: "LiveFeedViewController") as! LiveFeedViewController
+        let vc = Utils.getStoryboardWithIdentifier(name: "Tutorial", identifier: "LiveFeedViewController") as! LiveFeedViewController
         vc.isLowerBack = false
         self.navigationController?.pushViewController(vc, animated: true)
     }

@@ -50,23 +50,13 @@ class TutorialVisualViewController: UIViewController {
     
     @objc func onVisualViewControllerEnd() {
 //        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-        let vc = Utils.getStoryboardWithIdentifier(identifier: "TutorialBuzzerViewController")
+        let vc = Utils.getStoryboardWithIdentifier(name:"Tutorial", identifier: "TutorialBuzzerViewController")
         self.navigationController?.pushViewController(vc, animated: false)
     }
     
     @objc func onDeviceOrientationChange() {
 //        self.setNeedsStatusBarAppearanceUpdate()
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     func initView() {
         let background = UIImage(named: "app-background")
