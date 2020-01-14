@@ -18,6 +18,7 @@
 		64457E1223C60AA300C5A027 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64457E1023C60AA200C5A027 /* Array+Extensions.swift */; };
 		64457E1323C60AA300C5A027 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64457E1123C60AA200C5A027 /* String+Extensions.swift */; };
 		64457E1523C60AE500C5A027 /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64457E1423C60AE500C5A027 /* UITextView+Extensions.swift */; };
+		6483C01323CE43AA0036B0FE /* TutorialTraining.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6483C01223CE43AA0036B0FE /* TutorialTraining.storyboard */; };
 		648E2ACE23BA0D0400BF7EED /* BuzzerBreathingOnlyTrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648E2ACD23BA0D0400BF7EED /* BuzzerBreathingOnlyTrainingViewController.swift */; };
 		648E2AD023BA183300BF7EED /* BuzzerPostureOnlyTrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648E2ACF23BA183300BF7EED /* BuzzerPostureOnlyTrainingViewController.swift */; };
 		648E2AD223BA2BED00BF7EED /* BaseBuzzerTrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648E2AD123BA2BED00BF7EED /* BaseBuzzerTrainingViewController.swift */; };
@@ -207,6 +208,7 @@
 		64457E1023C60AA200C5A027 /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		64457E1123C60AA200C5A027 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		64457E1423C60AE500C5A027 /* UITextView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
+		6483C01223CE43AA0036B0FE /* TutorialTraining.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TutorialTraining.storyboard; sourceTree = "<group>"; };
 		648E2ACD23BA0D0400BF7EED /* BuzzerBreathingOnlyTrainingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuzzerBreathingOnlyTrainingViewController.swift; sourceTree = "<group>"; };
 		648E2ACF23BA183300BF7EED /* BuzzerPostureOnlyTrainingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuzzerPostureOnlyTrainingViewController.swift; sourceTree = "<group>"; };
 		648E2AD123BA2BED00BF7EED /* BaseBuzzerTrainingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseBuzzerTrainingViewController.swift; sourceTree = "<group>"; };
@@ -444,6 +446,7 @@
 				64D0781A23B7BD8C00909484 /* BodyMeasurement.storyboard */,
 				64CB95F523B93C8D009CA4F5 /* VisualTraining.storyboard */,
 				6429C99823B9BC97000B0C89 /* BuzzerTraining.storyboard */,
+				6483C01223CE43AA0036B0FE /* TutorialTraining.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -960,6 +963,7 @@
 				CAE670732271FCFB0099D72C /* sit (7).png in Resources */,
 				CAE670632271FCFB0099D72C /* sit (26).png in Resources */,
 				CAE6707B2271FCFB0099D72C /* stand (29).png in Resources */,
+				6483C01323CE43AA0036B0FE /* TutorialTraining.storyboard in Resources */,
 				CAE670662271FCFB0099D72C /* sit (5).png in Resources */,
 				CAE6707E2271FCFB0099D72C /* sit (6).png in Resources */,
 				CAE670702271FCFB0099D72C /* stand (19).png in Resources */,

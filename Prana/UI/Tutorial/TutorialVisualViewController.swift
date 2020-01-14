@@ -50,7 +50,7 @@ class TutorialVisualViewController: UIViewController {
     
     @objc func onVisualViewControllerEnd() {
 //        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-        let vc = Utils.getStoryboardWithIdentifier(name:"Tutorial", identifier: "TutorialBuzzerViewController")
+        let vc = Utils.getStoryboardWithIdentifier(name:"TutorialTraining", identifier: "TutorialBuzzerViewController")
         self.navigationController?.pushViewController(vc, animated: false)
     }
     

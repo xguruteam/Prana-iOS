@@ -45,7 +45,7 @@ class TutorialWearUpperchestViewController: UIViewController {
     }
     
     func gotoLiveGraph() {
-        let vc = Utils.getStoryboardWithIdentifier(name: "Tutorial", identifier: "LiveFeedViewController") as! LiveFeedViewController
+        let vc = Utils.getStoryboardWithIdentifier(name: "TutorialTraining", identifier: "LiveFeedViewController") as! LiveFeedViewController
         vc.isLowerBack = false
         self.navigationController?.pushViewController(vc, animated: true)
     }

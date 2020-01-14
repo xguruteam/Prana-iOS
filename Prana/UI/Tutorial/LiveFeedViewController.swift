@@ -78,11 +78,11 @@ class LiveFeedViewController: SuperViewController {
     
     @IBAction func onNext(_ sender: Any) {
         if !isLowerBack {
-            let vc = Utils.getStoryboardWithIdentifier(name:"Tutorial", identifier: "TutorialLowerbackViewController")
+            let vc = Utils.getStoryboardWithIdentifier(name:"TutorialTraining", identifier: "TutorialLowerbackViewController")
             self.navigationController?.pushViewController(vc, animated: true)
         }
         else {
-            let vc = Utils.getStoryboardWithIdentifier(name:"Tutorial", identifier: "TutorialVisualViewController")
+            let vc = Utils.getStoryboardWithIdentifier(name:"TutorialTraining", identifier: "TutorialVisualViewController")
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

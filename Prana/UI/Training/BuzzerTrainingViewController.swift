@@ -218,7 +218,7 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
     @IBAction func onBack(_ sender: Any) {
         if isTutorial {
             if isCompleted {
-                let vc = Utils.getStoryboardWithIdentifier(name: "Tutorial", identifier: "TutorialEndViewController")
+                let vc = Utils.getStoryboardWithIdentifier(name: "TutorialTraining", identifier: "TutorialEndViewController")
                 self.navigationController?.pushViewController(vc, animated: true)
                 return
             }
