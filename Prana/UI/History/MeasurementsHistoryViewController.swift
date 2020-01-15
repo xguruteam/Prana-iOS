@@ -11,31 +11,27 @@ import UIKit
 class MeasurementsHistoryViewController: SuperViewController {
 
     @IBOutlet weak var ddArea: PranaDropDown!
-    @IBOutlet weak var lblWeekRange: UILabel!
-    
-    @IBOutlet weak var lblMonthRange: UILabel!
-    @IBOutlet weak var btnUnit: UIButton!
-    
-    @IBOutlet weak var weeklyGraph: WeeklyGraph2!
-    @IBOutlet weak var monthlyGraph: MonthlyGraph!
-    
+    @IBOutlet weak var btnUnit: UIButton!    
+    @IBOutlet weak var historyTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        historyTableView.estimatedRowHeight = 500
+        
         btnUnit.titleLabel?.font = UIFont.bold(ofSize: 16)
         ddArea.clickListener = { [unowned self] in
             self.openBodyAreaPicker()
         }
                 
-        weeklyGraph.diaryClickHandler = { [unowned self] (id, note) in
-            let vc = Utils.getStoryboardWithIdentifier(identifier: "DiaryViewController") as! DiaryViewController
-            let date = self.wb.adding(.day, value: id)
-            vc.date = date
-            vc.isEditable = false
-            vc.note = note
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
+//        weeklyGraph.diaryClickHandler = { [unowned self] (id, note) in
+//            let vc = Utils.getStoryboardWithIdentifier(identifier: "DiaryViewController") as! DiaryViewController
+//            let date = self.wb.adding(.day, value: id)
+//            vc.date = date
+//            vc.isEditable = false
+//            vc.note = note
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        }
         
         currentDate = Date()
         part = .neck
@@ -112,10 +108,10 @@ class MeasurementsHistoryViewController: SuperViewController {
             wb = wbegin
             we = wend
             
-            lblWeekRange.text = "\(wb.dateString()) - \(we.dateString())"
-            let fomatter = DateFormatter()
-            fomatter.dateFormat = "MMMM yyyy"
-            lblMonthRange.text = fomatter.string(from: mb)
+//            lblWeekRange.text = "\(wb.dateString()) - \(we.dateString())"
+//            let fomatter = DateFormatter()
+//            fomatter.dateFormat = "MMMM yyyy"
+//            lblMonthRange.text = fomatter.string(from: mb)
             
             weeklyMeasurements = dataController.fetchWeeklyMeasurement(date: currentDate)
             monthlyMeasurements = dataController.fetchMonthlyMeasurement(date: currentDate)
@@ -226,10 +222,10 @@ class MeasurementsHistoryViewController: SuperViewController {
             }
         }
         
-        weeklyGraph.color = UIColor(hexString: "#9fd93f")
-        weeklyGraph.unit = unit
-        weeklyGraph.barData = weekRangedSeries
-        weeklyGraph.setNeedsDisplay()
+//        weeklyGraph.color = UIColor(hexString: "#9fd93f")
+//        weeklyGraph.unit = unit
+//        weeklyGraph.barData = weekRangedSeries
+//        weeklyGraph.setNeedsDisplay()
         
         
         measurements = monthlyMeasurements
@@ -257,19 +253,25 @@ class MeasurementsHistoryViewController: SuperViewController {
             }
         }
         
-        monthlyGraph.color = UIColor(hexString: "#9fd93f")
-        monthlyGraph.unit = unit
-        monthlyGraph.series = monthRangedSeries
-        monthlyGraph.setNeedsDisplay()
+//        monthlyGraph.color = UIColor(hexString: "#9fd93f")
+//        monthlyGraph.unit = unit
+//        monthlyGraph.series = monthRangedSeries
+//        monthlyGraph.setNeedsDisplay()
     }
-    /*
-    // MARK: - Navigation
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension MeasurementsHistoryViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
-    */
 
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MeasurementHistoryTableViewCell") as! MeasurementHistoryTableViewCell
+        
+        return cell
+    }
 }
