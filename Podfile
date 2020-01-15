@@ -18,7 +18,7 @@ target 'Prana' do
     pod 'IQKeyboardManagerSwift'
     pod 'MKProgress', '~> 1.0.9'
     pod 'Toaster'
-    
+    pod 'DropDown'
 end
 
 post_install do |installer|

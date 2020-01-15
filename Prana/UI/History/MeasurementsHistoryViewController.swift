@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DropDown
 
 class MeasurementsHistoryViewController: SuperViewController {
 
@@ -14,16 +15,36 @@ class MeasurementsHistoryViewController: SuperViewController {
     @IBOutlet weak var btnUnit: UIButton!    
     @IBOutlet weak var historyTableView: UITableView!
     
+    let unitDropDown = DropDown()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         historyTableView.estimatedRowHeight = 500
         
         btnUnit.titleLabel?.font = UIFont.bold(ofSize: 16)
-        ddArea.clickListener = { [unowned self] in
-            self.openBodyAreaPicker()
+        
+        // The view to which the drop down will appear on
+        unitDropDown.anchorView = btnUnit
+        unitDropDown.dataSource = ["INCHES", "CENTMETERS"]
+        unitDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            #if DEBUG
+            print("Selected item: \(item) at index: \(index)")
+            #endif
+            if index == 0 {
+                self.unit = .inch
+            } else {
+                self.unit = .cm
+            }
         }
-                
+        
+        // Will set a custom width instead of the anchor view width
+        unitDropDown.width = 200
+        
+//        ddArea.clickListener = { [unowned self] in
+//            self.openBodyAreaPicker()
+//        }
+        
 //        weeklyGraph.diaryClickHandler = { [unowned self] (id, note) in
 //            let vc = Utils.getStoryboardWithIdentifier(identifier: "DiaryViewController") as! DiaryViewController
 //            let date = self.wb.adding(.day, value: id)
@@ -34,7 +55,7 @@ class MeasurementsHistoryViewController: SuperViewController {
 //        }
         
         currentDate = Date()
-        part = .neck
+//        part = .neck
         unit = .inch
     }
     
@@ -59,33 +80,29 @@ class MeasurementsHistoryViewController: SuperViewController {
     }
     
     @IBAction func onChangeUnit(_ sender: Any) {
-        if unit == .inch {
-            unit = .cm
-        } else {
-            unit = .inch
-        }
+        unitDropDown.show()
     }
     
     func openBodyAreaPicker() {
-        tempPart = part
-        let alert = UIAlertController(style: .actionSheet, title: "Body Area", message: nil)
-        
-        let frameSizes: [Int] = (0 ..< keys.count).map { Int($0) }
-        let pickerViewValues: [[String]] = [frameSizes.map { values[$0] }]
-        let pickerViewSelectedValue: PickerViewViewController.Index = (column: 0, row: keys.index(of: tempPart) ?? 0)
-        
-        alert.addPickerView(values: pickerViewValues, initialSelection: pickerViewSelectedValue) { vc, picker, index, values in
-            DispatchQueue.main.async {
-                self.tempPart = self.keys[index.row]
-            }
-        }
-        alert.addAction(title: "Done", style: .default) { (_) in
-            self.part = self.tempPart
-        }
-        alert.addAction(title: "Cancel", style: .cancel) { (_) in
-            
-        }
-        alert.show(style: .prominent)
+//        tempPart = part
+//        let alert = UIAlertController(style: .actionSheet, title: "Body Area", message: nil)
+//
+//        let frameSizes: [Int] = (0 ..< keys.count).map { Int($0) }
+//        let pickerViewValues: [[String]] = [frameSizes.map { values[$0] }]
+//        let pickerViewSelectedValue: PickerViewViewController.Index = (column: 0, row: keys.index(of: tempPart) ?? 0)
+//
+//        alert.addPickerView(values: pickerViewValues, initialSelection: pickerViewSelectedValue) { vc, picker, index, values in
+//            DispatchQueue.main.async {
+//                self.tempPart = self.keys[index.row]
+//            }
+//        }
+//        alert.addAction(title: "Done", style: .default) { (_) in
+//            self.part = self.tempPart
+//        }
+//        alert.addAction(title: "Cancel", style: .cancel) { (_) in
+//
+//        }
+//        alert.show(style: .prominent)
     }
     
     var unit: MeasurementUnit = .inch {
@@ -185,12 +202,12 @@ class MeasurementsHistoryViewController: SuperViewController {
         .custom3,
     ]
     
-    var part: BMPosition = .neck {
-        didSet {
-            ddArea.title = bodyPart[part]!
-            reloadMeasurementData()
-        }
-    }
+//    var part: BMPosition = .neck {
+//        didSet {
+//            ddArea.title = bodyPart[part]!
+//            reloadMeasurementData()
+//        }
+//    }
     
     var tempPart: BMPosition!
     
@@ -200,27 +217,27 @@ class MeasurementsHistoryViewController: SuperViewController {
     func reloadMeasurementData() {
         
         var measurements = weeklyMeasurements
-        var parted = measurements.map { (object) -> (Date, Float, String?) in
-            let date = object.date
-            let value: Float = object.data[part] ?? 0
-            let diary = object.note
-            return (date, value, diary)
-        }
-        
-        var weekRangedSeries: [(Float, String?)] = []
-        
-        for i in 0...6 {
-            let day = wb.adding(.day, value: i)
-            let dayMea = parted.filter { (item) -> Bool in
-                let (date, _, _) = item
-                return Calendar.current.isDate(date, inSameDayAs: day)
-            }
-            if let mea = dayMea.last {
-                weekRangedSeries.append((mea.1, mea.2))
-            } else {
-                weekRangedSeries.append((0, nil))
-            }
-        }
+//        var parted = measurements.map { (object) -> (Date, Float, String?) in
+//            let date = object.date
+//            let value: Float = object.data[part] ?? 0
+//            let diary = object.note
+//            return (date, value, diary)
+//        }
+//
+//        var weekRangedSeries: [(Float, String?)] = []
+//
+//        for i in 0...6 {
+//            let day = wb.adding(.day, value: i)
+//            let dayMea = parted.filter { (item) -> Bool in
+//                let (date, _, _) = item
+//                return Calendar.current.isDate(date, inSameDayAs: day)
+//            }
+//            if let mea = dayMea.last {
+//                weekRangedSeries.append((mea.1, mea.2))
+//            } else {
+//                weekRangedSeries.append((0, nil))
+//            }
+//        }
         
 //        weeklyGraph.color = UIColor(hexString: "#9fd93f")
 //        weeklyGraph.unit = unit
@@ -228,31 +245,31 @@ class MeasurementsHistoryViewController: SuperViewController {
 //        weeklyGraph.setNeedsDisplay()
         
         
-        measurements = monthlyMeasurements
-        parted = measurements.map { (object) -> (Date, Float, String?) in
-            let date = object.date
-            let value: Float = object.data[part] ?? 0
-            let diary = object.note
-            return (date, value, diary)
-        }
+//        measurements = monthlyMeasurements
+//        parted = measurements.map { (object) -> (Date, Float, String?) in
+//            let date = object.date
+//            let value: Float = object.data[part] ?? 0
+//            let diary = object.note
+//            return (date, value, diary)
+//        }
         
         var monthRangedSeries: [Float] = []
         
-        let b = Calendar.current.dateComponents([.day], from: mb).day! - 1
-        let e = Calendar.current.dateComponents([.day], from: me).day! - 1
-        for i in b...e {
-            let day = mb.adding(.day, value: i)
-            let dayMea = parted.filter { (item) -> Bool in
-                let (date, _, _) = item
-                return Calendar.current.isDate(date, inSameDayAs: day)
-            }
-            if let mea = dayMea.last {
-                monthRangedSeries.append(mea.1)
-            } else {
-                monthRangedSeries.append(0)
-            }
-        }
-        
+//        let b = Calendar.current.dateComponents([.day], from: mb).day! - 1
+//        let e = Calendar.current.dateComponents([.day], from: me).day! - 1
+//        for i in b...e {
+//            let day = mb.adding(.day, value: i)
+//            let dayMea = parted.filter { (item) -> Bool in
+//                let (date, _, _) = item
+//                return Calendar.current.isDate(date, inSameDayAs: day)
+//            }
+//            if let mea = dayMea.last {
+//                monthRangedSeries.append(mea.1)
+//            } else {
+//                monthRangedSeries.append(0)
+//            }
+//        }
+//
 //        monthlyGraph.color = UIColor(hexString: "#9fd93f")
 //        monthlyGraph.unit = unit
 //        monthlyGraph.series = monthRangedSeries
