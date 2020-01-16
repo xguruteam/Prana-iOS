@@ -571,13 +571,13 @@ class Live: NSObject {
         
         enterFrameCount+=1; //AUG 1st NEW
         
-        if (enterFrameCount >= 20) {  //AUG 1st NEW
-            enterFrameCount = 0; //AUG 1st NEW
+//        if (enterFrameCount >= 20) {  //AUG 1st NEW
+//            enterFrameCount = 0; //AUG 1st NEW
             if (timeElapsed >= 60) { //AUG 1st NEW
                 delegates.forEach { $0.liveNew?(oneMinuteRespirationRate: calculateOneMinuteRespRate()) }
             } //AUG 1st NEW
             
-        } //AUG 1st NEW
+//        } //AUG 1st NEW
         
 
         delegates.forEach { $0.liveMainLoop?(timeElapsed: timeElapsed, sensorData: sensorData) }
@@ -701,16 +701,16 @@ class Live: NSObject {
     func calculateRealTimeAndSessionAverageRR() {
         whenBreathsStart.append(timeElapsed);
         
-        if (whenBreathsStart.count == 1) {
-            if ((whenBreathsStart[0] - 0) > 0) {
-                respRate = 1 * (60.0 / (whenBreathsStart[0] - 0));
-                respRate = roundNumber(respRate, 10);
-            }
-        }
+//        if (whenBreathsStart.count == 1) {
+//            if ((whenBreathsStart[0] - 0) > 0) {
+//                respRate = 1 * (60.0 / (whenBreathsStart[0] - 0));
+//                respRate = roundNumber(respRate, 10);
+//            }
+//        }
             
-        else if (whenBreathsStart.count >= 2) {
+        if (whenBreathsStart.count >= 2) {
             let lastIndex = whenBreathsStart.count-1;
-            breathCount+=1; //only start to increment this when there are at least 2 breath starts (as complete breath is defined by 2 breath starts), Big bug previously, not counting stuck breaths towards breathCount, so every time there is a VALID inhale, increase this count even if stuck
+//            breathCount+=1; //only start to increment this when there are at least 2 breath starts (as complete breath is defined by 2 breath starts), Big bug previously, not counting stuck breaths towards breathCount, so every time there is a VALID inhale, increase this count even if stuck
             
             if ((whenBreathsStart[lastIndex] - whenBreathsStart[lastIndex-1]) > 0) {
                 respRate = 1 * (60.0 / (whenBreathsStart[lastIndex] - whenBreathsStart[lastIndex-1]));
@@ -757,7 +757,7 @@ class Live: NSObject {
                 break
             }
         }
-        return breathsInLastMinute - 1;
+        return breathsInLastMinute;
         
     }
     
@@ -857,6 +857,8 @@ class Live: NSObject {
                     
                     inhaleIsValid = 1; //AUG 1st NEW
                     
+                    breathCount += 1;
+                    
                     calculateRealTimeAndSessionAverageRR(); //AUG 1st NEW
                     
                     delegates.forEach { $0.liveNew?(breathCount: breathCount) }
@@ -913,7 +915,7 @@ class Live: NSObject {
         
         if (up == reversalThreshold+1) {
             
-            if (downStreak == 1) { //downStreak must have been previously set, thus a bottom reversal has just been found
+            if (downStreak == 1 || breathCount == 0) { //downStreak must have been previously set, thus a bottom reversal has just been found
                 
                 downStreak = 0;
                 bottomReversalFound = 1;
@@ -977,7 +979,7 @@ class Live: NSObject {
                 
                 //if (DC.appMode != 3 && DC.appMode != 1 ) { // AUG 1st REMOVED
                 //if ( ((bottomReversalY - topReversalY < minBreathRange) && stuckBreaths > 0) || (yStartPos - topReversalY < minBreathRange) ) { //AUG 1st REMOVED, minBreathRange/3 changed to just minBreathRange (now just setting minBreathRange in BT and VT and PT)
-                if (inhaleIsValid == 0) {  //AUG 1st ADDED
+                if (inhaleIsValid == 0 && breathCount > 2) {  //AUG 1st ADDED
                     bottomReversalFound = 0; //AUG 1st ADDED
                     return; // Require a min breath range when breath is stuck, otherwise breath holding does not work and breath range sensitivity can artificially spike due to noise
                 }
@@ -1056,6 +1058,7 @@ class Live: NSObject {
                     }
                     
                     delegates.forEach { $0.liveNew?(endBreathLineY: endBreathY) }
+                    delegates.forEach { $0.liveNew?(bottomReversalLineY: 5000) }
 //                    endBreathLine.y = endBreathY;
 //                    bottomReversalLine.y = 5000; //AUG 1st NEW  Hide this line when endBreath line appears, idea is green line appears when valid breath starts, and yellow line appears then when exhale starts (and green line disappears)
                     
@@ -1201,7 +1204,11 @@ class Live: NSObject {
         breathTopExceeded = 0; //JULY 13th:NEW1i
         stuckBreaths = 0; //JULY 13th:NEW1i
         //minBreathRange = (fullBreathGraphHeight/16)/2; //AUG 1st REMOVED (setting it below),  This is important because resolutions on devices are different. Previously it was set to 25, which is an absolute value. Now it is set relative to the fullBreathGraphHeight (whatever that is set to for the particular device, it was 400 on desktop)
-        
+        upStreak = 0; //Jan 8th NEW
+        downStreak = 0; //Jan 8th NEW
+        bottomReversalFound = 0; //Jan 8th NEW
+        topReversalFound = 0; //Jan 8th NEW
+
         
         if (breathLevel == 1) {  //AUG 1st NEW
             smoothBreathingCoefBaseLevel = 0.15;  //AUG 1st NEW
@@ -1224,6 +1231,8 @@ class Live: NSObject {
             minBreathRange = (fullBreathGraphHeight/16)/2; //AUG 1st NEW
             minBreathRangeForStuck = (fullBreathGraphHeight/16); //AUG 1st NEW
         }     //AUG 1st NEW
+        delegates.forEach { $0.liveNew?(bottomReversalLineY: 5000) }
+        delegates.forEach { $0.liveNew?(endBreathLineY: 5000) }
     }
     
 }

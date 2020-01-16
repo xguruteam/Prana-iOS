@@ -267,7 +267,7 @@
 	
 		public function displayDebugStats():void  {
 			
-			testUI.indicator1.txt1.text = "strainGauge = " + String(roundNumber(strainGauge,100000)) + "  magneticAngle = " + String(roundNumber(rotationSensor[count],1000)) + "  " + String(useRotationSensor);
+			testUI.indicator1.txt1.text = "strainGauge = " + String(roundNumber(strainGauge,100000)) + "  magneticAngle = " + String(roundNumber(rotationSensor[count],1000)) + "  " + String(useRotationSensor) + " avgRespRate = " + String(avgRespRate);
 			testUI.indicator2.txt1.text = "Z axis = " + String(roundNumber(calibrationRR,1000)) + "  Y axis = " + String(roundNumber(ySensor[count],1000)) + "       X axis = " + String(roundNumber(xSensor[count],1000)) + "     " + String(roundNumber(currentPostureAngle[count],1000)) + " breaths =  " + String(breathCount);
 			testUI.indicator3.txt1.text = String(roundNumber(currentStrainGaugeHighest,100000)) + "  " + String(roundNumber(currentStrainGaugeLowest,100000)) + "  " + String(roundNumber(currentStrainGaugeHighest - currentStrainGaugeLowest,100000)) + "  " + String(breathTopExceeded) + "  " + String(lightBreathsInARow) + " noisy " + String(dampingLevel) + " stuck " + String(stuckBreaths);
 			//testUI.indicator4.txt1.text =  " dampX = " + roundNumber(dampX,10) + " dampY = " + roundNumber(dampY,10) + " dampZ = " + roundNumber(dampY,10) + "  dampHistory = " + roundNumber(dampHistory[count],10);
@@ -745,13 +745,13 @@
 			
 			enterFrameCount++; //AUG 1st NEW
 			
-			if (enterFrameCount >= 20) {  //AUG 1st NEW
-				enterFrameCount = 0; //AUG 1st NEW
-				if (timeElapsed >= 60) { //AUG 1st NEW
-					postureUI.oneMinuteRespirationRateIndicator.text = String(calculateOneMinuteRespRate()); //AUG 1st NEW
-				} //AUG 1st NEW
-				
+			//if (enterFrameCount >= 20) {  //AUG 1st NEW //Jan 8th REMOVED
+			//	enterFrameCount = 0; //AUG 1st NEW //Jan 8th REMOVED
+			if (timeElapsed >= 60) { //AUG 1st NEW
+				postureUI.oneMinuteRespirationRateIndicator.text = String(calculateOneMinuteRespRate()); //AUG 1st NEW
 			} //AUG 1st NEW
+				
+			//} //AUG 1st NEW //Jan 8th REMOVED
 			
 			
 									
@@ -876,18 +876,18 @@
 		//Aug 1st New Function
 		public function calculateRealTimeAndSessionAverageRR():void {			
 			
-			whenBreathsStart.push(timeElapsed);					
+			whenBreathsStart.push(timeElapsed);				
 			
-			if (whenBreathsStart.length == 1) {
-				if ((whenBreathsStart[0] - 0) > 0) {
-					respRate = 1 * (60.0 / (whenBreathsStart[lastIndex] - 0)); 
-					respRate = roundNumber(respRate, 10);
-				}	
-			}
+			//if (whenBreathsStart.length == 1) { //Jan 8th REMOVED
+				//if ((whenBreathsStart[0] - 0) > 0) { //Jan 8th REMOVED
+					//respRate = 1 * (60.0 / (whenBreathsStart[lastIndex] - 0));  //Jan 8th REMOVED
+					//respRate = roundNumber(respRate, 10); //Jan 8th REMOVED
+				//}	 //Jan 8th REMOVED
+			//} //Jan 8th REMOVED
 			
-			else if (whenBreathsStart.length >= 2) {
-				var lastIndex:int = whenBreathsStart.length-1;
-				breathCount++; //only start to increment this when there are at least 2 breath starts (as complete breath is defined by 2 breath starts), Big bug previously, not counting stuck breaths towards breathCount, so every time there is a VALID inhale, increase this count even if stuck
+			if (whenBreathsStart.length >= 2) { //Jan 8th CHANGED, removed the else
+				var lastIndex:int = whenBreathsStart.length-1; 
+				//breathCount++; //only start to increment this when there are at least 2 breath starts (as complete breath is defined by 2 breath starts), Big bug previously, not counting stuck breaths towards breathCount, so every time there is a VALID inhale, increase this count even if stuck  // Jan 8th REMOVED, moved this line up, so that first breath is counted!
 				
 				if ((whenBreathsStart[lastIndex] - whenBreathsStart[lastIndex-1]) > 0) {
 					respRate = 1 * (60.0 / (whenBreathsStart[lastIndex] - whenBreathsStart[lastIndex-1])); 
@@ -970,7 +970,7 @@
 					break; 
 				} 
 			} 
-			return(breathsInLastMinute-1);  //AUG 1st CHANGED, it's -1 because it takes 2 breath starts to enclose the first breath
+			return(breathsInLastMinute);  //AUG 1st CHANGED, it's -1 because it takes 2 breath starts to enclose the first breath  //Jan 8th CHANGED, removed the -1, now counting # of inhales as breaths in last minute
 			
 		}
 		
@@ -1075,6 +1075,8 @@
 						
 						inhaleIsValid = 1; //AUG 1st NEW
 						
+						breathCount++; //Jan 8th NEW moved this line here so that first inhale is counted
+						
 						calculateRealTimeAndSessionAverageRR(); //AUG 1st NEW					
 						
 						postureUI.howManyBreaths.text = String(breathCount); //AUG 1st NEW REMOVE THIS, for testing only
@@ -1128,7 +1130,7 @@
 
 			if (up == reversalThreshold+1) { 			
 				
-				if (downStreak == 1) { //downStreak must have been previously set, thus a bottom reversal has just been found
+				if (downStreak == 1 || breathCount == 0) { //downStreak must have been previously set, thus a bottom reversal has just been found // Jan 8th 2020, CHANGED so first breath is not skipped
 					
 					downStreak = 0;
 					bottomReversalFound = 1;	
@@ -1173,7 +1175,7 @@
 			
 			if (down == (reversalThreshold+1)) { 
 				
-				if (upStreak == 1) { //upStreak must have been previously set, thus a top reversal has just been found
+				if (upStreak == 1) { //upStreak must have been previously set, thus a top reversal has just been found  
 					
 					upStreak = 0;										
 					
@@ -1188,7 +1190,7 @@
 					
 					//if (DC.appMode != 3 && DC.appMode != 1 ) { // AUG 1st REMOVED
 					//if ( ((bottomReversalY - topReversalY < minBreathRange) && stuckBreaths > 0) || (yStartPos - topReversalY < minBreathRange) ) { //AUG 1st REMOVED, minBreathRange/3 changed to just minBreathRange (now just setting minBreathRange in BT and VT and PT)
-					if (inhaleIsValid == 0) {  //AUG 1st ADDED		
+					if (inhaleIsValid == 0 && breathCount > 2) {  //AUG 1st ADDED  //Jan 8th CHANGED Needed so that first 2 breaths are counted
 						bottomReversalFound = 0; //AUG 1st ADDED							
 						return; // Require a min breath range when breath is stuck, otherwise breath holding does not work and breath range sensitivity can artificially spike due to noise
 					}
@@ -1533,7 +1535,10 @@
 			breathTopExceeded = 0; //JULY 13th:NEW1i
 			stuckBreaths = 0; //JULY 13th:NEW1i
 			//minBreathRange = (fullBreathGraphHeight/16)/2; //AUG 1st REMOVED (setting it below),  This is important because resolutions on devices are different. Previously it was set to 25, which is an absolute value. Now it is set relative to the fullBreathGraphHeight (whatever that is set to for the particular device, it was 400 on desktop)
-					
+			upStreak = 0; //Jan 8th NEW		
+			downStreak = 0; //Jan 8th NEW	
+			bottomReversalFound = 0; //Jan 8th NEW
+			topReversalFound = 0; //Jan 8th NEW
 			
 			if (postureLevel == 1) {  //AUG 1st NEW 
 				postureUI.postureSelector.level1.selected = true; //AUG 1st NEW 
