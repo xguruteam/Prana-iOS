@@ -445,7 +445,7 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
         if isTutorial == false {
             currentSessionObject?.floorSessionDuration()
             
-            if let session = currentSessionObject, session.duration > 0 {
+            if let session = currentSessionObject, session.duration > 60 {
                 if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
                     dataController.addRecord(training: session)
                 }

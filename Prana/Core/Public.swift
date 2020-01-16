@@ -51,7 +51,7 @@ func roundFloat(_ value: Float, point: Int) -> Any {
         return per
     }
     let per = Float(Int(value * Float(powf(10.0, Float(point))))) / Float(powf(10.0, Float(point)))
-    if per == floorf(per) {
+    if per == roundf(per) {
         return Int(per)
     }
     
@@ -81,4 +81,13 @@ func getMonthlyRange(for date: Date) -> (Date, Date) {
     end = Calendar.current.startOfDay(for: end)
     
     return (begin, end)
+}
+
+func getMinutesDescription(for seconds: Int) -> String {
+    let minutes = seconds / 60
+    let module = seconds % 60
+    if module == 0 {
+        return "\(minutes)"
+    }
+    return "\(minutes):\(module)"
 }

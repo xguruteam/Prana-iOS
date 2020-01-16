@@ -151,7 +151,7 @@ class TabTrainViewController: UIViewController {
         if let sessions = dataController?.fetchDailySessions(date: Date()).filter({ (object) -> Bool in
             return object is TrainingSession
         }) as? [TrainingSession], let _ = sessions.first {
-            let (breathCount, postureElapsed, mindfuls, uprightDuration, breathingElapsed) = sessions.reduce((0, 0, 0, 0, 0)) { (acc, session) -> (Int, Int, Int, Int, Int) in
+            let (breathCount, postureElapsed, mindfuls, uprightDuration, breathingElapsed, postureElapsedFloored, breathingElapsedFloored) = sessions.reduce((0, 0, 0, 0, 0, 0, 0)) { (acc, session) -> (Int, Int, Int, Int, Int, Int, Int) in
                 print("session date: \(session.startedAt), duration: \(session.duration)")
                 var result = acc
                 
@@ -164,10 +164,12 @@ class TabTrainViewController: UIViewController {
                     result.0 += breaths
                     result.2 += mindfuls
                     result.4 += session.duration
+                    result.6 += session.duration / 60
                 }
                 
                 if session.kind == 0 || session.kind == 2 {
                     result.1 += session.duration
+                    result.5 += session.duration / 60
 
                     let slouchDuration = session.sumSlouches().0
                     let uprightDuration = session.duration - slouchDuration
@@ -193,19 +195,19 @@ class TabTrainViewController: UIViewController {
                 lblPostureResult.text = "0% Upright"
             }
             
-            lblMindfulBreathTime.text = "\(breathingElapsed / 60)"
-            lblUprightPostureTime.text = "\(postureElapsed / 60)"
+            lblMindfulBreathTime.text = "\(breathingElapsedFloored)"
+            lblUprightPostureTime.text = "\(postureElapsedFloored)"
             
             if let currentProgram = dataController?.currentProgram {
                 if currentProgram.type == .fourteen {
                     let dayNumber = dataController?.numberOfDaysPast ?? 0
                     let (breathingGoal, postureGoal, _) = fourteenGoals[dayNumber]
-                    breathCircle.progress = CGFloat(breathingElapsed / 60) / CGFloat(breathingGoal)
-                    postureCircle.progress = CGFloat(postureElapsed / 60) / CGFloat(postureGoal)
+                    breathCircle.progress = CGFloat(breathingElapsedFloored) / CGFloat(breathingGoal)
+                    postureCircle.progress = CGFloat(postureElapsedFloored) / CGFloat(postureGoal)
                 }
                 else {
-                    breathCircle.progress = CGFloat(breathingElapsed / 60) / CGFloat(dataController!.breathingGoals)
-                    postureCircle.progress = CGFloat(postureElapsed / 60) / CGFloat(dataController!.postureGoals)
+                    breathCircle.progress = CGFloat(breathingElapsedFloored) / CGFloat(dataController!.breathingGoals)
+                    postureCircle.progress = CGFloat(postureElapsedFloored) / CGFloat(dataController!.postureGoals)
                 }
             }
             

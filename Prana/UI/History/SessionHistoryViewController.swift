@@ -96,7 +96,7 @@ class SessionHistoryViewController: SuperViewController {
         
         dailyRows = []
         
-        for week in ((0...6).map { Int($0) }.reversed()) {
+        for week in ((0...6).map { Int($0) }) {
             let day = begin.adding(.day, value: week)
             
             let daySessions = currentSessions.filter { (session) -> Bool in
@@ -176,14 +176,14 @@ class SessionHistoryViewController: SuperViewController {
         }
         
         return """
-        Breath Training Time Completed: \(breathTime / 60) Mins
+        Breath Training Time Completed: \(getMinutesDescription(for: breathTime)) Mins
         Mindful Breaths: \(roundFloat(mindfulPercent, point: 1))%
-        Mindful Breath Minutes: \(roundFloat(Float(mindfulTime) / 60, point: 1))
+        Mindful Breath Time: \(getMinutesDescription(for: mindfulTime)) Mins
         Average RR: \(roundFloat(Float(rrSum), point: 2))
         
-        Posture Training Time Completed: \(postureTime / 60) Mins
+        Posture Training Time Completed: \(getMinutesDescription(for: postureTime)) Mins
         Upright Posture: \(roundFloat(uprightPercent, point: 1))%
-        Upright Posture Minutes: \(roundFloat(Float(uprightTime) / 60, point: 1))
+        Upright Posture Time: \(getMinutesDescription(for: uprightTime)) Mins
         """
     }
     
