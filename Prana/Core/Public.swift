@@ -73,7 +73,7 @@ func getWeeklyRange(for date: Date) -> (Date, Date) {
 func getMonthlyRange(for date: Date) -> (Date, Date) {
     var begin = Calendar.current.startOfMonth(date)
     var last = Calendar.current.endOfMonth(date)
-    guard var end = Calendar.current.date(byAdding: .day, value: 7, to: last) else {
+    guard var end = Calendar.current.date(byAdding: .day, value: 1, to: last) else {
         return (begin, Calendar.current.endOfWeek(date))
     }
     

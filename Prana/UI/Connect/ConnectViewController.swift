@@ -212,6 +212,7 @@ extension ConnectViewController: PranaDeviceManagerDelegate {
         #if TEST_MODE
         if device.name.contains("Prana Tech")
             || device.name.contains("iPhone")
+            || device.name.contains("iPad")
             || device.name.contains("iPod touch") {
             stopScanPrana()
             connectPrana(device)

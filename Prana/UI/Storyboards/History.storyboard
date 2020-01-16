@@ -665,17 +665,11 @@ Upright Posture: 88%, Slouches: 5, Lower Back</string>
                                 <color key="textColor" red="0.25490196079999999" green="0.31764705879999999" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select which body area to view measurement history for." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ygh-Dw-Zze">
-                                <rect key="frame" x="13.5" y="79.5" width="348" height="15.5"/>
-                                <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
-                                <color key="textColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rfr-zU-eoD">
-                                <rect key="frame" x="0.0" y="105" width="375" height="562"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rfr-zU-eoD">
+                                <rect key="frame" x="0.0" y="79.5" width="375" height="527.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MeasurementHistoryTableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="500" id="X5K-GP-Bdd" customClass="MeasurementHistoryTableViewCell" customModule="Prana" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MeasurementHistoryTableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MeasurementHistoryTableViewCell" rowHeight="500" id="X5K-GP-Bdd" customClass="MeasurementHistoryTableViewCell" customModule="Prana" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="500"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X5K-GP-Bdd" id="MbI-al-MEa">
@@ -714,7 +708,6 @@ Upright Posture: 88%, Slouches: 5, Lower Back</string>
                                                             </constraints>
                                                             <state key="normal" image="ic_left_arrow"/>
                                                             <connections>
-                                                                <action selector="onWeekLeft:" destination="jP9-Kr-ZT9" eventType="touchUpInside" id="IDB-8G-U3N"/>
                                                                 <action selector="onWeekLeft:" destination="X5K-GP-Bdd" eventType="touchUpInside" id="uMN-Yp-WQt"/>
                                                             </connections>
                                                         </button>
@@ -726,7 +719,6 @@ Upright Posture: 88%, Slouches: 5, Lower Back</string>
                                                             </constraints>
                                                             <state key="normal" image="ic_right_arrow"/>
                                                             <connections>
-                                                                <action selector="onWeekRight:" destination="jP9-Kr-ZT9" eventType="touchUpInside" id="a9j-dy-bqD"/>
                                                                 <action selector="onWeekRight:" destination="X5K-GP-Bdd" eventType="touchUpInside" id="xk5-2O-rgW"/>
                                                             </connections>
                                                         </button>
@@ -758,7 +750,6 @@ Upright Posture: 88%, Slouches: 5, Lower Back</string>
                                                             <state key="normal" image="ic_left_arrow"/>
                                                             <connections>
                                                                 <action selector="onMonthLeft:" destination="X5K-GP-Bdd" eventType="touchUpInside" id="lWY-eE-XQk"/>
-                                                                <action selector="onMonthLeft:" destination="jP9-Kr-ZT9" eventType="touchUpInside" id="lmE-FZ-8bP"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGD-Ig-JjS">
@@ -770,7 +761,6 @@ Upright Posture: 88%, Slouches: 5, Lower Back</string>
                                                             <state key="normal" image="ic_right_arrow"/>
                                                             <connections>
                                                                 <action selector="onMonthRight:" destination="X5K-GP-Bdd" eventType="touchUpInside" id="BkT-7v-Ogx"/>
-                                                                <action selector="onMonthRight:" destination="jP9-Kr-ZT9" eventType="touchUpInside" id="JJT-Lq-Szv"/>
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monthly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u0R-bX-pix">
@@ -833,6 +823,10 @@ Upright Posture: 88%, Slouches: 5, Lower Back</string>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="jP9-Kr-ZT9" id="MbC-IV-JZW"/>
+                                    <outlet property="delegate" destination="jP9-Kr-ZT9" id="PwC-TB-Zad"/>
+                                </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QDk-5H-aR9">
                                 <rect key="frame" x="16" y="617" width="343" height="40"/>
@@ -860,16 +854,13 @@ Upright Posture: 88%, Slouches: 5, Lower Back</string>
                             <constraint firstItem="gdi-Do-izM" firstAttribute="top" secondItem="OVf-iY-4oB" secondAttribute="bottom" id="Bil-3E-eeg"/>
                             <constraint firstItem="rfr-zU-eoD" firstAttribute="leading" secondItem="KtL-h1-aLK" secondAttribute="leading" id="MVv-eZ-nNz"/>
                             <constraint firstItem="KtL-h1-aLK" firstAttribute="bottom" secondItem="QDk-5H-aR9" secondAttribute="bottom" constant="10" id="Qep-tD-rfL"/>
-                            <constraint firstItem="rfr-zU-eoD" firstAttribute="top" secondItem="ygh-Dw-Zze" secondAttribute="bottom" constant="10" id="T8b-Vb-d0L"/>
+                            <constraint firstItem="rfr-zU-eoD" firstAttribute="top" secondItem="gdi-Do-izM" secondAttribute="bottom" constant="10" id="T8b-Vb-d0L"/>
                             <constraint firstItem="QDk-5H-aR9" firstAttribute="leading" secondItem="KtL-h1-aLK" secondAttribute="leading" constant="16" id="YkM-yi-2nk"/>
-                            <constraint firstItem="ygh-Dw-Zze" firstAttribute="leading" secondItem="KtL-h1-aLK" secondAttribute="leading" constant="13.5" id="ZnE-3w-JuR"/>
                             <constraint firstItem="QDk-5H-aR9" firstAttribute="centerX" secondItem="KtL-h1-aLK" secondAttribute="centerX" id="bFD-x2-kCF"/>
                             <constraint firstItem="gdi-Do-izM" firstAttribute="centerX" secondItem="KtL-h1-aLK" secondAttribute="centerX" id="bxP-OL-anc"/>
                             <constraint firstItem="KtL-h1-aLK" firstAttribute="trailing" secondItem="rfr-zU-eoD" secondAttribute="trailing" id="qDw-YW-zfd"/>
-                            <constraint firstItem="ygh-Dw-Zze" firstAttribute="top" secondItem="gdi-Do-izM" secondAttribute="bottom" constant="10" id="ua6-2R-PeH"/>
-                            <constraint firstItem="KtL-h1-aLK" firstAttribute="bottom" secondItem="rfr-zU-eoD" secondAttribute="bottom" id="udT-os-63b"/>
+                            <constraint firstItem="QDk-5H-aR9" firstAttribute="top" secondItem="rfr-zU-eoD" secondAttribute="bottom" constant="10" id="udT-os-63b"/>
                             <constraint firstItem="OVf-iY-4oB" firstAttribute="top" secondItem="rKB-fb-KFw" secondAttribute="top" constant="30" id="uzR-lC-m0D"/>
-                            <constraint firstItem="ygh-Dw-Zze" firstAttribute="centerX" secondItem="KtL-h1-aLK" secondAttribute="centerX" id="wHk-vV-F9N"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="KtL-h1-aLK"/>
                     </view>

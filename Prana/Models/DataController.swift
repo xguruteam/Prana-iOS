@@ -468,8 +468,7 @@ class DataController {
                 guard object.type == "BM" else { return false }
                 
                 guard let createdAt = object.time else { return false }
-                let diffInDays = Calendar.current.dateComponents([.day], from: createdAt, to: date).day
-                guard diffInDays == 0 else { return false }
+                guard Calendar.current.isDateInToday(createdAt) else { return false }
                 return true
             }.first
             
@@ -606,8 +605,7 @@ class DataController {
                 guard object.type == "BM" else { return false }
                 
                 guard let createdAt = object.time else { return false }
-                let diffInDays = Calendar.current.dateComponents([.day], from: createdAt, to: date).day
-                guard diffInDays == 0 else { return false }
+                guard Calendar.current.isDateInToday(createdAt) else { return false }
                 return true
                 }.map { (object) -> Measurement? in
                     let data = object.data!
@@ -633,8 +631,7 @@ class DataController {
         guard let managedContext = managedObjectContext else { return [] }
         let fetchRequest = NSFetchRequest<LocalDB>(entityName: "LocalDB")
         
-        let begin = date.previous(.monday, considerToday: true)
-        let end = date.next(.sunday, considerToday: true)
+        let (begin, end) = getWeeklyRange(for: date)
         
         do {
             let result = try managedContext.fetch(fetchRequest)
@@ -666,8 +663,7 @@ class DataController {
         guard let managedContext = managedObjectContext else { return [] }
         let fetchRequest = NSFetchRequest<LocalDB>(entityName: "LocalDB")
         
-        let begin = date.beginning(of: .month)!
-        let end = date.end(of: .month)!
+        let (begin, end) = getMonthlyRange(for: date)
         
         do {
             let result = try managedContext.fetch(fetchRequest)
@@ -686,6 +682,64 @@ class DataController {
                     }
                     return Measurement(date: Date(), note: nil, data: [:])
             }
+            return sessions
+            
+        } catch let error as NSError {
+            NSLog("Could not fetch readings. \(error), \(error.userInfo)")
+        }
+        
+        return []
+    }
+    
+    let bmkeys: [BMPosition] = [
+        .neck,
+        .shoulders,
+        .chest,
+        .waist,
+        .hips,
+        .larm,
+        .lfarm,
+        .lwrist,
+        .rarm,
+        .rfarm,
+        .rwrist,
+        .lthigh,
+        .lcalf,
+        .rthigh,
+        .rcalf,
+        .custom1,
+        .custom2,
+        .custom3,
+    ]
+    
+    func fetchMeasuredBodyPart() -> [BMPosition] {
+        guard let managedContext = managedObjectContext else { return [] }
+        let fetchRequest = NSFetchRequest<LocalDB>(entityName: "LocalDB")
+        
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            
+            let sessions = result.filter { (object) -> Bool in
+                guard object.type == "BM" else { return false }
+                return true
+                }
+                .reduce([], { (bodyParts, object) -> [BMPosition] in
+                    let data = object.data!
+                    do {
+                        let measurement = try JSONDecoder().decode(Measurement.self, from: data.data(using: .utf8)!)
+                        var newParts: [BMPosition] = []
+                        newParts.append(contentsOf: bodyParts)
+                        newParts.append(contentsOf: measurement.data.keys)
+                        return Array(Set(newParts)).sorted(by: { (first, second) -> Bool in
+                            let index1 = bmkeys.firstIndex(of: first) ?? 0
+                            let index2 = bmkeys.firstIndex(of: second) ?? 0
+                            return index1 < index2
+                        })
+                    } catch {
+                        Crashlytics.sharedInstance().recordError(error)
+                    }
+                    fatalError("Can't parse body measurement data.")
+                })
             return sessions
             
         } catch let error as NSError {
