@@ -48,6 +48,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Connect your ios device to the Prana Tech wellness device</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Connect your ios device to the Prana Tech wellness device</string>
 	<key>UIAppFonts</key>

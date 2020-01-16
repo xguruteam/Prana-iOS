@@ -96,6 +96,7 @@ class TutorialVisualViewController: UIViewController {
         vc.maxSubPattern = 34
         vc.patternTitle = patternNames[vc.whichPattern].0
         //        UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+        vc.modalPresentationStyle = .fullScreen
         self.present(vc, as: .landscape, curtainColor: .white)
         //        self.present(vc, animated: false, completion: nil)
     }
@@ -108,6 +109,7 @@ class TutorialVisualViewController: UIViewController {
         }
         
         let navVC = UINavigationController(rootViewController: firstVC)
+        navVC.modalPresentationStyle = .fullScreen
         self.present(navVC, animated: true, completion: nil)
     }
 }

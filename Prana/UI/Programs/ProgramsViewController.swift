@@ -201,6 +201,7 @@ class ProgramsViewController: UIViewController {
             vc.type = .session
             vc.session = lastSession
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100), execute: {
+                vc.modalPresentationStyle = .fullScreen
                 self.present(vc, animated: true, completion: nil)
             })
         }
@@ -439,6 +440,7 @@ class ProgramsViewController: UIViewController {
         let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ChargingGuideViewController") as! ChargingGuideViewController
         firstVC.isTutorial = false
         let navVC = UINavigationController(rootViewController: firstVC)
+        navVC.modalPresentationStyle = .fullScreen
         self.present(navVC, animated: true, completion: nil)
     }
     
@@ -449,6 +451,7 @@ class ProgramsViewController: UIViewController {
             self.startSession()
         }
         let navVC = UINavigationController(rootViewController: firstVC)
+        navVC.modalPresentationStyle = .fullScreen
         self.present(navVC, animated: true, completion: nil)
     }
     
@@ -573,6 +576,7 @@ class ProgramsViewController: UIViewController {
                     }
                 }
                 
+                vc.modalPresentationStyle = .fullScreen
                 self.present(vc, animated: true) {
                     
                 }
@@ -637,6 +641,7 @@ class ProgramsViewController: UIViewController {
                         fatalError()
                     }
                 }
+                vc.modalPresentationStyle = .fullScreen
                 self.present(vc, as: .landscape, curtainColor: .white)
             }
         }

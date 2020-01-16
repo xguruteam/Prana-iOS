@@ -58,6 +58,7 @@ class TutorialWearUpperchestViewController: UIViewController {
         }
 
         let navVC = UINavigationController(rootViewController: firstVC)
+        navVC.modalPresentationStyle = .fullScreen
         self.present(navVC, animated: true, completion: nil)
     }
     

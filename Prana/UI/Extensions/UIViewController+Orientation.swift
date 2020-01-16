@@ -24,6 +24,7 @@ extension UIViewController {
     let landscapeViewController = OrientationLockController(rootViewController: viewControllerToPresent, targetOrientationMask: orientationMask)
     let curtainViewController = CurtainViewController(rootViewController: landscapeViewController)
     curtainViewController.view.backgroundColor = curtainColor
+    curtainViewController.modalPresentationStyle = .fullScreen
     present(curtainViewController, animated: true, completion: nil)
   }
   
@@ -65,6 +66,7 @@ class OrientationLockController: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     if isFirstAppeared {
+        rootViewController.modalPresentationStyle = .fullScreen
       self.present(rootViewController, animated: false, completion: nil)
       isFirstAppeared = false
     } else {
@@ -104,6 +106,7 @@ class CurtainViewController: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     if isFirstAppeared {
+        rootViewController.modalPresentationStyle = .fullScreen
       present(rootViewController, animated: false, completion: nil)
       isFirstAppeared = false
     } else {

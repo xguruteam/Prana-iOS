@@ -22,6 +22,10 @@ class MeasurementsHistoryViewController: SuperViewController {
         historyTableView.estimatedRowHeight = 500
         
         btnUnit.titleLabel?.font = UIFont.bold(ofSize: 16)
+        btnUnit.setImage(UIImage(named: "ic_arrow_down_white"), for: .normal)
+        btnUnit.tintColor = .white
+        btnUnit.semanticContentAttribute = .forceRightToLeft
+        btnUnit.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -20)
         
         // The view to which the drop down will appear on
         unitDropDown.anchorView = btnUnit
@@ -35,6 +39,7 @@ class MeasurementsHistoryViewController: SuperViewController {
             } else {
                 self.unit = .cm
             }
+            self.btnUnit.setTitle(item, for: .normal)
         }
         
         // Will set a custom width instead of the anchor view width

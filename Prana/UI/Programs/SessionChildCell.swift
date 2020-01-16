@@ -246,6 +246,7 @@ class SessionChildCell: UITableViewCell {
         let nav = UINavigationController(rootViewController: vc)
         
         let topVC = self.topViewControllerWithRootViewController(rootViewController: UIApplication.shared.keyWindow?.rootViewController)
+        nav.modalPresentationStyle = .fullScreen
         topVC?.present(nav, animated: true, completion: nil)
         
 //        tempSessionPattern = sessionPattern

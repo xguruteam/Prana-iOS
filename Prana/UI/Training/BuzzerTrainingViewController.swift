@@ -455,6 +455,7 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
                 vc.type = .session
                 vc.session = session
                 
+                vc.modalPresentationStyle = .fullScreen
                 self.present(vc, animated: true, completion: nil)
             }
         }

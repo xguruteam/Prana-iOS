@@ -223,6 +223,7 @@ class TabTrainViewController: UIViewController {
 
     @IBAction func onTrainClick(_ sender: UIButton) {
         let firstVC = Utils.getStoryboardWithIdentifier(name: "BreathingPosture", identifier: "ProgramsViewController")
+        firstVC.modalPresentationStyle = .fullScreen
         self.present(firstVC, animated: true, completion: nil)
     }
     
@@ -238,6 +239,7 @@ class TabTrainViewController: UIViewController {
     
     func gotoTracking() {
         let vc = Utils.getStoryboardWithIdentifier(name: "BreathingPosture", identifier: "PassiveTrackingViewController") as! PassiveTrackingViewController
+        vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
     
@@ -254,6 +256,7 @@ class TabTrainViewController: UIViewController {
     func gotoLiveGraph() {
         let firstVC = Utils.getStoryboardWithIdentifier(name: "BreathingPosture", identifier: "LiveGraphViewController")
         let navVC = UINavigationController(rootViewController: firstVC)
+        navVC.modalPresentationStyle = .fullScreen
         self.present(navVC, animated: true, completion: nil)
     }
     
@@ -282,6 +285,7 @@ class TabTrainViewController: UIViewController {
         }
         
         let navVC = UINavigationController(rootViewController: firstVC)
+        navVC.modalPresentationStyle = .fullScreen
         self.present(navVC, animated: true, completion: nil)
     }
 }

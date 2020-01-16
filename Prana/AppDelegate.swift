@@ -98,6 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let rootViewController = self.topViewControllerWithRootViewController(rootViewController: window?.rootViewController) {
                 let vc = Utils.getStoryboardWithIdentifier(identifier: "ResetPasswordViewController")
                 let nc = UINavigationController(rootViewController: vc)
+                nc.modalPresentationStyle = .fullScreen
                 rootViewController.present(nc, animated: true, completion: nil)
             }
         }
