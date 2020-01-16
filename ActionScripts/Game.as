@@ -65,6 +65,20 @@
 		var startSubPattern:Number = 5; //may 8th  The example value 5 here corresponds to 12bpm. Note, for Buzzer Training, if the non-custom Slowing pattern is used, then this value should be set to 5
 		var maxSubPattern:int = 34; //may 8th  SET THIS TO THE INDEX VALUE found under //Dynamic slow breathing pattern below, between 0-34. This value corresponds TO THE MINIMUM RESPIRATION RATE SELECTED ON THE CUSTOM BREATH PATTERN PAGE. This value should be 34 if skipCalibration = 0. The example value 8 here corresponds to 9.2bpm
 		var customSlowingPatternIsActive:int = 0; //July 13:New1i  When user is using the Slowing Pattern from the pattern gallery (custom), then this should be set to 1. In this case, the first breathing pattern is set to startSubPattern, and maxSubPattern should also be set based on user selection on the custom pattern screen (15 second calibration is never skipped now for any pattern)
+		var breathLevel:int = 2;  //AUG 1st ADDED			
+		var startRecordingActualBreaths:int = 0; //AUG 12th NEW
+		var savedCurrentBreaths:int = 0; //AUG 12th NEW
+		var graphStartTime:Number = 0; //AUG 12th NEW
+		var breathingGraph:MovieClip = new MovieClip(); //AUG 12th NEW
+		var postureGraph:MovieClip = new MovieClip(); //AUG 12th NEW
+		var lastXForActualBreath:Number = 0; //AUG 12th NEW
+		var	lastYForActualBreath:Number = 0; //AUG 12th NEW				
+		var previousExpectedBreathStartTime:Number = 0; //AUG 12th NEW
+		var previousExpectedBreathRR:Number = 0; //AUG 12th NEW	 		
+		var postureSessionTime:int = 0; //AUG 12th NEW
+		var enteredPatternWhileExhaling:int = 0; //AUG 12th NEW	
+
+		
 		public function Game(main:Main) {			
 		
 			DC = main;					
@@ -123,7 +137,8 @@
 			
 			gamePanel.breathResponse.level1.addEventListener(MouseEvent.CLICK,breathSelectorHandler);
 			gamePanel.breathResponse.level2.addEventListener(MouseEvent.CLICK,breathSelectorHandler);
-			gamePanel.breathResponse.level3.addEventListener(MouseEvent.CLICK,breathSelectorHandler);	
+			gamePanel.breathResponse.level3.addEventListener(MouseEvent.CLICK,breathSelectorHandler);			
+			
 			
 			gamePanel.postureState.gotoAndStop(1);
 			
@@ -187,7 +202,8 @@
 			
 			DC.objModeScreen.stopData();
 			
-			removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
+			removeEventListener(Event.ENTER_FRAME, enterFrameHandler); 
+			
 			
 			//myTimer.stop();
 			//myTimer2.stop();
@@ -375,10 +391,10 @@
 			patternSequence[6] = [];
 			patternSequence[7] = [];
 			patternSequence[3].push([1.5,0,1.5,1,"FOCUS PATTERN 15 BPM"]); //15 bpm
-			patternSequence[4].push([1.5,0,1.5,2,"FOCUS PATTERN 12 BPM"]); //12 bpm
-			patternSequence[5].push([2,0,2,2,"FOCUS PATTERN 10 BPM"]); //10 bpm
-			patternSequence[6].push([2.5,0,2.5,2.5,"FOCUS PATTERN 8 BPM"]); //8 bpm  
-			patternSequence[7].push([3.5,0,3.5,3,"FOCUS PATTERN 6 BPM"]); //6 bpm  
+			patternSequence[4].push([2,0,2,1,"FOCUS PATTERN 12 BPM"]); //12 bpm  AUG 1st CHANGE
+			patternSequence[5].push([2.5,0,2.5,1,"FOCUS PATTERN 10 BPM"]); //10 bpm AUG 1st CHANGE
+			patternSequence[6].push([3,0,3,1.5,"FOCUS PATTERN 8 BPM"]); //8 bpm  AUG 1st CHANGE
+			patternSequence[7].push([4,0,4,2,"FOCUS PATTERN 6 BPM"]); //6 bpm   AUG 1st CHANGE
 			
 			//Relax breathing patterns
 			
@@ -388,10 +404,10 @@
 			patternSequence[11] = [];
 			patternSequence[12] = [];
 			patternSequence[8].push([1,0,2,1,"RELAX PATTERN 15 BPM"]); //15 bpm
-			patternSequence[9].push([1,0,2,2,"RELAX PATTERN 12 BPM"]); //12 bpm
+			patternSequence[9].push([1.5,0,2.5,1,"RELAX PATTERN 12 BPM"]); //12 bpm AUG 1st CHANGE
 			patternSequence[10].push([1.5,0,3,1.5,"RELAX PATTERN 10 BPM"]); //10 bpm
-			patternSequence[11].push([1.5,0,3,3,"RELAX PATTERN 8 BPM"]); //8 bpm
-			patternSequence[12].push([2.5,0,5,2.5,"RELAX PATTERN 6 BPM"]); //6 bpm
+			patternSequence[11].push([2,0,4,1.5,"RELAX PATTERN 8 BPM"]); //8 bpm  AUG 1st CHANGE
+			patternSequence[12].push([3,0,5.5,1.5,"RELAX PATTERN 6 BPM"]); //6 bpm  AUG 1st CHANGE
 			
 			//Sleep breathing patterns
 			
@@ -633,6 +649,7 @@
 		function gameTimerHandler():void {		
 			
 			trainingDuration--;
+			postureSessionTime++; //AUG 1st NEW (measured in seconds, int)			
 			
 			gamePanel.elapsedTime.text = convertTime(trainingDuration);
 			
@@ -645,6 +662,12 @@
 					slouchesCount++;
 				}
 			}
+			
+			if (DC.objLiveGraph.postureIsGood != DC.objLiveGraph.judgedPosture[DC.objLiveGraph.judgedPosture.length-1][1]) { //AUG 1st NEW
+				DC.objLiveGraph.judgedPosture.push([postureSessionTime,DC.objLiveGraph.postureIsGood]); //AUG 1st NEW Only recording the changes in posture, that's all you need to create the full posture graph
+			} //AUG 1st NEW
+			
+			drawPostureGraph(); //AUG 1st NEW
 			
 			//gamePanel.timeUpright.text = String(uprightPostureTime) + " of " + String(gameSetTime);
 			gamePanel.timeUpright.text = String(uprightPostureTime) + " of " + String(gameSetTime - trainingDuration);			
@@ -889,45 +912,61 @@
 			}			
 			
 			//may 8th **************
-			if (calibrationBreathsDone == 0 && skipCalibration == 1) {
+			if (calibrationBreathsDone == 0 && skipCalibration == 1) { 
 				
-				calibrationBreathsDone = 1;		
+				calibrationBreathsDone = 1;	 
 				
 				if (whichPattern == 0) {						
 						
-						lastX = 500;
+						lastX = 500; 
 						
 						initialFadeIn = 1; //fade in initial patterns					
 						
-						subPattern = startSubPattern;
-						createInitialSetOfBreathPatterns();										
+						subPattern = startSubPattern; 
+						createInitialSetOfBreathPatterns();	 								
 						
-						gamePanel.targetRate.text = String(flyingObjects[0][1]);
+						gamePanel.targetRate.text = String(flyingObjects[0][1]); 
+					
+						DC.objLiveGraph.breathTopExceededThreshold = 1; //AUG 1st NEW  if you skip calibation, these should still be set
+						DC.objLiveGraph.lightBreathsThreshold = 1; //AUG 1st NEW  if you skip calibation, these should still be set
+						DC.objLiveGraph.minBreathRange = DC.objLiveGraph.fullBreathGraphHeight/8; //AUG 1st NEW
+						DC.objLiveGraph.minBreathRangeForStuck = (DC.objLiveGraph.fullBreathGraphHeight/4); //AUG 1st NEW  (4 helps patterns like 478 when user holds breath between inhale/exhale, so that random body movements less likely to trigger stuck breath)
 				}
 				
 			} 
 			//may 8th **************
 			
 			
-			else if (calibrationBreathsDone == 0 && skipCalibration == 0) {	//may 8th
+			else if (calibrationBreathsDone == 0 && skipCalibration == 0) {	//AUG 1st CHANGED
 				
-				if (targetLayer.getChildAt(0).x <= -1130) {  //accounting for 70 width of bird
+			//	if ((targetLayer.getChildAt(0).x <= -1130+xStep) && startRecordingActualBreaths == 0) {  //AUG 12th NEW					
+					
+					//DC.objLiveGraph.judgedBreaths.push([ [],DC.objLiveGraph.actualBreathsWithinAPattern.concat(),-1]); //the concat() here is to copy the array (to avoid possible reference problem)					
+					//DC.objLiveGraph.actualBreathsWithinAPattern = [] //AUG 12th NEW
+					//startRecordingActualBreaths = 1; //AUG 12th NEW
+					//previousExpectedBreathStartTime = roundNumber((DC.objLiveGraph.timeElapsed-graphStartTime)+0.5,10); //AUG 12th NEW, the 0.5 here is to add back the 1/2 second due to 320+xStep above THIS IS THE EXPECTED OR TARGET breath	(i'm setting it here only because I need it for the first actual breath location)
+					//enteredPatternWhileExhaling = DC.objLiveGraph.breathEnding;  //AUG 12th NEW idea here is if user did not finish exhaling during last breath, and that exhale carries into the first breath, then the first breath is bad 
+				//}
+				
+				if (targetLayer.getChildAt(0).x <= -1130) {  //accounting for 70 width of bird					
 					targetLayer.removeChildAt(0);
 					calibrationBreathsDone = 1;	
 					DC.objLiveGraph.breathTopExceededThreshold = 1; //JULY 13:NEW1f
 					DC.objLiveGraph.lightBreathsThreshold = 1; //JULY 13:NEW1f
-					
+					DC.objLiveGraph.minBreathRange = DC.objLiveGraph.fullBreathGraphHeight/8; //AUG 1st NEW
+					DC.objLiveGraph.minBreathRangeForStuck = (DC.objLiveGraph.fullBreathGraphHeight/4); //AUG 1st NEW
+										
 					if (whichPattern == 0) {						
 						
 						lastX = 500;
 						
 						initialFadeIn = 1; //fade in initial patterns
 						
-						if (DC.objLiveGraph.respRate >= 17.14) { //JULY 13:Change1h
+						if (DC.objLiveGraph.calibrationRR >= 17.14) { //JULY 13:Change1h  AUG 1st CHANGE
 							subPattern = 2;
 							createInitialSetOfBreathPatterns();
 						}
-						else if (DC.objLiveGraph.respRate <=8) {
+						else if (DC.objLiveGraph.calibrationRR <=8) { // AUG 1st CHANGE
 							subPattern = 10;
 							createInitialSetOfBreathPatterns();
 						}
@@ -935,7 +974,7 @@
 						else {
 							for (i = 0; i < patternSequence[0].length; i++) {
 								a = 60/(patternSequence[0][i][0] + patternSequence[0][i][1] + patternSequence[0][i][2]+ patternSequence[0][i][3]);
-								if (DC.objLiveGraph.respRate > a) {
+								if (DC.objLiveGraph.calibrationRR > a) { // AUG 1st CHANGE
 									subPattern = i;
 									if (customSlowingPatternIsActive == 1) { //July 13:New1i  
 										subPattern = startSubPattern; //July 13:New1i  
@@ -956,9 +995,51 @@
 				
 				checkTargetsHit();	
 				
-				if (flyingObjects[0][0][flyingObjects[0][0].length-1].x <= 320) {  
+				if ((flyingObjects[0][0][0].x <= 320+xStep) && DC.objLiveGraph.judgedBreaths.length == 0) {   //AUG 12th NEW, when bird is 1/2 second before the first flower of the first pattern
+					
+					DC.objLiveGraph.judgedBreaths.push([ [],DC.objLiveGraph.actualBreathsWithinAPattern.concat(),-1]); //AUG 12th NEW the concat() here is to copy the array (to avoid possible reference problem),saving all non-judged breaths here during 15 second calibration	
+								
+					DC.objLiveGraph.actualBreathsWithinAPattern = []; //AUG 12th NEW	
+					previousExpectedBreathStartTime = roundNumber((DC.objLiveGraph.timeElapsed-graphStartTime)+0.5,10); //AUG 12th NEW, the 0.5 here is to add back the 1/2 second due to 320+xStep above THIS IS THE EXPECTED OR TARGET breath	
+					enteredPatternWhileExhaling = DC.objLiveGraph.breathEnding; //AUG 12th NEW, idea here is if user did not finish exhaling during last breath, and that exhale carries into the current breath, then the current breath is bad 
+					
+					//DC.objLiveGraph.testUI.indicator4.txt1.text = String(DC.objLiveGraph.judgedBreaths.length);
+						
+				} //AUG 12th NEW
 				
-					updateBreathPatterns = 0;
+				else if ((flyingObjects[0][0][flyingObjects[0][0].length-1].x <= 320+xStep) && savedCurrentBreaths == 0) {   //AUG 12th NEW when bird is 1/2 second before the first flower of a pattern after the first pattern
+					
+					savedCurrentBreaths = 1; //AUG 12th NEW						
+					
+					if (DC.objLiveGraph.actualBreathsWithinAPattern.length == 0) { //AUG 12th NEW					
+						
+						DC.objLiveGraph.actualBreathsWithinAPattern = [[previousExpectedBreathStartTime, 0]]; //AUG 12th NEW  If user did not breathe at all during the target breath, create a breath with 0 RR
+												
+					}	//AUG 12th NEW		
+					
+					
+					if (DC.objLiveGraph.judgedBreaths.length == 1) {
+						
+						DC.objLiveGraph.judgedBreaths.push([ [], DC.objLiveGraph.actualBreathsWithinAPattern.concat(), 0]); //AUG 12th NEW the .concat() is to copy the array (to avoid reference problem), the 0 is placeholder to be assigned in the "assessed" functions below
+
+					}
+					else {
+						
+						DC.objLiveGraph.judgedBreaths.push([ [previousExpectedBreathStartTime,previousExpectedBreathRR], DC.objLiveGraph.actualBreathsWithinAPattern.concat(), 0]); //AUG 12th NEW the .concat() is to copy the array (to avoid reference problem), the 0 is placeholder to be assigned in the "assessed" functions below
+
+					}
+					
+					previousExpectedBreathStartTime = roundNumber((DC.objLiveGraph.timeElapsed-graphStartTime)+0.5,10); //AUG 12th NEW, the 0.5 here is to add back the 1/2 second due to 320+xStep above THIS IS THE EXPECTED OR TARGET breath	
+					previousExpectedBreathRR = flyingObjects[0][1]; //AUG 12th NEW	
+					DC.objLiveGraph.actualBreathsWithinAPattern = []; //AUG 12th NEW	
+					
+				}  //AUG 12th NEW			
+								
+				
+				if (flyingObjects[0][0][flyingObjects[0][0].length-1].x <= 320) { 			
+						
+					savedCurrentBreaths = 0; //AUG 12th NEW
+					updateBreathPatterns = 0;				
 					
 					if (whichPattern == 0) {	
 						assessBreathForDynamicPattern();	
@@ -967,10 +1048,15 @@
 						assessBreathForRegularPattern();
 					}
 					
+					if (DC.objLiveGraph.judgedBreaths.length > 2) { //AUG 12th NEW
+						drawBreathingGraph(); //AUG 12th NEW
+					} //AUG 12th NEW
+					
+					enteredPatternWhileExhaling = DC.objLiveGraph.breathEnding; //AUG 12th NEW, idea here is if user did not finish exhaling during last breath, and that exhale carries into the current breath, then the current breath is bad 
 					flyingObjects.splice(0,1);					
 					gamePanel.targetRate.text = String(flyingObjects[0][1]);				
-					createNextBreathPattern(0);	
-				
+					createNextBreathPattern(0);						
+					
 				}		
 				
 				if (targetLayer.getChildAt(0).x <= -100) {
@@ -980,15 +1066,235 @@
 		
 		}
 		
-		function assessBreathForRegularPattern():void {		
+		////AUG 12th NEW FUNCTION
+		function drawPostureGraph():void {
 			
-			totalBreaths++;	
+			var XStart:Number = 50; //Just the starting X value on the graph
+			var graphBaseY:int = 325;
+			var graphXScale:Number = 5;					
 			
-			if (flyingObjects[0][0].length == targetsHit) {					
+			removeChild(postureGraph);
+			postureGraph = new MovieClip(); //Just clearing the postureGraph between calls (because I'm calling this function multiple times for testing), you may not need this
+			addChild(postureGraph); //AUG 12th NEW
+			postureGraph.x = 0;  //AUG 12th NEW		
+			
+			for (var i:int = 0; i<DC.objLiveGraph.judgedPosture.length; i++) {	
 				
-				mindfulBreathCount++;
+				if (DC.objLiveGraph.judgedPosture[i][1] == 1) {
+					postureGraph.graphics.lineStyle(8,0x008000); 
+				} 
+				else {
+					postureGraph.graphics.lineStyle(8,0xFF0000); 
+				}
+									
+				postureGraph.graphics.moveTo(XStart+(graphXScale*DC.objLiveGraph.judgedPosture[i][0]), graphBaseY);
+				
+				if (i < DC.objLiveGraph.judgedPosture.length-1) {					
+					
+					postureGraph.graphics.lineTo(XStart+(graphXScale*DC.objLiveGraph.judgedPosture[i+1][0]), graphBaseY);						
+					
+				}
+				else {
+					postureGraph.graphics.lineTo(XStart+(graphXScale*postureSessionTime), graphBaseY);
+					
+				}			
+				
+			}		
+			
+		}
+		
+		////AUG 12th NEW FUNCTION
+		function drawBreathingGraph():void {		
+			
+			removeChild(breathingGraph);
+			breathingGraph = new MovieClip(); //Just clearing the breathingGraph between calls (because I'm calling this function multiple times for testing), you may not need this
+			addChild(breathingGraph); 
+			breathingGraph.x = 0; 		
+			
+			//NOTE, this function should only be called when the training session is complete, because maxTargetRR requires all the data to correctly select the max target RR Y axis value (for testing in my code, I'm calling this early and multiple times within a session)
+			lastXForActualBreath = 0;
+			lastYForActualBreath = 0;
+			var i:int = 0;
+			var i2:int = 0;	
+			var timeVal:Number;
+			var RRVal:Number;
+			var maxTargetRR:Number = 0;
+			var graphBaseY:int = 250;
+			var graphXScale:Number = 5; //NOTE, set this scale so that in VT and BT, 3 mins occupies the full width of the iphone 
+			var YCeiling:Number = 5; //This is the absolute ceiling of the graph
+			var YMaxRR:Number = 30;  //This corresponds to the max RR on the graph range (so if graph crosses this line and hits YCeiling, then user just knows their RR exceeded the range)
+			var XStart:Number = 50; //Just the starting X value on the graph
+			
+			var textMaxRR:TextField = new TextField();                
+            textMaxRR.x = XStart-25;
+            textMaxRR.y = YMaxRR;
+            textMaxRR.background = true;
+            textMaxRR.autoSize = TextFieldAutoSize.LEFT;             
+			addChild(textMaxRR);
+			
+			var text0Axis:TextField = new TextField();                
+            text0Axis.x = XStart-25;
+            text0Axis.y =  graphBaseY+YMaxRR;
+            text0Axis.background = true;
+            text0Axis.autoSize = TextFieldAutoSize.LEFT; 
+            text0Axis.text = "0";
+			addChild(text0Axis);
+			
+			var textMidPoint:TextField = new TextField();                
+            textMidPoint.x = XStart-25;
+            textMidPoint.y = (graphBaseY-YMaxRR)/2 + YMaxRR;
+            textMidPoint.background = true;
+            textMidPoint.autoSize = TextFieldAutoSize.LEFT;            
+			addChild(textMidPoint);
+			
+			
+			//Draw the X axis (0 axis)
+			breathingGraph.graphics.lineStyle(1,0x000000); //AUG 12th NEW		
+			breathingGraph.graphics.moveTo(XStart, graphBaseY+YMaxRR);
+			breathingGraph.graphics.lineTo(1920, graphBaseY+YMaxRR);		
+			
+			//Draw the X axis midpoint
+			breathingGraph.graphics.lineStyle(1,0x000000); //AUG 12th NEW		
+			breathingGraph.graphics.moveTo(XStart, (graphBaseY-YMaxRR)/2 + YMaxRR);
+			breathingGraph.graphics.lineTo(1920, (graphBaseY-YMaxRR)/2 + YMaxRR);	
+			
+			//Draw the YMaxRR X axis 			
+			breathingGraph.graphics.moveTo(XStart, YMaxRR);
+			breathingGraph.graphics.lineTo(1920, YMaxRR);
+			
+			//Draw the top X axis 			
+			breathingGraph.graphics.moveTo(XStart, YCeiling);
+			breathingGraph.graphics.lineTo(1920, YCeiling);
+			
+			//Draw the Y axis		
+			breathingGraph.graphics.moveTo(XStart, graphBaseY+YMaxRR);
+			breathingGraph.graphics.lineTo(XStart, YCeiling);
+			
+			//Draw the X axis number lines (1,2,3)	
+			breathingGraph.graphics.moveTo(XStart+(1*60*graphXScale), graphBaseY+YMaxRR-5);
+			breathingGraph.graphics.lineTo(XStart+(1*60*graphXScale), graphBaseY+YMaxRR+5);
+			
+			breathingGraph.graphics.moveTo(XStart+(2*60*graphXScale), graphBaseY+YMaxRR-5);
+			breathingGraph.graphics.lineTo(XStart+(2*60*graphXScale), graphBaseY+YMaxRR+5);
+			
+			breathingGraph.graphics.moveTo(XStart+(3*60*graphXScale), graphBaseY+YMaxRR-5);
+			breathingGraph.graphics.lineTo(XStart+(3*60*graphXScale), graphBaseY+YMaxRR+5);
+			
+			
+			
+			
+			//Find the largest target RR for setting the Y axis top bounds of the graph
+			for (i = 0; i<DC.objLiveGraph.judgedBreaths.length; i++) {
+				if (DC.objLiveGraph.judgedBreaths[i][0].length > 0) {
+					if (DC.objLiveGraph.judgedBreaths[i][0][1] > maxTargetRR) {
+						maxTargetRR = DC.objLiveGraph.judgedBreaths[i][0][1];
+					}
+				}
 			}
 			
+			//Make sure it's an even integer so that the graph midpoint is also an integer 
+			maxTargetRR = Math.round(maxTargetRR);
+			if ( (maxTargetRR % 2) != 0) {
+				maxTargetRR = maxTargetRR + 1;
+			}		
+			
+			textMaxRR.text = String(maxTargetRR);
+			textMidPoint.text = String(maxTargetRR/2);
+			
+			//DC.objLiveGraph.testUI.indicator4.txt1.text = String(maxTargetRR);	
+			
+			for (i = 0; i<DC.objLiveGraph.judgedBreaths.length; i++) {						
+				
+				// Draw and connect the target (expected) breaths graph nodes
+				if (DC.objLiveGraph.judgedBreaths[i][0].length > 0) {
+					
+					RRVal = (graphBaseY*(1-(DC.objLiveGraph.judgedBreaths[i][0][1]/maxTargetRR))) + YMaxRR;
+					if (RRVal < YCeiling) {
+						RRVal = YCeiling; //This is Y coordinate min ceiling, (0,0 is upper left corner here)
+					}
+					
+					breathingGraph.graphics.beginFill(0x0000FF,1); //AUG 12th NEW
+					breathingGraph.graphics.lineStyle(3,0x0000FF); //AUG 12th NEW		
+					breathingGraph.graphics.drawCircle(graphXScale*DC.objLiveGraph.judgedBreaths[i][0][0] + XStart, RRVal, 2);
+					
+					if (i > 0) {
+						
+						if (DC.objLiveGraph.judgedBreaths[i-1][0].length > 0) {
+							
+							breathingGraph.graphics.moveTo(graphXScale*DC.objLiveGraph.judgedBreaths[i][0][0] + XStart, RRVal);
+							
+							RRVal = (graphBaseY*(1-(DC.objLiveGraph.judgedBreaths[i-1][0][1]/maxTargetRR))) + YMaxRR;
+							if (RRVal < YCeiling) {
+								RRVal = YCeiling; //This is Y coordinate min ceiling, (0,0 is upper left corner here)
+							}
+							breathingGraph.graphics.lineTo(graphXScale*DC.objLiveGraph.judgedBreaths[i-1][0][0] + XStart, RRVal);
+						}
+					}	
+					
+				}		
+								
+				// Draw and connect the actual breaths graph nodes
+				for (i2 = 0; i2<DC.objLiveGraph.judgedBreaths[i][1].length; i2++) {			
+			
+					if (DC.objLiveGraph.judgedBreaths[i][1][i2].length > 0) {						
+					
+						timeVal = graphXScale*(DC.objLiveGraph.judgedBreaths[i][1][i2][0]) + XStart;						
+						RRVal = (graphBaseY*(1-(DC.objLiveGraph.judgedBreaths[i][1][i2][1]/maxTargetRR))) + YMaxRR;
+						
+						if (RRVal < YCeiling) {
+							RRVal = YCeiling; //This is Y coordinate min ceiling, (0,0 is upper left corner here)
+						}						
+						
+						if (DC.objLiveGraph.judgedBreaths[i][2] == -1) { //The breaths before the training starts (during 15 second calibration for example) should be black nodes and black lines (meaning not judged)
+							breathingGraph.graphics.beginFill(0x000000,1); 
+							breathingGraph.graphics.lineStyle(3,0x000000); 	
+						}
+						else if (DC.objLiveGraph.judgedBreaths[i][2] == 0) {
+							breathingGraph.graphics.beginFill(0xFF0000,1); 
+							breathingGraph.graphics.lineStyle(3,0xFF0000); 	
+						}
+						else {
+							breathingGraph.graphics.beginFill(0x008000,1); 					
+							breathingGraph.graphics.lineStyle(3,0x008000); 	
+						}
+					
+						breathingGraph.graphics.drawCircle(timeVal, RRVal,2);
+						//DC.objLiveGraph.testUI.indicator4.txt1.text = String(timeVal) + "   " + String(RRVal);			
+					
+					//	if ( (RRVal != (graphBaseY + YMaxRR)) && (lastYForActualBreath != (graphBaseY + YMaxRR)) ) { //I Might add this back later, remove for now, Don't connect the lines if there was no breath (so there will be one red node at the bottom line, disconnected, meaning no breath during that pattern)
+							if (i2 > 0) {
+								breathingGraph.graphics.moveTo(lastXForActualBreath, lastYForActualBreath);
+								breathingGraph.graphics.lineTo(timeVal, RRVal);
+							}
+							else if (i > 0 && (lastXForActualBreath != 0 && lastYForActualBreath != 0) ) {
+								breathingGraph.graphics.moveTo(lastXForActualBreath,lastYForActualBreath);
+								breathingGraph.graphics.lineTo(timeVal, RRVal);
+							}
+					//	}
+					
+						lastXForActualBreath = timeVal;
+						lastYForActualBreath = RRVal;
+					}
+					
+					
+				}	
+			
+			}
+		}
+		
+		function assessBreathForRegularPattern():void {		
+			
+			//totalBreaths++; //AUG 12th REMOVED
+			
+			if (flyingObjects[0][0].length == targetsHit && (DC.objLiveGraph.judgedBreaths[DC.objLiveGraph.judgedBreaths.length-1][1].length == 1) && enteredPatternWhileExhaling == 0) {  //AUG 1st CHANGED				
+				
+				mindfulBreathCount++;				
+				
+				DC.objLiveGraph.judgedBreaths[DC.objLiveGraph.judgedBreaths.length-1][2] = 1; //AUG 1st NEW					
+				
+			}
+			
+			totalBreaths++; //AUG 12th ADDED
 			targetsHit = 0;	
 			
 			gamePanel.mindfulBreaths.text = String(mindfulBreathCount) + " of " + String(totalBreaths);
@@ -999,19 +1305,24 @@
 		function assessBreathForDynamicPattern():void {			
 						
 			breathsOnCurrentLevel++;		
-			totalBreaths++;		
+			//totalBreaths++; //AUG 12th REMOVED
 			if (breathsOnCurrentLevel == 6) {
 				breathsOnCurrentLevel = 1;
 				goodBreaths = 0;
 				
 			}
 			
-			if (flyingObjects[0][0].length == targetsHit) {	
+			if (flyingObjects[0][0].length == targetsHit && (DC.objLiveGraph.judgedBreaths[DC.objLiveGraph.judgedBreaths.length-1][1].length == 1) && enteredPatternWhileExhaling == 0) {	//AUG 1st CHANGED
 				
 				goodBreaths++;
-				mindfulBreathCount++;
-			}
-			
+				mindfulBreathCount++;				
+				
+				DC.objLiveGraph.judgedBreaths[DC.objLiveGraph.judgedBreaths.length-1][2] = 1; //AUG 1st NEW	
+				
+				
+			}					
+						
+			totalBreaths++; //AUG 12th ADDED				
 			targetsHit = 0;	
 						
 			if (breathsOnCurrentLevel == 5) {				
@@ -1088,12 +1399,49 @@
 			DC.objLiveGraph.postureUI.visible = false;  //***JULY 13th ADDED   Luccas, ignore this, this is just to show the live graph on my desktop
 			
 			
+			
 			gamePanel.startGameButton.gotoAndStop(1);
 			gamePanel.backButton.visible = true;
 			balloon.visible = false;
+			startRecordingActualBreaths = 0; //AUG 12th NEW
+			savedCurrentBreaths = 0; //AUG 12th NEW
+			graphStartTime = 0;  //AUG 12th New				
 			
+			DC.objLiveGraph.startMode(); //Need this here because user needs to be able set posture before scrolling starts!	
 			
-			DC.objLiveGraph.startMode(); //Need this here because user needs to be able set posture before scrolling starts!
+			DC.objLiveGraph.breathTopExceededThreshold = 0; //AUG 1st NEW
+			DC.objLiveGraph.lightBreathsThreshold = 0; //AUG 1st NEW
+			DC.objLiveGraph.minBreathRange = DC.objLiveGraph.fullBreathGraphHeight/16; //AUG 1st 	
+			DC.objLiveGraph.minBreathRangeForStuck = (DC.objLiveGraph.fullBreathGraphHeight/16); //AUG 1st 
+			
+			if (DC.objLiveGraph.postureLevel == 1) {  //AUG 1st NEW 
+				gamePanel.postureResponse.level1.selected = true; //AUG 1st NEW 
+			} //AUG 1st NEW 
+			else if (DC.objLiveGraph.postureLevel == 2) { //AUG 1st NEW 
+				gamePanel.postureResponse.level2.selected = true; //AUG 1st NEW 
+			} //AUG 1st NEW 
+			else if (DC.objLiveGraph.postureLevel == 3) { //AUG 1st NEW 
+				gamePanel.postureResponse.level3.selected = true; //AUG 1st NEW 
+			} //AUG 1st NEW 
+			
+			if (breathLevel == 1) {  //AUG 1st NEW 
+				gamePanel.breathResponse.level1.selected = true; //AUG 1st NEW 
+				DC.objLiveGraph.smoothBreathingCoefBaseLevel = 0.15;  //AUG 1st NEW 
+				DC.objLiveGraph.reversalThreshold = 6;   //AUG 1st NEW 
+				DC.objLiveGraph.birdIncrements = 24;	 //AUG 1st NEW 
+			} //AUG 1st NEW 
+			else if (breathLevel == 2) { //AUG 1st NEW 
+				gamePanel.breathResponse.level2.selected = true; //AUG 1st NEW 
+				DC.objLiveGraph.smoothBreathingCoefBaseLevel = 0.4; //AUG 1st NEW 
+				DC.objLiveGraph.reversalThreshold = 5; //AUG 1st NEW 
+				DC.objLiveGraph.birdIncrements = 20; //AUG 1st NEW 
+			} //AUG 1st NEW 
+			else if (breathLevel == 3) { //AUG 1st NEW 
+				gamePanel.breathResponse.level3.selected = true; //AUG 1st NEW 
+				DC.objLiveGraph.smoothBreathingCoefBaseLevel = 0.6; //AUG 1st NEW 
+				DC.objLiveGraph.reversalThreshold = 3; //AUG 1st NEW 
+				DC.objLiveGraph.birdIncrements = 12; //AUG 1st NEW 
+			}	 //AUG 1st NEW 					
 			
 			if (whichPattern != 0) {
 			
@@ -1138,27 +1486,27 @@
 				DC.objGame.gamePanel.postureState.gotoAndStop(31);
 			}			
 			
-			
-			if (DC.objLiveGraph.postureUI.postureSelector.postureLevel1.selected == true) {				
-				gamePanel.postureResponse.level1.selected = true;
-			}
-			else if (DC.objLiveGraph.postureUI.postureSelector.postureLevel2.selected == true) {				
-				gamePanel.postureResponse.level2.selected = true;
-			}
-			else if (DC.objLiveGraph.postureUI.postureSelector.postureLevel3.selected == true) {				
-				gamePanel.postureResponse.level3.selected = true;
-			}					
+			//AUG 1st BLOCK OF CODE REMOVED
+			//if (DC.objLiveGraph.postureUI.postureSelector.postureLevel1.selected == true) {				
+				//gamePanel.postureResponse.level1.selected = true;
+			//}
+			//else if (DC.objLiveGraph.postureUI.postureSelector.postureLevel2.selected == true) {				
+				//gamePanel.postureResponse.level2.selected = true;
+			//}
+			//else if (DC.objLiveGraph.postureUI.postureSelector.postureLevel3.selected == true) {				
+				//gamePanel.postureResponse.level3.selected = true;
+			//}					
 				
 			
-			if (DC.objLiveGraph.postureUI.breathSelector.breathLevel1.selected == true) {
-				gamePanel.breathResponse.level1.selected = true;
-			}
-			else if (DC.objLiveGraph.postureUI.breathSelector.breathLevel2.selected == true) {
-				gamePanel.breathResponse.level2.selected = true;
-			}
-			else if (DC.objLiveGraph.postureUI.breathSelector.breathLevel3.selected == true) {
-				gamePanel.breathResponse.level3.selected = true;
-			}						
+			//if (DC.objLiveGraph.postureUI.breathSelector.breathLevel1.selected == true) {
+				//gamePanel.breathResponse.level1.selected = true;
+			//}
+			//else if (DC.objLiveGraph.postureUI.breathSelector.breathLevel2.selected == true) {
+				//gamePanel.breathResponse.level2.selected = true;
+			//}
+			//else if (DC.objLiveGraph.postureUI.breathSelector.breathLevel3.selected == true) {
+				//gamePanel.breathResponse.level3.selected = true;
+			//}						
 			
 			
 		}
@@ -1166,18 +1514,21 @@
 		function postureSelectorHandler(evt:MouseEvent)  {
 			
 			if (gamePanel.postureResponse.level1.selected == true) {
-				DC.objLiveGraph.postureUI.postureSelector.postureLevel1.selected = true;
+				//DC.objLiveGraph.postureUI.postureSelector.postureLevel1.selected = true; // AUG 1st REMOVED
 				DC.objLiveGraph.postureRange = 0.15;
+				DC.objLiveGraph.postureLevel = 1;  // AUG 1st NEW
 			}
 			
 			else if (gamePanel.postureResponse.level2.selected == true) {
-				DC.objLiveGraph.postureUI.postureSelector.postureLevel2.selected = true;
+				//DC.objLiveGraph.postureUI.postureSelector.postureLevel2.selected = true;  // AUG 1st REMOVED
 				DC.objLiveGraph.postureRange = 0.10;
+				DC.objLiveGraph.postureLevel = 2;  // AUG 1st NEW
 			}
 			
 			else if (gamePanel.postureResponse.level3.selected == true) {
-				DC.objLiveGraph.postureUI.postureSelector.postureLevel3.selected = true;
+				//DC.objLiveGraph.postureUI.postureSelector.postureLevel3.selected = true;  // AUG 1st REMOVED
 				DC.objLiveGraph.postureRange = 0.05;
+				DC.objLiveGraph.postureLevel = 3;  // AUG 1st NEW
 			}
 			
 		}
@@ -1185,26 +1536,29 @@
 		function breathSelectorHandler(evt:MouseEvent)  {
 			
 			if (gamePanel.breathResponse.level1.selected == true) {
-				DC.objLiveGraph.postureUI.breathSelector.breathLevel1.selected = true;
+				//DC.objLiveGraph.postureUI.breathSelector.breathLevel1.selected = true;  // AUG 1st REMOVED
 				DC.objLiveGraph.smoothBreathingCoefBaseLevel = 0.15;
-				DC.objLiveGraph.reversalThreshold = 6;
+				DC.objLiveGraph.reversalThreshold = 6; 
 				//DC.objLiveGraph.birdIncrements = 16;
 				DC.objLiveGraph.birdIncrements = 24;
+				breathLevel = 1;  // AUG 1st NEW
 			}
 			
 			else if (gamePanel.breathResponse.level2.selected == true) {
-				DC.objLiveGraph.postureUI.breathSelector.breathLevel2.selected = true;
+				//DC.objLiveGraph.postureUI.breathSelector.breathLevel2.selected = true;  // AUG 1st REMOVED
 				DC.objLiveGraph.smoothBreathingCoefBaseLevel = 0.4;
 				DC.objLiveGraph.reversalThreshold = 5;
 				//DC.objLiveGraph.birdIncrements = 12;
 				DC.objLiveGraph.birdIncrements = 20;
+				breathLevel = 2;  // AUG 1st NEW
 			}
 			
 			else if (gamePanel.breathResponse.level3.selected == true) {
-				DC.objLiveGraph.postureUI.breathSelector.breathLevel3.selected = true;
+				//DC.objLiveGraph.postureUI.breathSelector.breathLevel3.selected = true;  // AUG 1st REMOVED
 				DC.objLiveGraph.smoothBreathingCoefBaseLevel = 0.6;
 				DC.objLiveGraph.reversalThreshold = 3;
 				DC.objLiveGraph.birdIncrements = 12;
+				breathLevel = 3;  // AUG 1st NEW
 			}
 			
 		}
@@ -1240,6 +1594,17 @@
 			
 			if (gamePanel.startGameButton.currentFrame == 1) {
 				
+				graphStartTime = DC.objLiveGraph.timeElapsed;  //AUG 12th New				
+				DC.objLiveGraph.judgedBreaths = []; //AUG 12th NEW	
+				DC.objLiveGraph.judgedPosture = []; //AUG 12th NEW					
+				DC.objLiveGraph.actualBreathsWithinAPattern = [] //AUG 12th NEW
+				postureSessionTime = 0; //AUG 12th NEW
+				
+				addChild(breathingGraph); //AUG 12th NEW
+				addChild(postureGraph); //AUG 12th NEW
+				
+				DC.objLiveGraph.judgedPosture.push([0,DC.objLiveGraph.postureIsGood]); //AUG 12th NEW  Record the initial posture state, NOTE: this array only records CHANGES in posture, not every second of posture state
+				
 				balloon.visible = true;
 				
 				gamePanel.startGameButton.gotoAndStop(2);			
@@ -1255,17 +1620,20 @@
 					gamePanel.targetRate.text = String(flyingObjects[0][1]); // may 8th
 				}										
 				
-				addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+				addEventListener(Event.ENTER_FRAME, enterFrameHandler); 
 				
 				//myTimer.start();
 				//myTimer2.start();
 				//gameTimer.start();
 								
 				DC.objLiveGraph.stuckBreathsThreshold = 3; //JULY 13:NEW1g need more stuck breaths during the game, otherwise bird falls suddenly too often.
-				DC.objLiveGraph.breathTopExceededThreshold = 0; //JULY13:NEW1f  set to 0, so that breath range can be found more quickly during calibration
-				DC.objLiveGraph.lightBreathsThreshold = 0; //JULY13:NEW1f  set to 0, so that breath range can be found more quickly during calibration
-				DC.objLiveGraph.minBreathRange = 50;			
-			
+				//DC.objLiveGraph.breathTopExceededThreshold = 0; //AUG 1st REMOVED  set to 0, so that breath range can be found more quickly during calibration
+				//DC.objLiveGraph.lightBreathsThreshold = 0; //AUG 1st REMOVED  set to 0, so that breath range can be found more quickly during calibration
+				//DC.objLiveGraph.minBreathRange = DC.objLiveGraph.fullBreathGraphHeight/8; //AUG 1st REMOVED	
+				//DC.objLiveGraph.minBreathRangeForStuck = (DC.objLiveGraph.fullBreathGraphHeight/8); //AUG 1st REMOVED
+				DC.objLiveGraph.breathCountAtCalibrationStart = DC.objLiveGraph.breathCount;  //AUG 1st New	
+				DC.objLiveGraph.timeElapsedAtCalibrationStart = DC.objLiveGraph.timeElapsed;  //AUG 1st New			
+				
 			}
 			
 			

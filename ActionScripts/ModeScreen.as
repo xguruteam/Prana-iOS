@@ -231,7 +231,8 @@
 		
 		function p2(evt:MouseEvent)  {
 			
-			DC.objGame.whichPattern = 1;			
+			DC.objGame.whichPattern = 1;	
+			DC.objGame.subPattern = 0; //AUG 1st ADDED, THIS WAS MISSING! Was creating a bug
 			postureSelectScreen();
 			
 		}

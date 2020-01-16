@@ -75,7 +75,8 @@
 			passiveTrackingUI.buzzTimeSelector.buzz15.addEventListener(MouseEvent.CLICK,buzzTimeSelectorHandler);  // May 31st ADDED THIS LINE
 			passiveTrackingUI.buzzTimeSelector.buzz20.addEventListener(MouseEvent.CLICK,buzzTimeSelectorHandler);  // May 31st ADDED THIS LINE
 			passiveTrackingUI.buzzTimeSelector.buzz30.addEventListener(MouseEvent.CLICK,buzzTimeSelectorHandler);  // May 31st ADDED THIS LINE
-						
+			
+									
 			addChild(passiveTrackingUI);		
 			
 			passiveTrackingUI.postureState.gotoAndStop(1);
@@ -93,9 +94,29 @@
 			//secondsElapsed = 0; //JULY 13th:CHANGE1b  REMOVE THIS LINE
 			passiveTrackingUI.lastMinuteEI.text = ""; //***May 31st ADDED
 			passiveTrackingUI.realTimeEI.text = "";//***May 31st ADDED
-			passiveTrackingUI.sessionAvgEI.text = "";//***May 31st ADDED			
+			passiveTrackingUI.sessionAvgEI.text = "";//***May 31st ADDED	
+			
+			isPassiveTrackingActive = 0; // AUG 1st ADDED
 					
 			DC.objLiveGraph.startMode(); //Need this here because user needs to be able set posture before timer starts!
+			
+			DC.objLiveGraph.breathTopExceededThreshold = 0; //AUG 1st NEW
+			DC.objLiveGraph.lightBreathsThreshold = 0; //AUG 1st NEW			
+			
+			if (DC.objLiveGraph.postureLevel == 1) {  //AUG 1st NEW 
+				passiveTrackingUI.postureResponse.level1.selected = true; //AUG 1st NEW 
+			} //AUG 1st NEW 
+			else if (DC.objLiveGraph.postureLevel == 2) { //AUG 1st NEW 
+				passiveTrackingUI.postureResponse.level2.selected = true; //AUG 1st NEW 
+			} //AUG 1st NEW 
+			else if (DC.objLiveGraph.postureLevel == 3) { //AUG 1st NEW 
+				passiveTrackingUI.postureResponse.level3.selected = true; //AUG 1st NEW 
+			} //AUG 1st NEW 
+			
+			passiveTrackingUI.breathResponse.level1.selected = true; //AUG 1st NEW			
+			DC.objLiveGraph.smoothBreathingCoefBaseLevel = 0.15; //AUG 1st NEW
+			DC.objLiveGraph.reversalThreshold = 6; //AUG 1st NEW
+			DC.objLiveGraph.birdIncrements = 24; //AUG 1st NEW
 			
 			passiveTrackingUI.buzzerForPosture.level1.selected = true;
 			useBuzzerForPosture = 1;
@@ -140,26 +161,27 @@
 			
 			passiveTrackingUI.startPassiveTrackingButton.gotoAndStop(1);			
 			
-			if (DC.objLiveGraph.postureUI.postureSelector.postureLevel1.selected == true) {				
-				passiveTrackingUI.postureResponse.level1.selected = true;
-			}
-			else if (DC.objLiveGraph.postureUI.postureSelector.postureLevel2.selected == true) {				
-				passiveTrackingUI.postureResponse.level2.selected = true;
-			}
-			else if (DC.objLiveGraph.postureUI.postureSelector.postureLevel3.selected == true) {				
-				passiveTrackingUI.postureResponse.level3.selected = true;
-			}					
+			// AUG 1st BLOCK OF CODE REMOVED
+			//if (DC.objLiveGraph.postureUI.postureSelector.postureLevel1.selected == true) {				
+				//passiveTrackingUI.postureResponse.level1.selected = true;
+			//}
+			//else if (DC.objLiveGraph.postureUI.postureSelector.postureLevel2.selected == true) {				
+				//passiveTrackingUI.postureResponse.level2.selected = true;
+			//}
+			//else if (DC.objLiveGraph.postureUI.postureSelector.postureLevel3.selected == true) {				
+				//passiveTrackingUI.postureResponse.level3.selected = true;
+			//}					
 				
 			
-			if (DC.objLiveGraph.postureUI.breathSelector.breathLevel1.selected == true) {
-				passiveTrackingUI.breathResponse.level1.selected = true;
-			}
-			else if (DC.objLiveGraph.postureUI.breathSelector.breathLevel2.selected == true) {
-				passiveTrackingUI.breathResponse.level2.selected = true;
-			}
-			else if (DC.objLiveGraph.postureUI.breathSelector.breathLevel3.selected == true) {
-				passiveTrackingUI.breathResponse.level3.selected = true;
-			}					
+			//if (DC.objLiveGraph.postureUI.breathSelector.breathLevel1.selected == true) {
+				//passiveTrackingUI.breathResponse.level1.selected = true;
+			//}
+			//else if (DC.objLiveGraph.postureUI.breathSelector.breathLevel2.selected == true) {
+				//passiveTrackingUI.breathResponse.level2.selected = true;
+			//}
+			//else if (DC.objLiveGraph.postureUI.breathSelector.breathLevel3.selected == true) {
+				//passiveTrackingUI.breathResponse.level3.selected = true;
+			//}					
 			
 		}
 		
@@ -177,12 +199,29 @@
 				//addEventListener(Event.ENTER_FRAME, enterFrameHandler);  // May 19th, REMOVED THIS LINE
 				isPassiveTrackingActive = 1; // May 19th, ADDED THIS LINE
 				
-				DC.objLiveGraph.whenBreathsEnd = [];
-				DC.objLiveGraph.whenBreathsEnd[0] = 0;
-				DC.objLiveGraph.breathCount = 0;
-				DC.objLiveGraph.timeElapsed = 0;
-				DC.objLiveGraph.respRate = 0;
-				DC.objLiveGraph.avgRespRate = 0;				
+				//DC.objLiveGraph.whenBreathsEnd = [];   //AUG 1st REMOVED
+				//DC.objLiveGraph.whenBreathsEnd[0] = 0; //AUG 1st REMOVED
+				DC.objLiveGraph.breathCount = 0; 
+				DC.objLiveGraph.timeElapsed = 0; 
+				DC.objLiveGraph.respRate = 0; 
+				DC.objLiveGraph.avgRespRate = 0; 				
+				
+				DC.objLiveGraph.exhaleCorrectionFactor = 0; //AUG 1st NEW
+				DC.objLiveGraph.EIAvgSessionRatio = 0; //AUG 1st NEW
+				DC.objLiveGraph.EIRatio = [];  //AUG 1st NEW
+				DC.objLiveGraph.inhaleStartTime = 0; //AUG 1st NEW
+				DC.objLiveGraph.inhaleEndTime = 0; //AUG 1st NEW
+				DC.objLiveGraph.exhaleEndTime = 0; //AUG 1st NEW
+				DC.objLiveGraph.EIRatioCount = 0; //AUG 1st NEW
+				DC.objLiveGraph.EI1Minute = 0;  //AUG 1st NEW				
+				DC.objLiveGraph.whenBreathsStart = []; //AUG 1st NEW					
+				DC.objLiveGraph.enterFrameCount = 0; //AUG 1st NEW		
+				DC.objLiveGraph.EIAvgSessionSummation = 0; //AUG 1st NEW		
+			
+				DC.objLiveGraph.breathTopExceededThreshold = 1; //AUG 1st NEW
+				DC.objLiveGraph.lightBreathsThreshold = 1; //AUG 1st NEW				
+				DC.objLiveGraph.minBreathRange = DC.objLiveGraph.fullBreathGraphHeight/16; //AUG 1st CHANGE
+				DC.objLiveGraph.minBreathRangeForStuck = (DC.objLiveGraph.fullBreathGraphHeight/16); //AUG 1st NEW
 				
 			}
 			
@@ -199,9 +238,9 @@
 			
 			passiveTrackingUI.currentRR.text = String(DC.objLiveGraph.respRate);	
 			  
-			if (DC.objLiveGraph.timeElapsed >= 60) { //JULY 13th:NEW1d
-				passiveTrackingUI.oneMinuteRR.text = String(DC.objLiveGraph.calculateOneMinuteRespRate()); //JULY 13th:NEW1d
-			} //JULY 13th:NEW1d
+			//if (DC.objLiveGraph.timeElapsed >= 60) { //AUG 1st REMOVED
+				//passiveTrackingUI.oneMinuteRR.text = String(DC.objLiveGraph.calculateOneMinuteRespRate()); //AUG 1st REMOVED
+			//} //AUG 1st REMOVED
 			
 			passiveTrackingUI.howManyBreaths.text = String(DC.objLiveGraph.breathCount);
 			passiveTrackingUI.averageRR.text = String(DC.objLiveGraph.avgRespRate);
@@ -285,17 +324,24 @@
 			
 			enterFrameCount = 0;
 			
+			if (DC.objLiveGraph.timeElapsed >= 60) { //AUG 1st NEW
+				passiveTrackingUI.oneMinuteRR.text = String(DC.objLiveGraph.calculateOneMinuteRespRate()); //AUG 1st NEW
+				
+				DC.objLiveGraph.calculateOneMinuteEI(); //AUG 1st NEW
+				passiveTrackingUI.lastMinuteEI.text = String(DC.objLiveGraph.EI1Minute); //Aug 1st NEW
+			} //AUG 1st NEW
+			
 			if (DC.objLiveGraph.EIRatio.length > 0) {  //May 31st ADDED
 				passiveTrackingUI.realTimeEI.text = String(DC.objLiveGraph.EIRatio[DC.objLiveGraph.EIRatio.length-1][0]);   //May 31st ADDED
-				passiveTrackingUI.sessionAvgEI.text = String(roundNumber(DC.objLiveGraph.EIAvgSessionRatio/DC.objLiveGraph.EIRatio.length,10));   //May 31st ADDED
+				passiveTrackingUI.sessionAvgEI.text = String(DC.objLiveGraph.EIAvgSessionRatio);   //AUG 1st CHANGED
 			}
 			
 			//secondsElapsed++;  //JULY 13th:CHANGE1b  REMOVE THIS LINE
 			
-			if (DC.objLiveGraph.timeElapsed >= 60) {  //JULY 13th:CHANGE1b 
+			//if (DC.objLiveGraph.timeElapsed >= 60) {  //AUG 1st REMOVED
 				//secondsElapsed = 0; //JULY 13th:CHANGE1b  REMOVE THIS LINE
-				passiveTrackingUI.lastMinuteEI.text = String(DC.objLiveGraph.EI1Minute); //JULY 13th:CHANGE1b, this is a global variable now in LiveGraph class
-			} 
+				//passiveTrackingUI.lastMinuteEI.text = String(DC.objLiveGraph.EI1Minute); //AUG 1st REMOVED
+			//} //AUG 1st REMOVED
 			
 					 
 			trainingDuration--;
@@ -377,18 +423,21 @@
 		function postureSelectorHandler(evt:MouseEvent)  {
 			
 			if (passiveTrackingUI.postureResponse.level1.selected == true) {
-				DC.objLiveGraph.postureUI.postureSelector.postureLevel1.selected = true;
+				//DC.objLiveGraph.postureUI.postureSelector.postureLevel1.selected = true; // AUG 1st REMOVED
 				DC.objLiveGraph.postureRange = 0.15;
+				DC.objLiveGraph.postureLevel = 1;  // AUG 1st NEW
 			}
 			
 			else if (passiveTrackingUI.postureResponse.level2.selected == true) {
-				DC.objLiveGraph.postureUI.postureSelector.postureLevel2.selected = true;
+				//DC.objLiveGraph.postureUI.postureSelector.postureLevel2.selected = true; // AUG 1st REMOVED
 				DC.objLiveGraph.postureRange = 0.10;
+				DC.objLiveGraph.postureLevel = 2;  // AUG 1st NEW
 			}
 			
 			else if (passiveTrackingUI.postureResponse.level3.selected == true) {
-				DC.objLiveGraph.postureUI.postureSelector.postureLevel3.selected = true;
+				//DC.objLiveGraph.postureUI.postureSelector.postureLevel3.selected = true; // AUG 1st REMOVED
 				DC.objLiveGraph.postureRange = 0.05;
+				DC.objLiveGraph.postureLevel = 3;  // AUG 1st NEW
 			}
 			
 		}
@@ -443,24 +492,27 @@
 		function breathSelectorHandler(evt:MouseEvent)  {
 			
 			if (passiveTrackingUI.breathResponse.level1.selected == true) {
-				DC.objLiveGraph.postureUI.breathSelector.breathLevel1.selected = true;
+				//DC.objLiveGraph.postureUI.breathSelector.breathLevel1.selected = true; // AUG 1st REMOVED
 				DC.objLiveGraph.smoothBreathingCoefBaseLevel = 0.15;
 				DC.objLiveGraph.reversalThreshold = 6;
 				DC.objLiveGraph.birdIncrements = 24;
+				
 			}
 			
 			else if (passiveTrackingUI.breathResponse.level2.selected == true) {
-				DC.objLiveGraph.postureUI.breathSelector.breathLevel2.selected = true;
+				//DC.objLiveGraph.postureUI.breathSelector.breathLevel2.selected = true;  // AUG 1st REMOVED
 				DC.objLiveGraph.smoothBreathingCoefBaseLevel = 0.4;
 				DC.objLiveGraph.reversalThreshold = 5;
 				DC.objLiveGraph.birdIncrements = 20;
+				
 			}
 			
 			else if (passiveTrackingUI.breathResponse.level3.selected == true) {
-				DC.objLiveGraph.postureUI.breathSelector.breathLevel3.selected = true;
+				//DC.objLiveGraph.postureUI.breathSelector.breathLevel3.selected = true;  // AUG 1st REMOVED
 				DC.objLiveGraph.smoothBreathingCoefBaseLevel = 0.6;
 				DC.objLiveGraph.reversalThreshold = 3;
 				DC.objLiveGraph.birdIncrements = 12;
+				
 			}
 			
 		}
