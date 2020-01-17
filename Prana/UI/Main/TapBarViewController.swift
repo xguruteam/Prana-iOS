@@ -42,7 +42,6 @@ class TapBarViewController: UITabBarController {
     }
     
     func insertCustomTabBar() {
-        
         customTabBar = UIView(frame: CGRect(x: 0.0, y: height-49.0, width: width, height: 49.0))
         customTabBar.backgroundColor = .white
         

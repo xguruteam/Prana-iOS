@@ -13,9 +13,6 @@ import Crashlytics
 import Fabric
 
 class TabTrainViewController: UIViewController {
-
-    @IBOutlet weak var container: UIView!
-    
     @IBOutlet weak var breathCircle: PranaCircleProgressView!
     @IBOutlet weak var lblMindfulBreathTime: UILabel!
     @IBOutlet weak var lblBreathResult: UILabel!
@@ -104,17 +101,7 @@ class TabTrainViewController: UIViewController {
     }
     
     func initView() {
-        self.navigationController?.isNavigationBarHidden = true
-        
-        //Init background image
-        let background = UIImage(named: "app-background")
-        let imageView = UIImageView(frame: view.bounds)
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.image = background
-        imageView.center = view.center
-        container.insertSubview(imageView, at: 0)
-        container.sendSubviewToBack(imageView)
+        self.navigationController?.isNavigationBarHidden = true        
 
         btnTraining.applyButtonGradient(colors: [#colorLiteral(red: 0.2823529412, green: 0.8705882353, blue: 0.8352941176, alpha: 1), #colorLiteral(red: 0.1137254902, green: 0.6117647059, blue: 0.6196078431, alpha: 1)], points: [0.0, 1.0])
         btnTracking.applyButtonGradient(colors: [#colorLiteral(red: 0.6117647059, green: 0.8470588235, blue: 0.2352941176, alpha: 1), #colorLiteral(red: 0.3803921569, green: 0.7333333333, blue: 0.2156862745, alpha: 1)], points: [0.0, 1.0])

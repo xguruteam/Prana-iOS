@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7R0-Ha-CVD">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -27,18 +27,17 @@
                         <viewControllerLayoutGuide type="bottom" id="MYs-yl-rSg"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="JNp-ta-nD2">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a0X-qy-b7E">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app-background" translatesAutoresizingMaskIntoConstraints="NO" id="8ES-LU-BhQ">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tgO-yr-ZW4">
-                                <rect key="frame" x="0.0" y="36" width="375" height="24"/>
+                                <rect key="frame" x="0.0" y="60" width="375" height="24"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breathing and Posture" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vS8-tM-TeD">
-                                        <rect key="frame" x="90" y="0.5" width="195" height="23"/>
+                                        <rect key="frame" x="90.333333333333329" y="0.6666666666666643" width="194.66666666666669" height="22.666666666666668"/>
                                         <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="18"/>
                                         <color key="textColor" red="0.31764705882352939" green="0.35686274509803922" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -61,7 +60,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k0d-H7-AgT">
-                                <rect key="frame" x="20" y="76" width="335" height="527"/>
+                                <rect key="frame" x="20" y="100" width="335" height="614"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pjj-Zz-2Dm">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="88"/>
@@ -70,7 +69,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="88"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Training" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sRA-Ch-tGj">
-                                                <rect key="frame" x="111" y="25.5" width="113" height="37"/>
+                                                <rect key="frame" x="111" y="26.000000000000004" width="113.33333333333331" height="36.333333333333343"/>
                                                 <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="29"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -94,13 +93,13 @@
                                                 <rect key="frame" x="0.0" y="65" width="120" height="65"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6.2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6JR-Im-5c1">
-                                                        <rect key="frame" x="48.5" y="5" width="23" height="21.5"/>
+                                                        <rect key="frame" x="48.666666666666671" y="5" width="23" height="21.333333333333332"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="17"/>
                                                         <color key="textColor" red="0.2627450980392157" green="0.29019607843137252" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Itz-cY-MZT">
-                                                        <rect key="frame" x="42" y="26.5" width="36" height="21.5"/>
+                                                        <rect key="frame" x="42" y="26.333333333333314" width="36" height="21.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="17"/>
                                                         <color key="textColor" red="0.50196078431372548" green="0.54117647058823526" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -117,19 +116,19 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4x-F9-OSm">
-                                                <rect key="frame" x="45.5" y="17" width="29" height="16.5"/>
+                                                <rect key="frame" x="45.666666666666671" y="17" width="28.666666666666671" height="15.333333333333336"/>
                                                 <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="13"/>
                                                 <color key="textColor" red="0.1803921568627451" green="0.70980392156862748" blue="0.70196078431372544" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 Mins" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kpN-cI-RP8">
-                                                <rect key="frame" x="17.5" y="33.5" width="85" height="16.5"/>
+                                                <rect key="frame" x="17.666666666666664" y="32.333333333333343" width="85" height="16.333333333333329"/>
                                                 <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="13"/>
                                                 <color key="textColor" red="0.18039215689999999" green="0.70980392160000005" blue="0.70196078429999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eZN-q7-Rok" customClass="PranaCircleProgressView" customModule="Prana" customModuleProvider="target">
-                                                <rect key="frame" x="-2.5" y="5" width="125" height="125"/>
+                                                <rect key="frame" x="-2.3333333333333357" y="5" width="125" height="125"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="125" id="WJl-tn-Nj3"/>
@@ -151,7 +150,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WD3-iI-T1b" userLabel="Detail">
-                                                <rect key="frame" x="137.5" y="20" width="157.5" height="90"/>
+                                                <rect key="frame" x="137.66666666666663" y="20" width="157.33333333333337" height="90"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_breath_taking" translatesAutoresizingMaskIntoConstraints="NO" id="hFv-6i-9CL">
                                                         <rect key="frame" x="0.0" y="2" width="25" height="16"/>
@@ -161,19 +160,19 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breath Training" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VhM-fh-Vdi">
-                                                        <rect key="frame" x="30" y="0.0" width="119.5" height="20"/>
+                                                        <rect key="frame" x="29.999999999999993" y="0.0" width="119.33333333333331" height="20"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                                         <color key="textColor" red="0.38823529411764707" green="0.4392156862745098" blue="0.52549019607843139" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Result" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ztE-WH-feV">
-                                                        <rect key="frame" x="4" y="30" width="41.5" height="17.5"/>
+                                                        <rect key="frame" x="4" y="30" width="41.333333333333336" height="17.666666666666671"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="14"/>
                                                         <color key="textColor" red="0.26666666666666666" green="0.31372549019607843" blue="0.36862745098039218" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="62% Mindful" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFe-t7-AdS">
-                                                        <rect key="frame" x="4" y="52.5" width="79.5" height="17.5"/>
+                                                        <rect key="frame" x="4" y="52.666666666666686" width="80" height="17.666666666666671"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="14"/>
                                                         <color key="textColor" red="0.18039215689999999" green="0.70980392160000005" blue="0.70196078429999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -224,13 +223,13 @@
                                                 <rect key="frame" x="0.0" y="65" width="125" height="65"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8.5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2w3-Lh-6lC">
-                                                        <rect key="frame" x="50.5" y="5" width="24.5" height="21.5"/>
+                                                        <rect key="frame" x="50.333333333333329" y="5" width="24.333333333333329" height="21.333333333333332"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="17"/>
                                                         <color key="textColor" red="0.2627450980392157" green="0.29019607843137252" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLP-mJ-m4o">
-                                                        <rect key="frame" x="44.5" y="26.5" width="36" height="21.5"/>
+                                                        <rect key="frame" x="44.666666666666671" y="26.333333333333314" width="36" height="21.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="17"/>
                                                         <color key="textColor" red="0.50196078431372548" green="0.54117647058823526" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -247,13 +246,13 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZv-8X-e2m">
-                                                <rect key="frame" x="48" y="15" width="29" height="16.5"/>
+                                                <rect key="frame" x="48.333333333333329" y="15" width="28.666666666666671" height="15.333333333333336"/>
                                                 <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="13"/>
                                                 <color key="textColor" red="0.43137254901960786" green="0.74901960784313726" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 mins" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6Y-7S-9yw">
-                                                <rect key="frame" x="20" y="31.5" width="85" height="16.5"/>
+                                                <rect key="frame" x="20" y="30.333333333333314" width="85" height="16.333333333333329"/>
                                                 <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="13"/>
                                                 <color key="textColor" red="0.43137254899999999" green="0.74901960779999999" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -284,7 +283,7 @@
                                                 <rect key="frame" x="140" y="20" width="155" height="90"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_posture_Training" translatesAutoresizingMaskIntoConstraints="NO" id="1Dg-fz-33Z">
-                                                        <rect key="frame" x="0.0" y="5.5" width="13" height="17"/>
+                                                        <rect key="frame" x="0.0" y="5.6666666666666856" width="13" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17" id="Efa-fc-eLE"/>
                                                             <constraint firstAttribute="width" constant="13" id="uYb-Cm-ZCc"/>
@@ -297,13 +296,13 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Result" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mjc-Jc-xcb">
-                                                        <rect key="frame" x="4" y="34" width="41.5" height="17.5"/>
+                                                        <rect key="frame" x="4" y="34" width="41.333333333333336" height="17.666666666666671"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="14"/>
                                                         <color key="textColor" red="0.26666666666666666" green="0.31372549019607843" blue="0.36862745098039218" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="85% Upright" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4lc-IL-bJt">
-                                                        <rect key="frame" x="4" y="56.5" width="81" height="17.5"/>
+                                                        <rect key="frame" x="4" y="56.666666666666679" width="81" height="17.666666666666664"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="14"/>
                                                         <color key="textColor" red="0.43137254899999999" green="0.74901960779999999" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -364,7 +363,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CZs-vI-YWu" userLabel="Buttons">
-                                <rect key="frame" x="40" y="553" width="295" height="86"/>
+                                <rect key="frame" x="40" y="664" width="295" height="86"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LGT-fP-xln">
                                         <rect key="frame" x="0.0" y="0.0" width="86" height="86"/>
@@ -392,7 +391,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VkP-7r-khE">
-                                        <rect key="frame" x="104.5" y="0.0" width="86" height="86"/>
+                                        <rect key="frame" x="104.66666666666666" y="0.0" width="86" height="86"/>
                                         <color key="backgroundColor" red="0.36862745099999999" green="0.72156862749999995" blue="0.22352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="VkP-7r-khE" secondAttribute="height" multiplier="1:1" id="5Ez-oZ-xYQ"/>
@@ -458,19 +457,19 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="k0d-H7-AgT" secondAttribute="trailing" constant="20" id="3Om-cm-mCC"/>
+                            <constraint firstItem="PuR-AJ-NWD" firstAttribute="trailing" secondItem="8ES-LU-BhQ" secondAttribute="trailing" id="3v8-B8-XUn"/>
+                            <constraint firstAttribute="bottom" secondItem="8ES-LU-BhQ" secondAttribute="bottom" id="4lm-8G-l41"/>
                             <constraint firstItem="tgO-yr-ZW4" firstAttribute="width" secondItem="JNp-ta-nD2" secondAttribute="width" id="6G2-jg-efP"/>
-                            <constraint firstItem="a0X-qy-b7E" firstAttribute="centerX" secondItem="JNp-ta-nD2" secondAttribute="centerX" id="9UZ-yH-h7Z"/>
                             <constraint firstItem="CZs-vI-YWu" firstAttribute="top" secondItem="k0d-H7-AgT" secondAttribute="bottom" constant="-50" id="DIT-fi-HV8"/>
                             <constraint firstItem="CZs-vI-YWu" firstAttribute="leading" secondItem="k0d-H7-AgT" secondAttribute="leading" constant="20" id="Khb-s6-wSG"/>
                             <constraint firstItem="CZs-vI-YWu" firstAttribute="trailing" secondItem="k0d-H7-AgT" secondAttribute="trailing" constant="-20" id="M6t-Wv-nHc"/>
                             <constraint firstItem="tgO-yr-ZW4" firstAttribute="top" secondItem="Xdf-yr-osa" secondAttribute="bottom" constant="16" id="QUC-Zu-lN4"/>
                             <constraint firstItem="k0d-H7-AgT" firstAttribute="leading" secondItem="JNp-ta-nD2" secondAttribute="leading" constant="20" id="TQf-cP-yJP"/>
-                            <constraint firstItem="a0X-qy-b7E" firstAttribute="width" secondItem="JNp-ta-nD2" secondAttribute="width" id="XRo-zZ-DPV"/>
-                            <constraint firstItem="MYs-yl-rSg" firstAttribute="top" secondItem="a0X-qy-b7E" secondAttribute="bottom" id="gKZ-as-JSY"/>
                             <constraint firstItem="tgO-yr-ZW4" firstAttribute="centerX" secondItem="JNp-ta-nD2" secondAttribute="centerX" id="hJT-4J-zhg"/>
                             <constraint firstItem="MYs-yl-rSg" firstAttribute="top" secondItem="k0d-H7-AgT" secondAttribute="bottom" constant="64" id="hkJ-qd-uUk"/>
                             <constraint firstItem="k0d-H7-AgT" firstAttribute="top" secondItem="tgO-yr-ZW4" secondAttribute="bottom" constant="16" id="huf-Zu-ROa"/>
-                            <constraint firstItem="a0X-qy-b7E" firstAttribute="top" secondItem="Xdf-yr-osa" secondAttribute="bottom" constant="-20" id="tAn-tO-hmx"/>
+                            <constraint firstItem="8ES-LU-BhQ" firstAttribute="leading" secondItem="PuR-AJ-NWD" secondAttribute="leading" id="l4k-HR-cE2"/>
+                            <constraint firstAttribute="top" secondItem="8ES-LU-BhQ" secondAttribute="top" id="rSd-pa-AWB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PuR-AJ-NWD"/>
                     </view>
@@ -482,7 +481,6 @@
                         <outlet property="btnLiveGraph" destination="GFU-3f-62u" id="ntg-9H-3r9"/>
                         <outlet property="btnTracking" destination="VkP-7r-khE" id="Adk-JO-BIc"/>
                         <outlet property="btnTraining" destination="LGT-fP-xln" id="qqi-hf-L2z"/>
-                        <outlet property="container" destination="a0X-qy-b7E" id="Alq-vY-tV2"/>
                         <outlet property="lblBreathGoal" destination="kpN-cI-RP8" id="sYH-Jr-mGW"/>
                         <outlet property="lblBreathResult" destination="qFe-t7-AdS" id="tqG-GA-bLy"/>
                         <outlet property="lblMindfulBreathTime" destination="6JR-Im-5c1" id="NA3-Pa-Nsv"/>
@@ -495,7 +493,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2QT-0H-Rzf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="69.565217391304358" y="-5486.3839285714284"/>
+            <point key="canvasLocation" x="68" y="-5486.4532019704438"/>
         </scene>
         <!--Programs View Controller-->
         <scene sceneID="iFV-Jj-GgJ">
@@ -506,14 +504,14 @@
                         <viewControllerLayoutGuide type="bottom" id="SRw-ic-wfA"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Rgy-zW-8tI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app-background" translatesAutoresizingMaskIntoConstraints="NO" id="aBs-T8-p6e">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="b36-d2-cIN">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="jsk-Vg-ADg">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
@@ -534,7 +532,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breathing and Posture" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qX-ax-et8">
-                                                    <rect key="frame" x="112.5" y="2.5" width="150" height="17.5"/>
+                                                    <rect key="frame" x="108" y="1.6666666666666679" width="159" height="19"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="15"/>
                                                     <color key="textColor" red="0.25490196079999999" green="0.31764705879999999" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -568,13 +566,13 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="335" height="88"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Training" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3P-0b-x3p">
-                                                            <rect key="frame" x="117" y="27" width="101" height="34"/>
+                                                            <rect key="frame" x="110.66666666666666" y="25.666666666666668" width="113.66666666666666" height="36.666666666666657"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="29"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WQE-Y9-df8">
-                                                            <rect key="frame" x="148" y="66" width="39.5" height="19"/>
+                                                            <rect key="frame" x="146" y="67.333333333333343" width="43" height="20"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -632,7 +630,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Training Programs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6R-8A-x0b">
-                                                            <rect key="frame" x="48" y="15" width="142.5" height="20"/>
+                                                            <rect key="frame" x="48" y="15" width="142.66666666666666" height="20"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -757,7 +755,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PKt-fk-X1e">
-                                                            <rect key="frame" x="270" y="135.5" width="51" height="31"/>
+                                                            <rect key="frame" x="270" y="135.66666666666663" width="51" height="31"/>
                                                             <color key="onTintColor" red="0.16862745100000001" green="0.71764705880000002" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                                             <connections>
                                                                 <action selector="onNotificationEnableChange:" destination="wO1-me-w4M" eventType="valueChanged" id="2rI-fh-6cu"/>
@@ -813,7 +811,7 @@ For each training session:
                                                     <rect key="frame" x="20" y="142" width="335" height="293"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lu0-F5-1CC">
-                                                            <rect key="frame" x="16" y="0.0" width="303" height="292.5"/>
+                                                            <rect key="frame" x="16" y="0.0" width="303" height="292.66666666666669"/>
                                                             <string key="text">• You set your daily training minute goals for breathing and posture.
 
 For each training session:
@@ -841,7 +839,7 @@ For each training session:
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4oo-Nh-Rqc">
-                                                    <rect key="frame" x="20" y="417" width="335" height="283"/>
+                                                    <rect key="frame" x="20" y="416.66666666666674" width="335" height="283.33333333333326"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUa-wW-3ZN">
                                                             <rect key="frame" x="16" y="20" width="43" height="20"/>
@@ -850,13 +848,13 @@ For each training session:
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How many minutes of Breath Training would you like to do daily?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Qj-V1-Nfy">
-                                                            <rect key="frame" x="16" y="60" width="303" height="32.5"/>
+                                                            <rect key="frame" x="16" y="60" width="303" height="32.666666666666657"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oMD-q5-dPh" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
-                                                            <rect key="frame" x="16" y="112.5" width="120" height="44"/>
+                                                            <rect key="frame" x="16" y="112.66666666666669" width="120" height="44"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="44" id="0nH-QM-CiY"/>
@@ -867,13 +865,13 @@ For each training session:
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How many minutes of Posture Training would you like to do daily?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOY-gF-uqM">
-                                                            <rect key="frame" x="16" y="176.5" width="303" height="32.5"/>
+                                                            <rect key="frame" x="16" y="176.66666666666669" width="303" height="32.666666666666657"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B7j-j1-LAG" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
-                                                            <rect key="frame" x="16" y="229" width="120" height="44"/>
+                                                            <rect key="frame" x="16" y="229.33333333333331" width="120" height="44"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="44" id="2Mh-my-uGK"/>
@@ -905,7 +903,7 @@ For each training session:
                                                     <rect key="frame" x="20" y="900" width="335" height="95"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="MQa-Tt-51b">
-                                                            <rect key="frame" x="0.0" y="19.5" width="335" height="56"/>
+                                                            <rect key="frame" x="0.0" y="19.666666666666629" width="335" height="56"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="56" id="zlK-A7-oXu"/>
@@ -969,11 +967,11 @@ For each training session:
                                         <rect key="frame" x="0.0" y="1233" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b0g-ii-I6g" id="dJo-9u-t2b">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f7U-xg-mW4">
-                                                    <rect key="frame" x="20" y="0.0" width="335" height="49.5"/>
+                                                    <rect key="frame" x="20" y="0.0" width="335" height="49.666666666666664"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_gear" translatesAutoresizingMaskIntoConstraints="NO" id="rbQ-5W-NFy">
                                                             <rect key="frame" x="16" y="13" width="24" height="24"/>
@@ -1023,20 +1021,20 @@ For each training session:
                                         <rect key="frame" x="0.0" y="1283" width="375" height="505"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wBQ-03-DJD" id="ucd-va-TrQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="504.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="504.66666666666669"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y2c-nS-lg9">
-                                                    <rect key="frame" x="20" y="0.0" width="335" height="500.5"/>
+                                                    <rect key="frame" x="20" y="0.0" width="335" height="500.33333333333331"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What kind of training session would you like to do?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zHa-Gm-hm1">
-                                                            <rect key="frame" x="16" y="20" width="303" height="32.5"/>
+                                                            <rect key="frame" x="16" y="19.999999999999996" width="303" height="32.666666666666657"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KnA-m7-E8F">
-                                                            <rect key="frame" x="16" y="62.5" width="303" height="50"/>
+                                                            <rect key="frame" x="16" y="62.666666666666657" width="303" height="50"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KS9-40-Fu2" customClass="PranaButton" customModule="Prana" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="91" height="50"/>
@@ -1081,7 +1079,7 @@ For each training session:
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How do you wish to do the training?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2r0-rB-oaL">
-                                                            <rect key="frame" x="16" y="132.5" width="303" height="16.5"/>
+                                                            <rect key="frame" x="16" y="132.66666666666666" width="303" height="16.333333333333343"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1129,13 +1127,13 @@ For each training session:
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How long should the training session be?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WOk-vF-kt8">
-                                                            <rect key="frame" x="16" y="229" width="303" height="16.5"/>
+                                                            <rect key="frame" x="16" y="229" width="303" height="16.333333333333343"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qDS-Lq-7l0" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
-                                                            <rect key="frame" x="16" y="255.5" width="120" height="45"/>
+                                                            <rect key="frame" x="16" y="255.33333333333337" width="120" height="45"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="45" id="kDp-ek-xXK"/>
@@ -1146,13 +1144,13 @@ For each training session:
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What breathing pattern would you like to use?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RJg-mh-Pts">
-                                                            <rect key="frame" x="16" y="320.5" width="303" height="16.5"/>
+                                                            <rect key="frame" x="16" y="320.33333333333331" width="303" height="16.333333333333314"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L4d-zH-Wlo" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
-                                                            <rect key="frame" x="16" y="347" width="200" height="45"/>
+                                                            <rect key="frame" x="16" y="346.66666666666669" width="200" height="45"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="45" id="Emf-hI-jhT"/>
@@ -1163,13 +1161,13 @@ For each training session:
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How do you wish to do the training?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z4r-Io-rms">
-                                                            <rect key="frame" x="16" y="402" width="303" height="16.5"/>
+                                                            <rect key="frame" x="16" y="401.66666666666669" width="303" height="16.333333333333314"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                             <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rg8-eX-SMl">
-                                                            <rect key="frame" x="16" y="428.5" width="303" height="50"/>
+                                                            <rect key="frame" x="16" y="428" width="303" height="50"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kHJ-Mo-HbE" customClass="PranaButton" customModule="Prana" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="91" height="50"/>
@@ -1248,7 +1246,7 @@ For each training session:
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rrM-eZ-5Ef">
-                                                    <rect key="frame" x="20" y="520.5" width="335" height="109"/>
+                                                    <rect key="frame" x="20" y="520.33333333333337" width="335" height="109"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Owz-1P-rHl">
                                                             <rect key="frame" x="146" y="16" width="43" height="20"/>
@@ -1270,7 +1268,7 @@ For each training session:
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="HbI-rb-dVI">
-                                                    <rect key="frame" x="138.5" y="580.5" width="98" height="98"/>
+                                                    <rect key="frame" x="138.66666666666666" y="580.33333333333337" width="98" height="98"/>
                                                     <color key="backgroundColor" red="0.43529411759999997" green="0.75686274509999996" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="98" id="CNn-Dd-67f"/>
@@ -1324,14 +1322,14 @@ For each training session:
                                         <rect key="frame" x="0.0" y="1788" width="375" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zne-NW-ULA" id="0TO-an-y10">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="199.66666666666666"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mcb-bV-T8H">
                                                     <rect key="frame" x="20" y="20" width="335" height="109"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5tN-GY-mab">
-                                                            <rect key="frame" x="143.5" y="16" width="48" height="22.5"/>
+                                                            <rect key="frame" x="143.66666666666666" y="16" width="48" height="22.666666666666671"/>
                                                             <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="18"/>
                                                             <color key="textColor" red="0.27058823529999998" green="0.28627450980000002" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1350,7 +1348,7 @@ For each training session:
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="H00-qF-B2n">
-                                                    <rect key="frame" x="138.5" y="80" width="98" height="98"/>
+                                                    <rect key="frame" x="138.66666666666666" y="80" width="98" height="98"/>
                                                     <color key="backgroundColor" red="0.43529411759999997" green="0.75686274509999996" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="98" id="BiR-Xc-gH9"/>
@@ -1422,24 +1420,24 @@ For each training session:
                         <viewControllerLayoutGuide type="bottom" id="KSF-H4-bzV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="H1L-W2-R4K">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app-background" translatesAutoresizingMaskIntoConstraints="NO" id="BiL-1y-J16">
-                                <rect key="frame" x="0.0" y="-24" width="375" height="691"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Hn-lq-C3G">
-                                <rect key="frame" x="0.0" y="30" width="375" height="22"/>
+                                <rect key="frame" x="0.0" y="54" width="375" height="22"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CcJ-w9-Zpv" userLabel="Back">
-                                        <rect key="frame" x="16" y="2" width="16" height="18"/>
+                                        <rect key="frame" x="16" y="2" width="24.666666666666671" height="18"/>
                                         <state key="normal" backgroundImage="ic-back"/>
                                         <connections>
                                             <action selector="onBack:" destination="StR-05-Kiz" eventType="touchUpInside" id="GhR-Vg-L7d"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Live Graph" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="itn-ei-htj">
-                                        <rect key="frame" x="148.5" y="1.5" width="78" height="19"/>
+                                        <rect key="frame" x="146" y="1" width="83" height="20"/>
                                         <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                         <color key="textColor" red="0.31764705882352939" green="0.35686274509803922" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1472,17 +1470,17 @@ For each training session:
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cb2-gJ-SdG" userLabel="background">
-                                <rect key="frame" x="0.0" y="72" width="375" height="595"/>
+                                <rect key="frame" x="0.0" y="96" width="375" height="682"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Glk-23-epY">
-                                <rect key="frame" x="25" y="67" width="325" height="600"/>
+                                <rect key="frame" x="25" y="91" width="325" height="687"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HLp-Ol-tTm">
-                                        <rect key="frame" x="0.0" y="0.0" width="325" height="578.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="325" height="590.66666666666663"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aj9-Ra-Sg7">
-                                                <rect key="frame" x="122.5" y="10" width="80" height="30.5"/>
+                                                <rect key="frame" x="122.66666666666666" y="10" width="80" height="32.666666666666664"/>
                                                 <color key="backgroundColor" red="0.43529411764705883" green="0.75686274509803919" blue="0.23137254901960785" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="80" id="YsH-6J-hsP"/>
@@ -1497,7 +1495,7 @@ For each training session:
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9o8-Cs-rsb" customClass="LiveGraph" customModule="Prana" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="50.5" width="293" height="110"/>
+                                                <rect key="frame" x="16" y="52.666666666666657" width="293" height="110"/>
                                                 <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="110" id="Ot5-QJ-RUH"/>
@@ -1507,22 +1505,22 @@ For each training session:
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Respiration Rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVh-Ls-SUD">
-                                                <rect key="frame" x="103" y="170.5" width="119" height="19"/>
+                                                <rect key="frame" x="97.666666666666671" y="172.66666666666669" width="129.66666666666663" height="20"/>
                                                 <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                                 <color key="textColor" red="0.45490196078431372" green="0.50588235294117645" blue="0.61176470588235299" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qnr-SR-Jrd">
-                                                <rect key="frame" x="16" y="199.5" width="141.5" height="34"/>
+                                                <rect key="frame" x="16" y="202.66666666666669" width="141.66666666666666" height="36"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Real-Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UjX-GH-QdV">
-                                                        <rect key="frame" x="43.5" y="2" width="55" height="14"/>
+                                                        <rect key="frame" x="41.666666666666671" y="2" width="58.333333333333329" height="15"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                                         <color key="textColor" red="0.32549019607843138" green="0.38431372549019605" blue="0.48627450980392156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- - " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xrc-Re-cmA">
-                                                        <rect key="frame" x="63" y="16" width="16" height="16"/>
+                                                        <rect key="frame" x="62.666666666666671" y="17" width="16" height="17"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                                         <color key="textColor" red="0.12941176470588234" green="0.65490196078431373" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1549,16 +1547,16 @@ For each training session:
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G9b-df-eIy">
-                                                <rect key="frame" x="167.5" y="199.5" width="141.5" height="34"/>
+                                                <rect key="frame" x="167.66666666666663" y="202.66666666666669" width="141.33333333333337" height="36"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Minute" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mNu-gO-ymW">
-                                                        <rect key="frame" x="47.5" y="2" width="47" height="16"/>
+                                                        <rect key="frame" x="48" y="2" width="45.333333333333343" height="17"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                                         <color key="textColor" red="0.32549019607843138" green="0.38431372549019605" blue="0.48627450980392156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XcG-IH-agM">
-                                                        <rect key="frame" x="67.5" y="18" width="7" height="14"/>
+                                                        <rect key="frame" x="67.000000000000028" y="19" width="7" height="15"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                                         <color key="textColor" red="0.12941176470588234" green="0.65490196078431373" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1585,16 +1583,16 @@ For each training session:
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C0x-nR-0Nl">
-                                                <rect key="frame" x="16" y="240.5" width="293" height="34"/>
+                                                <rect key="frame" x="16" y="245.66666666666669" width="293" height="36"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Breath Count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3dg-re-IHB">
-                                                        <rect key="frame" x="111" y="2" width="71.5" height="14"/>
+                                                        <rect key="frame" x="108.66666666666666" y="2" width="75.666666666666657" height="15"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                                         <color key="textColor" red="0.32549019607843138" green="0.38431372549019605" blue="0.48627450980392156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- - - " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g3n-Sk-wIH">
-                                                        <rect key="frame" x="134.5" y="18" width="24" height="14"/>
+                                                        <rect key="frame" x="134.66666666666666" y="19" width="24" height="15"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                                         <color key="textColor" red="0.12941176470588234" green="0.65490196078431373" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1621,16 +1619,16 @@ For each training session:
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Ae-3k-K25">
-                                                <rect key="frame" x="16" y="281.5" width="293" height="34"/>
+                                                <rect key="frame" x="16" y="288.66666666666669" width="293" height="36"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breath Responsiveness: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUw-p0-9Up">
-                                                        <rect key="frame" x="10" y="9.5" width="144" height="15.5"/>
+                                                        <rect key="frame" x="10" y="9.9999999999999982" width="149" height="16.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                         <color key="textColor" red="0.32549019607843138" green="0.38431372549019605" blue="0.48627450980392156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YZg-b7-Rav" customClass="RadioGroupButton" customModule="Prana" customModuleProvider="target">
-                                                        <rect key="frame" x="184" y="6" width="89" height="22"/>
+                                                        <rect key="frame" x="189" y="7" width="84" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="22" id="AE9-gK-p8U"/>
                                                         </constraints>
@@ -1666,14 +1664,14 @@ For each training session:
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sit (1).png" translatesAutoresizingMaskIntoConstraints="NO" id="oSc-2U-4QO">
-                                                <rect key="frame" x="26" y="325.5" width="60" height="80"/>
+                                                <rect key="frame" x="26" y="334.66666666666669" width="60" height="80"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="60" id="QnE-N6-WCp"/>
                                                     <constraint firstAttribute="height" constant="80" id="gso-OY-klL"/>
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="We8-9j-Fm3">
-                                                <rect key="frame" x="126" y="347.5" width="183" height="36"/>
+                                                <rect key="frame" x="126" y="356.66666666666669" width="183" height="36"/>
                                                 <color key="backgroundColor" red="0.43137254899999999" green="0.74901960779999999" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="MnS-Cj-wff"/>
@@ -1692,20 +1690,20 @@ For each training session:
                                                 </connections>
                                             </button>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kbM-c5-Sfm">
-                                                <rect key="frame" x="26" y="325.5" width="60" height="80"/>
+                                                <rect key="frame" x="26" y="334.66666666666669" width="60" height="80"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ddn-Jj-S31">
-                                                <rect key="frame" x="16" y="415.5" width="293" height="34"/>
+                                                <rect key="frame" x="16" y="424.66666666666663" width="293" height="36"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posture Sensitivity: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XFL-wP-zUi">
-                                                        <rect key="frame" x="10" y="9.5" width="115" height="15.5"/>
+                                                        <rect key="frame" x="10.000000000000007" y="9.9999999999999982" width="119.66666666666669" height="16.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                         <color key="textColor" red="0.46274509803921571" green="0.52549019607843139" blue="0.2627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tZJ-DG-Efn" customClass="RadioGroupButton" customModule="Prana" customModuleProvider="target">
-                                                        <rect key="frame" x="155" y="6" width="118" height="22"/>
+                                                        <rect key="frame" x="159.66666666666666" y="7" width="113.33333333333334" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="22" id="gKS-FA-22n"/>
                                                         </constraints>
@@ -1741,13 +1739,13 @@ For each training session:
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wearing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7nG-21-qXD">
-                                                <rect key="frame" x="133.5" y="459.5" width="58.5" height="19"/>
+                                                <rect key="frame" x="130" y="470.66666666666663" width="65" height="20"/>
                                                 <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                                 <color key="textColor" red="0.45490196078431372" green="0.50588235294117645" blue="0.61176470588235299" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="5ZJ-iH-gmw">
-                                                <rect key="frame" x="16" y="488.5" width="141.5" height="70"/>
+                                                <rect key="frame" x="16" y="500.66666666666663" width="141.66666666666666" height="70"/>
                                                 <color key="backgroundColor" red="0.16862745098039217" green="0.71764705882352942" blue="0.72156862745098038" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="70" id="vO5-hn-s17"/>
@@ -1780,11 +1778,8 @@ For each training session:
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="bQl-De-B3t">
-                                                <rect key="frame" x="167.5" y="488.5" width="141.5" height="70"/>
+                                                <rect key="frame" x="167.66666666666663" y="500.66666666666663" width="141.33333333333337" height="70"/>
                                                 <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="70" id="Y9d-e8-TlF"/>
-                                                </constraints>
                                                 <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="13"/>
                                                 <inset key="titleEdgeInsets" minX="-20" minY="45" maxX="0.0" maxY="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="53" minY="-20" maxX="0.0" maxY="0.0"/>
@@ -1848,6 +1843,7 @@ For each training session:
                                             <constraint firstItem="oSc-2U-4QO" firstAttribute="top" secondItem="4Ae-3k-K25" secondAttribute="bottom" constant="10" id="vTb-xo-7xG"/>
                                             <constraint firstItem="G9b-df-eIy" firstAttribute="leading" secondItem="Qnr-SR-Jrd" secondAttribute="trailing" constant="10" id="wUs-rV-wiU"/>
                                             <constraint firstItem="5ZJ-iH-gmw" firstAttribute="width" secondItem="bQl-De-B3t" secondAttribute="width" id="yzL-7e-aO3"/>
+                                            <constraint firstItem="bQl-De-B3t" firstAttribute="height" secondItem="5ZJ-iH-gmw" secondAttribute="height" id="zrk-Yn-I5t"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1878,7 +1874,7 @@ For each training session:
                             <constraint firstItem="8Hn-lq-C3G" firstAttribute="top" secondItem="YUm-PD-kQ6" secondAttribute="top" constant="10" id="ZJY-DG-0aG"/>
                             <constraint firstItem="YUm-PD-kQ6" firstAttribute="trailing" secondItem="8Hn-lq-C3G" secondAttribute="trailing" id="ZXC-fa-K9G"/>
                             <constraint firstItem="YUm-PD-kQ6" firstAttribute="trailing" secondItem="BiL-1y-J16" secondAttribute="trailing" id="nAw-Qy-pS2"/>
-                            <constraint firstItem="BiL-1y-J16" firstAttribute="bottom" secondItem="YUm-PD-kQ6" secondAttribute="bottom" id="nDU-oD-8gH"/>
+                            <constraint firstItem="BiL-1y-J16" firstAttribute="bottom" secondItem="H1L-W2-R4K" secondAttribute="bottom" id="nDU-oD-8gH"/>
                             <constraint firstItem="8Hn-lq-C3G" firstAttribute="leading" secondItem="YUm-PD-kQ6" secondAttribute="leading" id="oTj-QB-ddD"/>
                             <constraint firstItem="Cb2-gJ-SdG" firstAttribute="top" secondItem="8Hn-lq-C3G" secondAttribute="bottom" constant="20" id="ofO-BH-I3s"/>
                             <constraint firstItem="Glk-23-epY" firstAttribute="leading" secondItem="YUm-PD-kQ6" secondAttribute="leading" constant="25" id="xH4-tO-wSy"/>
@@ -1896,11 +1892,13 @@ For each training session:
                         <outlet property="btnUpright" destination="We8-9j-Fm3" id="tPX-TC-Pgu"/>
                         <outlet property="btnWearLowerBack" destination="bQl-De-B3t" id="vQB-WI-ogI"/>
                         <outlet property="btnWearUpperChest" destination="5ZJ-iH-gmw" id="0Q5-Zj-f3h"/>
+                        <outlet property="buttonHeight" destination="vO5-hn-s17" id="bWQ-Tk-z1A"/>
                         <outlet property="imgPostureAnimation" destination="oSc-2U-4QO" id="g3p-K2-Ean"/>
                         <outlet property="lblBreathCount" destination="g3n-Sk-wIH" id="Ykf-rh-MWt"/>
                         <outlet property="lblOneMinutes" destination="XcG-IH-agM" id="Q1V-HL-aMG"/>
                         <outlet property="lblRespirationRate" destination="xrc-Re-cmA" id="ubf-8V-wyQ"/>
                         <outlet property="lblTime" destination="aj9-Ra-Sg7" id="UMg-yo-fxK"/>
+                        <outlet property="liveGraphHeight" destination="Ot5-QJ-RUH" id="Nmc-g3-iWs"/>
                         <outlet property="postureButtonGroup" destination="tZJ-DG-Efn" id="Pd3-Ku-n7l"/>
                         <outlet property="postureSensitivityGroup" destination="ddn-Jj-S31" id="Ftf-Lm-YBV"/>
                     </connections>
@@ -1918,27 +1916,27 @@ For each training session:
                         <viewControllerLayoutGuide type="bottom" id="gG1-VY-VDC"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="fG7-gs-KQI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app-background" translatesAutoresizingMaskIntoConstraints="NO" id="Dir-aB-wiv">
-                                <rect key="frame" x="0.0" y="-24" width="375" height="691"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O9z-vF-iXM">
-                                <rect key="frame" x="0.0" y="20" width="375" height="34"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="34"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fBn-yT-w8x" userLabel="Back">
-                                        <rect key="frame" x="16" y="8" width="16" height="18"/>
+                                        <rect key="frame" x="16" y="8" width="24.666666666666671" height="18"/>
                                         <state key="normal" backgroundImage="ic-back"/>
                                         <connections>
                                             <action selector="onBack:" destination="Dxl-Zy-URZ" eventType="touchUpInside" id="guB-hD-R5G"/>
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="VUA-Xv-Cp5">
-                                        <rect key="frame" x="88" y="0.0" width="199" height="34"/>
+                                        <rect key="frame" x="79.666666666666686" y="0.0" width="216" height="34"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breathing &amp; Posture: Tracking" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xty-Oc-rlQ">
-                                                <rect key="frame" x="0.0" y="0.0" width="199" height="34"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="216" height="34"/>
                                                 <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="15"/>
                                                 <color key="textColor" red="0.31764705879999999" green="0.35686274509999999" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1946,17 +1944,17 @@ For each training session:
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V3b-I5-Pfl">
-                                        <rect key="frame" x="339" y="6" width="16" height="22"/>
+                                        <rect key="frame" x="331" y="5" width="24" height="24"/>
                                         <state key="normal" image="ic_question"/>
                                         <connections>
                                             <action selector="onHelp:" destination="Dxl-Zy-URZ" eventType="touchUpInside" id="80P-C3-gfV"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AJU-wF-FCn" customClass="BatteryStateView" customModule="Prana" customModuleProvider="target">
-                                        <rect key="frame" x="299" y="2" width="30" height="30"/>
+                                        <rect key="frame" x="291" y="2" width="30" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="VkB-or-FsU"/>
+                                            <constraint firstAttribute="width" constant="25" id="VkB-or-FsU"/>
                                             <constraint firstAttribute="height" constant="30" id="kVH-em-JcR"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
@@ -1975,21 +1973,21 @@ For each training session:
                                     <constraint firstItem="AJU-wF-FCn" firstAttribute="centerY" secondItem="VUA-Xv-Cp5" secondAttribute="centerY" id="bjt-Ux-JaB"/>
                                     <constraint firstItem="V3b-I5-Pfl" firstAttribute="centerY" secondItem="fBn-yT-w8x" secondAttribute="centerY" id="cZh-Vj-k0q"/>
                                     <constraint firstAttribute="height" constant="34" id="d8f-qx-wRe"/>
-                                    <constraint firstItem="V3b-I5-Pfl" firstAttribute="leading" secondItem="AJU-wF-FCn" secondAttribute="trailing" constant="10" id="wq3-AU-Jf3"/>
+                                    <constraint firstItem="V3b-I5-Pfl" firstAttribute="leading" secondItem="AJU-wF-FCn" secondAttribute="trailing" constant="5" id="wq3-AU-Jf3"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6v2-6t-jMl" userLabel="background">
-                                <rect key="frame" x="0.0" y="59" width="375" height="608"/>
+                                <rect key="frame" x="0.0" y="83" width="375" height="695"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAU-gX-rbi">
-                                <rect key="frame" x="20" y="59" width="335" height="598"/>
+                                <rect key="frame" x="20" y="83" width="335" height="685"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lyJ-mX-0Gb">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="592"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="598.66666666666663"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EL5-bK-6mt">
-                                                <rect key="frame" x="127.5" y="5" width="80" height="30.5"/>
+                                                <rect key="frame" x="127.66666666666666" y="5" width="80" height="32.666666666666664"/>
                                                 <color key="backgroundColor" red="0.43529411759999997" green="0.75686274509999996" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="80" id="mVf-2H-lh2"/>
@@ -2004,22 +2002,22 @@ For each training session:
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breathing" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9R-cR-p4B">
-                                                <rect key="frame" x="10" y="49" width="64.5" height="17.5"/>
+                                                <rect key="frame" x="10" y="50.333333333333343" width="71.333333333333329" height="19"/>
                                                 <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="15"/>
                                                 <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J6X-iS-XL3">
-                                                <rect key="frame" x="127.5" y="42.5" width="197.5" height="30"/>
+                                                <rect key="frame" x="127.66666666666664" y="44.666666666666671" width="197.33333333333337" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breath Count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AVZ-9b-Ffo">
-                                                        <rect key="frame" x="20" y="7.5" width="77.5" height="15.5"/>
+                                                        <rect key="frame" x="20" y="6.9999999999999858" width="81.666666666666671" height="16.333333333333332"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                         <color key="textColor" red="0.32549019610000002" green="0.38431372549999998" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qf5-eO-Aha">
-                                                        <rect key="frame" x="175" y="7.5" width="7.5" height="15.5"/>
+                                                        <rect key="frame" x="174.33333333333334" y="6.9999999999999858" width="8" height="16.333333333333332"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="13"/>
                                                         <color key="textColor" red="0.12941176469999999" green="0.65490196079999996" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -2046,7 +2044,7 @@ For each training session:
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eVc-sF-DhA" customClass="LiveGraph" customModule="Prana" customModuleProvider="target">
-                                                <rect key="frame" x="10" y="79.5" width="315" height="90"/>
+                                                <rect key="frame" x="10" y="81.666666666666657" width="315" height="90"/>
                                                 <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="90" id="nYH-Yl-0LL"/>
@@ -2056,46 +2054,46 @@ For each training session:
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1J1-cm-xIQ">
-                                                <rect key="frame" x="10" y="174.5" width="147.5" height="80"/>
+                                                <rect key="frame" x="10" y="176.66666666666669" width="147.66666666666666" height="83.333333333333314"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Respiration Rate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uu2-SH-tlk">
-                                                        <rect key="frame" x="0.0" y="0.0" width="119" height="19"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="129.33333333333334" height="20"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                                         <color key="textColor" red="0.12941176469999999" green="0.65490196079999996" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Real time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kLt-Jj-vB0">
-                                                        <rect key="frame" x="0.0" y="24" width="54.5" height="15.5"/>
+                                                        <rect key="frame" x="0.0" y="25" width="58.666666666666664" height="16.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                         <color key="textColor" red="0.32549019610000002" green="0.38431372549999998" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGk-QN-guO">
-                                                        <rect key="frame" x="130.5" y="25" width="17" height="14"/>
+                                                        <rect key="frame" x="129.66666666666666" y="25.666666666666629" width="18" height="15"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="12"/>
                                                         <color key="textColor" red="0.12941176469999999" green="0.65490196079999996" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1-minute" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pRc-Vl-e12">
-                                                        <rect key="frame" x="0.0" y="44.5" width="52" height="15.5"/>
+                                                        <rect key="frame" x="0.0" y="46.333333333333314" width="52.333333333333336" height="16.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                         <color key="textColor" red="0.32549019610000002" green="0.38431372549999998" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQi-Pu-H2O">
-                                                        <rect key="frame" x="130.5" y="45.5" width="17" height="14"/>
+                                                        <rect key="frame" x="129.66666666666666" y="47" width="18" height="15"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="12"/>
                                                         <color key="textColor" red="0.12941176469999999" green="0.65490196079999996" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Session avg" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XcB-o7-MOd">
-                                                        <rect key="frame" x="0.0" y="65" width="71" height="15.5"/>
+                                                        <rect key="frame" x="0.0" y="67.666666666666629" width="72.666666666666671" height="16.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                         <color key="textColor" red="0.32549019610000002" green="0.38431372549999998" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M09-JM-QqF">
-                                                        <rect key="frame" x="130.5" y="66" width="17" height="14"/>
+                                                        <rect key="frame" x="129.66666666666666" y="68.333333333333314" width="18" height="15"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="12"/>
                                                         <color key="textColor" red="0.12941176469999999" green="0.65490196079999996" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -2121,46 +2119,46 @@ For each training session:
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OCp-vs-v2b">
-                                                <rect key="frame" x="177.5" y="174.5" width="147.5" height="80.5"/>
+                                                <rect key="frame" x="177.66666666666663" y="176.66666666666669" width="147.33333333333337" height="84"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="E/I Ratio" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8WX-5e-1pM">
-                                                        <rect key="frame" x="0.0" y="0.0" width="61.5" height="19"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="68.333333333333329" height="20"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                                         <color key="textColor" red="0.35686274509999999" green="0.72941176470000002" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Real time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TXi-yP-Vg1">
-                                                        <rect key="frame" x="0.0" y="24" width="54.5" height="15.5"/>
+                                                        <rect key="frame" x="0.0" y="25" width="58.666666666666664" height="16.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                         <color key="textColor" red="0.46274509800000002" green="0.52549019610000003" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sfh-T9-cy0">
-                                                        <rect key="frame" x="129" y="24" width="18.5" height="15.5"/>
+                                                        <rect key="frame" x="128.66666666666666" y="25" width="18.666666666666657" height="16.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                         <color key="textColor" red="0.35686274509999999" green="0.72941176470000002" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1-minute" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nkH-0h-3Qq">
-                                                        <rect key="frame" x="0.0" y="44.5" width="52" height="15.5"/>
+                                                        <rect key="frame" x="0.0" y="46.333333333333314" width="52.333333333333336" height="16.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                         <color key="textColor" red="0.46274509800000002" green="0.52549019610000003" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uct-AT-Bd5">
-                                                        <rect key="frame" x="129" y="44.5" width="18.5" height="15.5"/>
+                                                        <rect key="frame" x="128.66666666666666" y="46.333333333333314" width="18.666666666666657" height="16.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                         <color key="textColor" red="0.35686274509999999" green="0.72941176470000002" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sessio avg" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3fI-50-SyO">
-                                                        <rect key="frame" x="0.0" y="65" width="63.5" height="15.5"/>
+                                                        <rect key="frame" x="0.0" y="67.666666666666629" width="65" height="16.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                         <color key="textColor" red="0.46274509800000002" green="0.52549019610000003" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5BH-Ma-L9H">
-                                                        <rect key="frame" x="129" y="65" width="18.5" height="15.5"/>
+                                                        <rect key="frame" x="128.66666666666666" y="67.666666666666629" width="18.666666666666657" height="16.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                         <color key="textColor" red="0.35686274509999999" green="0.72941176470000002" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -2186,16 +2184,16 @@ For each training session:
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d9t-Dc-nvB">
-                                                <rect key="frame" x="10" y="265" width="315" height="34"/>
+                                                <rect key="frame" x="10" y="270.66666666666669" width="315" height="34"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breath Responsiveness" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xv8-s6-kfF">
-                                                        <rect key="frame" x="15" y="9.5" width="137" height="15.5"/>
+                                                        <rect key="frame" x="15" y="8.9999999999999982" width="142.33333333333334" height="16.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                         <color key="textColor" red="0.32549019610000002" green="0.38431372549999998" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ehF-GO-g0Z" customClass="RadioGroupButton" customModule="Prana" customModuleProvider="target">
-                                                        <rect key="frame" x="172" y="6" width="133" height="22"/>
+                                                        <rect key="frame" x="177.33333333333334" y="6" width="127.66666666666666" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="22" id="BHl-Z7-8l4"/>
                                                         </constraints>
@@ -2231,13 +2229,13 @@ For each training session:
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posture" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cvN-vO-zzn">
-                                                <rect key="frame" x="10" y="304" width="55.5" height="19"/>
+                                                <rect key="frame" x="10" y="309.66666666666669" width="59" height="20"/>
                                                 <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                                 <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stand (1).png" translatesAutoresizingMaskIntoConstraints="NO" id="JhN-Fd-y6Q">
-                                                <rect key="frame" x="10" y="328" width="100" height="70"/>
+                                                <rect key="frame" x="10" y="334.66666666666669" width="100" height="70"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="PDv-Km-5aP"/>
                                                     <constraint firstAttribute="height" constant="70" id="PSX-Pb-tky"/>
@@ -2252,11 +2250,11 @@ For each training session:
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NjS-ep-Mjr">
-                                                <rect key="frame" x="10" y="328" width="100" height="70"/>
+                                                <rect key="frame" x="10" y="334.66666666666669" width="100" height="70"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x4f-aO-FC4">
-                                                <rect key="frame" x="10" y="403" width="100" height="28"/>
+                                                <rect key="frame" x="10" y="409.66666666666669" width="100" height="28"/>
                                                 <color key="backgroundColor" red="0.43137254899999999" green="0.74901960779999999" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="28" id="fQk-e4-nwr"/>
@@ -2275,40 +2273,40 @@ For each training session:
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upright Posture" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sn8-du-LXp">
-                                                <rect key="frame" x="125" y="306" width="91.5" height="15.5"/>
+                                                <rect key="frame" x="125" y="311.66666666666669" width="96.666666666666686" height="16.333333333333314"/>
                                                 <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                 <color key="textColor" red="0.46274509800000002" green="0.52549019610000003" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0% (0 of 0s)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9As-Y2-4O6">
-                                                <rect key="frame" x="244.5" y="306" width="70.5" height="15.5"/>
+                                                <rect key="frame" x="241.33333333333329" y="311.66666666666669" width="73.666666666666657" height="16.333333333333314"/>
                                                 <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                 <color key="textColor" red="0.35686274509999999" green="0.72941176470000002" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Soluches" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qbg-8r-CSd">
-                                                <rect key="frame" x="125" y="328.5" width="54" height="15.5"/>
+                                                <rect key="frame" x="124.99999999999999" y="335" width="54.333333333333329" height="16.333333333333314"/>
                                                 <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                 <color key="textColor" red="0.46274509800000002" green="0.52549019610000003" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pLJ-Iz-yMz">
-                                                <rect key="frame" x="296.5" y="328.5" width="18.5" height="15.5"/>
+                                                <rect key="frame" x="296.33333333333331" y="335" width="18.666666666666686" height="16.333333333333314"/>
                                                 <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                 <color key="textColor" red="0.35686274509999999" green="0.72941176470000002" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gty-t4-chB">
-                                                <rect key="frame" x="125" y="349" width="200" height="36"/>
+                                                <rect key="frame" x="125" y="356.33333333333331" width="200" height="36"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buzz when breathing" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6JX-k1-F4J">
-                                                        <rect key="frame" x="5" y="10" width="122" height="15.5"/>
+                                                        <rect key="frame" x="5" y="9.6666666666666838" width="128" height="16.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TZX-jT-tdw">
-                                                        <rect key="frame" x="141" y="2.5" width="51" height="31"/>
+                                                        <rect key="frame" x="141" y="2.3333333333333712" width="51" height="31"/>
                                                         <color key="onTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="thumbTintColor" red="0.35686274509999999" green="0.72941176470000002" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <connections>
@@ -2343,7 +2341,7 @@ For each training session:
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FXx-iz-mAq" customClass="PranaDropDown" customModule="Prana" customModuleProvider="target">
-                                                <rect key="frame" x="125" y="395" width="200" height="36"/>
+                                                <rect key="frame" x="125" y="401.66666666666669" width="200" height="36"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="llY-0d-sGd"/>
@@ -2353,13 +2351,13 @@ For each training session:
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wearing:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohB-1H-UJV">
-                                                <rect key="frame" x="10" y="453.5" width="62.5" height="19"/>
+                                                <rect key="frame" x="10" y="459.66666666666663" width="69" height="20"/>
                                                 <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                                 <color key="textColor" red="0.4549019608" green="0.50588235290000005" blue="0.61176470589999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Zqt-yQ-JrV">
-                                                <rect key="frame" x="125" y="438" width="95" height="50"/>
+                                                <rect key="frame" x="125" y="444.66666666666663" width="95" height="50"/>
                                                 <color key="backgroundColor" red="0.16862745100000001" green="0.71764705880000002" blue="0.72156862749999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="12"/>
                                                 <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -2391,7 +2389,7 @@ Chest</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="cvQ-Tq-gPk">
-                                                <rect key="frame" x="230" y="438" width="95" height="50"/>
+                                                <rect key="frame" x="230" y="444.66666666666663" width="95" height="50"/>
                                                 <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="6tn-aL-8kE"/>
@@ -2414,16 +2412,16 @@ Back</string>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SDz-yz-Kco">
-                                                <rect key="frame" x="10" y="498" width="315" height="34"/>
+                                                <rect key="frame" x="10" y="504.66666666666663" width="315" height="34"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posture Sensitivity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUX-jg-74t">
-                                                        <rect key="frame" x="15" y="9.5" width="107.5" height="15.5"/>
+                                                        <rect key="frame" x="15.000000000000007" y="8.9999999999999982" width="112.66666666666669" height="16.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                         <color key="textColor" red="0.46274509800000002" green="0.52549019610000003" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uN5-xV-mBu" customClass="RadioGroupButton" customModule="Prana" customModuleProvider="target">
-                                                        <rect key="frame" x="142.5" y="7" width="162.5" height="20"/>
+                                                        <rect key="frame" x="147.66666666666663" y="7" width="157.33333333333337" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="Afb-1Z-uDM"/>
                                                         </constraints>
@@ -2459,13 +2457,13 @@ Back</string>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First tap Set Upright to set your upright posture" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXw-C4-TGt">
-                                                <rect key="frame" x="40.5" y="539" width="254.5" height="14"/>
+                                                <rect key="frame" x="32" y="545.66666666666663" width="271.33333333333331" height="15"/>
                                                 <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                                 <color key="textColor" red="0.98431372549999996" green="0.36862745099999999" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ef1-8z-PHO">
-                                                <rect key="frame" x="10" y="547" width="315" height="40"/>
+                                                <rect key="frame" x="10" y="553.66666666666663" width="315" height="40"/>
                                                 <color key="backgroundColor" red="0.35686274509999999" green="0.72941176470000002" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="afs-p0-Lbr"/>
@@ -2565,12 +2563,12 @@ Back</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Dir-aB-wiv" firstAttribute="top" secondItem="KSw-lo-sOm" secondAttribute="top" constant="-44" id="0LS-uJ-W6U"/>
+                            <constraint firstItem="Dir-aB-wiv" firstAttribute="top" secondItem="fG7-gs-KQI" secondAttribute="top" id="0LS-uJ-W6U"/>
                             <constraint firstItem="KSw-lo-sOm" firstAttribute="trailing" secondItem="Dir-aB-wiv" secondAttribute="trailing" id="3QC-Po-vLQ"/>
                             <constraint firstItem="KSw-lo-sOm" firstAttribute="bottom" secondItem="bAU-gX-rbi" secondAttribute="bottom" constant="10" id="4SR-m1-rTF"/>
                             <constraint firstItem="bAU-gX-rbi" firstAttribute="top" secondItem="O9z-vF-iXM" secondAttribute="bottom" constant="5" id="8Sr-In-JSM"/>
                             <constraint firstItem="bAU-gX-rbi" firstAttribute="leading" secondItem="KSw-lo-sOm" secondAttribute="leading" constant="20" id="Dwr-gT-hPd"/>
-                            <constraint firstItem="KSw-lo-sOm" firstAttribute="bottom" secondItem="Dir-aB-wiv" secondAttribute="bottom" id="LQi-fy-Sbm"/>
+                            <constraint firstAttribute="bottom" secondItem="Dir-aB-wiv" secondAttribute="bottom" id="LQi-fy-Sbm"/>
                             <constraint firstItem="bAU-gX-rbi" firstAttribute="height" secondItem="6v2-6t-jMl" secondAttribute="height" priority="750" id="MHq-lj-V55"/>
                             <constraint firstItem="KSw-lo-sOm" firstAttribute="trailing" secondItem="O9z-vF-iXM" secondAttribute="trailing" id="MeU-OK-XRv"/>
                             <constraint firstItem="Dir-aB-wiv" firstAttribute="leading" secondItem="KSw-lo-sOm" secondAttribute="leading" id="O4Y-iy-htw"/>
@@ -2608,6 +2606,7 @@ Back</string>
                         <outlet property="lblStatus9" destination="FQi-Pu-H2O" id="3de-os-uKw"/>
                         <outlet property="lblTimeElapsed" destination="EL5-bK-6mt" id="ZA0-XV-FXu"/>
                         <outlet property="liveGraph" destination="eVc-sF-DhA" id="RpU-v1-civ"/>
+                        <outlet property="liveGraphHeight" destination="nYH-Yl-0LL" id="gKp-NU-mvq"/>
                         <outlet property="postureRadioGroup" destination="uN5-xV-mBu" id="nul-53-R7w"/>
                         <outlet property="switchSlouching" destination="TZX-jT-tdw" id="2ew-lD-qeM"/>
                     </connections>
@@ -2618,10 +2617,10 @@ Back</string>
         </scene>
     </scenes>
     <resources>
-        <image name="app-background" width="375" height="667"/>
+        <image name="app-background" width="375" height="812"/>
         <image name="banner-nature" width="335" height="88"/>
         <image name="button-sky-lg" width="304" height="55"/>
-        <image name="ic-back" width="24.5" height="17"/>
+        <image name="ic-back" width="24.666666030883789" height="17"/>
         <image name="ic_arrow_down" width="15" height="8"/>
         <image name="ic_bluetooth" width="42.666667938232422" height="42.666667938232422"/>
         <image name="ic_breath_taking" width="16.333333969116211" height="11.333333015441895"/>
