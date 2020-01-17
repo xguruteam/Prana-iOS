@@ -101,8 +101,8 @@ class PassiveSession: Codable {
         }
         
         return """
-        Passive Tracking: \(duration / 60) Mins completed
-        Avg. RR : \(roundFloat(Float(rrSum), point: 2))
+        Passive Tracking: \(getMinutesDescription(for: duration)) Mins completed
+        Avg. RR : \(roundFloat(Float(rrSum), point: 1))
         Upright Posture: \(roundFloat(uprightPercent, point: 1))%, Slouches: \(slouches.count), Wearing: \(wearingString)
         """
     }
@@ -113,7 +113,7 @@ class PassiveSession: Codable {
         rrSum = sum.1
 
         return """
-        Avg. RR : \(roundFloat(Float(rrSum), point: 2))
+        Avg. RR : \(roundFloat(Float(rrSum), point: 1))
         """
     }
     
@@ -134,7 +134,7 @@ class PassiveSession: Codable {
         
         
         return """
-        Upright Posture: \(roundFloat(uprightPercent, point: 1))% (\(uprightTime) of \(postureTime) seconds)
+        Upright Posture: \(roundFloat(uprightPercent, point: 1))% (\(getMinutesDescription(for: uprightTime)) of \(getMinutesDescription(for: postureTime)) Mins)
         Slouches: \(slouches.count)
         Wearing: \(wearingString)
         """

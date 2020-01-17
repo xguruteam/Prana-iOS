@@ -71,7 +71,18 @@
 		
 		var isBuzzerTrainingActive:int = 0; // May 19th, ADDED THIS LINE
 		
-		var doWarningBuzzesforUnmindful:int = 0; //JULY 13:New1p   Set this to 0 when on/off switch is off  to not buzz for warning buzzes when unmindful breathing, should be on by default
+		var doWarningBuzzesforUnmindful:int = 1; //JULY 13:New1p   Set this to 0 when on/off switch is off  to not buzz for warning buzzes when unmindful breathing, should be on by default
+		
+		var graphStartTime:Number = 0;  //AUG 12th New		
+		var previousExpectedBreathStartTime:Number = 0; //AUG 12th NEW
+		var previousExpectedBreathRR:Number = 0; //AUG 12th NEW	 
+		var breathingGraph:MovieClip = new MovieClip(); //AUG 12th NEW
+		var lastXForActualBreath:Number = 0; //AUG 12th NEW
+		var	lastYForActualBreath:Number = 0; //AUG 12th NEW	
+		var breathInterrupted:int = 0; //AUG 12th NEW
+		var postureGraph:MovieClip = new MovieClip(); //AUG 12th NEW
+		var postureSessionTime:int = 0; //AUG 12th NEW
+		
 		
 		public function BuzzerTraining(main:Main) {
 				
@@ -99,8 +110,9 @@
 			buzzerTrainingUI.breathResponse.level3.addEventListener(MouseEvent.CLICK,breathSelectorHandler);
 			
 			buzzerTrainingUI.buzzerForPosture.level1.addEventListener(MouseEvent.CLICK,buzzerForPostureHandler);
-			buzzerTrainingUI.buzzerForPosture.level2.addEventListener(MouseEvent.CLICK,buzzerForPostureHandler);
-						
+			buzzerTrainingUI.buzzerForPosture.level2.addEventListener(MouseEvent.CLICK,buzzerForPostureHandler);	
+			
+									
 			addChild(buzzerTrainingUI);
 			
 			buzzerTrainingUI.status.visible = false;
@@ -117,7 +129,29 @@
 			DC.objLiveGraph.scaleY = 0.5;  //***march19
 			DC.objLiveGraph.postureUI.visible = false;  //***march19
 			
+			graphStartTime = 0;  //AUG 12th New	
+			
 			DC.objLiveGraph.startMode(); //Need this here because user needs to be able set posture before timer starts!
+			
+			DC.objLiveGraph.breathTopExceededThreshold = 0; //AUG 1st NEW
+			DC.objLiveGraph.lightBreathsThreshold = 0; //AUG 1st NEW
+			DC.objLiveGraph.minBreathRange = DC.objLiveGraph.fullBreathGraphHeight/16; //AUG 1st 	
+			DC.objLiveGraph.minBreathRangeForStuck = (DC.objLiveGraph.fullBreathGraphHeight/16); //AUG 1st 
+			
+			if (DC.objLiveGraph.postureLevel == 1) {  //AUG 1st NEW 
+				buzzerTrainingUI.postureResponse.level1.selected = true; //AUG 1st NEW 
+			} //AUG 1st NEW 
+			else if (DC.objLiveGraph.postureLevel == 2) { //AUG 1st NEW 
+				buzzerTrainingUI.postureResponse.level2.selected = true; //AUG 1st NEW 
+			} //AUG 1st NEW 
+			else if (DC.objLiveGraph.postureLevel == 3) { //AUG 1st NEW 
+				buzzerTrainingUI.postureResponse.level3.selected = true; //AUG 1st NEW 
+			} //AUG 1st NEW 
+			
+			buzzerTrainingUI.breathResponse.level1.selected = true; //AUG 1st NEW			
+			DC.objLiveGraph.smoothBreathingCoefBaseLevel = 0.15; //AUG 1st NEW
+			DC.objLiveGraph.reversalThreshold = 9; //AUG 1st NEW
+			DC.objLiveGraph.birdIncrements = 24; //AUG 1st NEW
 			
 			buzzerTrainingUI.buzzerForPosture.level1.selected = true;
 			useBuzzerForPosture = 1;
@@ -184,30 +218,285 @@
 			
 			buzzerTrainingUI.startBuzzerTrainingButton.gotoAndStop(1);
 			
-			
-			if (DC.objLiveGraph.postureUI.postureSelector.postureLevel1.selected == true) {				
-				buzzerTrainingUI.postureResponse.level1.selected = true;
-			}
-			else if (DC.objLiveGraph.postureUI.postureSelector.postureLevel2.selected == true) {				
-				buzzerTrainingUI.postureResponse.level2.selected = true;
-			}
-			else if (DC.objLiveGraph.postureUI.postureSelector.postureLevel3.selected == true) {				
-				buzzerTrainingUI.postureResponse.level3.selected = true;
-			}					
+			//AUG 1st Block of code below removed
+			//if (DC.objLiveGraph.postureUI.postureSelector.postureLevel1.selected == true) {			
+				//buzzerTrainingUI.postureResponse.level1.selected = true;
+			//}
+			//else if (DC.objLiveGraph.postureUI.postureSelector.postureLevel2.selected == true) {				
+				//buzzerTrainingUI.postureResponse.level2.selected = true;
+			//}
+			//else if (DC.objLiveGraph.postureUI.postureSelector.postureLevel3.selected == true) {				
+				//buzzerTrainingUI.postureResponse.level3.selected = true;
+			//}					
 				
 			
-			if (DC.objLiveGraph.postureUI.breathSelector.breathLevel1.selected == true) {
-				buzzerTrainingUI.breathResponse.level1.selected = true;
-			}
-			else if (DC.objLiveGraph.postureUI.breathSelector.breathLevel2.selected == true) {
-				buzzerTrainingUI.breathResponse.level2.selected = true;
-			}
-			else if (DC.objLiveGraph.postureUI.breathSelector.breathLevel3.selected == true) {
-				buzzerTrainingUI.breathResponse.level3.selected = true;
-			}		
+			//if (DC.objLiveGraph.postureUI.breathSelector.breathLevel1.selected == true) {
+				//buzzerTrainingUI.breathResponse.level1.selected = true;
+			//}
+			//else if (DC.objLiveGraph.postureUI.breathSelector.breathLevel2.selected == true) {
+				//buzzerTrainingUI.breathResponse.level2.selected = true;
+			//}
+			//else if (DC.objLiveGraph.postureUI.breathSelector.breathLevel3.selected == true) {
+				//buzzerTrainingUI.breathResponse.level3.selected = true;
+			//}		
 			
 			
 		}
+		
+		
+		
+		////AUG 12th NEW FUNCTION
+		function drawPostureGraph():void {
+			
+			var XStart:Number = 50; //Just the starting X value on the graph
+			var graphBaseY:int = 325;
+			var graphXScale:Number = 5;					
+			
+			removeChild(postureGraph);
+			postureGraph = new MovieClip(); //Just clearing the postureGraph between calls (because I'm calling this function multiple times for testing), you may not need this
+			addChild(postureGraph); //AUG 12th NEW
+			postureGraph.x = 0;  //AUG 12th NEW		
+			
+			for (var i:int = 0; i<DC.objLiveGraph.judgedPosture.length; i++) {	
+				
+				if (DC.objLiveGraph.judgedPosture[i][1] == 1) {
+					postureGraph.graphics.lineStyle(8,0x008000); 
+				} 
+				else {
+					postureGraph.graphics.lineStyle(8,0xFF0000); 
+				}
+									
+				postureGraph.graphics.moveTo(XStart+(graphXScale*DC.objLiveGraph.judgedPosture[i][0]), graphBaseY);
+				
+				if (i < DC.objLiveGraph.judgedPosture.length-1) {					
+					
+					postureGraph.graphics.lineTo(XStart+(graphXScale*DC.objLiveGraph.judgedPosture[i+1][0]), graphBaseY);						
+					
+				}
+				else {
+					postureGraph.graphics.lineTo(XStart+(graphXScale*postureSessionTime), graphBaseY);
+					
+				}			
+				
+			}		
+			
+		}
+		
+		
+		////AUG 12th NEW FUNCTION
+		function drawBreathingGraph():void {		
+			
+			removeChild(breathingGraph);
+			breathingGraph = new MovieClip(); //Just clearing the breathingGraph between calls (because I'm calling this function multiple times for testing), you may not need this
+			addChild(breathingGraph); 
+			breathingGraph.x = 0; 		
+			
+			//NOTE, this function should only be called when the training session is complete, because maxTargetRR requires all the data to correctly select the max target RR Y axis value (for testing in my code, I'm calling this early and multiple times within a session)
+			lastXForActualBreath = 0;
+			lastYForActualBreath = 0;
+			var i:int = 0;
+			var i2:int = 0;	
+			var timeVal:Number;
+			var RRVal:Number;
+			var maxTargetRR:Number = 0;
+			var graphBaseY:int = 250;
+			var graphXScale:Number = 5; //NOTE, set this scale so that in VT and BT, 3 mins occupies the full width of the iphone 
+			var YCeiling:Number = 5; //This is the absolute ceiling of the graph
+			var YMaxRR:Number = 30;  //This corresponds to the max RR on the graph range (so if graph crosses this line and hits YCeiling, then user just knows their RR exceeded the range)
+			var XStart:Number = 50; //Just the starting X value on the graph
+			
+			var textMaxRR:TextField = new TextField();                
+            textMaxRR.x = XStart-25;
+            textMaxRR.y = YMaxRR;
+            textMaxRR.background = true;
+            textMaxRR.autoSize = TextFieldAutoSize.LEFT;             
+			addChild(textMaxRR);
+			
+			var text0Axis:TextField = new TextField();                
+            text0Axis.x = XStart-25;
+            text0Axis.y =  graphBaseY+YMaxRR;
+            text0Axis.background = true;
+            text0Axis.autoSize = TextFieldAutoSize.LEFT; 
+            text0Axis.text = "0";
+			addChild(text0Axis);
+			
+			var textMidPoint:TextField = new TextField();                
+            textMidPoint.x = XStart-25;
+            textMidPoint.y = (graphBaseY-YMaxRR)/2 + YMaxRR;
+            textMidPoint.background = true;
+            textMidPoint.autoSize = TextFieldAutoSize.LEFT;            
+			addChild(textMidPoint);
+			
+			
+			//Draw the X axis (0 axis)
+			breathingGraph.graphics.lineStyle(1,0x000000); //AUG 12th NEW		
+			breathingGraph.graphics.moveTo(XStart, graphBaseY+YMaxRR);
+			breathingGraph.graphics.lineTo(1920, graphBaseY+YMaxRR);		
+			
+			//Draw the X axis midpoint
+			breathingGraph.graphics.lineStyle(1,0x000000); //AUG 12th NEW		
+			breathingGraph.graphics.moveTo(XStart, (graphBaseY-YMaxRR)/2 + YMaxRR);
+			breathingGraph.graphics.lineTo(1920, (graphBaseY-YMaxRR)/2 + YMaxRR);	
+			
+			//Draw the YMaxRR X axis 			
+			breathingGraph.graphics.moveTo(XStart, YMaxRR);
+			breathingGraph.graphics.lineTo(1920, YMaxRR);
+			
+			//Draw the top X axis 			
+			breathingGraph.graphics.moveTo(XStart, YCeiling);
+			breathingGraph.graphics.lineTo(1920, YCeiling);
+			
+			//Draw the Y axis		
+			breathingGraph.graphics.moveTo(XStart, graphBaseY+YMaxRR);
+			breathingGraph.graphics.lineTo(XStart, YCeiling);
+			
+			//Draw the X axis number lines (1,2,3)	
+			breathingGraph.graphics.moveTo(XStart+(1*60*graphXScale), graphBaseY+YMaxRR-5);
+			breathingGraph.graphics.lineTo(XStart+(1*60*graphXScale), graphBaseY+YMaxRR+5);
+			
+			breathingGraph.graphics.moveTo(XStart+(2*60*graphXScale), graphBaseY+YMaxRR-5);
+			breathingGraph.graphics.lineTo(XStart+(2*60*graphXScale), graphBaseY+YMaxRR+5);
+			
+			breathingGraph.graphics.moveTo(XStart+(3*60*graphXScale), graphBaseY+YMaxRR-5);
+			breathingGraph.graphics.lineTo(XStart+(3*60*graphXScale), graphBaseY+YMaxRR+5);
+			
+			
+			
+			
+			//Find the largest target RR for setting the Y axis top bounds of the graph
+			for (i = 0; i<DC.objLiveGraph.judgedBreaths.length; i++) {
+				if (DC.objLiveGraph.judgedBreaths[i][0].length > 0) {
+					if (DC.objLiveGraph.judgedBreaths[i][0][1] > maxTargetRR) {
+						maxTargetRR = DC.objLiveGraph.judgedBreaths[i][0][1];
+					}
+				}
+			}
+			
+			//Make sure it's an even integer so that the graph midpoint is also an integer 
+			maxTargetRR = Math.round(maxTargetRR);
+			if ( (maxTargetRR % 2) != 0) {
+				maxTargetRR = maxTargetRR + 1;
+			}		
+			
+			textMaxRR.text = String(maxTargetRR);
+			textMidPoint.text = String(maxTargetRR/2);
+			
+			//DC.objLiveGraph.testUI.indicator4.txt1.text = String(maxTargetRR);	
+			
+			for (i = 0; i<DC.objLiveGraph.judgedBreaths.length; i++) {						
+				
+				// Draw and connect the target (expected) breaths graph nodes
+				if (DC.objLiveGraph.judgedBreaths[i][0].length > 0) {
+					
+					RRVal = (graphBaseY*(1-(DC.objLiveGraph.judgedBreaths[i][0][1]/maxTargetRR))) + YMaxRR;
+					if (RRVal < YCeiling) {
+						RRVal = YCeiling; //This is Y coordinate min ceiling, (0,0 is upper left corner here)
+					}
+					
+					breathingGraph.graphics.beginFill(0x0000FF,1); //AUG 12th NEW
+					breathingGraph.graphics.lineStyle(3,0x0000FF); //AUG 12th NEW		
+					breathingGraph.graphics.drawCircle(graphXScale*DC.objLiveGraph.judgedBreaths[i][0][0] + XStart, RRVal, 2);
+					
+					if (i > 0) {
+						
+						if (DC.objLiveGraph.judgedBreaths[i-1][0].length > 0) {
+							
+							breathingGraph.graphics.moveTo(graphXScale*DC.objLiveGraph.judgedBreaths[i][0][0] + XStart, RRVal);
+							
+							RRVal = (graphBaseY*(1-(DC.objLiveGraph.judgedBreaths[i-1][0][1]/maxTargetRR))) + YMaxRR;
+							if (RRVal < YCeiling) {
+								RRVal = YCeiling; //This is Y coordinate min ceiling, (0,0 is upper left corner here)
+							}
+							breathingGraph.graphics.lineTo(graphXScale*DC.objLiveGraph.judgedBreaths[i-1][0][0] + XStart, RRVal);
+						}
+					}	
+					
+				}		
+								
+				// Draw and connect the actual breaths graph nodes
+				for (i2 = 0; i2<DC.objLiveGraph.judgedBreaths[i][1].length; i2++) {			
+			
+					if (DC.objLiveGraph.judgedBreaths[i][1][i2].length > 0) {						
+					
+						timeVal = graphXScale*(DC.objLiveGraph.judgedBreaths[i][1][i2][0]) + XStart;						
+						RRVal = (graphBaseY*(1-(DC.objLiveGraph.judgedBreaths[i][1][i2][1]/maxTargetRR))) + YMaxRR;
+						
+						if (RRVal < YCeiling) {
+							RRVal = YCeiling; //This is Y coordinate min ceiling, (0,0 is upper left corner here)
+						}						
+						
+						if (DC.objLiveGraph.judgedBreaths[i][2] == -1) { //The breaths before the training starts (during 15 second calibration for example) should be black nodes and black lines (meaning not judged)
+							breathingGraph.graphics.beginFill(0x000000,1); 
+							breathingGraph.graphics.lineStyle(3,0x000000); 	
+						}
+						else if (DC.objLiveGraph.judgedBreaths[i][2] == 0) {
+							breathingGraph.graphics.beginFill(0xFF0000,1); 
+							breathingGraph.graphics.lineStyle(3,0xFF0000); 	
+						}
+						else {
+							breathingGraph.graphics.beginFill(0x008000,1); 					
+							breathingGraph.graphics.lineStyle(3,0x008000); 	
+						}
+					
+						breathingGraph.graphics.drawCircle(timeVal, RRVal,2);
+						//DC.objLiveGraph.testUI.indicator4.txt1.text = String(timeVal) + "   " + String(RRVal);			
+					
+					//	if ( (RRVal != (graphBaseY + YMaxRR)) && (lastYForActualBreath != (graphBaseY + YMaxRR)) ) { //I Might add this back later, remove for now, Don't connect the lines if there was no breath (so there will be one red node at the bottom line, disconnected, meaning no breath during that pattern)
+							if (i2 > 0) {
+								breathingGraph.graphics.moveTo(lastXForActualBreath, lastYForActualBreath);
+								breathingGraph.graphics.lineTo(timeVal, RRVal);
+							}
+							else if (i > 0 && (lastXForActualBreath != 0 && lastYForActualBreath != 0) ) {
+								breathingGraph.graphics.moveTo(lastXForActualBreath,lastYForActualBreath);
+								breathingGraph.graphics.lineTo(timeVal, RRVal);
+							}
+					//	}
+					
+						lastXForActualBreath = timeVal;
+						lastYForActualBreath = RRVal;
+					}
+					
+					
+				}	
+			
+			}
+		}
+		
+		
+				
+		
+		//AUG 12th NEW FUNCTION
+		function buildJudgedBreaths(breathStatus:int):void {										
+			
+			if (DC.objLiveGraph.actualBreathsWithinAPattern.length == 0) { //AUG 12th NEW					
+				
+				DC.objLiveGraph.actualBreathsWithinAPattern = [[previousExpectedBreathStartTime, breathStatus]]; //AUG 12th NEW  If user did not breathe at all during the target breath, create a breath with 0 RR
+										
+			}	//AUG 12th NEW		
+			
+			
+			if (DC.objLiveGraph.judgedBreaths.length == 1) {
+				
+				DC.objLiveGraph.judgedBreaths.push([ [], DC.objLiveGraph.actualBreathsWithinAPattern.concat(), breathStatus]); //AUG 12th NEW the .concat() is to copy the array (to avoid reference problem), this is for the first pattern breath in the training, which cannot yet have a target RR (since that can only come at the end of the breath)
+
+			}
+			else {
+				
+				DC.objLiveGraph.judgedBreaths.push([ [previousExpectedBreathStartTime,previousExpectedBreathRR], DC.objLiveGraph.actualBreathsWithinAPattern.concat(), breathStatus]); //AUG 12th NEW the .concat() is to copy the array (to avoid reference problem)
+
+			}
+			
+			previousExpectedBreathStartTime = roundNumber((DC.objLiveGraph.timeElapsed-graphStartTime)+0.5,10); //AUG 12th NEW, the 0.5 here is to add back the 1/2 second due to 320+xStep above THIS IS THE EXPECTED OR TARGET breath	
+			if (timeBetweenBreathsEnd > 0) { //AUG 12th NEW
+				previousExpectedBreathRR = roundNumber((3600/timeBetweenBreathsEnd)/3,10); //AUG 12th NEW
+			} //AUG 12th NEW
+				
+			DC.objLiveGraph.actualBreathsWithinAPattern = []; //AUG 12th NEW	
+			
+			
+			
+		}  //AUG 12th NEW	
+		
 		
 		
 		function startBuzzerTrainingButtonHandler(evt:MouseEvent):void  {			
@@ -229,6 +518,19 @@
 				buzzCount = 0;
 				//addEventListener(Event.ENTER_FRAME, enterFrameHandler); May 19th, REMOVED THIS LINE
 				isBuzzerTrainingActive = 1; // May 19th, ADDED THIS LINE
+				//DC.objLiveGraph.minBreathRange = DC.objLiveGraph.fullBreathGraphHeight/5.33; //AUG 1st REMOVED
+				//DC.objLiveGraph.minBreathRangeForStuck = (DC.objLiveGraph.fullBreathGraphHeight/5.33); //AUG 1st REMOVED
+				
+				graphStartTime = DC.objLiveGraph.timeElapsed;  //AUG 12th New				
+				DC.objLiveGraph.judgedBreaths = []; //AUG 12th NEW	
+				DC.objLiveGraph.judgedPosture = []; //AUG 12th NEW					
+				DC.objLiveGraph.actualBreathsWithinAPattern = [] //AUG 12th NEW
+				postureSessionTime = 0; //AUG 12th NEW
+				addChild(breathingGraph); //AUG 12th NEW
+				addChild(postureGraph); //AUG 12th NEW
+				breathInterrupted = 0; //AUG 12th NEW
+				DC.objLiveGraph.judgedPosture.push([0,DC.objLiveGraph.postureIsGood]); //AUG 12th NEW  Record the initial posture state, NOTE: this array only records CHANGES in posture, not every second of posture state
+
 				
 			}
 			
@@ -273,6 +575,7 @@
 					if (breathTime == -53) { // May 19th, Changed from -160      so that any guidance buzzing doesn't interfere with bad breath buzzing. Allows any guidance buzzing time to clear first.
 						
 						if (doWarningBuzzesforUnmindful == 1) { //JULY 13:New1p  
+							
 							DC.objStartConnection.socket.writeUTFBytes("Buzz,1.2" + "\n");			
 							DC.objStartConnection.socket.flush();	
 							isBuzzing = 1; //JULY 13:New1p
@@ -324,7 +627,26 @@
 				whenExhaled = 0;	
 				buzzReason = 0;
 				
-				if (cycles > 2) { 					
+				if (cycles == 2) { //AUG 1st NEW 
+					DC.objLiveGraph.breathTopExceededThreshold = 1; //AUG 1st NEW  
+					DC.objLiveGraph.lightBreathsThreshold = 1; //AUG 1st NEW  
+					DC.objLiveGraph.minBreathRange = DC.objLiveGraph.fullBreathGraphHeight/5.33; //AUG 1st NEW
+					DC.objLiveGraph.minBreathRangeForStuck = (DC.objLiveGraph.fullBreathGraphHeight/5.33); //AUG 1st NEW
+					
+					DC.objLiveGraph.judgedBreaths.push([ [],DC.objLiveGraph.actualBreathsWithinAPattern.concat(),-1]); //AUG 12th NEW the concat() here is to copy the array (to avoid possible reference problem),saving all non-judged breaths here during 15 second calibration	
+					DC.objLiveGraph.actualBreathsWithinAPattern = []; //AUG 12th NEW	
+					previousExpectedBreathStartTime = roundNumber((DC.objLiveGraph.timeElapsed-graphStartTime)+0.5,10); //AUG 12th NEW, the 0.5 here is to add back the 1/2 second due to 320+xStep above THIS IS THE EXPECTED OR TARGET breath	
+			
+					
+				} //AUG 1st NEW 
+				
+				if (cycles > 2) {					
+								
+					buildJudgedBreaths(1); // AUG 12th NEW, since breath reached the end in BT, then must be a good breath (otherwise it would be interrupted by badBreath())
+					
+					if (DC.objLiveGraph.judgedBreaths.length > 2) { //AUG 12th NEW
+						drawBreathingGraph(); //AUG 12th NEW
+					} //AUG 12th NEW
 				
 					mindfulBreathsCount++;										
 					
@@ -332,7 +654,7 @@
 						goodBreaths++; //For breath pattern 0, for keeping track of 4 out of 5 good breaths to advance or recede
 					}
 					
-					buzzerTrainingUI.mindfulBreaths.text = String(mindfulBreathsCount) + " of " + String(totalBreaths) + " goodBreaths = " + String(goodBreaths);
+					buzzerTrainingUI.mindfulBreaths.text = String(mindfulBreathsCount) + " of " + String(totalBreaths); //AUG 1st changed
 							
 				}
 				
@@ -346,15 +668,10 @@
 							subPattern = 0;
 						}
 					}
-				}
-				
-				
+				}				
 			
 				
-			}
-			
-		
-		
+			}	
 			
 			
 			/* if (takenFirstBreath == 0 && (DC.objLiveGraph.bottomReversalFound == 1 || DC.objLiveGraph.breathEnding == 1)) {
@@ -367,8 +684,15 @@
 			
 			
 			if (breathTime == 0) {
+
 				DC.objStartConnection.socket.writeUTFBytes("Buzz,0.10" + "\n");			
 				DC.objStartConnection.socket.flush();
+				
+				if (breathInterrupted == 1) {
+					breathInterrupted = 0;
+					DC.objLiveGraph.actualBreathsWithinAPattern = []; //AUG 12th NEW  To erase any actual inhales occuring after a bad breath warning but before the start of the next breath
+					previousExpectedBreathStartTime = roundNumber((DC.objLiveGraph.timeElapsed-graphStartTime)+0.5,10); //AUG 12th NEW
+				}
 				
 				inhalationTimeEnd = DC.objGame.patternSequence[whichPattern][subPattern][0] * 20; //May 19th changed from 60 to 20
 				retentionTimeEnd = inhalationTimeEnd + DC.objGame.patternSequence[whichPattern][subPattern][1] * 20; //May 19th changed from 60 to 20
@@ -377,14 +701,16 @@
 				
 				buzzerTrainingUI.buzzerReason.text = "";
 				
-				buzzerTrainingUI.targetRR.text = String(roundNumber((3600/timeBetweenBreathsEnd)/3,10)); //May 19th changed
+				if (timeBetweenBreathsEnd > 0) { //AUG 12th NEW
+					buzzerTrainingUI.targetRR.text = String(roundNumber((3600/timeBetweenBreathsEnd)/3,10)); //May 19th changed
+				} //AUG 12th NEW
 				
 				isBuzzing = 1;
 				buzzCount = 10; //May 19th changed from 30
 				numOfInhales = 0;
 				numOfExhales = 0;	
 				
-				if (cycles >= 2) { //JULY
+				if (cycles >= 2) { //JULY				
 					
 					totalBreaths++;
 					
@@ -509,7 +835,13 @@
 		
 		
 		function badBreath():void {
-						
+			
+			buildJudgedBreaths(0); //AUG 12th NEW 
+			
+			if (DC.objLiveGraph.judgedBreaths.length > 2) { //AUG 12th NEW
+				drawBreathingGraph(); //AUG 12th NEW
+			} //AUG 12th NEW
+			
 			breathTime = -60;  //May 19th Changed to -60 from -180
 			hasInhaled = 0;
 			hasExhaled = 0;
@@ -519,8 +851,9 @@
 			whenInhaled = 0;
 			whenExhaled = 0;
 			buzzReason = 1;
+			breathInterrupted = 1; //AUG 12th NEW
 			
-			buzzerTrainingUI.mindfulBreaths.text = String(mindfulBreathsCount) + " of " + String(totalBreaths) + " goodBreaths = " + String(goodBreaths); 
+			buzzerTrainingUI.mindfulBreaths.text = String(mindfulBreathsCount) + " of " + String(totalBreaths); //AUG 1st changed
 			
 		}
 		
@@ -535,6 +868,7 @@
 			whenInhaled = 0;
 			whenExhaled = 0;
 			buzzReason = 2;
+			breathInterrupted = 1; //AUG 12th NEW
 			
 		}
 		
@@ -578,6 +912,7 @@
 			enterFrameCount = 0;
 					
 			trainingDuration--;
+			postureSessionTime++; //AUG 1st NEW (measured in seconds, int)
 			
 			buzzerTrainingUI.elapsedTime.text = DC.objGame.convertTime(trainingDuration);			
 					
@@ -591,6 +926,12 @@
 					slouchesCount++;					
 				}
 			}
+			
+			if (DC.objLiveGraph.postureIsGood != DC.objLiveGraph.judgedPosture[DC.objLiveGraph.judgedPosture.length-1][1]) { //AUG 1st NEW
+				DC.objLiveGraph.judgedPosture.push([postureSessionTime,DC.objLiveGraph.postureIsGood]); //AUG 1st NEW Only recording the changes in posture, that's all you need to create the full posture graph
+			} //AUG 1st NEW
+			
+			drawPostureGraph(); //AUG 1st NEW
 			
 			buzzerTrainingUI.timeUpright.text = String(uprightPostureTime) + " of " + String(gameSetTime - trainingDuration);
 			buzzerTrainingUI.slouches.text = String(slouchesCount);								
@@ -660,18 +1001,21 @@
 		function postureSelectorHandler(evt:MouseEvent)  {
 			
 			if (buzzerTrainingUI.postureResponse.level1.selected == true) {
-				DC.objLiveGraph.postureUI.postureSelector.postureLevel1.selected = true;
+				//DC.objLiveGraph.postureUI.postureSelector.postureLevel1.selected = true;  // AUG 1st REMOVED
 				DC.objLiveGraph.postureRange = 0.15;
+				DC.objLiveGraph.postureLevel = 1;  // AUG 1st NEW
 			}
 			
 			else if (buzzerTrainingUI.postureResponse.level2.selected == true) {
-				DC.objLiveGraph.postureUI.postureSelector.postureLevel2.selected = true;
+				//DC.objLiveGraph.postureUI.postureSelector.postureLevel2.selected = true;  // AUG 1st REMOVED
 				DC.objLiveGraph.postureRange = 0.10;
+				DC.objLiveGraph.postureLevel = 2;  // AUG 1st NEW
 			}
 			
 			else if (buzzerTrainingUI.postureResponse.level3.selected == true) {
-				DC.objLiveGraph.postureUI.postureSelector.postureLevel3.selected = true;
+				//DC.objLiveGraph.postureUI.postureSelector.postureLevel3.selected = true;  // AUG 1st REMOVED
 				DC.objLiveGraph.postureRange = 0.05;
+				DC.objLiveGraph.postureLevel = 3;  // AUG 1st NEW
 			}
 			
 		}
@@ -692,21 +1036,22 @@
 		function breathSelectorHandler(evt:MouseEvent)  {
 			
 			if (buzzerTrainingUI.breathResponse.level1.selected == true) {
-				DC.objLiveGraph.postureUI.breathSelector.breathLevel1.selected = true;
+				//DC.objLiveGraph.postureUI.breathSelector.breathLevel1.selected = true; // AUG 1st REMOVED
 				DC.objLiveGraph.smoothBreathingCoefBaseLevel = 0.15;
-				DC.objLiveGraph.reversalThreshold = 6;
+				DC.objLiveGraph.reversalThreshold = 9;
 				DC.objLiveGraph.birdIncrements = 24;
+
 			}
 			
 			else if (buzzerTrainingUI.breathResponse.level2.selected == true) {
-				DC.objLiveGraph.postureUI.breathSelector.breathLevel2.selected = true;
+				//DC.objLiveGraph.postureUI.breathSelector.breathLevel2.selected = true;  // AUG 1st REMOVED
 				DC.objLiveGraph.smoothBreathingCoefBaseLevel = 0.4;
 				DC.objLiveGraph.reversalThreshold = 5;
 				DC.objLiveGraph.birdIncrements = 20;
 			}
 			
 			else if (buzzerTrainingUI.breathResponse.level3.selected == true) {
-				DC.objLiveGraph.postureUI.breathSelector.breathLevel3.selected = true;
+				//DC.objLiveGraph.postureUI.breathSelector.breathLevel3.selected = true;  // AUG 1st REMOVED
 				DC.objLiveGraph.smoothBreathingCoefBaseLevel = 0.6;
 				DC.objLiveGraph.reversalThreshold = 3;
 				DC.objLiveGraph.birdIncrements = 12;

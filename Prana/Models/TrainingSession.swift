@@ -116,8 +116,8 @@ class TrainingSession: Codable {
         
         if kind == 0 {
             return """
-            Training: \(kindString), \(duration / 60) Mins completed
-            Mindful Breaths: \(roundFloat(mindfulPercent, point: 1))%, Avg. RR: \(roundFloat(Float(rrSum), point: 2))
+            Training: \(kindString), \(getMinutesDescription(for: duration)) Mins completed
+            Mindful Breaths: \(roundFloat(mindfulPercent, point: 1))%, Avg. RR: \(roundFloat(Float(rrSum), point: type == 0 ? 1 : 2))
             Pattern: \(patternString)
             Upright Posture: \(roundFloat(uprightPercent, point: 1))%, Slouches: \(slouches), Wearing: \(wearingString)
             """
@@ -130,7 +130,7 @@ class TrainingSession: Codable {
         
 
         return """
-        Training: \(kindString), \(duration / 60) Mins completed
+        Training: \(kindString), \(getMinutesDescription(for: duration)) Mins completed
         Upright Posture: \(roundFloat(uprightPercent, point: 1))%, Slouches: \(slouches), Wearing: \(wearingString)
         """
     }
@@ -159,7 +159,7 @@ class TrainingSession: Codable {
         if kind == 0 || kind == 1 {
             return """
             Mindful Breaths: \(roundFloat(mindfulPercent, point: 1))% (\(mindfulCount) of \(breathCount))
-            Avg. RR: \(roundFloat(Float(rrSum), point: 2))
+            Avg. RR: \(roundFloat(Float(rrSum), point: type == 0 ? 1 : 2))
             Pattern: \(patternString)
             """
         }
@@ -190,7 +190,7 @@ class TrainingSession: Codable {
         
         if kind == 0 || kind == 2 {
             return """
-            Upright Posture: \(roundFloat(uprightPercent, point: 1))% (\(uprightTime) of \(postureTime) seconds)
+            Upright Posture: \(roundFloat(uprightPercent, point: 1))% (\(getMinutesDescription(for: uprightTime)) of \(getMinutesDescription(for: postureTime)) Mins)
             Slouches: \(slouches)
             Wearing: \(wearingString)
             """

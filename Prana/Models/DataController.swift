@@ -223,7 +223,7 @@ class DataController {
     // MARK: Settings
     var isDevicePaired: Bool = false
     var isTutorialPassed: Bool = false
-    var isAutoDisconnect: Bool = true
+    var isAutoDisconnect: Bool = false
     var isAutoReset: Bool = false
     var programType: Int = 100
     var dailyNotification: Date?
@@ -243,7 +243,7 @@ class DataController {
     func initValues() {
         isDevicePaired = false
         isTutorialPassed = false
-        isAutoDisconnect = true
+        isAutoDisconnect = false
         isAutoReset = false
         programType = 100
         dailyNotification = nil

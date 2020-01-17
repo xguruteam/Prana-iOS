@@ -207,7 +207,7 @@ class VisualTrainingViewController: SuperViewController {
         let scene = VisualTrainingScene(sessionDuration * 60, isBreathingOnly: (sessionKind == 1 ? true : false))
         scene.whichPattern = whichPattern
         scene.subPattern = subPattern
-        scene.skipCalibration = 0 // skipCalibration
+        scene.skipCalibration = skipCalibration
         scene.isAutoReset = dataController.isAutoReset
         if skipCalibration == 1 {
             scene.initialMessage = "Breathe normally here to set your initial Average Breath Depth."
@@ -451,7 +451,7 @@ class VisualTrainingViewController: SuperViewController {
         if isTutorial == false {
             currentSessionObject?.floorSessionDuration()
             
-            if let session = currentSessionObject, session.duration > 0 {
+            if let session = currentSessionObject, session.duration > 60 {
                 if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
                     dataController.addRecord(training: session)
                     isCompleted = true

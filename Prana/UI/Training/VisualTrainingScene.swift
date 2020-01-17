@@ -259,6 +259,7 @@ class VisualTrainingScene: SKScene {
         _calibrationRegionLabel?.horizontalAlignmentMode = .center
         _calibrationRegionLabel?.verticalAlignmentMode = .center
         _calibrationRegion?.addChild(_calibrationRegionLabel!)
+        _calibrationRegion?.size = CGSize(width: _calibrationRegionWidth, height: 32)
 
         
 
