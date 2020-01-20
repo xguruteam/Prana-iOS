@@ -76,9 +76,9 @@ class WeeklyCell2: UITableViewCell {
     
     func renderSessionData() {
         
-        var breathTimes: [(Int, Int)] = []
+        var breathTimes: [WeeklyGraph.StackDataType] = []
         var avgRRs: [Double] = []
-        var uprightTimes: [(Int, Int)] = []
+        var uprightTimes: [WeeklyGraph.StackDataType] = []
         
         for week in 0...6 {
             let day = begin.adding(.day, value: week)
@@ -93,6 +93,8 @@ class WeeklyCell2: UITableViewCell {
             var avgRR: Double = 0
             var slouchTime = 0
             var postureTime = 0
+            var breathGoal = 0
+            var postureGaol = 0
             
             for session in daySessions {
                 if session.kind == 0 || session.kind == 1 {
@@ -107,6 +109,8 @@ class WeeklyCell2: UITableViewCell {
                     let sum = session.sumSlouches()
                     slouchTime += sum.0
                 }
+                breathGoal = session.dailyBreathGoalMins
+                postureGaol = session.dailyPostureGoalMin
             }
             
             let count = daySessions.count
@@ -116,9 +120,9 @@ class WeeklyCell2: UITableViewCell {
             
             let uprightTime = postureTime - slouchTime
             
-            breathTimes.append((breathTime, mindfulTime))
+            breathTimes.append((breathTime, mindfulTime, breathGoal * 60))
             avgRRs.append(avgRR)
-            uprightTimes.append((postureTime, uprightTime))
+            uprightTimes.append((postureTime, uprightTime, postureGaol * 60))
         }
         
         mindfulView.color = UIColor(hexString: "#9fd93f")
@@ -140,7 +144,7 @@ class WeeklyCell2: UITableViewCell {
     func renderPassiveData() {
         var eiRatios: [Double] = []
         var avgRRs: [Double] = []
-        var uprightTimes: [(Int, Int)] = []
+        var uprightTimes: [WeeklyGraph.StackDataType] = []
         
         for week in 0...6 {
             let day = begin.adding(.day, value: week)
@@ -173,7 +177,7 @@ class WeeklyCell2: UITableViewCell {
             
             eiRatios.append(eiRatio)
             avgRRs.append(avgRR)
-            uprightTimes.append((postureTime, uprightTime))
+            uprightTimes.append((postureTime, uprightTime, 0))
         }
         
         mindfulView.color = UIColor(hexString: "#9fd93f")

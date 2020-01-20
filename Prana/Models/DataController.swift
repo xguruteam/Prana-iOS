@@ -230,6 +230,36 @@ class DataController {
     var breathingGoals: Int = 0
     var postureGoals: Int = 0
     
+    var dailyBreathGoalMins: Int {
+        guard let currentProgramWrapped = currentProgram else {
+            return 0
+        }
+        
+        if currentProgramWrapped.type == .fourteen {
+            let dayNumber = numberOfDaysPast ?? 0
+            let (breathingGoal, _, _) = fourteenGoals[dayNumber]
+            return breathingGoal
+        }
+        else {
+            return breathingGoals
+        }
+    }
+    
+    var dailyPostureGoalMins: Int {
+        guard let currentProgramWrapped = currentProgram else {
+            return 0
+        }
+        
+        if currentProgramWrapped.type == .fourteen {
+            let dayNumber = numberOfDaysPast ?? 0
+            let (_, postureGoal, _) = fourteenGoals[dayNumber]
+            return postureGoal
+        }
+        else {
+            return postureGoals
+        }
+    }
+    
     var vtPattern: SavedPattern?
     var btPattern: SavedPattern?
     var savedBodyNotification: SavedBodyNotification?
@@ -528,7 +558,7 @@ class DataController {
                     } catch {
                         Crashlytics.sharedInstance().recordError(error)
                     }
-                    return TrainingSession(startedAt: Date(), type: 0, kind: 0, pattern: 0, wearing: 0)
+                    return TrainingSession(startedAt: Date(), type: 0, kind: 0, pattern: 0, wearing: 0, breathGoalMins: 0, postureGoalMins: 0)
             }
             return sessions
             
@@ -580,7 +610,7 @@ class DataController {
                     }
                     
                     if object.type == "TS" {
-                        return TrainingSession(startedAt: Date(), type: 0, kind: 0, pattern: 0, wearing: 0)
+                        return TrainingSession(startedAt: Date(), type: 0, kind: 0, pattern: 0, wearing: 0, breathGoalMins: 0, postureGoalMins: 0)
                     } else {
                         return PassiveSession(startedAt: Date(), wearing: 0)
                     }
