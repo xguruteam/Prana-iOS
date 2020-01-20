@@ -22,8 +22,7 @@ extension UIView {
     }
 }
 
-@IBDesignable
-extension UIView {
+@IBDesignable extension UIView {
     
     @IBInspectable
     /// Should the corner be as circle

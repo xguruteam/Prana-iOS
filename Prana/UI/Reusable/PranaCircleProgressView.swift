@@ -9,8 +9,7 @@
 import Foundation
 import UIKit
 
-@IBDesignable
-class PranaCircleProgressView: UIView {
+@IBDesignable class PranaCircleProgressView: UIView {
     @IBInspectable var startColor: UIColor = .white { didSet { setNeedsLayout() } }
     @IBInspectable var endColor:   UIColor = .blue  { didSet { setNeedsLayout() } }
     @IBInspectable var lineWidth:  CGFloat = 3      { didSet { setNeedsLayout() } }

@@ -53,8 +53,7 @@ public enum ChartLabelOrientation {
     case vertical
 }
 
-@IBDesignable
-open class Chart: UIControl {
+@IBDesignable open class Chart: UIControl {
 
     // MARK: Options
 

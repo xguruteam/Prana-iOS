@@ -8,8 +8,7 @@
 
 import UIKit
 
-@IBDesignable
-class PranaDropDown: UIView {
+@IBDesignable class PranaDropDown: UIView {
 
     @IBInspectable var title: String = "Title" {
         didSet {

@@ -482,8 +482,7 @@
     /**
      A designable subclass of NSButton that allows customisation of border color and width, as well as other properties
      */
-    @IBDesignable
-    public class TSCButton: NSButton {
+    @IBDesignable public class TSCButton: NSButton {
         
         /**
          The edge insets of the button

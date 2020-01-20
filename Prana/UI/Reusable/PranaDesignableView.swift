@@ -60,8 +60,7 @@ extension UIView {
     }
 }
 
-@IBDesignable
-class PranaButton: UIButton {
+@IBDesignable class PranaButton: UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
