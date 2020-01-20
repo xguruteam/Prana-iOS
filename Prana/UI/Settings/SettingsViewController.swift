@@ -24,6 +24,7 @@ class SettingsViewController: SuperViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         tableView.backgroundColor = .red
+        tableView.tableFooterView = UIView()
         return tableView
     }()
     

@@ -14,6 +14,7 @@ class SessionDetailViewController: SuperViewController {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
+        tableView.tableFooterView = UIView()
         return tableView
     }()
     
