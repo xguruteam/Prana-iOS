@@ -573,6 +573,10 @@ extension PassiveTrackingViewController: LiveDelegate {
     func liveNew(breathCount: Int) {
         currentSessionObject?.addBreath(timeStamp: trainingDuration, isMindful: false, respRate: Double(currentRR), eiRatio: Double(lastMinuteEI), oneMinuteRR: Double(oneMinuteRR))
     }
+    
+    func liveNew(sessionAvgRate: Double) {
+        currentSessionObject?.avgRespRR = sessionAvgRate
+    }
 }
 
 extension PassiveTrackingViewController: PranaDeviceManagerDelegate {

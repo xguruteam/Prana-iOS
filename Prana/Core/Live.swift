@@ -15,6 +15,7 @@ import Foundation
     @objc optional func liveNew(postureFrame: Int)
     @objc optional func liveNew(oneMinuteRespirationRate: Int)
     @objc optional func liveNew(respirationRate: Double)
+    @objc optional func liveNew(sessionAvgRate: Double)
     @objc optional func liveNew(breathCount: Int)
     @objc optional func liveNew(endBreathLineY: Double)
     @objc optional func liveNew(bottomReversalLineY: Double)
@@ -733,6 +734,7 @@ class Live: NSObject {
 
             delegates.forEach { $0.liveNew?(respirationRate: respRate) }
 //            postureUI.respirationRateIndicator.text = String(respRate);
+            delegates.forEach { $0.liveNew?(sessionAvgRate: avgRespRate) }
             
         }
         

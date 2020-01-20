@@ -570,6 +570,12 @@ extension VisualTrainingViewController: VisualDelegate {
 //            }
         }
     }
+    
+    func visualNewSessionAvgRRCalculated(rate: Double) {
+        DispatchQueue.main.async { [unowned self] in
+            self.currentSessionObject?.avgRespRR = rate
+        }
+    }
 }
 
 extension VisualTrainingViewController: PranaDeviceManagerDelegate

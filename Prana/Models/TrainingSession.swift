@@ -55,7 +55,7 @@ class TrainingSession: Codable {
     var dailyBreathGoalMins: Int = 0
     var dailyPostureGoalMin: Int = 0
     
-    var avgRespRR: Float = 0.0
+    var avgRespRR: Double = 0.0
     
     init(startedAt: Date,
          type: Int,
@@ -224,7 +224,6 @@ class TrainingSession: Codable {
             breathCount += breath.actuals.count
             var last: Double = 0
             for core in breath.actuals {
-                sumRR += core.rr
                 last = core.it
             }
             
@@ -235,9 +234,7 @@ class TrainingSession: Codable {
             lastTime = last
         }
         
-        if breathCount > 0 {
-            avgRR = sumRR / Double(breathCount)
-        }
+        avgRR = avgRespRR
         
         return (breathCount, avgRR, mindfulCount, mindfulTime)
     }

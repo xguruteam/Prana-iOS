@@ -17,6 +17,7 @@ protocol VisualDelegate: class {
     func visualOnTimer(v: Int)
     func visualNewTargetRateCalculated(rate: Double)
     func visualNewActualRateCalculated(rate: Double)
+    func visualNewSessionAvgRRCalculated(rate: Double)
     func visualNewBreathDone(total: Int, mindful: Int)
     func visualPostureFrameCalculated(frameIndex: Int)
     func visualUprightTime(uprightPostureTime: Int, elapsedTime: Int)
@@ -1181,6 +1182,10 @@ extension VisualTrainingScene: LiveDelegate {
     
     func liveNew(graphY: Double) {
         self.newGraphY = graphY
+    }
+    
+    func liveNew(sessionAvgRate: Double) {
+        self.visualDelegate?.visualNewSessionAvgRRCalculated(rate: sessionAvgRate)
     }
     
 }

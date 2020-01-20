@@ -51,7 +51,7 @@ class PassiveSession: Codable {
     var slouches: [SlouchRecord] = []
     var breaths: [BreathRecord] = []
     
-    var avgRespRR: Float = 0.0
+    var avgRespRR: Double = 0.0
     
     init(startedAt: Date, wearing: Int) {
         self.startedAt = startedAt
@@ -154,11 +154,7 @@ class PassiveSession: Codable {
             avgEI = (avgEI / Double(breaths.count))
         }
         
-        if breaths.count > 2 {
-            avgRR = (avgRR / Double(breaths.count - 2))
-        } else {
-            avgRR = 0
-        }
+        avgRR = avgRespRR
         
         return (avgEI, avgRR)
     }
