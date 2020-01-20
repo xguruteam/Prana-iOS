@@ -42,6 +42,8 @@ class PassiveTrackingViewController: SuperViewController {
     @IBOutlet weak var lblGuide: UILabel!
     @IBOutlet weak var btnStartStop: UIButton!
     
+    @IBOutlet weak var liveGraphHeight: NSLayoutConstraint!
+    
     var currentRR: Float = 0 {
         didSet {
             DispatchQueue.main.async {
@@ -165,8 +167,8 @@ class PassiveTrackingViewController: SuperViewController {
         
         objLive?.startMode() //Need this here because user needs to be able set posture before timer starts!
         
-        objLive?.breathTopExceededThreshold = 0; //AUG 1st NEW
-        objLive?.lightBreathsThreshold = 0; //AUG 1st NEW
+        objLive?.breathTopExceededThreshold = 0 //AUG 1st NEW
+        objLive?.lightBreathsThreshold = 0 //AUG 1st NEW
         
         switch dataController.sensitivities.ptps {
         case 0:
@@ -178,7 +180,7 @@ class PassiveTrackingViewController: SuperViewController {
         }
 
         setBreathSensitivity(val: 1)
-        useBuzzerForPosture = 1;
+        useBuzzerForPosture = 1
         buzzTimeTrigger = 5; // May 31st ADDED THIS LINE
         
         currentRR = 0
@@ -186,10 +188,12 @@ class PassiveTrackingViewController: SuperViewController {
         breathCount = 0
         oneMinuteRR = 0
         
-        slouchesCount = 0;
-        uprightPostureTime = 0;
-        hasUprightBeenSet = 0;
-        totalBreaths = 0;    
+        slouchesCount = 0
+        uprightPostureTime = 0
+        hasUprightBeenSet = 0
+        totalBreaths = 0
+        
+        adjustContraints()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -214,6 +218,11 @@ class PassiveTrackingViewController: SuperViewController {
         postureRadioGroup.delegate = self
     }
     
+    func adjustContraints() {
+        if UIScreen.main.nativeBounds.height >= 1920 { // above 8 plus
+            liveGraphHeight.constant = 150
+        }
+    }
 
     @IBAction func onBack(_ sender: Any) {
         objLive?.removeDelegate(self)

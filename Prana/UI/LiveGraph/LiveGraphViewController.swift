@@ -33,6 +33,10 @@ class LiveGraphViewController: SuperViewController {
     
     @IBOutlet weak var batteryView: BatteryStateView!
     
+    @IBOutlet weak var liveGraphHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var buttonHeight: NSLayoutConstraint!
+    
     var isLive = false
     var objLive: Live?
     var isLowerBack = true
@@ -81,6 +85,8 @@ class LiveGraphViewController: SuperViewController {
         startLive()
         
         batteryView.isGray = true
+        
+        adjustContraints()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -97,6 +103,13 @@ class LiveGraphViewController: SuperViewController {
         btnWearUpperChest.titleLabel?.textAlignment = .center
 
         btnUpright.applyButtonGradient(colors: [#colorLiteral(red: 0.6, green: 0.8392156863, blue: 0.2392156863, alpha: 1), #colorLiteral(red: 0.4039215686, green: 0.7411764706, blue: 0.2274509804, alpha: 1)], points: [0.0, 1.0])
+    }
+    
+    func adjustContraints() {
+        if UIScreen.main.nativeBounds.height >= 1920 { // above 8 plus
+            liveGraphHeight.constant = 150
+            buttonHeight.constant = 100
+        }
     }
     
     @IBAction func onBack(_ sender: Any) {

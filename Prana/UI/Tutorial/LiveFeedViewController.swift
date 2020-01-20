@@ -21,6 +21,9 @@ class LiveFeedViewController: SuperViewController {
     
     @IBOutlet weak var lblDescription: UILabel!
     
+    @IBOutlet weak var liveGraphContraint: NSLayoutConstraint!    
+    @IBOutlet weak var imageHeightContraint: NSLayoutConstraint!
+    
     var isLive = false
     var objLive: Live?
     var isLowerBack = true
@@ -39,6 +42,8 @@ class LiveFeedViewController: SuperViewController {
         else {
             lblDescription.text = "Sit or stand upright and tap below to set your upright posture. You can also double-press the device button."
         }
+        
+        adjustContraints()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,6 +63,13 @@ class LiveFeedViewController: SuperViewController {
         super.viewDidDisappear(animated)
         
         stopLive()
+    }
+    
+    func adjustContraints() {
+        if UIScreen.main.nativeBounds.height >= 1920 { // above 8 plus
+            liveGraphContraint.constant = 140
+            imageHeightContraint.constant = 110
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
