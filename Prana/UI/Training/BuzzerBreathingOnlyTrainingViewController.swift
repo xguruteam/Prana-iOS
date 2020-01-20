@@ -854,6 +854,15 @@ extension BuzzerBreathingOnlyTrainingViewController: LiveDelegate {
     func liveUprightHasBeenSet() {
         uprightHasBeenSetHandler()
     }
+    
+    func liveNew(sessionAvgRate: Double) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.currentSessionObject?.avgRespRR = sessionAvgRate
+        }
+    }
 }
 
 extension BuzzerBreathingOnlyTrainingViewController: PranaDeviceManagerDelegate
