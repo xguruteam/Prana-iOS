@@ -49,12 +49,18 @@ class CustomPatternViewController: UIViewController {
     
     var resultResp: Float = 0
     
-    let bpms: [Float] = [24, 20, 17.14, 15, 13.3, 12, 10.9, 10, 9.2, 8.6, 8, 7.5, 7.1, 6.7, 6.3, 6, 5.7, 5.5, 5.2, 5, 4.8, 4.6, 4.4, 4.3, 4.1, 4, 3.9, 3.8, 3.6, 3.5, 3.4, 3.3, 3.2, 3.1, 3, ]
+    var bpms: [Float] = [24, 20, 17.14, 15, 13.3, 12, 10.9, 10, 9.2, 8.6, 8, 7.5, 7.1, 6.7, 6.3, 6, 5.7, 5.5, 5.2, 5, 4.8, 4.6, 4.4, 4.3, 4.1, 4, 3.9, 3.8, 3.6, 3.5, 3.4, 3.3, 3.2, 3.1, 3, ]
     
     var settingChangeListener: ((Int, Int, Int, Float, Float, Float, Float, Float) -> Void)?
     
+    var isVT: Bool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if isVT == false {
+            bpms = [15, 13.3, 12, 10.9, 10, 9.2, 8.6, 8, 7.5, 7.1, 6.7, 6.3, 6, 5.7, 5.5, 5.2, 5, 4.8, 4.6, 4.4, 4.3, 4.1, 4, 3.9, 3.8, 3.6, 3.5, 3.4, 3.3, 3.2, 3.1, 3, ]
+        }
         
         if subType == 0 {
             radio1.isSelected = true

@@ -76,6 +76,7 @@ class PatternsViewController: UIViewController {
             vc.exhalationTime = savedPattern.exhalationTime
             vc.retentionTime = savedPattern.retentionTime
             vc.timeBetweenBreaths = savedPattern.timeBetweenBreaths
+            vc.isVT = self.isVT
             
             vc.settingChangeListener = { [weak self] (p1, p2, p3, p4, p5, p6, p7, p8) in
                 self?.savedPattern.sub = p1
