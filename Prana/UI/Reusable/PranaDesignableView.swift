@@ -11,8 +11,7 @@ import UIKit
 
 @IBDesignable class ImageButton: UIButton {
     
-    @IBInspectable
-    var titleText: String? {
+    @IBInspectable var titleText: String? {
         didSet {
             self.setTitle("SIGN UP", for: .normal)
         }
@@ -104,8 +103,7 @@ extension UIView {
         titleLabel?.textAlignment = .center
     }
     
-    @IBInspectable
-    var isClicked: Bool = false {
+    @IBInspectable var isClicked: Bool = false {
         didSet {
             if isClicked {
                 backgroundColor = UIColor.colorFromHex(hexString: "#2BB7B8")

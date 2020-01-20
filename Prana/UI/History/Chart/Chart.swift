@@ -57,8 +57,7 @@ public enum ChartLabelOrientation {
 
     // MARK: Options
 
-    @IBInspectable
-    open var identifier: String?
+    @IBInspectable open var identifier: String?
 
     /**
     Series to display in the chart.
@@ -125,20 +124,17 @@ public enum ChartLabelOrientation {
     /**
     The color used for the labels.
     */
-    @IBInspectable
-    open var labelColor: UIColor = UIColor.black
+    @IBInspectable open var labelColor: UIColor = UIColor.black
 
     /**
     Color for the axes.
     */
-    @IBInspectable
-    open var axesColor: UIColor = UIColor.gray.withAlphaComponent(0.3)
+    @IBInspectable open var axesColor: UIColor = UIColor.gray.withAlphaComponent(0.3)
 
     /**
     Color for the grid.
     */
-    @IBInspectable
-    open var gridColor: UIColor = UIColor.gray.withAlphaComponent(0.3)
+    @IBInspectable open var gridColor: UIColor = UIColor.gray.withAlphaComponent(0.3)
     /**
     Enable the lines for the labels on the x-axis
     */
@@ -161,8 +157,7 @@ public enum ChartLabelOrientation {
     /**
     Width of the chart's lines.
     */
-    @IBInspectable
-    open var lineWidth: CGFloat = 2
+    @IBInspectable open var lineWidth: CGFloat = 2
 
     /**
     Delegate for listening to Chart touch events.
