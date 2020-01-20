@@ -32,13 +32,16 @@ class WeeklyGraph: UIView {
     }
     var type: GraphType = .stack
     
-    var stackData: [(Int, Int)] = [] {
+    typealias StackDataType = (Int, Int, Int)
+    var stackData: [StackDataType] = [] {
         didSet {
-            var (max, _) = stackData.max { $0.0 < $1.0 }!
-            if max < 60 {
-                max = 60
+            var totalMax = stackData.reduce(0) { (subMax, item) -> Int in
+                return Swift.max(subMax, item.0, item.1, item.2)
             }
-            self.max = CGFloat(max)
+            if totalMax < 60 {
+                totalMax = 60
+            }
+            self.max = CGFloat(totalMax)
         }
     }
     var barData: [Double] = [] {
@@ -112,7 +115,7 @@ class WeeklyGraph: UIView {
         let letters = Calendar.current.veryShortWeekdaySymbols
         for i in 0..<letters.count {
             if type == .stack {
-                let (total, part) = stackData[i]
+                let (total, part, goal) = stackData[i]
                 let totalR = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - bw / 2.0, y: height - th - (height - th) * CGFloat(total) / CGFloat(max), width: bw, height: (height - th) * CGFloat(total) / CGFloat(max))
                 let totalP = UIBezierPath(rect: totalR)
                 UIColor(hexString: "#c0c3c9").setStroke()
@@ -122,6 +125,13 @@ class WeeklyGraph: UIView {
                 let partP = UIBezierPath(rect: partR)
                 color.setFill()
                 partP.fill()
+                
+                if goal > 0 {
+                    let goalR = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - bw / 2.0, y: height - th - (height - th) * CGFloat(goal) / CGFloat(max), width: bw, height: 2)
+                    let goalP = UIBezierPath(rect: goalR)
+                    UIColor.red.setFill()
+                    goalP.fill()
+                }
                 
             } else {
                 let total = barData[i]

@@ -277,7 +277,7 @@ class BuzzerBreathingOnlyTrainingViewController: BaseBuzzerTrainingViewControlle
         
         btnStartStop.setTitle("END SESSION EARLY", for: .normal)
         
-        self.currentSessionObject = TrainingSession(startedAt: Date(), type: 1, kind: sessionKind, pattern: whichPattern, wearing: sessionWearing)
+        self.currentSessionObject = TrainingSession(startedAt: Date(), type: 1, kind: sessionKind, pattern: whichPattern, wearing: sessionWearing, breathGoalMins: dataController.dailyBreathGoalMins, postureGoalMins: dataController.dailyPostureGoalMins)
         
         btnBack.isHidden = true
         btnHelp.isHidden = true

@@ -51,6 +51,8 @@ class PassiveSession: Codable {
     var slouches: [SlouchRecord] = []
     var breaths: [BreathRecord] = []
     
+    var avgRespRR: Float = 0.0
+    
     init(startedAt: Date, wearing: Int) {
         self.startedAt = startedAt
         self.wearing = wearing

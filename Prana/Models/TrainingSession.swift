@@ -52,12 +52,25 @@ class TrainingSession: Codable {
     var judgedBreaths: [LiveBreath] = []
     var judgedPosture: [LivePosture] = []
     
-    init(startedAt: Date, type: Int, kind: Int, pattern: Int, wearing: Int) {
+    var dailyBreathGoalMins: Int = 0
+    var dailyPostureGoalMin: Int = 0
+    
+    var avgRespRR: Float = 0.0
+    
+    init(startedAt: Date,
+         type: Int,
+         kind: Int,
+         pattern: Int,
+         wearing: Int,
+         breathGoalMins: Int,
+         postureGoalMins: Int) {
         self.startedAt = startedAt
         self.kind = kind
         self.type = type
         self.pattern = pattern
         self.wearing = wearing
+        self.dailyBreathGoalMins = breathGoalMins
+        self.dailyPostureGoalMin = postureGoalMins
     }
     
     func floorSessionDuration() {

@@ -185,19 +185,9 @@ class TabTrainViewController: UIViewController {
             lblMindfulBreathTime.text = "\(breathingElapsedFloored)"
             lblUprightPostureTime.text = "\(postureElapsedFloored)"
             
-            if let currentProgram = dataController?.currentProgram {
-                if currentProgram.type == .fourteen {
-                    let dayNumber = dataController?.numberOfDaysPast ?? 0
-                    let (breathingGoal, postureGoal, _) = fourteenGoals[dayNumber]
-                    breathCircle.progress = CGFloat(breathingElapsedFloored) / CGFloat(breathingGoal)
-                    postureCircle.progress = CGFloat(postureElapsedFloored) / CGFloat(postureGoal)
-                }
-                else {
-                    breathCircle.progress = CGFloat(breathingElapsedFloored) / CGFloat(dataController!.breathingGoals)
-                    postureCircle.progress = CGFloat(postureElapsedFloored) / CGFloat(dataController!.postureGoals)
-                }
-            }
-            
+            breathCircle.progress = CGFloat(breathingElapsedFloored) / CGFloat(dataController!.dailyBreathGoalMins)
+            postureCircle.progress = CGFloat(postureElapsedFloored) / CGFloat(dataController!.dailyPostureGoalMins)
+
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100), execute: {
                 self.breathCircle.startAnimation()
             })

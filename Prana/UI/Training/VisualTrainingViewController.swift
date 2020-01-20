@@ -385,7 +385,7 @@ class VisualTrainingViewController: SuperViewController {
     @IBAction func onStart(_ sender: UIButton) {
         if (objVisual?._isUprightSet)! && !isStarted {
             objVisual?.startMode()
-            self.currentSessionObject = TrainingSession(startedAt: Date(), type: 0, kind: sessionKind, pattern: whichPattern, wearing: sessionWearing)
+            self.currentSessionObject = TrainingSession(startedAt: Date(), type: 0, kind: sessionKind, pattern: whichPattern, wearing: sessionWearing, breathGoalMins: dataController.dailyBreathGoalMins, postureGoalMins: dataController.dailyPostureGoalMins)
             
             isStarted = true
             
