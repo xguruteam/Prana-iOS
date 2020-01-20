@@ -409,25 +409,30 @@ class VisualTrainingScene: SKScene {
         //may 8th **************
         if (objLive?.calibrationBreathsDone == 0 && skipCalibration == 1) {
             
-            objLive?.calibrationBreathsDone = 1;
+            _calibrationRegion!.position.x -= CGFloat(xd)
             
-            if (whichPattern == 0) {
+            if (_calibrationRegion?.position.x)! + _calibrationRegion!.frame.size.width/2 < (_birdX - 50) {
+                _calibrationRegion?.removeFromParent()
                 
-                lastX = Double(size.width / 4.0)
+                objLive?.calibrationBreathsDone = 1;
                 
-                initialFadeIn = 1; //fade in initial patterns
-                
-                subPattern = startSubPattern;
-                createInitialSetOfBreathPatterns();
-                
-                self.visualDelegate?.visualNewTargetRateCalculated(rate: flyingObjects[0].rate)
-                
-                objLiveGraph.breathTopExceededThreshold = 1; //AUG 1st NEW  if you skip calibation, these should still be set
-                objLiveGraph.lightBreathsThreshold = 1; //AUG 1st NEW  if you skip calibation, these should still be set
-                objLiveGraph.minBreathRange = objLiveGraph.fullBreathGraphHeight/8; //AUG 1st NEW
-                objLiveGraph.minBreathRangeForStuck = (objLiveGraph.fullBreathGraphHeight/4); //AUG 1st NEW  (4 helps patterns like 478 when user holds breath between inhale/exhale, so that random body movements less likely to trigger stuck breath)
+                if (whichPattern == 0) {
+                    
+                    lastX = Double(size.width / 4.0)
+                    
+                    initialFadeIn = 1; //fade in initial patterns
+                    
+                    subPattern = startSubPattern;
+                    createInitialSetOfBreathPatterns();
+                    
+                    self.visualDelegate?.visualNewTargetRateCalculated(rate: flyingObjects[0].rate)
+                    
+                    objLiveGraph.breathTopExceededThreshold = 1; //AUG 1st NEW  if you skip calibation, these should still be set
+                    objLiveGraph.lightBreathsThreshold = 1; //AUG 1st NEW  if you skip calibation, these should still be set
+                    objLiveGraph.minBreathRange = objLiveGraph.fullBreathGraphHeight/8; //AUG 1st NEW
+                    objLiveGraph.minBreathRangeForStuck = (objLiveGraph.fullBreathGraphHeight/4); //AUG 1st NEW  (4 helps patterns like 478 when user holds breath between inhale/exhale, so that random body movements less likely to trigger stuck breath)
+                }
             }
-            
         }
         //may 8th **************
 
@@ -1069,10 +1074,10 @@ class VisualTrainingScene: SKScene {
         
         self._patternNameNode.removeFromParent()
         
-        if (skipCalibration == 0) { //may 8th
+//        if (skipCalibration == 0) { //may 8th
             addChild(_calibrationRegion!)
             lastX += Double(_calibrationRegion!.size.width)
-        } //may 8th
+//        } //may 8th
         
         if whichPattern != 0 {
             createInitialSetOfBreathPatterns()
