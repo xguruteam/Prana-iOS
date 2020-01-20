@@ -22,6 +22,8 @@ class LiveGraphViewController: SuperViewController {
     @IBOutlet weak var lblOneMinutes: UILabel!
     @IBOutlet weak var lblTime: UILabel!
     
+    @IBOutlet weak var lbSessionAvg: UILabel!
+    
     @IBOutlet weak var imgPostureAnimation: UIImageView!
     
     @IBOutlet weak var postureSensitivityGroup: UIView!
