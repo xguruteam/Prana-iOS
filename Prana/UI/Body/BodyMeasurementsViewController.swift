@@ -9,6 +9,7 @@
 import UIKit
 import Toaster
 import CoreBluetooth
+import DropDown
 
 enum BMSteps {
     case ready
@@ -22,8 +23,16 @@ class BodyMeasurementsViewController: SuperViewController {
     @IBOutlet weak var batteryStatus: BluetoothStateView!
     @IBOutlet weak var btnStart: UIButton!
     @IBOutlet weak var btnTake: UIButton!
-    @IBOutlet weak var btnUnit: PranaButton!
+    @IBOutlet weak var btnUnit: PranaDropDown!
     @IBOutlet weak var lblStatus: UILabel!
+    
+    @IBOutlet weak var bodyContainerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bodyImageView: UIImageView!
+    
+    var bodyContainerScale: CGFloat = 1.0
+    
+    let unitDropDown = DropDown()
+
     
     var unit: Int = 0
     
@@ -103,7 +112,28 @@ class BodyMeasurementsViewController: SuperViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        adjustButtons()
+        btnUnit.clickListener = { [unowned self] in
+            self.onChangeUnit(self.btnUnit)
+        }
+        // The view to which the drop down will appear on
+        unitDropDown.anchorView = btnUnit
+        unitDropDown.dataSource = ["INCHES", "CENTMETERS"]
+        unitDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            if index == 0 {
+                self.unit = 0
+                self.btnUnit.title = "Inches"
+            } else {
+                self.unit = 1
+                self.btnUnit.title = "Cms"
+            }
+            self.updateMeasurementValues()
+        }
+        unitDropDown.selectRow(0)
+        
+        // Will set a custom width instead of the anchor view width
+        unitDropDown.width = 200
+        
+        adjustBodyContainerSizeAndButtonOffsets(scale: self.bodyContainerScale)
         status = 0
     }
     
@@ -133,6 +163,7 @@ class BodyMeasurementsViewController: SuperViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         btnStart.applyButtonGradient(colors: [#colorLiteral(red: 0.6, green: 0.8392156863, blue: 0.2392156863, alpha: 1), #colorLiteral(red: 0.4039215686, green: 0.7411764706, blue: 0.2274509804, alpha: 1)], points: [0.0, 1.0])
+        btnTake.applyButtonGradient(colors: [UIColor(hexString: "#30cecf"), UIColor(hexString: "#2bb7b8")], points: [0.0, 1.0])
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -146,14 +177,24 @@ class BodyMeasurementsViewController: SuperViewController {
         PranaDeviceManager.shared.removeDelegate(self)
     }
     
-    func setupButton(button: BMButton) {
-        var buttonWidth: CGFloat = 60.0
-        let buttonHeight: CGFloat = 28.0
+    func adjustBodyContainerSizeAndButtonOffsets(scale: CGFloat) {
+        let bodyContainerOrignalHeight: CGFloat = 459
+        
+        bodyImageView.contentMode = .scaleAspectFit
+        bodyContainerHeightConstraint.constant = bodyContainerOrignalHeight * scale
+//        bodyContainerWidthConstraint.constant = bodyContainerOrignalWidth * scale
+        
+        adjustButtons(scale: scale)
+    }
+    
+    func setupButton(button: BMButton, scale: CGFloat) {
+        var buttonWidth: CGFloat = 60.0 * scale
+        let buttonHeight: CGFloat = 28.0 * scale
         
         let title = button.position
         
         if title.count > 7 {
-            buttonWidth = 85
+            buttonWidth = 85 * scale
         }
         
         bodyContainer.addSubview(button)
@@ -161,102 +202,102 @@ class BodyMeasurementsViewController: SuperViewController {
         
         button.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
         button.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
+        
+        // MARK: TODO
+        // adjust button title font size according to the scale factor value.
     }
     
     
-    func adjustButtons() {
+    func adjustButtons(scale: CGFloat) {
         var button = buttons[.neck]!
-        setupButton(button: button)
+        setupButton(button: button, scale: scale)
         button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 60.0).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 60.0 * scale).isActive = true
         
         button = buttons[.shoulders]!
-        setupButton(button: button)
+        setupButton(button: button, scale: scale)
         button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 92.0).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 92.0 * scale).isActive = true
         
         button = buttons[.chest]!
-        setupButton(button: button)
+        setupButton(button: button, scale: scale)
         button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 122.0).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 122.0 * scale).isActive = true
         
         button = buttons[.waist]!
-        setupButton(button: button)
+        setupButton(button: button, scale: scale)
         button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 186.0).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 186.0 * scale).isActive = true
         
         button = buttons[.hips]!
-        setupButton(button: button)
+        setupButton(button: button, scale: scale)
         button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 226.0).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 226.0 * scale).isActive = true
         
         button = buttons[.larm]!
-        setupButton(button: button)
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -66.0).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 140.0).isActive = true
+        setupButton(button: button, scale: scale)
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -66.0 * scale).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 140.0 * scale).isActive = true
         
         button = buttons[.lfarm]!
-        setupButton(button: button)
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -86.0).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 186.0).isActive = true
+        setupButton(button: button, scale: scale)
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -86.0 * scale).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 186.0 * scale).isActive = true
         
         button = buttons[.lwrist]!
-        setupButton(button: button)
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -76.0).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 230.0).isActive = true
+        setupButton(button: button, scale: scale)
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -76.0 * scale).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 230.0 * scale).isActive = true
         
         button = buttons[.rarm]!
-        setupButton(button: button)
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: 66.0).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 140.0).isActive = true
+        setupButton(button: button, scale: scale)
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: 66.0 * scale).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 140.0 * scale).isActive = true
         
         button = buttons[.rfarm]!
-        setupButton(button: button)
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: 86.0).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 186.0).isActive = true
+        setupButton(button: button, scale: scale)
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: 86.0 * scale).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 186.0 * scale).isActive = true
         
         button = buttons[.rwrist]!
-        setupButton(button: button)
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: 76.0).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 230.0).isActive = true
+        setupButton(button: button, scale: scale)
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: 76.0 * scale).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 230.0 * scale).isActive = true
         
         button = buttons[.lthigh]!
-        setupButton(button: button)
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -32.0).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 280.0).isActive = true
+        setupButton(button: button, scale: scale)
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -32.0 * scale).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 280.0 * scale).isActive = true
         
         button = buttons[.lcalf]!
-        setupButton(button: button)
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -35.0).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 358.0).isActive = true
+        setupButton(button: button, scale: scale)
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -35.0 * scale).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 358.0 * scale).isActive = true
         
         button = buttons[.rthigh]!
-        setupButton(button: button)
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: 32.0).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 280.0).isActive = true
+        setupButton(button: button, scale: scale)
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: 32.0 * scale).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 280.0 * scale).isActive = true
         
         button = buttons[.rcalf]!
-        setupButton(button: button)
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: 35.0).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 358.0).isActive = true
+        setupButton(button: button, scale: scale)
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: 35.0 * scale).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 358.0 * scale).isActive = true
         
         button = buttons[.custom1]!
-        setupButton(button: button)
-        button.isSelected = true
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -117.0).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 360).isActive = true
+        setupButton(button: button, scale: scale)
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -112.0 * scale).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 360 * scale).isActive = true
         
         button = buttons[.custom2]!
-        setupButton(button: button)
-        button.isSelected = true
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -117.0).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 400).isActive = true
+        setupButton(button: button, scale: scale)
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -112.0 * scale).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 400 * scale).isActive = true
         
         button = buttons[.custom3]!
-        setupButton(button: button)
-        button.isSelected = true
-        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -117.0).isActive = true
-        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 440).isActive = true
+        setupButton(button: button, scale: scale)
+        button.centerXAnchor.constraint(equalTo: bodyContainer.centerXAnchor, constant: -112.0 * scale).isActive = true
+        button.centerYAnchor.constraint(equalTo: bodyContainer.topAnchor, constant: 440 * scale).isActive = true
     }
  
     func updateStatus() {
@@ -428,16 +469,7 @@ class BodyMeasurementsViewController: SuperViewController {
     }
     
     @IBAction func onChangeUnit(_ sender: Any) {
-        if unit == 0 {
-            unit = 1
-            btnUnit.setTitle("Cms", for: .normal)
-        }
-        else {
-            unit = 0
-            btnUnit.setTitle("Inches", for: .normal)
-        }
-        
-        updateMeasurementValues()
+        unitDropDown.show()
     }
     
     

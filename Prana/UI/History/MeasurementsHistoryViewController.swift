@@ -41,6 +41,7 @@ class MeasurementsHistoryViewController: SuperViewController {
             }
             self.btnUnit.setTitle(item, for: .normal)
         }
+        unitDropDown.selectRow(0)
         
         // Will set a custom width instead of the anchor view width
         unitDropDown.width = 200

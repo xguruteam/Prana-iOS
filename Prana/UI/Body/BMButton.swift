@@ -52,17 +52,15 @@ class BMButton: UIButton {
     
     func configure() {
         
-        if !isCustom {
-            if isSelected {
-                self.backgroundColor = #colorLiteral(red: 0.6235294118, green: 0.8509803922, blue: 0.2470588235, alpha: 1)
-                self.setTitleColor(.white, for: .normal)
-            }
-            else {
-                self.backgroundColor = UIColor.white
-                self.setTitleColor(#colorLiteral(red: 0.3568627451, green: 0.7294117647, blue: 0.1215686275, alpha: 1), for: .normal)
-            }
+        if isSelected || value > 0 {
+            self.backgroundColor = #colorLiteral(red: 0.6235294118, green: 0.8509803922, blue: 0.2470588235, alpha: 1)
+            self.setTitleColor(.white, for: .normal)
         }
-        
+        else {
+            self.backgroundColor = UIColor.white
+            self.setTitleColor(#colorLiteral(red: 0.3568627451, green: 0.7294117647, blue: 0.1215686275, alpha: 1), for: .normal)
+        }
+
         self.layer.cornerRadius = 3
         self.translatesAutoresizingMaskIntoConstraints = false
         
