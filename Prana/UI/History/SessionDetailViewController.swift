@@ -80,6 +80,14 @@ class SessionDetailViewController: SuperViewController {
         return label
     }()
     
+    let avgEILavel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor(hexString: "#79859f")
+        label.font = UIFont.medium(ofSize: 13)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     let eiGraph: Chart = {
         let graph = Chart()
         graph.labelFont = UIFont.bold(ofSize: 13)
@@ -95,6 +103,7 @@ class SessionDetailViewController: SuperViewController {
     let eiGraphScroll: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.alwaysBounceHorizontal = true
         return scrollView
     }()
     
@@ -115,14 +124,21 @@ class SessionDetailViewController: SuperViewController {
     let postureBar: PostureBar = {
         let bar = PostureBar()
         bar.translatesAutoresizingMaskIntoConstraints = false
-        bar.backgroundColor = UIColor(hexString: "#5eb839")
+        bar.backgroundColor = UIColor.clear
         return bar
+    }()
+    
+    let postureScroll: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.alwaysBounceHorizontal = true
+        return scrollView
     }()
     
     let postureBar2: PostureBar2 = {
         let bar = PostureBar2()
         bar.translatesAutoresizingMaskIntoConstraints = false
-        bar.backgroundColor = UIColor(hexString: "#5eb839")
+        bar.backgroundColor = UIColor.clear
         return bar
     }()
     
@@ -221,14 +237,15 @@ class SessionDetailViewController: SuperViewController {
                 postureView.topAnchor.constraint(equalTo: breathSummaryView.bottomAnchor, constant: 40).isActive = true
                 postureView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
                 
-                containerView.addSubview(postureBar2)
-                postureBar2.topAnchor.constraint(equalTo: postureView.bottomAnchor, constant: 20).isActive = true
-                postureBar2.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
-                postureBar2.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
-                postureBar2.heightAnchor.constraint(equalToConstant: 20).isActive = true
+                containerView.addSubview(postureScroll)
+                postureScroll.topAnchor.constraint(equalTo: postureView.bottomAnchor, constant: 20).isActive = true
+                postureScroll.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
+                postureScroll.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
+                postureScroll.heightAnchor.constraint(equalToConstant: 20).isActive = true
+                postureScroll.addSubview(postureBar2)
                 
                 containerView.addSubview(summaryView)
-                summaryView.topAnchor.constraint(equalTo: postureBar2.bottomAnchor, constant: 20).isActive = true
+                summaryView.topAnchor.constraint(equalTo: postureScroll.bottomAnchor, constant: 20).isActive = true
                 summaryView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
                 summaryView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
             } else if session.kind == 1 {
@@ -335,6 +352,10 @@ class SessionDetailViewController: SuperViewController {
             minLabel.topAnchor.constraint(equalTo: eiGraphScroll.bottomAnchor, constant: 0).isActive = true
             minLabel.rightAnchor.constraint(equalTo: eiGraphScroll.rightAnchor, constant: 0).isActive = true
             
+            containerView.addSubview(avgEILavel)
+            avgEILavel.topAnchor.constraint(equalTo: eiGraphScroll.bottomAnchor, constant: 0).isActive = true
+            avgEILavel.leftAnchor.constraint(equalTo: eiGraphScroll.leftAnchor, constant: 0).isActive = true
+
             
             containerView.addSubview(postureView)
             postureView.widthAnchor.constraint(equalToConstant: 100).isActive = true
@@ -342,17 +363,23 @@ class SessionDetailViewController: SuperViewController {
             postureView.topAnchor.constraint(equalTo: eiGraphScroll.bottomAnchor, constant: 10).isActive = true
             postureView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
             
-            containerView.addSubview(postureBar)
-            postureBar.topAnchor.constraint(equalTo: postureView.bottomAnchor, constant: 10).isActive = true
-            postureBar.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
-            postureBar.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
-            postureBar.heightAnchor.constraint(equalToConstant: 20).isActive = true
+            containerView.addSubview(postureScroll)
+            postureScroll.topAnchor.constraint(equalTo: postureView.bottomAnchor, constant: 10).isActive = true
+            postureScroll.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
+            postureScroll.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
+            postureScroll.heightAnchor.constraint(equalToConstant: 20).isActive = true
+            postureScroll.addSubview(postureBar)
             
             containerView.addSubview(summaryView)
-            summaryView.topAnchor.constraint(equalTo: postureBar.bottomAnchor, constant: 10).isActive = true
+            summaryView.topAnchor.constraint(equalTo: postureScroll.bottomAnchor, constant: 10).isActive = true
             summaryView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
             summaryView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
         }
+        
+        
+        rrGraphScroll.delegate = self
+        eiGraphScroll.delegate = self
+        postureScroll.delegate = self
         
         renderSessionData()
     }
@@ -365,12 +392,19 @@ class SessionDetailViewController: SuperViewController {
                 rrGraph2.setNeedsDisplay()
                 rrGraphScroll.contentSize = rrGraph2.frame.size
             }
+            if session.kind == 0 {
+                postureBar2.frame = CGRect(x: 0.0, y: 0.0, width: postureScroll.frame.width * CGFloat(rrPages), height: postureScroll.frame.height)
+                postureScroll.contentSize = postureBar2.frame.size
+            }
             postureBar2.setNeedsDisplay()
         } else {
             eiGraph.frame = CGRect(x: 0.0, y: 0.0, width: eiGraphScroll.frame.width * CGFloat(eiPages), height: eiGraphScroll.frame.height)
             eiGraphScroll.contentSize = eiGraph.frame.size
             rrGraph.frame = CGRect(x: 0.0, y: 0.0, width: rrGraphScroll.frame.width * CGFloat(eiPages), height: rrGraphScroll.frame.height)
             rrGraphScroll.contentSize = rrGraph.frame.size
+            postureBar.frame = CGRect(x: 0.0, y: 0.0, width: postureScroll.frame.width * CGFloat(eiPages), height: postureScroll.frame.height)
+            postureScroll.contentSize = postureBar.frame.size
+            postureBar.setNeedsDisplay()
         }
     }
     
@@ -424,6 +458,11 @@ class SessionDetailViewController: SuperViewController {
                 }
                 
                 postureBar2.session = session
+                if session.kind == 0 {
+                    postureBar2.numberOfPages = Int(rrPages)
+                } else {
+                    postureBar2.numberOfPages = 1
+                }
                 
                 summaryView.text = session.postureSummary
             }
@@ -449,7 +488,7 @@ class SessionDetailViewController: SuperViewController {
             }
             
             var series = ChartSeries(data: data)
-            series.color = UIColor(hexString: "#5eb839")
+            series.color = UIColor(hexString: "#2BB7B8")
             series.area = true
             
             rrGraph.add(series)
@@ -461,11 +500,14 @@ class SessionDetailViewController: SuperViewController {
             }
             
             series = ChartSeries(data: data)
-            series.color = UIColor(hexString: "#5eb839")
+            series.color = UIColor(hexString: "#2BB7B8")
             series.area = true
             
             eiGraph.add(series)
             eiPages = CGFloat(xlabels.count - 1) / 5.0
+            
+            let (avgEI, _) = passive.sumEIRatio()
+            avgEILavel.text = "Avg. EI : \(roundFloat(Float(avgEI), point: 2))"
             
             
             if passive.wearing == 0 {
@@ -476,9 +518,26 @@ class SessionDetailViewController: SuperViewController {
             
             postureBar.duration = passive.duration
             postureBar.slouches = passive.slouches
+            postureBar.numberOfPages = Int(eiPages)
             
             breathSummaryView.text = passive.breathSummary
             summaryView.text = passive.postureSummary
+        }
+    }
+}
+
+extension SessionDetailViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView != rrGraphScroll {
+            rrGraphScroll.contentOffset = scrollView.contentOffset
+        }
+        
+        if scrollView != eiGraphScroll {
+            eiGraphScroll.contentOffset = scrollView.contentOffset
+        }
+        
+        if scrollView != postureScroll {
+            postureScroll.contentOffset = scrollView.contentOffset
         }
     }
 }

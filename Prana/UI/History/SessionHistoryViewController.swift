@@ -247,9 +247,9 @@ extension SessionHistoryViewController: UITableViewDelegate, UITableViewDataSour
             case is DailySummary:
                 return 230
             case is TrainingSession:
-                return 120
+                return 145
             case is PassiveSession:
-                return 100
+                return 135
             default:
                 return 0
             }

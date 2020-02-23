@@ -81,6 +81,7 @@ class RRGraph: UIView {
         super.draw(rect)
         drawLines()
         drawPoints()
+        drawYAxisLabels()
     }
     
     func drawLines() {
@@ -137,9 +138,6 @@ class RRGraph: UIView {
         for i in 1 ..< mins {
             path.move(to: CGPoint(x: CGFloat(i) * step, y: 0))
             path.addLine(to: CGPoint(x: CGFloat(i) * step, y: height - padding.bottom / 2.0))
-            
-            let axisText = NSAttributedString(string: "\(i)", attributes: axisTextAttribute)
-            axisText.draw(at: CGPoint(x: CGFloat(i) * step + 2, y: height - padding.bottom + 2))
         }
         
         let layer = CAShapeLayer()
@@ -148,6 +146,15 @@ class RRGraph: UIView {
         layer.strokeColor = UIColor.gray.withAlphaComponent(0.3).cgColor
         self.layer.addSublayer(layer)
         
+    }
+    
+    func drawYAxisLabels() {
+        let mins = Int(duration / 60)
+        let step = width / CGFloat(mins)
+        for i in 1 ..< mins {
+            let axisText = NSAttributedString(string: "\(i)", attributes: axisTextAttribute)
+            axisText.draw(at: CGPoint(x: CGFloat(i) * step + 2, y: height - padding.bottom + 2))
+        }
     }
     
     func drawPoints() {

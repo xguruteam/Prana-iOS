@@ -36,7 +36,7 @@ class WeeklyGraph: UIView {
     var stackData: [StackDataType] = [] {
         didSet {
             var totalMax = stackData.reduce(0) { (subMax, item) -> Int in
-                return Swift.max(subMax, item.0, item.1, item.2)
+                return Swift.max(subMax, item.0, item.1)
             }
             if totalMax < 60 {
                 totalMax = 60
@@ -116,22 +116,22 @@ class WeeklyGraph: UIView {
         for i in 0..<letters.count {
             if type == .stack {
                 let (total, part, goal) = stackData[i]
-                let totalR = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - bw / 2.0, y: height - th - (height - th) * CGFloat(total) / CGFloat(max), width: bw, height: (height - th) * CGFloat(total) / CGFloat(max))
-                let totalP = UIBezierPath(rect: totalR)
-                UIColor(hexString: "#c0c3c9").setStroke()
-                totalP.stroke()
-                
-                let partR = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - bw / 2.0, y: height - th - (height - th) * CGFloat(part) / CGFloat(max), width: bw, height: (height - th) * CGFloat(part) / CGFloat(max))
+                let partR = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - bw / 2.0, y: height - th - (height - th) * CGFloat(part) / CGFloat(max) + 1, width: bw, height: (height - th) * CGFloat(part) / CGFloat(max))
                 let partP = UIBezierPath(rect: partR)
                 color.setFill()
                 partP.fill()
                 
-                if goal > 0 {
-                    let goalR = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - bw / 2.0, y: height - th - (height - th) * CGFloat(goal) / CGFloat(max), width: bw, height: 2)
-                    let goalP = UIBezierPath(rect: goalR)
-                    UIColor.red.setFill()
-                    goalP.fill()
-                }
+                let totalR = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - bw / 2.0, y: height - th - (height - th) * CGFloat(total) / CGFloat(max) + 1, width: bw, height: (height - th) * CGFloat(total) / CGFloat(max))
+                let totalP = UIBezierPath(rect: totalR)
+                UIColor(hexString: "#c0c3c9").setStroke()
+                totalP.stroke()
+                
+//                if goal > 0 {
+//                    let goalR = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - bw / 2.0, y: height - th - (height - th) * CGFloat(goal) / CGFloat(max), width: bw, height: 2)
+//                    let goalP = UIBezierPath(rect: goalR)
+//                    UIColor.red.setFill()
+//                    goalP.fill()
+//                }
                 
             } else {
                 let total = barData[i]

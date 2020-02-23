@@ -55,7 +55,7 @@ protocol RadioGroupButtonDelegate: class {
     }
     
     func initItems() {
-        self.spacing = 10
+        self.spacing = 20
         
         itemFont = UIFont.medium(ofSize: 14)        
         for i in 0 ..< count {

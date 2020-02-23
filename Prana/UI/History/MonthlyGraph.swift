@@ -52,14 +52,16 @@ class MonthlyGraph: UIView {
         let tw:CGFloat = 40
         let uw = (width - tw) / CGFloat(series.count - 1)
         let hc: CGFloat = 6
-        let uh = height / hc
+        let xAxisLabelHeight: CGFloat = 20
+        let uh = (height - xAxisLabelHeight) / hc
         
         let th: CGFloat = 20
         let bw: CGFloat = 5
+        let xw: CGFloat = 20
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
-        let attributes: [NSAttributedString.Key : Any] = [
+        var attributes: [NSAttributedString.Key : Any] = [
             .paragraphStyle: paragraphStyle,
             .font: UIFont.bold(ofSize: 13),
             .foregroundColor: UIColor(hexString: "#79859f")
@@ -74,17 +76,28 @@ class MonthlyGraph: UIView {
             } else {
                 attributedString = NSAttributedString(string: "\(round(CGFloat(max) / (hc - 1) * CGFloat(i) * 2.54))", attributes: attributes)
             }
-            stringRect = CGRect(x: 0, y: height - uh * CGFloat(i) - th, width: tw, height: th)
+            stringRect = CGRect(x: 0, y: height - uh * CGFloat(i) - th - xAxisLabelHeight, width: tw, height: th)
             attributedString.draw(in: stringRect)
         }
         
+        attributes = [
+            .paragraphStyle: paragraphStyle,
+            .font: UIFont.regular(ofSize: 11),
+            .foregroundColor: UIColor(hexString: "#79859f")
+        ]
         
         for i in 0..<series.count {
             let total = series[i]
-            let totalR = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - bw / 2.0 + tw, y: height - (height) * CGFloat(total) / CGFloat(max), width: bw, height: (height) * CGFloat(total) / CGFloat(max))
+            let totalR = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - bw / 2.0 + tw, y: height - xAxisLabelHeight - (height - xAxisLabelHeight) * CGFloat(total) / CGFloat(max), width: bw, height: (height - xAxisLabelHeight) * CGFloat(total) / CGFloat(max))
             let totalP = UIBezierPath(rect: totalR)
             color.setFill()
             totalP.fill()
+            
+            if total > 0 {
+                attributedString = NSAttributedString(string: "\(i+1)", attributes: attributes)
+                stringRect = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - xw / 2.0 + tw, y: height - xAxisLabelHeight, width: xw, height:  xAxisLabelHeight)
+                attributedString.draw(in: stringRect)
+            }
         }
     }
     

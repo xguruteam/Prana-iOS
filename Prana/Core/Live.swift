@@ -722,12 +722,12 @@ class Live: NSObject {
                 
             }
             
-            if (appMode == 2 && calibrationBreathsDone == 0) {  //Aug 1st  NEW
-                if (timeElapsed-timeElapsedAtCalibrationStart > 0) { //Aug 1st  NEW
-                    calibrationRR = 60*(Double(breathCount-breathCountAtCalibrationStart)/(timeElapsed-timeElapsedAtCalibrationStart)); //Aug 1st  NEW
-                    calibrationRR = roundNumber(calibrationRR, 10); //Aug 1st  NEW
-                } //Aug 1st  NEW
-            } //Aug 1st  NEW
+//            if (appMode == 2 && calibrationBreathsDone == 0) {  //Aug 1st  NEW
+//                if (timeElapsed-timeElapsedAtCalibrationStart > 0) { //Aug 1st  NEW
+//                    calibrationRR = 60*(Double(breathCount-breathCountAtCalibrationStart)/(timeElapsed-timeElapsedAtCalibrationStart)); //Aug 1st  NEW
+//                    calibrationRR = roundNumber(calibrationRR, 10); //Aug 1st  NEW
+//                } //Aug 1st  NEW
+//            } //Aug 1st  NEW
             
             respRate = roundNumber(respRate, 10);
             avgRespRate = roundNumber(avgRespRate, 10);
@@ -752,7 +752,7 @@ class Live: NSObject {
         
         guard !whenBreathsStart.isEmpty else { return breathsInLastMinute }
         
-        for i in ((0..<(whenBreathsStart.count - 1)).map { Int($0) }.reversed()) {
+        for i in ((0..<(whenBreathsStart.count)).map { Int($0) }.reversed()) {
             if (whenBreathsStart[i] >= (timeElapsed - 60)) {
                 breathsInLastMinute+=1;
             } else {

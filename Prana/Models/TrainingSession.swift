@@ -221,6 +221,8 @@ class TrainingSession: Codable {
         var lastTime: Double = 0
         
         for breath in judgedBreaths {
+            guard breath.breathStatus >= 0 else { continue }
+            
             breathCount += breath.actuals.count
             var last: Double = 0
             for core in breath.actuals {

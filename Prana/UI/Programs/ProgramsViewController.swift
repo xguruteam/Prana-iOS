@@ -544,9 +544,9 @@ class ProgramsViewController: UIViewController {
                         if savedPattern.type == 16 {
                             if savedPattern.sub == 0 {
                                 vc.whichPattern = 0
-                                vc.subPattern = savedPattern.startResp
-                                vc.startSubPattern = savedPattern.startResp
-                                vc.maxSubPattern = savedPattern.minResp
+                                vc.subPattern = savedPattern.startResp + 3
+                                vc.startSubPattern = savedPattern.startResp + 3
+                                vc.maxSubPattern = savedPattern.minResp + 3
                                 vc.patternTitle = patternNames[savedPattern.type].0
                             }
                             else {

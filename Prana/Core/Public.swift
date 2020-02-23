@@ -89,5 +89,5 @@ func getMinutesDescription(for seconds: Int) -> String {
     if module == 0 {
         return "\(minutes)"
     }
-    return "\(minutes):\(module)"
+    return "\(minutes):\(String(format: "%02d", module))"
 }

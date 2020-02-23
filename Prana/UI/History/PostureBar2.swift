@@ -13,17 +13,10 @@ class PostureBar2: UIView {
     var session: TrainingSession?
     
     var duration: CGFloat {
-        let defaultDuration: CGFloat = 300
-        guard let session = session else {
-            return defaultDuration
-        }
-        
-        if session.duration < 300 {
-            return defaultDuration
-        }
-        
-        return CGFloat(session.duration)
+        return CGFloat(session?.duration ?? 0)
     }
+    
+    var numberOfPages: Int = 0
     
     
     // Only override draw() if you perform custom drawing.
@@ -34,6 +27,11 @@ class PostureBar2: UIView {
         guard let postures = session?.judgedPosture else {
             return
         }
+        
+        let unit = CGFloat(width) / CGFloat(numberOfPages * 5 * 60)
+        let bpath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: CGFloat(duration) * unit, height: height))
+        UIColor(hexString: "#5eb839").setFill()
+        bpath.fill()
         
         for i in 0 ..< postures.count {
             var slouchDuration = 0
@@ -48,7 +46,6 @@ class PostureBar2: UIView {
                 slouchDuration = Int(duration) - posture.time
             }
             
-            let unit = CGFloat(width) / CGFloat(duration)
             let x = CGFloat(posture.time) * unit
             let w = CGFloat(slouchDuration) * unit
             let path = UIBezierPath(rect: CGRect(x: x, y: 0, width: w, height: height))

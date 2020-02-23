@@ -244,6 +244,7 @@ class PassiveTrackingViewController: SuperViewController {
             .list("Tracking is useful to learn how your breathing and posture are working unconsciously (what your average respiration rate is and how often you are slouching). A higher non-active respiration rate can be linked to more stressed situations."),
             .list("You can opt to get buzzes when slouching in this mode. You can set the buzz times to be less frequent/strict than in training mode."),
             .list("If you are discovering stressed breathing or poor posture during tracking, our suggestion in both cases is just to hop into training mode and do a training session, and/or adjust your daily training minute goals."),
+            .list("E/I Ratio is the ratio of your exhalation time to your inhalation time. If on average you are exhaling faster than your inhalations (which means this ratio is less than 1.0), this can also be an indicator of stress, depending how much less than 1.0 it is."),
         ]
         
         alert.addTextViewer(text: .attributedText(text))
@@ -269,7 +270,7 @@ class PassiveTrackingViewController: SuperViewController {
         
         currentSessionObject?.floorSessionDuration()
         
-        if let session = currentSessionObject, session.duration > 60 {
+        if let session = currentSessionObject, session.duration >= 60 {
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
                 dataController.addRecord(passive: session)
             }
@@ -516,22 +517,26 @@ class PassiveTrackingViewController: SuperViewController {
         makeSessionObject()
         
         if (objLive?.postureIsGood == 1) {
+            if (prevPostureState == 0) {
+                if slouchStartSeconds > 0, currentSlouchPostureTime > 0 {
+                    currentSessionObject?.addSlouch(timeStamp: slouchStartSeconds, duration: currentSlouchPostureTime)
+                    // slouch end
+                }
+            }
+            
             uprightPostureTime+=1;
             currentSlouchPostureTime = 0; // May 31st ADDED THIS
         }
         else {  // May 31st ADDED THIS
             currentSlouchPostureTime+=1;  // May 31st ADDED THIS
+            uprightPostureTime = uprightPostureTime + 0
         }  // May 31st ADDED THIS
         
         
         if (prevPostureState == 1) {
             if (objLive?.postureIsGood == 0) {
                 slouchesCount+=1;
-                slouchStartSeconds = trainingDuration - currentSlouchPostureTime
-                if slouchStartSeconds > 0, currentSlouchPostureTime > 0 {
-                    currentSessionObject?.addSlouch(timeStamp: slouchStartSeconds, duration: currentSlouchPostureTime)
-                    // slouch end
-                }
+                slouchStartSeconds = trainingDuration
             }
         }
         

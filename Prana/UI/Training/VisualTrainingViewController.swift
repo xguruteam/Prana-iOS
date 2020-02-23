@@ -174,28 +174,6 @@ class VisualTrainingViewController: SuperViewController {
         postureDuration = -1
         slouches = -1
         
-        postureRadioGroup.delegate = self
-        breathRadioGroup.delegate = self
-        switch dataController.sensitivities.vtbr {
-        case 0:
-            setBreathSensitivityChange(val: 1)
-        case 1:
-            setBreathSensitivityChange(val: 2)
-        default:
-            setBreathSensitivityChange(val: 3)
-        }
-        
-        switch dataController.sensitivities.vtps {
-        case 0:
-            setPostureSensitivityChange(val: 1)
-        case 1:
-            setPostureSensitivityChange(val: 2)
-        default:
-            setPostureSensitivityChange(val: 3)
-        }
-        
-        displayPostureAnimation(1)
-        
         btnStart.isHidden = true
         controlPanel.isHidden = false
         
@@ -241,6 +219,28 @@ class VisualTrainingViewController: SuperViewController {
         else {
             liveGraphView.isHidden = true
         }
+        
+        postureRadioGroup.delegate = self
+        breathRadioGroup.delegate = self
+        switch dataController.sensitivities.vtbr {
+        case 0:
+            setBreathSensitivityChange(val: 1)
+        case 1:
+            setBreathSensitivityChange(val: 2)
+        default:
+            setBreathSensitivityChange(val: 3)
+        }
+        
+        switch dataController.sensitivities.vtps {
+        case 0:
+            setPostureSensitivityChange(val: 1)
+        case 1:
+            setPostureSensitivityChange(val: 2)
+        default:
+            setPostureSensitivityChange(val: 3)
+        }
+        
+        displayPostureAnimation(1)
         
         // Do any additional setup after loading the view.
         if isTutorial {
@@ -451,7 +451,7 @@ class VisualTrainingViewController: SuperViewController {
         if isTutorial == false {
             currentSessionObject?.floorSessionDuration()
             
-            if let session = currentSessionObject, session.duration > 60 {
+            if let session = currentSessionObject, session.duration >= 60 {
                 if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let dataController = appDelegate.dataController {
                     dataController.addRecord(training: session)
                     isCompleted = true

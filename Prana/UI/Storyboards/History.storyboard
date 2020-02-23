@@ -16,9 +16,6 @@
         <array key="Quicksand 700.ttf">
             <string>Quicksand-Bold</string>
         </array>
-        <array key="Quicksand regular.ttf">
-            <string>Quicksand-Regular</string>
-        </array>
     </customFonts>
     <scenes>
         <!--History View Controller-->
@@ -326,7 +323,7 @@
                                         <rect key="frame" x="0.0" y="181" width="375" height="250"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="G45-SX-gMS" id="3ef-e6-DF7">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="249.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hzp-Di-OOf">
@@ -350,16 +347,16 @@
                                                     </constraints>
                                                 </view>
                                                 <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="LsR-NG-7Xo">
-                                                    <rect key="frame" x="15" y="49" width="345" height="191"/>
+                                                    <rect key="frame" x="15" y="49" width="345" height="190.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <string key="text">Breath Training Time Completed: 0 Mins Mindful Breaths: 0% Mindful Breath Minutes: 0 Mins Average Training RR: 0.0  Posture Training Time Completed: 0 Mins Upright Posture: 0% Upright Posture Minutes: 0 Mins</string>
                                                     <color key="textColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aKl-7C-VIC">
                                                     <rect key="frame" x="15" y="49" width="345" height="20"/>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                                     <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -385,11 +382,11 @@
                                             <outlet property="summaryView" destination="LsR-NG-7Xo" id="xcx-Jw-KLj"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DailyCell2" rowHeight="121" id="myJ-w0-TBt" customClass="DailyCell2" customModule="Prana" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="431" width="375" height="121"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DailyCell2" rowHeight="150" id="myJ-w0-TBt" customClass="DailyCell2" customModule="Prana" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="431" width="375" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="myJ-w0-TBt" id="H22-kD-T6W">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="120.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hp5-7a-Ktn">
@@ -402,18 +399,18 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dCA-No-eCL">
-                                                    <rect key="frame" x="15" y="39" width="345" height="72"/>
+                                                    <rect key="frame" x="15" y="39" width="345" height="100.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <string key="text">Training: Breating with Posture, 5 mins completed
 Mindful Breaths: 68% Avg.RR: 18.5, Relax pattern 
 Upright Posture: 88%, Slouches: 5, Lower Back</string>
                                                     <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="13"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ud-Jt-UIr">
-                                                    <rect key="frame" x="15" y="39" width="345" height="16.5"/>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="13"/>
+                                                    <rect key="frame" x="15" y="39" width="345" height="17.5"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="14"/>
                                                     <color key="textColor" red="0.47450980390000003" green="0.52156862749999999" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -437,10 +434,10 @@ Upright Posture: 88%, Slouches: 5, Lower Back</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WeeklyCell1" rowHeight="57" id="ciX-Mx-LEL" customClass="WeeklyCell1" customModule="Prana" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="552" width="375" height="57"/>
+                                        <rect key="frame" x="0.0" y="581" width="375" height="57"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ciX-Mx-LEL" id="pic-tr-2tN">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="56.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mht-n5-s5e">
@@ -491,10 +488,10 @@ Upright Posture: 88%, Slouches: 5, Lower Back</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WeeklyCell2" rowHeight="500" id="O3x-oT-PHT" customClass="WeeklyCell2" customModule="Prana" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="609" width="375" height="500"/>
+                                        <rect key="frame" x="0.0" y="638" width="375" height="500"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O3x-oT-PHT" id="Gyf-OX-kDc">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="499.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="500"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ogw-uh-ZcB">

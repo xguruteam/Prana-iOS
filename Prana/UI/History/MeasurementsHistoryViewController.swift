@@ -50,15 +50,6 @@ class MeasurementsHistoryViewController: SuperViewController {
 //            self.openBodyAreaPicker()
 //        }
         
-//        weeklyGraph.diaryClickHandler = { [unowned self] (id, note) in
-//            let vc = Utils.getStoryboardWithIdentifier(identifier: "DiaryViewController") as! DiaryViewController
-//            let date = self.wb.adding(.day, value: id)
-//            vc.date = date
-//            vc.isEditable = false
-//            vc.note = note
-//            self.navigationController?.pushViewController(vc, animated: true)
-//        }
-        
         let currentDate = Date()
         unit = .inch
         
@@ -126,6 +117,14 @@ extension MeasurementsHistoryViewController: UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MeasurementHistoryTableViewCell") as! MeasurementHistoryTableViewCell
         cell.configure(data: cellData[indexPath.row], unit: self.unit)
+        cell.weeklyGraph.diaryClickHandler = { [unowned self] (id, note) in
+            let vc = Utils.getStoryboardWithIdentifier(name: "BodyMeasurement", identifier: "DiaryViewController") as! DiaryViewController
+            let date = cell.wb.adding(.day, value: id)
+            vc.date = date
+            vc.isEditable = false
+            vc.note = note
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         return cell
     }
 }

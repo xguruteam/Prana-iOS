@@ -65,12 +65,12 @@ class LiveGraph: UIView {
         bottomPath.addLine(to: CGPoint(x: width, y: scale(bottomReversalY)))
         bottomPath.stroke()
 
-        let endPath = UIBezierPath()
-        endLineColor.setStroke()
-        
-        endPath.move(to: CGPoint(x: 0, y: scale(endBreathY)))
-        endPath.addLine(to: CGPoint(x: width, y: scale(endBreathY)))
-        endPath.stroke()
+//        let endPath = UIBezierPath()
+//        endLineColor.setStroke()
+//        
+//        endPath.move(to: CGPoint(x: 0, y: scale(endBreathY)))
+//        endPath.addLine(to: CGPoint(x: width, y: scale(endBreathY)))
+//        endPath.stroke()
     }
     
     func scale(_ value: Double) -> CGFloat {
