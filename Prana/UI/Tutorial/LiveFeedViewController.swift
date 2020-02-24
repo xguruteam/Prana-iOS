@@ -19,10 +19,12 @@ class LiveFeedViewController: SuperViewController {
     @IBOutlet weak var breathRadioGroup: RadioGroupButton!
     @IBOutlet weak var postureRadioGroup: RadioGroupButton!
     
+    @IBOutlet weak var lblHead: UILabel!
     @IBOutlet weak var lblDescription: UILabel!
     
     @IBOutlet weak var liveGraphContraint: NSLayoutConstraint!    
     @IBOutlet weak var imageHeightContraint: NSLayoutConstraint!
+    @IBOutlet weak var btnHelp: UIButton!
     
     var isLive = false
     var objLive: Live?
@@ -37,10 +39,12 @@ class LiveFeedViewController: SuperViewController {
         self.navigationController?.isNavigationBarHidden = true
         
         if isLowerBack {
-            lblDescription.text = "Sit upright and tap below to set your upright posture. You can also double-press the device button."
+            lblHead.text = "Wearing the belt around your waist tracks and encourages diaphragmatic breathing. Now try breathing more abdominally, so that your belly rises as you inhale, and falls as you exhale. Adjust the belt position and tightness if needed."
+            lblDescription.text = "Sit upright and tap below to set your upright posture baseline for your lower back. You can also press the device button to set your posture. Now try varying your posture to see how the animated figure is tracking."
         }
         else {
-            lblDescription.text = "Sit or stand upright and tap below to set your upright posture. You can also double-press the device button."
+            lblHead.text = "Now breathe normally. You should see your breath on the graph rising as you inhale, and falling as you exhale. Adjust the belt position and tightness if needed. Tap help for more details."
+            lblDescription.text = "Sit or stand upright and tap below to set your upright posture baseline for your upper back. You can also press the device button to set your posture. Now try varying your posture to see how the animated figure is tracking."
         }
         
         adjustContraints()
@@ -71,6 +75,37 @@ class LiveFeedViewController: SuperViewController {
             imageHeightContraint.constant = 110
         }
     }
+    
+    @IBAction func onHelp(_ sender: Any) {
+        let alert = UIAlertController(style: .actionSheet)
+        
+        let attributedString: NSMutableAttributedString
+        
+        var attributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 15), .foregroundColor: UIColor.black]
+        attributedString = NSMutableAttributedString(string: "You can set ", attributes: attributes)
+        
+        attributes = [.font: UIFont.boldSystemFont(ofSize: 15), .foregroundColor: UIColor.black]
+        attributedString.append(NSMutableAttributedString(string: "Breath Responsiveness ", attributes: attributes))
+        
+        attributes = [.font: UIFont.systemFont(ofSize: 15), .foregroundColor: UIColor.black]
+        attributedString.append(NSMutableAttributedString(string: "to adjust how quickly the graph keeps pace with your breathing. The lowest setting makes the signal smoother and slower changing, while the highest setting makes it track even very rapid breaths (with the tradeoff of more noise from body movements). For most screens, we automatically choose this setting for you, but you can always manually override it. ", attributes: attributes))
+
+        attributes = [.font: UIFont.boldSystemFont(ofSize: 15), .foregroundColor: UIColor.black]
+        attributedString.append(NSMutableAttributedString(string: "Note that Breath Responsiveness is not the same as breath sensitivity. For example, if you breathe very lightly, or very deeply, our system is constantly adjusting the sensitivity to track your breathing, so that your typical breath reaches the full graph height. Never force your breaths for tracking purposes. Just keep breathing normally and the height of the graph will automatically catch up to track your breathing depth.", attributes: attributes))
+        
+        attributes = [.font: UIFont.systemFont(ofSize: 15), .foregroundColor: UIColor.black]
+        attributedString.append(NSMutableAttributedString(string: "\n\nYou can set ", attributes: attributes))
+        
+        attributes = [.font: UIFont.boldSystemFont(ofSize: 15), .foregroundColor: UIColor.black]
+        attributedString.append(NSMutableAttributedString(string: "Posture Sensitivity ", attributes: attributes))
+        
+        attributes = [.font: UIFont.systemFont(ofSize: 15), .foregroundColor: UIColor.black]
+        attributedString.append(NSMutableAttributedString(string: "to adjust how strict the system is to posture changes and slouching. The lowest setting requires significant slouching to count as slouching, while the highest setting will respond to minor slouching.", attributes: attributes))
+        
+        alert.addTextViewer(text: .attributedText([.raw(attributedString)]))
+
+        alert.addAction(title: "OK", style: .cancel)
+        alert.show()    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     }

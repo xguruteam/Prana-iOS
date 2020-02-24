@@ -2142,9 +2142,9 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iSL-5c-TAo">
-                                                    <rect key="frame" x="16" y="224" width="305.5" height="79.5"/>
+                                                    <rect key="frame" x="16" y="224" width="305.5" height="75"/>
                                                     <string key="text">Press and hold the button on Prana for at least 2 seconds to wirelessly connect to the app. The light on the device will be blink blue.</string>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="16"/>
                                                     <color key="textColor" red="0.39205139880000001" green="0.39667910340000001" blue="0.41570192579999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -2163,7 +2163,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     <state key="normal" backgroundImage="ic-triangle"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your battery level is getting low. It is recommended to charge the device before proceeding." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Lm-GX-8ri">
-                                                    <rect key="frame" x="0.0" y="307.5" width="337.5" height="50.5"/>
+                                                    <rect key="frame" x="0.0" y="303" width="337.5" height="50.5"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                     <color key="textColor" red="0.68561625479999999" green="0.25009864370000001" blue="0.22058494919999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>

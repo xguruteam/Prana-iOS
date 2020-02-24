@@ -270,14 +270,15 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
             .header2("Buzzer Training Instructions for Breathing & Posture"),
             .list("Requires your conscious attention during the session time"),
             .list("Start inhaling after you feel the first quick buzz"),
-            .list("Start exhaling on a double buzz (any time after the double buzz but before the next inhale buzz)"),
+            .list("Start exhaling after you feel the next quick buzz"),
             .list("Start exhaling after you feel the next quick buzz"),
             .list("When you feel a quick double-buzz, the breath is complete. Wait to inhale until the quick buzz again"),
-            .list("Maintain your upright posture"),
-            .list("A long single buzz means you are not following the breathing pattern, and a long double buzz means your posture is slouching"),
+            .list("A long single buzz means you are not following the breathing pattern"),
             .list("If you are inhaling or exhaling too soon (breathing faster), that is usually what triggers the buzz warning"),
+            .list("A long double buzz means you are slouching"),
             .list("During the session, keep your body fairly still to help accuracy"),
             .list("The first two breaths of the session are not evaluated (they are for calibration)"),
+            .list("Buzzer training requires a little bit of practice to get used to, so don’t get discouraged if the first few sessions are challenging"),
         ]
         
         if sessionKind == 1 {

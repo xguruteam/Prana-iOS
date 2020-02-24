@@ -6,6 +6,7 @@ public enum AttributedTextBlock {
     case header2(String)
     case normal(String)
     case list(String)
+    case raw(NSMutableAttributedString)
     
     var text: NSMutableAttributedString {
         let attributedString: NSMutableAttributedString
@@ -22,6 +23,8 @@ public enum AttributedTextBlock {
         case .list(let value):
             let attributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 15), .foregroundColor: UIColor.black]
             attributedString = NSMutableAttributedString(string: "∙ " + value, attributes: attributes)
+        case .raw(let value):
+            return value
         }
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 2

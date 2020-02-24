@@ -92,7 +92,7 @@ class ProgramChildCell: UITableViewCell {
         lbl14Description.attributedText = text.map {
             let att = NSMutableAttributedString(attributedString: $0.text)
             if $0.text.string.contains("For each") {
-                att.addAttribute(NSAttributedString.Key.font, value: UIFont.medium(ofSize: 14), range: NSRange(location: 0, length: $0.text.length))
+                att.addAttribute(NSAttributedString.Key.font, value: UIFont.bold(ofSize: 14), range: NSRange(location: 0, length: $0.text.length))
             }
             else {
                 att.addAttribute(NSAttributedString.Key.font, value: UIFont.medium(ofSize: 13), range: NSRange(location: 0, length: $0.text.length))
@@ -122,7 +122,7 @@ class ProgramChildCell: UITableViewCell {
                 att.addAttribute(NSAttributedString.Key.font, value: UIFont.bold(ofSize: 14), range: NSRange(location: 0, length: $0.text.length))
             }
             else {
-                att.addAttribute(NSAttributedString.Key.font, value: UIFont.bold(ofSize: 13), range: NSRange(location: 0, length: $0.text.length))
+                att.addAttribute(NSAttributedString.Key.font, value: UIFont.medium(ofSize: 13), range: NSRange(location: 0, length: $0.text.length))
             }
             
             let style = NSMutableParagraphStyle()

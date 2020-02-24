@@ -327,7 +327,7 @@
                                                     </view>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="80" id="0Vw-pp-Exw"/>
+                                                    <constraint firstAttribute="height" constant="90" id="0Vw-pp-Exw"/>
                                                 </constraints>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posture" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KDD-lH-8qC">

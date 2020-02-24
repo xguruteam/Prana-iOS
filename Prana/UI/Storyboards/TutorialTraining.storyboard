@@ -663,6 +663,13 @@ MY UPPER CHEST</string>
                                     <action selector="onBack:" destination="qZk-pp-CIW" eventType="touchUpInside" id="YVv-wf-egN"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hqv-CI-zva">
+                                <rect key="frame" x="339" y="31.5" width="16" height="22"/>
+                                <state key="normal" image="ic_question"/>
+                                <connections>
+                                    <action selector="onHelp:" destination="qZk-pp-CIW" eventType="touchUpInside" id="at5-jn-wQE"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oul-GL-ujg" userLabel="background">
                                 <rect key="frame" x="0.0" y="65" width="375" height="592"/>
                             </view>
@@ -670,7 +677,7 @@ MY UPPER CHEST</string>
                                 <rect key="frame" x="25" y="65" width="325" height="592"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2bV-L0-K5w">
-                                        <rect key="frame" x="0.0" y="0.0" width="325" height="556"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="325" height="618"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HhE-Rh-Ghp">
                                                 <rect key="frame" x="0.0" y="0.0" width="325" height="80"/>
@@ -696,30 +703,31 @@ MY UPPER CHEST</string>
                                                     <constraint firstItem="t8I-C7-fKM" firstAttribute="centerX" secondItem="HhE-Rh-Ghp" secondAttribute="centerX" id="ygT-AI-LgR"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can adjust sensitivity and belt position if needed to better personalize your breath and posture tracking." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mar-D2-S9e">
-                                                <rect key="frame" x="16" y="80" width="293" height="49"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mar-D2-S9e">
+                                                <rect key="frame" x="16" y="80" width="293" height="82"/>
+                                                <string key="text">Now breathe normally. You should see your breath on the graph rising as you inhale, and falling as you exhale. Adjust the belt position and tightness if needed. Tap help for more details.</string>
                                                 <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="14"/>
                                                 <color key="textColor" red="0.45490196078431372" green="0.50588235294117645" blue="0.61176470588235299" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TIT-jF-xTI" customClass="LiveGraph" customModule="Prana" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="137" width="293" height="90"/>
+                                                <rect key="frame" x="16" y="170" width="293" height="90"/>
                                                 <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="90" id="rz2-wh-F8I"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jun-wF-cFh">
-                                                <rect key="frame" x="16" y="235" width="293" height="34"/>
+                                                <rect key="frame" x="16" y="268" width="293" height="34"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breath Response" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6w2-rN-YeS">
-                                                        <rect key="frame" x="20" y="9.5" width="156" height="15.5"/>
+                                                        <rect key="frame" x="20" y="9.5" width="146" height="15.5"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                         <color key="textColor" red="0.32549019610000002" green="0.38431372549999998" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cXD-3i-VlR" customClass="RadioGroupButton" customModule="Prana" customModuleProvider="target">
-                                                        <rect key="frame" x="196" y="7.5" width="87" height="19"/>
+                                                        <rect key="frame" x="186" y="7.5" width="97" height="19"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="19" id="ukn-XP-9IH"/>
                                                         </constraints>
@@ -755,27 +763,27 @@ MY UPPER CHEST</string>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view hidden="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="ne6-HD-Er8">
-                                                <rect key="frame" x="117.5" y="279" width="90" height="90"/>
+                                                <rect key="frame" x="127.5" y="312" width="70" height="70"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="90" id="BGG-V0-qjJ"/>
-                                                    <constraint firstAttribute="width" constant="90" id="CgZ-hU-Xaf"/>
+                                                    <constraint firstAttribute="height" constant="70" id="BGG-V0-qjJ"/>
+                                                    <constraint firstAttribute="width" constant="70" id="CgZ-hU-Xaf"/>
                                                 </constraints>
                                             </view>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sit (1).png" translatesAutoresizingMaskIntoConstraints="NO" id="e8s-QN-aep">
-                                                <rect key="frame" x="117.5" y="279" width="90" height="90"/>
+                                                <rect key="frame" x="127.5" y="312" width="70" height="70"/>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2c7-oz-uhL">
-                                                <rect key="frame" x="16" y="374" width="293" height="38"/>
+                                                <rect key="frame" x="16" y="387" width="293" height="38"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posture Sensitivity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSR-kU-ulZ">
-                                                        <rect key="frame" x="20" y="11.5" width="156" height="15.5"/>
+                                                        <rect key="frame" x="20" y="11.5" width="146" height="15.5"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                         <color key="textColor" red="0.46274509800000002" green="0.52549019610000003" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L0H-uf-ijj" customClass="RadioGroupButton" customModule="Prana" customModuleProvider="target">
-                                                        <rect key="frame" x="196" y="9.5" width="87" height="19"/>
+                                                        <rect key="frame" x="186" y="9.5" width="97" height="19"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="19" id="QJy-Yu-lA7"/>
                                                         </constraints>
@@ -810,14 +818,15 @@ MY UPPER CHEST</string>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sit upright and tap below to set your upright posture. You can also press the device button." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JiW-qA-hWX">
-                                                <rect key="frame" x="16" y="417" width="293" height="33"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JiW-qA-hWX">
+                                                <rect key="frame" x="16" y="430" width="293" height="82"/>
+                                                <string key="text">Sit or stand upright and tap below to set your upright posture baseline for your upper back. You can also press the device button to set your posture. Now try varying your posture to see how the animated figure is tracking.</string>
                                                 <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="14"/>
                                                 <color key="textColor" red="0.45490196078431372" green="0.50588235294117645" blue="0.61176470588235299" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="nro-p4-f3K">
-                                                <rect key="frame" x="20" y="460" width="285" height="36"/>
+                                                <rect key="frame" x="20" y="522" width="285" height="36"/>
                                                 <color key="backgroundColor" red="0.43137254899999999" green="0.74901960779999999" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="V3y-Ew-aF9"/>
@@ -834,7 +843,7 @@ MY UPPER CHEST</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dDR-AS-4BI">
-                                                <rect key="frame" x="20" y="508" width="285" height="36"/>
+                                                <rect key="frame" x="20" y="570" width="285" height="36"/>
                                                 <color key="backgroundColor" red="0.16078431369999999" green="0.70588235290000001" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="6Ji-dh-Q2c"/>
@@ -910,10 +919,12 @@ MY UPPER CHEST</string>
                             <constraint firstItem="Idl-hp-lAa" firstAttribute="bottom" secondItem="eol-gk-D5f" secondAttribute="bottom" id="3gY-0V-ilg"/>
                             <constraint firstItem="eol-gk-D5f" firstAttribute="top" secondItem="Idl-hp-lAa" secondAttribute="top" constant="-44" id="9u5-gU-Kag"/>
                             <constraint firstItem="Idl-hp-lAa" firstAttribute="bottom" secondItem="ggD-XJ-G6r" secondAttribute="bottom" constant="10" id="HzM-9f-KE9"/>
+                            <constraint firstItem="Idl-hp-lAa" firstAttribute="trailing" secondItem="Hqv-CI-zva" secondAttribute="trailing" constant="20" id="JND-eT-28C"/>
                             <constraint firstItem="ggD-XJ-G6r" firstAttribute="top" secondItem="Kpg-fV-VyM" secondAttribute="bottom" constant="10" id="efe-oc-VCc"/>
                             <constraint firstItem="ggD-XJ-G6r" firstAttribute="leading" secondItem="Idl-hp-lAa" secondAttribute="leading" constant="25" id="gbp-00-AcO"/>
                             <constraint firstItem="Oul-GL-ujg" firstAttribute="top" secondItem="Kpg-fV-VyM" secondAttribute="bottom" constant="10" id="kPM-0e-9zc"/>
                             <constraint firstItem="Kpg-fV-VyM" firstAttribute="top" secondItem="Idl-hp-lAa" secondAttribute="top" constant="10" id="l7T-sT-fRa"/>
+                            <constraint firstItem="Hqv-CI-zva" firstAttribute="centerY" secondItem="Kpg-fV-VyM" secondAttribute="centerY" id="nEE-u2-mko"/>
                             <constraint firstItem="eol-gk-D5f" firstAttribute="leading" secondItem="Idl-hp-lAa" secondAttribute="leading" id="nKb-iB-yO9"/>
                             <constraint firstItem="ggD-XJ-G6r" firstAttribute="height" secondItem="Oul-GL-ujg" secondAttribute="height" priority="750" id="pEO-Rj-nrz"/>
                             <constraint firstItem="Kpg-fV-VyM" firstAttribute="leading" secondItem="Idl-hp-lAa" secondAttribute="leading" constant="16" id="tGL-Y3-R6T"/>
@@ -926,11 +937,13 @@ MY UPPER CHEST</string>
                     <connections>
                         <outlet property="breathRadioGroup" destination="cXD-3i-VlR" id="gjh-ZI-JzM"/>
                         <outlet property="breathingGraphView" destination="TIT-jF-xTI" id="qrY-Id-GCs"/>
+                        <outlet property="btnHelp" destination="Hqv-CI-zva" id="wH1-tm-xCq"/>
                         <outlet property="btnNext" destination="dDR-AS-4BI" id="Lc1-Wb-2kL"/>
                         <outlet property="btnUpright" destination="nro-p4-f3K" id="Wiy-YM-zj9"/>
                         <outlet property="imageHeightContraint" destination="BGG-V0-qjJ" id="Vk2-0n-hOS"/>
                         <outlet property="imgPostureAnimation" destination="e8s-QN-aep" id="EoP-zR-fzE"/>
                         <outlet property="lblDescription" destination="JiW-qA-hWX" id="S0K-pB-zHL"/>
+                        <outlet property="lblHead" destination="mar-D2-S9e" id="UfA-uU-GTh"/>
                         <outlet property="liveGraphContraint" destination="rz2-wh-F8I" id="IFf-Pk-aAi"/>
                         <outlet property="postureRadioGroup" destination="L0H-uf-ijj" id="Vhe-15-PwJ"/>
                     </connections>
@@ -1297,9 +1310,8 @@ TRAINING SESSION</string>
                                                     <state key="normal" backgroundImage="ic-triangle"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ecb-7a-81k">
-                                                    <rect key="frame" x="14" y="215" width="315" height="65.5"/>
-                                                    <string key="text">Buzzer training guides your breathing and posture without requiring you to look at the app.
-It's great for those times you just wish to close your eyes or meditate.</string>
+                                                    <rect key="frame" x="14" y="215" width="315" height="82"/>
+                                                    <string key="text">Buzzer training guides your breathing and posture using the device buzzer as the prompt, and without requiring you to look at the app. It’s great for those times you wish to close your eyes or meditate.</string>
                                                     <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="14"/>
                                                     <color key="textColor" red="0.45882352941176469" green="0.50196078431372548" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1651,6 +1663,7 @@ Requires your full attention.</string>
         <image name="ic_buzzer_training_white" width="39" height="36"/>
         <image name="ic_lower_back_grey" width="35.666667938232422" height="38.333332061767578"/>
         <image name="ic_lower_back_white" width="35.666667938232422" height="38.333332061767578"/>
+        <image name="ic_question" width="24" height="24"/>
         <image name="ic_upper_chest_grey" width="34" height="38.333332061767578"/>
         <image name="ic_upper_chest_white" width="34" height="38.333332061767578"/>
         <image name="ic_visual_training_grey" width="33" height="33"/>
