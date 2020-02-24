@@ -347,7 +347,7 @@
                                                     </constraints>
                                                 </view>
                                                 <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="LsR-NG-7Xo">
-                                                    <rect key="frame" x="15" y="49" width="345" height="190.5"/>
+                                                    <rect key="frame" x="15" y="49" width="345" height="191"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <string key="text">Breath Training Time Completed: 0 Mins Mindful Breaths: 0% Mindful Breath Minutes: 0 Mins Average Training RR: 0.0  Posture Training Time Completed: 0 Mins Upright Posture: 0% Upright Posture Minutes: 0 Mins</string>
                                                     <color key="textColor" red="0.47450980392156861" green="0.52156862745098043" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
@@ -399,7 +399,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dCA-No-eCL">
-                                                    <rect key="frame" x="15" y="39" width="345" height="100.5"/>
+                                                    <rect key="frame" x="15" y="39" width="345" height="101"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <string key="text">Training: Breating with Posture, 5 mins completed
 Mindful Breaths: 68% Avg.RR: 18.5, Relax pattern 

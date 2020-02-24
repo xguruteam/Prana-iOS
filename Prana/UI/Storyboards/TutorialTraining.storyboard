@@ -117,7 +117,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vw3-ac-E5n">
                                                     <rect key="frame" x="24" y="341.5" width="295" height="45"/>
                                                     <string key="text">If you are a new user, we highly recommend that you complete the quick tutorial. Only skip if you are an advanced or returning user.</string>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="12"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                                     <color key="textColor" red="0.27058823529999998" green="0.28627450980000002" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -228,7 +228,7 @@ Breathing and Posture</string>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can wear Prana in two recommended body positions to train your breathing and complete back posture" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9D-Ix-4L2">
                                                     <rect key="frame" x="16" y="10" width="311" height="49"/>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="14"/>
                                                     <color key="textColor" red="0.27058823529999998" green="0.28627450980000002" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -312,7 +312,7 @@ Breathing and Posture</string>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lpi-Xn-dEX">
                                                     <rect key="frame" x="20" y="260" width="303" height="49"/>
                                                     <string key="text">Now try wearing the device on your lower back while sitting. Make sure the clip is fully inserted into the locking hole until it clicks.</string>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="14"/>
                                                     <color key="textColor" red="0.27058823529999998" green="0.28627450980000002" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -463,7 +463,7 @@ Breathing and Posture</string>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can wear Prana in two recommended body positions to train your breathing and complete back posture" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4oa-12-EiO">
                                                     <rect key="frame" x="16" y="10" width="311" height="49"/>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="14"/>
                                                     <color key="textColor" red="0.27058823529999998" green="0.28627450980000002" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -547,7 +547,7 @@ Breathing and Posture</string>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hKG-th-HaP">
                                                     <rect key="frame" x="20" y="250" width="303" height="65.5"/>
                                                     <string key="text">First try wearing the device on your upper chest while sitting or standing. Make sure the clip is fully inserted into the locking hole until it clicks.</string>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="14"/>
                                                     <color key="textColor" red="0.27058823529999998" green="0.28627450980000002" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -677,17 +677,17 @@ MY UPPER CHEST</string>
                                 <rect key="frame" x="25" y="65" width="325" height="592"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2bV-L0-K5w">
-                                        <rect key="frame" x="0.0" y="0.0" width="325" height="618"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="325" height="536"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HhE-Rh-Ghp">
-                                                <rect key="frame" x="0.0" y="0.0" width="325" height="80"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="325" height="60"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner-nature" translatesAutoresizingMaskIntoConstraints="NO" id="BI4-3r-t0o">
-                                                        <rect key="frame" x="0.0" y="0.0" width="325" height="80"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="325" height="60"/>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Live Feedback" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t8I-C7-fKM">
-                                                        <rect key="frame" x="74.5" y="14.5" width="176.5" height="31.5"/>
-                                                        <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="27"/>
+                                                        <rect key="frame" x="87.5" y="6.5" width="150" height="27"/>
+                                                        <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="23"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -698,27 +698,27 @@ MY UPPER CHEST</string>
                                                     <constraint firstItem="BI4-3r-t0o" firstAttribute="height" secondItem="HhE-Rh-Ghp" secondAttribute="height" id="TA4-0R-PFg"/>
                                                     <constraint firstItem="BI4-3r-t0o" firstAttribute="centerY" secondItem="HhE-Rh-Ghp" secondAttribute="centerY" id="aPZ-dy-CVT"/>
                                                     <constraint firstItem="BI4-3r-t0o" firstAttribute="width" secondItem="HhE-Rh-Ghp" secondAttribute="width" id="jjX-vw-4Hi"/>
-                                                    <constraint firstAttribute="height" constant="80" id="wUa-KM-S5M"/>
+                                                    <constraint firstAttribute="height" constant="60" id="wUa-KM-S5M"/>
                                                     <constraint firstItem="t8I-C7-fKM" firstAttribute="centerY" secondItem="HhE-Rh-Ghp" secondAttribute="centerY" constant="-10" id="xaC-nK-Hu8"/>
                                                     <constraint firstItem="t8I-C7-fKM" firstAttribute="centerX" secondItem="HhE-Rh-Ghp" secondAttribute="centerX" id="ygT-AI-LgR"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mar-D2-S9e">
-                                                <rect key="frame" x="16" y="80" width="293" height="82"/>
+                                                <rect key="frame" x="16" y="60" width="293" height="61"/>
                                                 <string key="text">Now breathe normally. You should see your breath on the graph rising as you inhale, and falling as you exhale. Adjust the belt position and tightness if needed. Tap help for more details.</string>
-                                                <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="14"/>
-                                                <color key="textColor" red="0.45490196078431372" green="0.50588235294117645" blue="0.61176470588235299" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
+                                                <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TIT-jF-xTI" customClass="LiveGraph" customModule="Prana" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="170" width="293" height="90"/>
+                                                <rect key="frame" x="16" y="129" width="293" height="65"/>
                                                 <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="90" id="rz2-wh-F8I"/>
+                                                    <constraint firstAttribute="height" constant="65" id="rz2-wh-F8I"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jun-wF-cFh">
-                                                <rect key="frame" x="16" y="268" width="293" height="34"/>
+                                                <rect key="frame" x="16" y="199" width="293" height="34"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breath Response" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6w2-rN-YeS">
                                                         <rect key="frame" x="20" y="9.5" width="146" height="15.5"/>
@@ -763,7 +763,7 @@ MY UPPER CHEST</string>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view hidden="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="ne6-HD-Er8">
-                                                <rect key="frame" x="127.5" y="312" width="70" height="70"/>
+                                                <rect key="frame" x="127.5" y="238" width="70" height="70"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="70" id="BGG-V0-qjJ"/>
@@ -771,10 +771,10 @@ MY UPPER CHEST</string>
                                                 </constraints>
                                             </view>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sit (1).png" translatesAutoresizingMaskIntoConstraints="NO" id="e8s-QN-aep">
-                                                <rect key="frame" x="127.5" y="312" width="70" height="70"/>
+                                                <rect key="frame" x="127.5" y="238" width="70" height="70"/>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2c7-oz-uhL">
-                                                <rect key="frame" x="16" y="387" width="293" height="38"/>
+                                                <rect key="frame" x="16" y="313" width="293" height="38"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posture Sensitivity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSR-kU-ulZ">
                                                         <rect key="frame" x="20" y="11.5" width="146" height="15.5"/>
@@ -819,14 +819,14 @@ MY UPPER CHEST</string>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JiW-qA-hWX">
-                                                <rect key="frame" x="16" y="430" width="293" height="82"/>
+                                                <rect key="frame" x="16" y="361" width="293" height="76"/>
                                                 <string key="text">Sit or stand upright and tap below to set your upright posture baseline for your upper back. You can also press the device button to set your posture. Now try varying your posture to see how the animated figure is tracking.</string>
-                                                <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="14"/>
-                                                <color key="textColor" red="0.45490196078431372" green="0.50588235294117645" blue="0.61176470588235299" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
+                                                <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="nro-p4-f3K">
-                                                <rect key="frame" x="20" y="522" width="285" height="36"/>
+                                                <rect key="frame" x="20" y="447" width="285" height="36"/>
                                                 <color key="backgroundColor" red="0.43137254899999999" green="0.74901960779999999" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="V3y-Ew-aF9"/>
@@ -843,7 +843,7 @@ MY UPPER CHEST</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dDR-AS-4BI">
-                                                <rect key="frame" x="20" y="570" width="285" height="36"/>
+                                                <rect key="frame" x="20" y="488" width="285" height="36"/>
                                                 <color key="backgroundColor" red="0.16078431369999999" green="0.70588235290000001" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="6Ji-dh-Q2c"/>
@@ -870,18 +870,18 @@ MY UPPER CHEST</string>
                                             <constraint firstItem="mar-D2-S9e" firstAttribute="leading" secondItem="2bV-L0-K5w" secondAttribute="leading" constant="16" id="6MO-ih-MmB"/>
                                             <constraint firstItem="TIT-jF-xTI" firstAttribute="top" secondItem="mar-D2-S9e" secondAttribute="bottom" constant="8" id="6eR-Lj-gwy"/>
                                             <constraint firstAttribute="trailing" secondItem="mar-D2-S9e" secondAttribute="trailing" constant="16" id="8jm-96-Zfe"/>
-                                            <constraint firstItem="ne6-HD-Er8" firstAttribute="top" secondItem="Jun-wF-cFh" secondAttribute="bottom" constant="10" id="8py-qZ-aCZ"/>
+                                            <constraint firstItem="ne6-HD-Er8" firstAttribute="top" secondItem="Jun-wF-cFh" secondAttribute="bottom" constant="5" id="8py-qZ-aCZ"/>
                                             <constraint firstItem="dDR-AS-4BI" firstAttribute="leading" secondItem="nro-p4-f3K" secondAttribute="leading" id="DQt-dS-GMa"/>
                                             <constraint firstItem="TIT-jF-xTI" firstAttribute="leading" secondItem="2bV-L0-K5w" secondAttribute="leading" constant="16" id="EnD-aj-AwH"/>
                                             <constraint firstItem="JiW-qA-hWX" firstAttribute="leading" secondItem="2bV-L0-K5w" secondAttribute="leading" constant="16" id="JoD-FR-QLD"/>
                                             <constraint firstAttribute="bottom" secondItem="dDR-AS-4BI" secondAttribute="bottom" constant="12" id="L9g-st-JIe"/>
-                                            <constraint firstItem="JiW-qA-hWX" firstAttribute="top" secondItem="2c7-oz-uhL" secondAttribute="bottom" constant="5" id="LAy-8g-KfH"/>
-                                            <constraint firstItem="Jun-wF-cFh" firstAttribute="top" secondItem="TIT-jF-xTI" secondAttribute="bottom" constant="8" id="NAp-as-anW"/>
+                                            <constraint firstItem="JiW-qA-hWX" firstAttribute="top" secondItem="2c7-oz-uhL" secondAttribute="bottom" constant="10" id="LAy-8g-KfH"/>
+                                            <constraint firstItem="Jun-wF-cFh" firstAttribute="top" secondItem="TIT-jF-xTI" secondAttribute="bottom" constant="5" id="NAp-as-anW"/>
                                             <constraint firstItem="mar-D2-S9e" firstAttribute="top" secondItem="HhE-Rh-Ghp" secondAttribute="bottom" id="Nkt-hg-Vcf"/>
                                             <constraint firstItem="e8s-QN-aep" firstAttribute="height" secondItem="ne6-HD-Er8" secondAttribute="height" id="RoD-d0-3Uf"/>
                                             <constraint firstItem="e8s-QN-aep" firstAttribute="centerY" secondItem="ne6-HD-Er8" secondAttribute="centerY" id="S2O-Ra-9z6"/>
                                             <constraint firstItem="Jun-wF-cFh" firstAttribute="leading" secondItem="TIT-jF-xTI" secondAttribute="leading" id="U1C-lK-lVc"/>
-                                            <constraint firstItem="dDR-AS-4BI" firstAttribute="top" secondItem="nro-p4-f3K" secondAttribute="bottom" constant="12" id="UK3-2L-shZ"/>
+                                            <constraint firstItem="dDR-AS-4BI" firstAttribute="top" secondItem="nro-p4-f3K" secondAttribute="bottom" constant="5" id="UK3-2L-shZ"/>
                                             <constraint firstAttribute="trailing" secondItem="JiW-qA-hWX" secondAttribute="trailing" constant="16" id="Vle-5x-e7J"/>
                                             <constraint firstItem="nro-p4-f3K" firstAttribute="top" secondItem="JiW-qA-hWX" secondAttribute="bottom" constant="10" id="YZa-Hf-ejR"/>
                                             <constraint firstItem="ne6-HD-Er8" firstAttribute="centerX" secondItem="2bV-L0-K5w" secondAttribute="centerX" id="Zas-Xq-ndS"/>
@@ -994,8 +994,8 @@ MY UPPER CHEST</string>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prana offers two ways to train your breathing and posture together." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAg-Rl-4zZ">
                                                     <rect key="frame" x="25" y="10" width="294" height="35"/>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="15"/>
-                                                    <color key="textColor" red="0.45882352941176469" green="0.50196078431372548" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="15"/>
+                                                    <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="RWp-Rw-KGZ">
@@ -1085,8 +1085,8 @@ MY UPPER CHEST</string>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make sure you are stiill wearing the device on your lower back or upper chest." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eW8-PW-cQm">
                                                     <rect key="frame" x="20" y="241" width="303" height="35"/>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="15"/>
-                                                    <color key="textColor" red="0.45882352941176469" green="0.50196078431372548" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="15"/>
+                                                    <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Visual Training in action" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kJJ-ge-jmP">
@@ -1220,8 +1220,8 @@ TRAINING SESSION</string>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prana offers two ways to train your breathing and posture together." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pm4-za-lRx">
                                                     <rect key="frame" x="25" y="10" width="293" height="35"/>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="15"/>
-                                                    <color key="textColor" red="0.45882352941176469" green="0.50196078431372548" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="15"/>
+                                                    <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="yXd-ls-BIK">
@@ -1312,8 +1312,8 @@ TRAINING SESSION</string>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ecb-7a-81k">
                                                     <rect key="frame" x="14" y="215" width="315" height="82"/>
                                                     <string key="text">Buzzer training guides your breathing and posture using the device buzzer as the prompt, and without requiring you to look at the app. It’s great for those times you wish to close your eyes or meditate.</string>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="14"/>
-                                                    <color key="textColor" red="0.45882352941176469" green="0.50196078431372548" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="14"/>
+                                                    <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buzzer Training In action" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Oy-5t-eEE">
@@ -1456,7 +1456,7 @@ TRAINING SESSION</string>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have the option to train your breathing and posture together, or individually." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="da0-zC-1MY">
                                                     <rect key="frame" x="16" y="116" width="311" height="37.5"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
-                                                    <color key="textColor" red="0.39205139880000001" green="0.39667910340000001" blue="0.41570192579999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breathing and Posture" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ole-iP-8Kq">

@@ -223,6 +223,7 @@ extension LiveFeedViewController: LiveDelegate {
                 return
             }
             self.btnNext.isHidden = false
+            self.lblDescription.text = "Once breath and posture tracking are satisfactory in this position, tap Next"
         }
     }
 }

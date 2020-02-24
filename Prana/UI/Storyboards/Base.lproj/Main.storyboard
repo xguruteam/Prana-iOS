@@ -910,7 +910,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="YPr-XL-ceY">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="710"/>
+                                    <rect key="frame" x="0.0" y="-43" width="375" height="710"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yo-g5-BF4">
@@ -2004,8 +2004,8 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p67-YY-Bxt">
                                             <rect key="frame" x="19" y="85.5" width="337.5" height="374"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="video-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="hhb-XY-cUC">
-                                                    <rect key="frame" x="0.0" y="0.0" width="337.5" height="208"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="video-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="hhb-XY-cUC">
+                                                    <rect key="frame" x="0.0" y="0.0" width="337.5" height="200"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="200" id="w3k-0v-ZSi"/>
                                                     </constraints>
@@ -2013,8 +2013,8 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpN-u1-PQk">
                                                     <rect key="frame" x="16" y="224" width="305.5" height="75"/>
                                                     <string key="text">Before proceeding to the next step, make sure Prana is fully charged by using the provided USB cable. The light on the device will turn green when fully charged.</string>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="16"/>
-                                                    <color key="textColor" red="0.39215686274509803" green="0.396078431372549" blue="0.41568627450980389" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
+                                                    <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tp5-AK-PUa">
@@ -2144,8 +2144,8 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iSL-5c-TAo">
                                                     <rect key="frame" x="16" y="224" width="305.5" height="75"/>
                                                     <string key="text">Press and hold the button on Prana for at least 2 seconds to wirelessly connect to the app. The light on the device will be blink blue.</string>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="16"/>
-                                                    <color key="textColor" red="0.39205139880000001" green="0.39667910340000001" blue="0.41570192579999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
+                                                    <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Successfully connected!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x2F-wr-2d1">
