@@ -26,10 +26,10 @@ class LiveGraph: UIView {
     
     let lineWith: CGFloat = 4.0
     
-    var lineColor: UIColor = UIColor.colorFromHex(hexString: "#5EB839")
+    var lineColor: UIColor = UIColor.colorFromHex(hexString: "#2bb7b8")
     var topLineColor: UIColor = UIColor.colorFromHex(hexString: "#FA9797")
-    var bottomLineColor: UIColor = UIColor.colorFromHex(hexString: "#A3C53C")
-    var endLineColor: UIColor = UIColor.yellow
+    var bottomLineColor: UIColor = UIColor.blue
+    var endLineColor: UIColor = UIColor.colorFromHex(hexString: "#6fc13b")
     
     static let max = 280
     var data: [Double] = Array(repeating: 500, count: max)
@@ -65,12 +65,12 @@ class LiveGraph: UIView {
         bottomPath.addLine(to: CGPoint(x: width, y: scale(bottomReversalY)))
         bottomPath.stroke()
 
-//        let endPath = UIBezierPath()
-//        endLineColor.setStroke()
-//        
-//        endPath.move(to: CGPoint(x: 0, y: scale(endBreathY)))
-//        endPath.addLine(to: CGPoint(x: width, y: scale(endBreathY)))
-//        endPath.stroke()
+        let endPath = UIBezierPath()
+        endLineColor.setStroke()
+        
+        endPath.move(to: CGPoint(x: 0, y: scale(endBreathY)))
+        endPath.addLine(to: CGPoint(x: width, y: scale(endBreathY)))
+        endPath.stroke()
     }
     
     func scale(_ value: Double) -> CGFloat {
