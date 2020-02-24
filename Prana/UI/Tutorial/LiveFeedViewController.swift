@@ -48,6 +48,13 @@ class LiveFeedViewController: SuperViewController {
         }
         
         adjustContraints()
+        
+        breathRadioGroup.delegate = self
+        postureRadioGroup.delegate = self
+        
+        if !isLowerBack {
+            onHelp(self.btnHelp)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
