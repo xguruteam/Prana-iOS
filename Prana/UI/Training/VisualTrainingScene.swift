@@ -166,7 +166,6 @@ class VisualTrainingScene: SKScene {
     var breathLevel:Int = 2;  //AUG 1st ADDED
     var startRecordingActualBreaths:Int = 0; //AUG 12th NEW
     var savedCurrentBreaths:Int = 0; //AUG 12th NEW
-    var graphStartTime:Double = 0; //AUG 12th NEW
 //    var breathingGraph:MovieClip = new MovieClip(); //AUG 12th NEW
 //    var postureGraph:MovieClip = new MovieClip(); //AUG 12th NEW
     var lastXForActualBreath:Double = 0; //AUG 12th NEW
@@ -238,7 +237,7 @@ class VisualTrainingScene: SKScene {
         
         startRecordingActualBreaths = 0; //AUG 12th NEW
         savedCurrentBreaths = 0; //AUG 12th NEW
-        graphStartTime = 0;  //AUG 12th New
+        objLiveGraph.graphStartTime = 0;  //AUG 12th New
         
         objLive?.startMode()
         
@@ -499,7 +498,7 @@ class VisualTrainingScene: SKScene {
                 objLiveGraph.judgedBreaths.append(LiveBreath(target: nil, actuals: objLiveGraph.actualBreathsWithinAPattern, breathStatus: -1)); //AUG 12th NEW the concat() here is to copy the array (to avoid possible reference problem),saving all non-judged breaths here during 15 second calibration
                 
                 objLiveGraph.actualBreathsWithinAPattern = []; //AUG 12th NEW
-                previousExpectedBreathStartTime = roundNumber(num: (objLiveGraph.timeElapsed-graphStartTime)+0.5,dec: 10); //AUG 12th NEW, the 0.5 here is to add back the 1/2 second due to 320+xStep above THIS IS THE EXPECTED OR TARGET breath
+                previousExpectedBreathStartTime = roundNumber(num: (objLiveGraph.timeElapsed-objLiveGraph.graphStartTime)+0.5,dec: 10); //AUG 12th NEW, the 0.5 here is to add back the 1/2 second due to 320+xStep above THIS IS THE EXPECTED OR TARGET breath
 //                if temp_previousExpectedBreathStartTime > previousExpectedBreathStartTime { previousExpectedBreathStartTime = temp_previousExpectedBreathStartTime }
                 enteredPatternWhileExhaling = objLiveGraph.breathEnding; //AUG 12th NEW, idea here is if user did not finish exhaling during last breath, and that exhale carries into the current breath, then the current breath is bad
                 
@@ -529,7 +528,7 @@ class VisualTrainingScene: SKScene {
                     
                 }
                 
-                previousExpectedBreathStartTime = roundNumber(num: (objLiveGraph.timeElapsed-graphStartTime)+0.5,dec: 10); //AUG 12th NEW, the 0.5 here is to add back the 1/2 second due to 320+xStep above THIS IS THE EXPECTED OR TARGET breath
+                previousExpectedBreathStartTime = roundNumber(num: (objLiveGraph.timeElapsed-objLiveGraph.graphStartTime)+0.5,dec: 10); //AUG 12th NEW, the 0.5 here is to add back the 1/2 second due to 320+xStep above THIS IS THE EXPECTED OR TARGET breath
 //                if temp_previousExpectedBreathStartTime > previousExpectedBreathStartTime { previousExpectedBreathStartTime = temp_previousExpectedBreathStartTime }
                 
                 previousExpectedBreathRR = flyingObjects[0].rate; //AUG 12th NEW
@@ -1068,7 +1067,7 @@ class VisualTrainingScene: SKScene {
         
         self._playOrPause = true
         
-        graphStartTime = objLiveGraph.timeElapsed;  //AUG 12th New
+        objLiveGraph.graphStartTime = objLiveGraph.timeElapsed;  //AUG 12th New
         objLiveGraph.judgedBreaths = []; //AUG 12th NEW
         objLiveGraph.judgedPosture = []; //AUG 12th NEW
         objLiveGraph.actualBreathsWithinAPattern = [] //AUG 12th NEW

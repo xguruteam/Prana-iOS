@@ -116,12 +116,12 @@ class WeeklyGraph: UIView {
         for i in 0..<letters.count {
             if type == .stack {
                 let (total, part, goal) = stackData[i]
-                let partR = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - bw / 2.0, y: height - th - (height - th) * CGFloat(part) / CGFloat(max) + 1, width: bw, height: (height - th) * CGFloat(part) / CGFloat(max))
+                let partR = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - bw / 2.0, y: 2 + height - th - (height - th) * CGFloat(part) / CGFloat(max) + 1, width: bw, height: (height - th) * CGFloat(part) / CGFloat(max))
                 let partP = UIBezierPath(rect: partR)
                 color.setFill()
                 partP.fill()
                 
-                let totalR = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - bw / 2.0, y: height - th - (height - th) * CGFloat(total) / CGFloat(max) + 1, width: bw, height: (height - th) * CGFloat(total) / CGFloat(max))
+                let totalR = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - bw / 2.0, y: 2 + height - th - (height - th) * CGFloat(total) / CGFloat(max) + 1, width: bw, height: (height - th) * CGFloat(total) / CGFloat(max))
                 let totalP = UIBezierPath(rect: totalR)
                 UIColor(hexString: "#c0c3c9").setStroke()
                 totalP.stroke()
@@ -135,14 +135,14 @@ class WeeklyGraph: UIView {
                 
             } else {
                 let total = barData[i]
-                let totalR = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - bw / 2.0, y: height - th - (height - th) * CGFloat(total) / CGFloat(max), width: bw, height: (height - th) * CGFloat(total) / CGFloat(max))
+                let totalR = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - bw / 2.0, y: 2 + height - th - (height - th) * CGFloat(total) / CGFloat(max), width: bw, height: (height - th) * CGFloat(total) / CGFloat(max))
                 let totalP = UIBezierPath(rect: totalR)
                 color.setFill()
                 totalP.fill()
             }
             
             attributedString = NSAttributedString(string: letters[i], attributes: attributes)
-            stringRect = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - bw / 2.0, y: height - th, width: bw, height: th)
+            stringRect = CGRect(x: uw + CGFloat(i) * uw + uw / 2.0 - bw / 2.0, y: 2 + height - th, width: bw, height: th)
             attributedString.draw(in: stringRect)
         }
         

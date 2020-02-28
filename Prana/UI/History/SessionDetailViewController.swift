@@ -507,7 +507,7 @@ class SessionDetailViewController: SuperViewController {
             eiPages = CGFloat(xlabels.count - 1) / 5.0
             
             let (avgEI, _) = passive.sumEIRatio()
-            avgEILavel.text = "Avg. EI : \(roundFloat(Float(avgEI), point: 2))"
+            avgEILavel.text = "Session Avg. EI : \(Float(avgEI))"
             
             
             if passive.wearing == 0 {

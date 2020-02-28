@@ -52,9 +52,6 @@ class LiveFeedViewController: SuperViewController {
         breathRadioGroup.delegate = self
         postureRadioGroup.delegate = self
         
-        if !isLowerBack {
-            onHelp(self.btnHelp)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,25 +86,38 @@ class LiveFeedViewController: SuperViewController {
         let attributedString: NSMutableAttributedString
         
         var attributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 15), .foregroundColor: UIColor.black]
-        attributedString = NSMutableAttributedString(string: "You can set ", attributes: attributes)
+        attributedString = NSMutableAttributedString(string: "", attributes: attributes)
         
         attributes = [.font: UIFont.boldSystemFont(ofSize: 15), .foregroundColor: UIColor.black]
-        attributedString.append(NSMutableAttributedString(string: "Breath Responsiveness ", attributes: attributes))
+        attributedString.append(NSMutableAttributedString(string: "Breath Response ", attributes: attributes))
         
         attributes = [.font: UIFont.systemFont(ofSize: 15), .foregroundColor: UIColor.black]
-        attributedString.append(NSMutableAttributedString(string: "to adjust how quickly the graph keeps pace with your breathing. The lowest setting makes the signal smoother and slower changing, while the highest setting makes it track even very rapid breaths (with the tradeoff of more noise from body movements). For most screens, we automatically choose this setting for you, but you can always manually override it. ", attributes: attributes))
+        attributedString.append(NSMutableAttributedString(string: """
+            – Sets how quickly the graph keeps pace with your breathing.
+            The lowest setting makes the signal smoother and slower changing, while the highest setting makes it track even very rapid breaths (with the tradeoff of more noise from body movements).
+            For most screens, we automatically choose this setting for you, but you can always manually override it.
+            Note that Breath Response is not the same as breath sensitivity.
+            For example, if you breathe very lightly, or very deeply, our system is constantly adjusting the sensitivity to track your breathing, so that your typical breath reaches the full graph height.
+            Never force your breaths for tracking purposes. Just keep breathing normally and the height of the graph will automatically catch up to track your breathing depth.
+            """, attributes: attributes))
 
         attributes = [.font: UIFont.boldSystemFont(ofSize: 15), .foregroundColor: UIColor.black]
-        attributedString.append(NSMutableAttributedString(string: "Note that Breath Responsiveness is not the same as breath sensitivity. For example, if you breathe very lightly, or very deeply, our system is constantly adjusting the sensitivity to track your breathing, so that your typical breath reaches the full graph height. Never force your breaths for tracking purposes. Just keep breathing normally and the height of the graph will automatically catch up to track your breathing depth.", attributes: attributes))
+        attributedString.append(NSMutableAttributedString(string: "\n\nPosture Sensitivity ", attributes: attributes))
         
         attributes = [.font: UIFont.systemFont(ofSize: 15), .foregroundColor: UIColor.black]
-        attributedString.append(NSMutableAttributedString(string: "\n\nYou can set ", attributes: attributes))
+        attributedString.append(NSMutableAttributedString(string: """
+            – Sets how strict the system is to posture changes and slouching.
+            The lowest setting requires significant slouching to count as slouching, while the highest setting will respond to minor slouching.
+            """, attributes: attributes))
         
         attributes = [.font: UIFont.boldSystemFont(ofSize: 15), .foregroundColor: UIColor.black]
-        attributedString.append(NSMutableAttributedString(string: "Posture Sensitivity ", attributes: attributes))
+        attributedString.append(NSMutableAttributedString(string: "\n\nDevice button ", attributes: attributes))
         
         attributes = [.font: UIFont.systemFont(ofSize: 15), .foregroundColor: UIColor.black]
-        attributedString.append(NSMutableAttributedString(string: "to adjust how strict the system is to posture changes and slouching. The lowest setting requires significant slouching to count as slouching, while the highest setting will respond to minor slouching.", attributes: attributes))
+        attributedString.append(NSMutableAttributedString(string: """
+            – While wearing the device and connected, you can press the device button to set your Upright Posture baseline.
+            Press and release the button quickly to set.
+            """, attributes: attributes))
         
         alert.addTextViewer(text: .attributedText([.raw(attributedString)]))
 

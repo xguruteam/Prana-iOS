@@ -81,6 +81,7 @@ class RRGraph: UIView {
         super.draw(rect)
         drawLines()
         drawPoints()
+        drawXAxisLabels()
         drawYAxisLabels()
     }
     
@@ -119,8 +120,11 @@ class RRGraph: UIView {
         layer.strokeColor = UIColor.gray.withAlphaComponent(0.3).cgColor
         self.layer.addSublayer(layer)
         
+    }
+    
+    func drawYAxisLabels() {
         // draw y axis labels
-
+        
         let maxText = NSAttributedString(string: "\(Int(maxRR))", attributes: axisTextAttribute)
         maxText.draw(at: CGPoint(x: 2, y: padding.top - 12))
         
@@ -148,7 +152,7 @@ class RRGraph: UIView {
         
     }
     
-    func drawYAxisLabels() {
+    func drawXAxisLabels() {
         let mins = Int(duration / 60)
         let step = width / CGFloat(mins)
         for i in 1 ..< mins {

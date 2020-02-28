@@ -271,7 +271,6 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
             .list("Requires your conscious attention during the session time"),
             .list("Start inhaling after you feel the first quick buzz"),
             .list("Start exhaling after you feel the next quick buzz"),
-            .list("Start exhaling after you feel the next quick buzz"),
             .list("When you feel a quick double-buzz, the breath is complete. Wait to inhale until the quick buzz again"),
             .list("A long single buzz means you are not following the breathing pattern"),
             .list("If you are inhaling or exhaling too soon (breathing faster), that is usually what triggers the buzz warning"),

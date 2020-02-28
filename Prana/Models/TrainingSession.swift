@@ -129,10 +129,11 @@ class TrainingSession: Codable {
         
         if kind == 0 {
             return """
-            Training: \(kindString), \(getMinutesDescription(for: duration)) Mins completed
+            Training: \(kindString), \(getMinutesDescription(for: duration)) Mins
             Mindful Breaths: \(roundFloat(mindfulPercent, point: 1))%, Avg. RR: \(roundFloat(Float(rrSum), point: type == 0 ? 1 : 2))
             Pattern: \(patternString)
-            Upright Posture: \(roundFloat(uprightPercent, point: 1))%, Slouches: \(slouches), Wearing: \(wearingString)
+            Upright Posture: \(roundFloat(uprightPercent, point: 1))%, Slouches: \(slouches)
+            Wearing: \(wearingString)
             """
         } else if kind == 1 {
             return """
@@ -143,8 +144,9 @@ class TrainingSession: Codable {
         
 
         return """
-        Training: \(kindString), \(getMinutesDescription(for: duration)) Mins completed
-        Upright Posture: \(roundFloat(uprightPercent, point: 1))%, Slouches: \(slouches), Wearing: \(wearingString)
+        Training: \(kindString), \(getMinutesDescription(for: duration)) Mins
+        Upright Posture: \(roundFloat(uprightPercent, point: 1))%, Slouches: \(slouches)
+        Wearing: \(wearingString)
         """
     }
     
@@ -223,7 +225,7 @@ class TrainingSession: Codable {
         for breath in judgedBreaths {
             guard breath.breathStatus >= 0 else { continue }
             
-            breathCount += breath.actuals.count
+            breathCount += 1 // breath.actuals.count
             var last: Double = 0
             for core in breath.actuals {
                 last = core.it

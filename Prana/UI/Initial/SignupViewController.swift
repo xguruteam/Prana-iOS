@@ -53,7 +53,7 @@ class SignupViewController: SuperViewController, UITextFieldDelegate {
         tf_lastname.spellCheckingType = .no
         tf_email.keyboardType = .emailAddress
         tf_email.spellCheckingType = .no
-        changeBirthDay(Date())
+//        changeBirthDay(Date())
         
         if isUpdateProfile {
             if let user = dataController.currentUser {
@@ -321,6 +321,9 @@ class SignupViewController: SuperViewController, UITextFieldDelegate {
     }
     
     func changeBirthDay(_ date: Date) {
+        guard let year = Calendar.current.dateComponents([.year], from: Date(), to: date).year, year < 0 else {
+            return
+        }
         let formatter = DateFormatter()
         
         formatter.locale = Locale.init(identifier: "en_US_POSIX")
