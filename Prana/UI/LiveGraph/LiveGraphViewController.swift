@@ -287,6 +287,12 @@ extension LiveGraphViewController: LiveDelegate {
             self.lbSessionAvg.text = "\(sessionAvgRate)"
         }
     }
+    
+    func liveUprightHasBeenSet() {
+        DispatchQueue.main.async {
+//            self.btnUpright.isHighlighted = true
+        }
+    }
 }
 
 extension LiveGraphViewController: PranaDeviceManagerDelegate {
