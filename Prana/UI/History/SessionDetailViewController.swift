@@ -217,7 +217,7 @@ class SessionDetailViewController: SuperViewController {
                 rrLabel.topAnchor.constraint(equalTo: rrGraphScroll.topAnchor, constant: -20).isActive = true
                 rrLabel.leftAnchor.constraint(equalTo: rrGraphScroll.leftAnchor, constant: 0).isActive = true
                 
-                let minLabel = UILabel()
+                var minLabel = UILabel()
                 minLabel.text = "Mins"
                 minLabel.textColor = UIColor(hexString: "#79859f")
                 minLabel.font = UIFont.bold(ofSize: 13)
@@ -234,15 +234,24 @@ class SessionDetailViewController: SuperViewController {
                 containerView.addSubview(postureView)
                 postureView.widthAnchor.constraint(equalToConstant: 100).isActive = true
                 postureView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-                postureView.topAnchor.constraint(equalTo: breathSummaryView.bottomAnchor, constant: 40).isActive = true
+                postureView.topAnchor.constraint(equalTo: breathSummaryView.bottomAnchor, constant: 20).isActive = true
                 postureView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
                 
                 containerView.addSubview(postureScroll)
                 postureScroll.topAnchor.constraint(equalTo: postureView.bottomAnchor, constant: 20).isActive = true
                 postureScroll.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
                 postureScroll.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
-                postureScroll.heightAnchor.constraint(equalToConstant: 20).isActive = true
+                postureScroll.heightAnchor.constraint(equalToConstant: 40).isActive = true
                 postureScroll.addSubview(postureBar2)
+                
+                minLabel = UILabel()
+                minLabel.text = "Mins"
+                minLabel.textColor = UIColor(hexString: "#79859f")
+                minLabel.font = UIFont.bold(ofSize: 13)
+                containerView.addSubview(minLabel)
+                minLabel.translatesAutoresizingMaskIntoConstraints = false
+                minLabel.topAnchor.constraint(equalTo: postureScroll.bottomAnchor, constant: 0).isActive = true
+                minLabel.rightAnchor.constraint(equalTo: postureScroll.rightAnchor, constant: 0).isActive = true
                 
                 containerView.addSubview(summaryView)
                 summaryView.topAnchor.constraint(equalTo: postureScroll.bottomAnchor, constant: 20).isActive = true
@@ -285,14 +294,24 @@ class SessionDetailViewController: SuperViewController {
                 postureView.topAnchor.constraint(equalTo: lblOverview.bottomAnchor, constant: 20).isActive = true
                 postureView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
                 
-                containerView.addSubview(postureBar2)
-                postureBar2.topAnchor.constraint(equalTo: postureView.bottomAnchor, constant: 20).isActive = true
-                postureBar2.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
-                postureBar2.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
-                postureBar2.heightAnchor.constraint(equalToConstant: 20).isActive = true
+                containerView.addSubview(postureScroll)
+                postureScroll.topAnchor.constraint(equalTo: postureView.bottomAnchor, constant: 20).isActive = true
+                postureScroll.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
+                postureScroll.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
+                postureScroll.heightAnchor.constraint(equalToConstant: 40).isActive = true
+                postureScroll.addSubview(postureBar2)
+                
+                let minLabel = UILabel()
+                minLabel.text = "Mins"
+                minLabel.textColor = UIColor(hexString: "#79859f")
+                minLabel.font = UIFont.bold(ofSize: 13)
+                containerView.addSubview(minLabel)
+                minLabel.translatesAutoresizingMaskIntoConstraints = false
+                minLabel.topAnchor.constraint(equalTo: postureScroll.bottomAnchor, constant: 0).isActive = true
+                minLabel.rightAnchor.constraint(equalTo: postureScroll.rightAnchor, constant: 0).isActive = true
                 
                 containerView.addSubview(summaryView)
-                summaryView.topAnchor.constraint(equalTo: postureBar2.bottomAnchor, constant: 20).isActive = true
+                summaryView.topAnchor.constraint(equalTo: postureScroll.bottomAnchor, constant: 20).isActive = true
                 summaryView.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
                 summaryView.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
             }
@@ -358,8 +377,8 @@ class SessionDetailViewController: SuperViewController {
 
             
             containerView.addSubview(postureView)
-            postureView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-            postureView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+            postureView.widthAnchor.constraint(equalToConstant: 80).isActive = true
+            postureView.heightAnchor.constraint(equalToConstant: 80).isActive = true
             postureView.topAnchor.constraint(equalTo: eiGraphScroll.bottomAnchor, constant: 10).isActive = true
             postureView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
             
@@ -367,8 +386,17 @@ class SessionDetailViewController: SuperViewController {
             postureScroll.topAnchor.constraint(equalTo: postureView.bottomAnchor, constant: 10).isActive = true
             postureScroll.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 16).isActive = true
             postureScroll.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -16).isActive = true
-            postureScroll.heightAnchor.constraint(equalToConstant: 20).isActive = true
+            postureScroll.heightAnchor.constraint(equalToConstant: 40).isActive = true
             postureScroll.addSubview(postureBar)
+            
+            minLabel = UILabel()
+            minLabel.text = "Mins"
+            minLabel.textColor = UIColor(hexString: "#79859f")
+            minLabel.font = UIFont.bold(ofSize: 13)
+            containerView.addSubview(minLabel)
+            minLabel.translatesAutoresizingMaskIntoConstraints = false
+            minLabel.topAnchor.constraint(equalTo: postureScroll.bottomAnchor, constant: 0).isActive = true
+            minLabel.rightAnchor.constraint(equalTo: postureScroll.rightAnchor, constant: 0).isActive = true
             
             containerView.addSubview(summaryView)
             summaryView.topAnchor.constraint(equalTo: postureScroll.bottomAnchor, constant: 10).isActive = true
@@ -392,7 +420,7 @@ class SessionDetailViewController: SuperViewController {
                 rrGraph2.setNeedsDisplay()
                 rrGraphScroll.contentSize = rrGraph2.frame.size
             }
-            if session.kind == 0 {
+            if session.kind == 0 || session.kind == 2 {
                 postureBar2.frame = CGRect(x: 0.0, y: 0.0, width: postureScroll.frame.width * CGFloat(rrPages), height: postureScroll.frame.height)
                 postureScroll.contentSize = postureBar2.frame.size
             }
@@ -428,18 +456,19 @@ class SessionDetailViewController: SuperViewController {
             \(typeDescription)
             """
 
+            var duration = session.duration / 60
+            if session.duration > duration * 60 {
+                duration += 1
+            }
+            
+            var pages = Int(session.duration) / 300
+            
+            if session.duration > pages * 300 {
+                pages += 1
+            }
+            rrPages = CGFloat(pages)
+            
             if session.kind == 0 || session.kind == 1 {
-                var duration = session.duration / 60
-                if session.duration > duration * 60 {
-                   duration += 1
-                }
-                
-                var pages = Int(session.duration) / 300
-                
-                if session.duration > pages * 300 {
-                    pages += 1
-                }
-                rrPages = CGFloat(pages)
                 
                 rrGraph2.session = session
                 

@@ -422,24 +422,21 @@ class BuzzerPostureOnlyTrainingViewController: BaseBuzzerTrainingViewController 
         
         if (buzzCount > 0) {            
             buzzCount-=1;
-            
-            if (buzzCount == 0) {
-                objLiveGraph.isBuzzing = 0;
-                objLiveGraph.dampingLevel = 0;
-                objLiveGraph.postureAttenuatorLevel = 0;
-            }
-            
-        }
-        
-        if (cycles < 2) {
-            return;
         }
         
         if (objLiveGraph.postureIsGood == 0 && useBuzzerForPosture == 1)  {
 
             badPosture();
+            
+            if buzzCount <= 0 {
+                PranaDeviceManager.shared.sendCommand("Buzz,1");
+                buzzCount = 63; //May 19th changed from 190
+            }
+            
             return;
         }
+        
+        buzzCount = 0
         
         if (objLiveGraph.bottomReversalFound == 1 && hasInhaled == 0) {
             hasInhaled = 1;
@@ -467,6 +464,7 @@ class BuzzerPostureOnlyTrainingViewController: BaseBuzzerTrainingViewController 
         whenInhaled = 0;
         whenExhaled = 0;
         breathInterrupted = 1; //AUG 12th NEW
+        buzzReason = 2
     }
     
     func buzzerTimerHandler() {

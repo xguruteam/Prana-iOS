@@ -1087,6 +1087,7 @@ class VisualTrainingScene: SKScene {
 //        } //may 8th
         
         if whichPattern != 0 {
+            lastX += Double(size.width / 4.0)
             createInitialSetOfBreathPatterns()
             self.visualDelegate?.visualNewTargetRateCalculated(rate: flyingObjects[0].rate)
         }

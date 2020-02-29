@@ -511,6 +511,7 @@ class PassiveTrackingViewController: SuperViewController {
         if (objLive?.EIRatio.count > 0) {  //May 31st ADDED
             realTimeEI = Float(objLive!.EIRatio[objLive!.EIRatio.count-1][0]);   //May 31st ADDED
             sessionAvgEI = Float(objLive!.EIAvgSessionRatio);   //AUG 1st CHANGED
+            currentSessionObject?.avgEIRate = objLive!.EIAvgSessionRatio
         }
 
         trainingDuration+=1;

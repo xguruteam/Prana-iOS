@@ -52,6 +52,7 @@ class PassiveSession: Codable {
     var breaths: [BreathRecord] = []
     
     var avgRespRR: Double = 0.0
+    var avgEIRate: Double = 0.0
     
     init(startedAt: Date, wearing: Int) {
         self.startedAt = startedAt
@@ -156,6 +157,7 @@ class PassiveSession: Codable {
         }
         
         avgRR = avgRespRR
+        avgEI = avgEIRate
         
         return (avgEI, avgRR)
     }
