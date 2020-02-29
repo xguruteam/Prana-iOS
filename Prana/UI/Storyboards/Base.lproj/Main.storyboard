@@ -2141,9 +2141,8 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                         <constraint firstAttribute="height" constant="200" id="aKT-Yg-iel"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iSL-5c-TAo">
-                                                    <rect key="frame" x="10" y="224" width="317.5" height="75"/>
-                                                    <string key="text">First wear the device around your body. Then press and hold the button on Prana for 3 seconds to wirelessly connect to the app. The light on the device will be blink blue.</string>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First wear the device around your body. Then press and hold the button on Prana for 3 seconds to wirelessly connect to the app." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iSL-5c-TAo">
+                                                    <rect key="frame" x="16" y="224" width="305.5" height="75"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="16"/>
                                                     <color key="textColor" red="0.27058823529411763" green="0.28627450980392155" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -2186,9 +2185,9 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                 <constraint firstItem="iSb-0s-iti" firstAttribute="centerX" secondItem="eJs-1v-2rB" secondAttribute="centerX" id="dr2-s7-IEg"/>
                                                 <constraint firstItem="3Lm-GX-8ri" firstAttribute="top" secondItem="iSL-5c-TAo" secondAttribute="bottom" constant="4" id="e3P-YU-hfN"/>
                                                 <constraint firstAttribute="height" constant="360" id="e3f-M9-rdk"/>
-                                                <constraint firstAttribute="trailing" secondItem="iSL-5c-TAo" secondAttribute="trailing" constant="10" id="iu9-9k-KwM"/>
+                                                <constraint firstAttribute="trailing" secondItem="iSL-5c-TAo" secondAttribute="trailing" constant="16" id="iu9-9k-KwM"/>
                                                 <constraint firstItem="3Lm-GX-8ri" firstAttribute="leading" secondItem="eJs-1v-2rB" secondAttribute="leading" id="nJN-DP-3qg"/>
-                                                <constraint firstItem="iSL-5c-TAo" firstAttribute="leading" secondItem="eJs-1v-2rB" secondAttribute="leading" constant="10" id="qMu-PY-gWb"/>
+                                                <constraint firstItem="iSL-5c-TAo" firstAttribute="leading" secondItem="eJs-1v-2rB" secondAttribute="leading" constant="16" id="qMu-PY-gWb"/>
                                                 <constraint firstItem="3Lm-GX-8ri" firstAttribute="leading" secondItem="eJs-1v-2rB" secondAttribute="leading" id="slm-Bi-xqr"/>
                                                 <constraint firstItem="ivh-9H-mhV" firstAttribute="top" secondItem="eJs-1v-2rB" secondAttribute="top" constant="80" id="stL-ge-5qi"/>
                                                 <constraint firstAttribute="trailing" secondItem="3Lm-GX-8ri" secondAttribute="trailing" id="t38-7m-PhO"/>

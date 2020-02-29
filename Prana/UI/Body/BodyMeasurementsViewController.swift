@@ -386,6 +386,7 @@ class BodyMeasurementsViewController: SuperViewController {
     func gotoConnectViewController() {
         let firstVC = Utils.getStoryboardWithIdentifier(identifier: "ConnectViewController") as! ConnectViewController
         firstVC.isTutorial = false
+        firstVC.isBodyMeasurement = true
         firstVC.completionHandler = { [unowned self] in
             self.startLive()
             self.gotoSelectStep()

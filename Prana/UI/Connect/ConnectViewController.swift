@@ -21,6 +21,7 @@ class ConnectViewController: UIViewController {
     var isScanning = false
     var isConnected = false
     var isTutorial = true
+    var isBodyMeasurement = false
     
     var tryingTimer: Timer? = nil
     
@@ -44,13 +45,19 @@ class ConnectViewController: UIViewController {
         
         if isTutorial {
             lblGuide.text = """
-            Press and hold the button on Prana for 3 seconds to wirelessly connect to the app. The light on the device will be blink blue.
+            Press and hold the button on Prana for 3 seconds to wirelessly connect to the app.
             """
         } else {
-            lblGuide.text = """
-            First wear the device around your body.
-            Then press and hold the button on Prana for 3 seconds to wirelessly connect to the app. The light on the device will be blink blue.
-            """
+            if isBodyMeasurement {
+                lblGuide.text = """
+                Press and hold the button on Prana for 3 seconds to wirelessly connect to the app.
+                """
+            } else {
+                lblGuide.text = """
+                First wear the device around your body.
+                Then press and hold the button on Prana for 3 seconds to wirelessly connect to the app.
+                """
+            }
         }
         
         startScanPrana()
