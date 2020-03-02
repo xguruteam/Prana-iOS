@@ -137,6 +137,7 @@ class TrainingSession: Codable {
             """
         } else if kind == 1 {
             return """
+            Training: \(kindString), \(getMinutesDescription(for: duration)) Mins
             Mindful Breaths: \(roundFloat(mindfulPercent, point: 1))%, Avg. RR: \(roundFloat(Float(rrSum), point: 2))
             Pattern: \(patternString)
             """

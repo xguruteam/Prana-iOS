@@ -336,6 +336,7 @@ class PassiveTrackingViewController: SuperViewController {
             DispatchQueue.main.async {
                 self.btnStartStop.isHidden = false
                 self.lblGuide.isHidden = true
+                self.btnUpright.setTitle("SET UPRIGHT ✅", for: .normal)
             }
         }
     }

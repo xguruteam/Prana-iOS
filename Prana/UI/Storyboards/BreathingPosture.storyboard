@@ -1713,6 +1713,7 @@ For each training session:
                                                     <constraint firstAttribute="height" constant="36" id="MnS-Cj-wff"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="13"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="SET UPRIGHT">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -2227,13 +2228,13 @@ For each training session:
                                                 <rect key="frame" x="10" y="271" width="315" height="34"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breath Response" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xv8-s6-kfF">
-                                                        <rect key="frame" x="15" y="9" width="142.5" height="16.5"/>
+                                                        <rect key="frame" x="15" y="9" width="105" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                         <color key="textColor" red="0.32549019610000002" green="0.38431372549999998" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ehF-GO-g0Z" customClass="RadioGroupButton" customModule="Prana" customModuleProvider="target">
-                                                        <rect key="frame" x="177.5" y="6" width="127.5" height="22"/>
+                                                        <rect key="frame" x="140" y="6" width="165" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="22" id="BHl-Z7-8l4"/>
                                                         </constraints>
@@ -2322,7 +2323,7 @@ For each training session:
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slouches" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qbg-8r-CSd">
-                                                <rect key="frame" x="125" y="335.5" width="54.5" height="16.5"/>
+                                                <rect key="frame" x="125" y="335.5" width="54" height="16.5"/>
                                                 <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="13"/>
                                                 <color key="textColor" red="0.46274509800000002" green="0.52549019610000003" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -2528,7 +2529,7 @@ Back</string>
                                             <constraint firstItem="NjS-ep-Mjr" firstAttribute="trailing" secondItem="JhN-Fd-y6Q" secondAttribute="trailing" id="7HM-q3-PVZ"/>
                                             <constraint firstItem="SDz-yz-Kco" firstAttribute="top" secondItem="cvQ-Tq-gPk" secondAttribute="bottom" constant="10" id="7TL-Lo-icw"/>
                                             <constraint firstItem="ef1-8z-PHO" firstAttribute="leading" secondItem="eVc-sF-DhA" secondAttribute="leading" id="AL5-5L-FUG"/>
-                                            <constraint firstItem="x4f-aO-FC4" firstAttribute="trailing" secondItem="JhN-Fd-y6Q" secondAttribute="trailing" id="CUy-Im-e7J"/>
+                                            <constraint firstItem="x4f-aO-FC4" firstAttribute="trailing" secondItem="JhN-Fd-y6Q" secondAttribute="trailing" constant="10" id="CUy-Im-e7J"/>
                                             <constraint firstItem="fXw-C4-TGt" firstAttribute="centerX" secondItem="lyJ-mX-0Gb" secondAttribute="centerX" id="CxE-vh-Qqo"/>
                                             <constraint firstItem="sn8-du-LXp" firstAttribute="leading" secondItem="JhN-Fd-y6Q" secondAttribute="trailing" constant="15" id="DF0-ZL-jgW"/>
                                             <constraint firstItem="cvN-vO-zzn" firstAttribute="leading" secondItem="eVc-sF-DhA" secondAttribute="leading" id="DQS-2c-NYJ"/>
@@ -2558,7 +2559,7 @@ Back</string>
                                             <constraint firstItem="OCp-vs-v2b" firstAttribute="top" secondItem="1J1-cm-xIQ" secondAttribute="top" id="W1F-zU-3QT"/>
                                             <constraint firstItem="OCp-vs-v2b" firstAttribute="trailing" secondItem="eVc-sF-DhA" secondAttribute="trailing" id="WM5-ZS-J7d"/>
                                             <constraint firstItem="eVc-sF-DhA" firstAttribute="leading" secondItem="lyJ-mX-0Gb" secondAttribute="leading" constant="10" id="YWj-hz-eWF"/>
-                                            <constraint firstItem="x4f-aO-FC4" firstAttribute="leading" secondItem="JhN-Fd-y6Q" secondAttribute="leading" id="aIT-z3-Rd1"/>
+                                            <constraint firstItem="x4f-aO-FC4" firstAttribute="leading" secondItem="JhN-Fd-y6Q" secondAttribute="leading" constant="-5" id="aIT-z3-Rd1"/>
                                             <constraint firstItem="EL5-bK-6mt" firstAttribute="top" secondItem="lyJ-mX-0Gb" secondAttribute="top" constant="5" id="bNl-Pr-cs2"/>
                                             <constraint firstItem="Zqt-yQ-JrV" firstAttribute="leading" secondItem="Gty-t4-chB" secondAttribute="leading" id="dKe-xf-EVc"/>
                                             <constraint firstItem="Qbg-8r-CSd" firstAttribute="top" secondItem="sn8-du-LXp" secondAttribute="bottom" constant="7" id="dwe-B9-2Be"/>

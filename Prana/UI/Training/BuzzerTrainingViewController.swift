@@ -316,6 +316,7 @@ class BuzzerTrainingViewController: BaseBuzzerTrainingViewController {
 
                 self.btnStartStop.isHidden = false
                 self.lblGuide.isHidden = true
+                self.btnUpright.setTitle("SET UPRIGHT ✅", for: .normal)
             }
         }
     }

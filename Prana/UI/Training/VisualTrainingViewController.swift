@@ -37,6 +37,7 @@ class VisualTrainingViewController: SuperViewController {
     @IBOutlet weak var btnStart: UIButton!
     @IBOutlet weak var btnHelp: UIButton!
     @IBOutlet weak var batteryView: BatteryStateView!
+    @IBOutlet weak var btnUpright: UIButton!
     
     var isShowControls: Bool = true
     var isShowButton = true
@@ -359,6 +360,7 @@ class VisualTrainingViewController: SuperViewController {
                 self.showHideStartButton()
             }
         }
+        self.btnUpright.setTitle("SET UPRIGHT ✅", for: .normal)
     }
     
     func showHideControls() {

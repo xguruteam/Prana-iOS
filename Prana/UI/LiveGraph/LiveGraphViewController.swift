@@ -290,7 +290,7 @@ extension LiveGraphViewController: LiveDelegate {
     
     func liveUprightHasBeenSet() {
         DispatchQueue.main.async {
-//            self.btnUpright.isHighlighted = true
+            self.btnUpright.setTitle("SET UPRIGHT ✅", for: .normal)
         }
     }
 }

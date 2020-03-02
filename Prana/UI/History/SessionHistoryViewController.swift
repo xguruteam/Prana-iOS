@@ -236,8 +236,11 @@ extension SessionHistoryViewController: UITableViewDelegate, UITableViewDataSour
             switch row {
             case is DailySummary:
                 return 230
-            case is TrainingSession:
-                return 145
+            case (let session as TrainingSession):
+                if session.kind == 0 {
+                    return 155
+                }
+                return 115
             case is PassiveSession:
                 return 135
             default:
