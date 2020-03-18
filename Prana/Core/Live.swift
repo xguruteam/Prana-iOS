@@ -80,7 +80,7 @@ class Live: NSObject {
     }
     
     // MARK: New Properties
-    static var maxCount = 600
+    static var maxCount = 12000
     var appMode = 0 // DC.appMode
     var isBuzzing = 0 // DC.objBuzzerTraining.isBuzzing
     var calibrationBreathsDone = 0 // DC.objGame.calibrationBreathsDone
@@ -208,6 +208,7 @@ class Live: NSObject {
             }
             
             count = 100;
+            print("resetCount")
         }
     }
     
@@ -579,7 +580,12 @@ class Live: NSObject {
             } //AUG 1st NEW
             
 //        } //AUG 1st NEW
-        
+
+        if (timeElapsed > 0) { //March 3rd 2020,  NEW
+            avgRespRate = 60*(Double(breathCount)/timeElapsed);    //March 3rd 2020,  NEW
+            avgRespRate = roundNumber(avgRespRate, 10); //March 3rd 2020,  NEW
+        } //March 3rd 2020,  NEW
+
 
         delegates.forEach { $0.liveMainLoop?(timeElapsed: timeElapsed, sensorData: sensorData) }
         /*
@@ -621,6 +627,8 @@ class Live: NSObject {
                     EIGoodToMeasure = 0; //May31st ADDED
                     
                 }  // May 31st ADDED
+                
+                delegates.forEach { $0.liveNew?(sessionAvgRate: avgRespRate) }
                 
                 delegates.forEach { $0.liveNew?(endBreathLineY: 5000) }
 //                endBreathLine.y = 5000;
@@ -717,10 +725,10 @@ class Live: NSObject {
                 respRate = 1 * (60.0 / (whenBreathsStart[lastIndex] - whenBreathsStart[lastIndex-1]));
             }
             
-            if (timeElapsed > 0) {
-                avgRespRate = 60*(Double(breathCount)/timeElapsed);
-                
-            }
+//            if (timeElapsed > 0) {
+//                avgRespRate = 60*(Double(breathCount)/timeElapsed);
+//
+//            }
             
 //            if (appMode == 2 && calibrationBreathsDone == 0) {  //Aug 1st  NEW
 //                if (timeElapsed-timeElapsedAtCalibrationStart > 0) { //Aug 1st  NEW
@@ -730,11 +738,10 @@ class Live: NSObject {
 //            } //Aug 1st  NEW
             
             respRate = roundNumber(respRate, 10);
-            avgRespRate = roundNumber(avgRespRate, 10);
+//            avgRespRate = roundNumber(avgRespRate, 10);
 
             delegates.forEach { $0.liveNew?(respirationRate: respRate) }
 //            postureUI.respirationRateIndicator.text = String(respRate);
-            delegates.forEach { $0.liveNew?(sessionAvgRate: avgRespRate) }
             
         }
         
@@ -936,6 +943,8 @@ class Live: NSObject {
                         }
                         
                     }
+                } else {
+                    print("stop")
                 }
                 
                 //bottomReversalLine.y = bottomReversalY; // AUG 1st REMOVED
@@ -977,6 +986,8 @@ class Live: NSObject {
                             topReversalY = graphYSeries[i];
                         }
                     }
+                } else {
+                    print("stop")
                 }
                 
                 //if (DC.appMode != 3 && DC.appMode != 1 ) { // AUG 1st REMOVED

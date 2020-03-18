@@ -380,7 +380,7 @@ class BodyMeasurementsViewController: SuperViewController {
     
     func applyUnit(original: Float) -> Float {
         let newValue = ((unit == 0) ? original : (original * 2.54))
-        return Float(round(newValue * 100) / 100.0)
+        return Float(Int(newValue * Float(powf(10.0, Float(2))))) / Float(powf(10.0, Float(2)))
     }
     
     func gotoConnectViewController() {

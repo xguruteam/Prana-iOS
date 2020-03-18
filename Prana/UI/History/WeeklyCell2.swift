@@ -125,17 +125,17 @@ class WeeklyCell2: UITableViewCell {
             uprightTimes.append((postureTime, uprightTime, postureGaol * 60))
         }
         
-        mindfulView.color = UIColor(hexString: "#9fd93f")
+        mindfulView.color = UIColor(hexString: "#3dd3ca")
         mindfulView.type = .stack
         mindfulView.stackData = breathTimes
         mindfulView.setNeedsDisplay()
         
-        rrView.color = UIColor(hexString: "#9fd93f")
+        rrView.color = UIColor(hexString: "#3dd3ca")
         rrView.type = .bar
         rrView.barData = avgRRs
         rrView.setNeedsDisplay()
         
-        uprightView.color = UIColor(hexString: "#3dd3ca")
+        uprightView.color = UIColor(hexString: "#9fd93f")
         uprightView.type = .stack
         uprightView.stackData = uprightTimes
         uprightView.setNeedsDisplay()
@@ -180,17 +180,17 @@ class WeeklyCell2: UITableViewCell {
             uprightTimes.append((postureTime, uprightTime, 0))
         }
         
-        mindfulView.color = UIColor(hexString: "#9fd93f")
+        mindfulView.color = UIColor(hexString: "#3dd3ca")
         mindfulView.type = .bar
         mindfulView.barData = avgRRs
         mindfulView.setNeedsDisplay()
         
-        rrView.color = UIColor(hexString: "#9fd93f")
+        rrView.color = UIColor(hexString: "#3dd3ca")
         rrView.type = .bar
         rrView.barData = eiRatios
         rrView.setNeedsDisplay()
         
-        uprightView.color = UIColor(hexString: "#3dd3ca")
+        uprightView.color = UIColor(hexString: "#9fd93f")
         uprightView.type = .stack
         uprightView.stackData = uprightTimes
         uprightView.setNeedsDisplay()

@@ -281,7 +281,7 @@ class SettingsViewController: SuperViewController {
     }
     
     @objc func onLogout() {
-        let alert = UIAlertController(style: .alert, title: "Warning", message: "All settings will be lost!")
+        let alert = UIAlertController(style: .alert, title: "Warning", message: "Are you sure you are going to log out.")
         alert.addAction(title: "Cancel", style: .cancel) { (_) in
             
         }

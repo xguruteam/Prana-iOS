@@ -122,7 +122,7 @@ class LoginViewController: SuperViewController {
                         UserDefaults.standard.synchronize()
                         self.dataController.currentUser = User(data: data)
                         self.dataController.saveUserData()
-                        self.dataController.clearData()
+//                        self.dataController.clearData()
                         // let firstVC = Utils.getStoryboardWithIdentifier(identifier: "FirstViewController")
                         self.navigationController?.popToRootViewController(animated: false)
                         NotificationCenter.default.post(name: .didLogIn, object: nil)

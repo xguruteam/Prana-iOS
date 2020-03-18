@@ -141,27 +141,32 @@ class SessionHistoryViewController: SuperViewController {
         var uprightTime = 0
         var slouchTime = 0
         
+        var breathGoal = 0
+        var postureGaol = 0
+        
         for object in sessions {
             guard let session = object as? TrainingSession else { continue }
             if session.kind == 0 || session.kind == 1 {
                 breathTime += session.duration
                 let sum = session.sumBreaths()
                 mindfulTime += sum.3
-                rrSum += sum.1
+                rrSum += sum.1 * Double(session.duration)
                 mindfulCount += sum.2
                 breathCount += sum.0
                 sessionCount += 1
+                breathGoal = max(breathGoal, session.dailyBreathGoalMins)
             }
             
             if session.kind == 0 || session.kind == 2 {
                 postureTime += session.duration
                 let sum = session.sumSlouches()
                 slouchTime += sum.0
+                postureGaol = max(postureGaol, session.dailyPostureGoalMin)
             }
         }
         
-        if sessionCount > 0 {
-            rrSum /= Double(sessionCount)
+        if breathTime > 0 {
+            rrSum /= Double(breathTime)
         }
         
         uprightTime = postureTime - slouchTime
@@ -176,12 +181,14 @@ class SessionHistoryViewController: SuperViewController {
         }
         
         return """
-        Breath Training Time Completed: \(getMinutesDescription(for: breathTime)) Mins
+        Breath Training Time: \(getMinutesDescription(for: breathTime)) Mins
+        Daily Goal: \(getMinutesDescription(for: breathGoal)) Mins
         Mindful Breaths: \(roundFloat(mindfulPercent, point: 1))%
         Mindful Breath Time: \(getMinutesDescription(for: mindfulTime)) Mins
         Average RR: \(roundFloat(Float(rrSum), point: 2))
         
-        Posture Training Time Completed: \(getMinutesDescription(for: postureTime)) Mins
+        Posture Training Time: \(getMinutesDescription(for: postureTime)) Mins
+        Daily Goal: \(getMinutesDescription(for: postureGaol)) Mins
         Upright Posture: \(roundFloat(uprightPercent, point: 1))%
         Upright Posture Time: \(getMinutesDescription(for: uprightTime)) Mins
         """
@@ -235,7 +242,7 @@ extension SessionHistoryViewController: UITableViewDelegate, UITableViewDataSour
             
             switch row {
             case is DailySummary:
-                return 230
+                return 260
             case (let session as TrainingSession):
                 if session.kind == 0 {
                     return 155

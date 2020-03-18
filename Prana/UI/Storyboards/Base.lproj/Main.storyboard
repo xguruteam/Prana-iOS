@@ -2133,7 +2133,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJs-1v-2rB">
-                                            <rect key="frame" x="19" y="85.5" width="337.5" height="360"/>
+                                            <rect key="frame" x="19" y="85.5" width="337.5" height="370"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="video-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="uVr-tp-zk4">
                                                     <rect key="frame" x="0.0" y="0.0" width="337.5" height="200"/>
@@ -2162,7 +2162,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                     <state key="normal" backgroundImage="ic-triangle"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your battery level is getting low. It is recommended to charge the device before proceeding." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Lm-GX-8ri">
-                                                    <rect key="frame" x="0.0" y="303" width="337.5" height="50.5"/>
+                                                    <rect key="frame" x="0.0" y="286.5" width="337.5" height="50.5"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                     <color key="textColor" red="0.68561625479999999" green="0.25009864370000001" blue="0.22058494919999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -2183,8 +2183,8 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                                 <constraint firstItem="x2F-wr-2d1" firstAttribute="centerX" secondItem="eJs-1v-2rB" secondAttribute="centerX" id="UWX-Bu-aTN"/>
                                                 <constraint firstItem="ivh-9H-mhV" firstAttribute="centerX" secondItem="eJs-1v-2rB" secondAttribute="centerX" id="aws-Vo-8OO"/>
                                                 <constraint firstItem="iSb-0s-iti" firstAttribute="centerX" secondItem="eJs-1v-2rB" secondAttribute="centerX" id="dr2-s7-IEg"/>
-                                                <constraint firstItem="3Lm-GX-8ri" firstAttribute="top" secondItem="iSL-5c-TAo" secondAttribute="bottom" constant="4" id="e3P-YU-hfN"/>
-                                                <constraint firstAttribute="height" constant="360" id="e3f-M9-rdk"/>
+                                                <constraint firstItem="3Lm-GX-8ri" firstAttribute="top" secondItem="iSb-0s-iti" secondAttribute="bottom" constant="10" id="e3P-YU-hfN"/>
+                                                <constraint firstAttribute="height" constant="370" id="e3f-M9-rdk"/>
                                                 <constraint firstAttribute="trailing" secondItem="iSL-5c-TAo" secondAttribute="trailing" constant="16" id="iu9-9k-KwM"/>
                                                 <constraint firstItem="3Lm-GX-8ri" firstAttribute="leading" secondItem="eJs-1v-2rB" secondAttribute="leading" id="nJN-DP-3qg"/>
                                                 <constraint firstItem="iSL-5c-TAo" firstAttribute="leading" secondItem="eJs-1v-2rB" secondAttribute="leading" constant="16" id="qMu-PY-gWb"/>
@@ -2202,7 +2202,7 @@ PRANA TECH LLC, COPYRIGHT 2019, PATENT PENDING</string>
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E97-aE-tgq">
-                                            <rect key="frame" x="47" y="417.5" width="281" height="56"/>
+                                            <rect key="frame" x="47" y="427.5" width="281" height="56"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="56" id="Zih-jO-h81"/>

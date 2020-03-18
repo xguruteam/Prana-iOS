@@ -186,7 +186,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app-background" translatesAutoresizingMaskIntoConstraints="NO" id="bhm-kk-6hH">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TCh-pf-QoH">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TCh-pf-QoH">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="08K-PS-vn3">
@@ -326,6 +326,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="249.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DCP-Cx-0OU">
+                                                    <rect key="frame" x="0.0" y="11" width="375" height="34"/>
+                                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hzp-Di-OOf">
                                                     <rect key="frame" x="15" y="11" width="53" height="30"/>
                                                     <constraints>
@@ -347,7 +351,7 @@
                                                     </constraints>
                                                 </view>
                                                 <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="LsR-NG-7Xo">
-                                                    <rect key="frame" x="15" y="49" width="345" height="191"/>
+                                                    <rect key="frame" x="15" y="49" width="345" height="190.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <string key="text">Breath Training Time Completed: 0 Mins Mindful Breaths: 0% Mindful Breath Minutes: 0 Mins Average Training RR: 0.0  Posture Training Time Completed: 0 Mins Upright Posture: 0% Upright Posture Minutes: 0 Mins</string>
                                                     <color key="textColor" red="0.27058823529999998" green="0.28627450980000002" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -363,6 +367,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Hzp-Di-OOf" firstAttribute="leading" secondItem="3ef-e6-DF7" secondAttribute="leading" constant="15" id="0mz-je-0t4"/>
+                                                <constraint firstItem="DCP-Cx-0OU" firstAttribute="top" secondItem="Hzp-Di-OOf" secondAttribute="top" id="AFc-RV-Rxy"/>
                                                 <constraint firstAttribute="bottom" secondItem="LsR-NG-7Xo" secondAttribute="bottom" constant="10" id="Hk9-k0-919"/>
                                                 <constraint firstItem="aKl-7C-VIC" firstAttribute="top" secondItem="Hzp-Di-OOf" secondAttribute="bottom" constant="8" id="KMI-ED-6xs"/>
                                                 <constraint firstItem="fBW-W1-2Ef" firstAttribute="top" secondItem="Hzp-Di-OOf" secondAttribute="bottom" constant="-5" id="KOy-sk-LRa"/>
@@ -374,6 +379,9 @@
                                                 <constraint firstAttribute="trailing" secondItem="LsR-NG-7Xo" secondAttribute="trailing" constant="15" id="aud-Ck-o0u"/>
                                                 <constraint firstItem="fBW-W1-2Ef" firstAttribute="leading" secondItem="3ef-e6-DF7" secondAttribute="leading" constant="15" id="fVs-Qz-5pF"/>
                                                 <constraint firstItem="LsR-NG-7Xo" firstAttribute="top" secondItem="Hzp-Di-OOf" secondAttribute="bottom" constant="8" id="jrb-Sj-dUZ"/>
+                                                <constraint firstItem="DCP-Cx-0OU" firstAttribute="leading" secondItem="3ef-e6-DF7" secondAttribute="leading" id="myB-iS-VEW"/>
+                                                <constraint firstItem="Hzp-Di-OOf" firstAttribute="bottom" secondItem="DCP-Cx-0OU" secondAttribute="bottom" constant="-4" id="y6t-m7-EBP"/>
+                                                <constraint firstAttribute="trailing" secondItem="DCP-Cx-0OU" secondAttribute="trailing" id="yAv-PD-NdV"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
