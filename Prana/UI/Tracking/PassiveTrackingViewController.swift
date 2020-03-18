@@ -199,7 +199,8 @@ class PassiveTrackingViewController: SuperViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        btnUpright.applyButtonGradient(colors: [#colorLiteral(red: 0.6, green: 0.8392156863, blue: 0.2392156863, alpha: 1), #colorLiteral(red: 0.4039215686, green: 0.7411764706, blue: 0.2274509804, alpha: 1)], points: [0.0, 1.0])
+//        btnUpright.applyButtonGradient(colors: [#colorLiteral(red: 0.6, green: 0.8392156863, blue: 0.2392156863, alpha: 1), #colorLiteral(red: 0.4039215686, green: 0.7411764706, blue: 0.2274509804, alpha: 1)], points: [0.0, 1.0])
+        btnUpright.isHighlighted = false
         btnStartStop.applyButtonGradient(colors: [#colorLiteral(red: 0.6, green: 0.8392156863, blue: 0.2392156863, alpha: 1), #colorLiteral(red: 0.4039215686, green: 0.7411764706, blue: 0.2274509804, alpha: 1)], points: [0.0, 1.0])
     }
     
@@ -336,7 +337,7 @@ class PassiveTrackingViewController: SuperViewController {
             DispatchQueue.main.async {
                 self.btnStartStop.isHidden = false
                 self.lblGuide.isHidden = true
-                self.btnUpright.setTitle("SET UPRIGHT ✅", for: .normal)
+//                self.btnUpright.setTitle("SET UPRIGHT ✅", for: .normal)
             }
         }
     }

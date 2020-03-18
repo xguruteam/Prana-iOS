@@ -80,7 +80,7 @@ class Live: NSObject {
     }
     
     // MARK: New Properties
-    static var maxCount = 12000
+    static var maxCount = 1800
     var appMode = 0 // DC.appMode
     var isBuzzing = 0 // DC.objBuzzerTraining.isBuzzing
     var calibrationBreathsDone = 0 // DC.objGame.calibrationBreathsDone
@@ -190,25 +190,36 @@ class Live: NSObject {
     }
     
     func resetCount() {
+        
+        var resetThreshold:Int = Live.maxCount;
+        var resetWindow:Int = 600;
+        
         if (count == Live.maxCount) { //***march18
             
-            for i in 500 ... 600
+            for i in (resetThreshold - resetWindow) ... resetThreshold
             {
                 
-                xSensor[i-500] = xSensor[i];
-                ySensor[i-500] = ySensor[i];
-                zSensor[i-500] = zSensor[i];
-                currentPostureAngle[i-500] = currentPostureAngle[i];
-                rotationSensor[i-500] = rotationSensor[i];
-                breathSensor[i-500] = breathSensor[i];
-                graphYSeries[i-500] = graphYSeries[i];
-                dampHistory[i-500] = dampHistory[i];
-                relativePosturePositionFiltered[i-500] = relativePosturePositionFiltered[i];
-                
+                xSensor[i - (resetThreshold - resetWindow)] = xSensor[i];
+                ySensor[i - (resetThreshold - resetWindow)] = ySensor[i];
+                zSensor[i - (resetThreshold - resetWindow)] = zSensor[i];
+                currentPostureAngle[i - (resetThreshold - resetWindow)] = currentPostureAngle[i];
+                rotationSensor[i - (resetThreshold - resetWindow)] = rotationSensor[i];
+                breathSensor[i - (resetThreshold - resetWindow)] = breathSensor[i];
+                graphYSeries[i - (resetThreshold - resetWindow)] = graphYSeries[i];
+                dampHistory[i - (resetThreshold - resetWindow)] = dampHistory[i];
+                relativePosturePositionFiltered[i - (resetThreshold - resetWindow)] = relativePosturePositionFiltered[i];
+
             }
             
-            count = 100;
-            print("resetCount")
+            count = resetWindow;
+            downStreakStart = downStreakStart - (resetThreshold - resetWindow);
+            upStreakStart = upStreakStart - (resetThreshold - resetWindow);
+            if (downStreakStart < 0) {
+                downStreakStart = 0;
+            }
+            if (upStreakStart < 0) {
+                upStreakStart = 0;
+            }
         }
     }
     

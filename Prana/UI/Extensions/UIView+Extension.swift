@@ -17,8 +17,8 @@ extension UIView {
         gradient.colors = colors.map { $0.withAlphaComponent(1.0).cgColor }
         gradient.locations = points
         
-        self.layer.addSublayer(gradient)
-        self.layer.insertSublayer(gradient, at: 0)        
+//        self.layer.addSublayer(gradient)
+        self.layer.insertSublayer(gradient, at: 0)
     }
 }
 

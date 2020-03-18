@@ -68,17 +68,34 @@ class RRGraph: UIView {
         return attributes
     }()
     
+    let rootLayer: CALayer = {
+        let layer = CALayer()
+        return layer
+    }()
+    
+    let yaxisTextAttribute: [NSAttributedString.Key : Any] = {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .left
+        let attributes: [NSAttributedString.Key : Any] = [
+            .paragraphStyle: paragraphStyle,
+            .font: UIFont(name: "Quicksand", size: 12) as Any,
+            .foregroundColor: UIColor(hexString: "#000000")
+        ]
+        return attributes
+    }()
+    
     let axisLineWidth: CGFloat = 0.5
     let lineWidth: CGFloat = 2
     let mindfulColor = UIColor(hexString: "#5eb839")
     let unmindfulColor = UIColor(hexString: "#ff0000")
     let targetColor = UIColor(hexString: "#0000ff")
-    let invalidColor = UIColor(hexString: "#000000")
+    let invalidColor = UIColor(hexString: "#acacac")
     
     var padding: UIEdgeInsets = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
 
     override func draw(_ rect: CGRect) {
         super.draw(rect)
+        self.layer.addSublayer(rootLayer)
         drawLines()
         drawPoints()
         drawXAxisLabels()
@@ -118,18 +135,37 @@ class RRGraph: UIView {
         layer.lineDashPattern = [5, 5]
         layer.lineWidth = axisLineWidth
         layer.strokeColor = UIColor.gray.withAlphaComponent(0.3).cgColor
-        self.layer.addSublayer(layer)
+        self.rootLayer.addSublayer(layer)
         
     }
     
     func drawYAxisLabels() {
         // draw y axis labels
+        var textLayer = CATextLayer()
+        textLayer.string = "\(Int(maxRR))"
+        textLayer.foregroundColor = UIColor.black.cgColor
+        textLayer.font = UIFont(name: "Quicksand", size: 12)
+        textLayer.fontSize = 12.0
+        textLayer.alignmentMode = CATextLayerAlignmentMode.left
+        textLayer.frame = CGRect(x: 2, y: padding.top - 12, width: 30, height: 20.0)
+        textLayer.contentsScale = UIScreen.main.scale
+        self.layer.addSublayer(textLayer)
         
-        let maxText = NSAttributedString(string: "\(Int(maxRR))", attributes: axisTextAttribute)
-        maxText.draw(at: CGPoint(x: 2, y: padding.top - 12))
+        textLayer = CATextLayer()
+        textLayer.string = "\(Int(maxRR / 2))"
+        textLayer.foregroundColor = UIColor.black.cgColor
+        textLayer.font = UIFont(name: "Quicksand", size: 12)
+        textLayer.fontSize = 12.0
+        textLayer.alignmentMode = CATextLayerAlignmentMode.left
+        textLayer.frame = CGRect(x: 2, y: padding.top + (height - padding.top - padding.bottom) / 2 - 12, width: 30, height: 20.0)
+        textLayer.contentsScale = UIScreen.main.scale
+        self.layer.addSublayer(textLayer)
         
-        let halfText = NSAttributedString(string: "\(Int(maxRR / 2))", attributes: axisTextAttribute)
-        halfText.draw(at: CGPoint(x: 2, y: padding.top + (height - padding.top - padding.bottom) / 2 - 12))
+//        let maxText = NSAttributedString(string: "\(Int(maxRR))", attributes: yaxisTextAttribute)
+//        maxText.draw(at: CGPoint(x: 2, y: padding.top - 12))
+        
+//        let halfText = NSAttributedString(string: "\(Int(maxRR / 2))", attributes: yaxisTextAttribute)
+//        halfText.draw(at: CGPoint(x: 2, y: padding.top + (height - padding.top - padding.bottom) / 2 - 12))
         
         let zeroText = NSAttributedString(string: "0", attributes: axisTextAttribute)
         zeroText.draw(at: CGPoint(x: 2, y: height - padding.bottom + 2))
@@ -148,7 +184,7 @@ class RRGraph: UIView {
         layer.path = path.cgPath
         layer.lineWidth = axisLineWidth
         layer.strokeColor = UIColor.gray.withAlphaComponent(0.3).cgColor
-        self.layer.addSublayer(layer)
+        self.rootLayer.addSublayer(layer)
         
     }
     
@@ -204,8 +240,8 @@ class RRGraph: UIView {
                 targetDotLayer.strokeColor = targetColor.cgColor
 
                 
-                layer.addSublayer(targetLayer)
-                layer.addSublayer(targetDotLayer)
+                rootLayer.addSublayer(targetLayer)
+                rootLayer.addSublayer(targetDotLayer)
             }
 
             let livePath = UIBezierPath()
@@ -268,9 +304,9 @@ class RRGraph: UIView {
                 areaLayer.fillColor = invalidColor.withAlphaComponent(0.1).cgColor
             }
             
-            layer.addSublayer(areaLayer)
-            layer.addSublayer(liveLayer)
-            layer.addSublayer(liveDotLayer)
+            rootLayer.addSublayer(areaLayer)
+            rootLayer.addSublayer(liveLayer)
+            rootLayer.addSublayer(liveDotLayer)
         }
     }
     

@@ -48,14 +48,14 @@
                                             <action selector="onBack:" destination="5KQ-lD-xCi" eventType="touchUpInside" id="9LF-kP-fD0"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRO-z5-Shf">
-                                        <rect key="frame" x="57" y="0.0" width="124" height="32"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRO-z5-Shf" customClass="SetUprightButton" customModule="Prana" customModuleProvider="target">
+                                        <rect key="frame" x="56.999999999999986" y="0.0" width="154.00000000000003" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="5as-NG-10d"/>
                                             <constraint firstAttribute="width" constant="154" id="ihd-xe-9DQ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="15"/>
-                                        <state key="normal" title="SET UPRIGHT" backgroundImage="button-green-sm">
+                                        <state key="normal" title="SET UPRIGHT">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -68,7 +68,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hq9-Bu-ccW">
-                                        <rect key="frame" x="139.5" y="-1.5" width="80" height="35"/>
+                                        <rect key="frame" x="139.5" y="-2.5" width="80" height="37.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="80" id="uLD-6m-qix"/>
                                         </constraints>
@@ -96,13 +96,13 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDO-nT-WkS">
-                                        <rect key="frame" x="238" y="7.5" width="49" height="17.5"/>
+                                        <rect key="frame" x="237.5" y="6.5" width="49.5" height="19"/>
                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VYA-Js-47B" customClass="BatteryStateView" customModule="Prana" customModuleProvider="target">
-                                        <rect key="frame" x="198" y="1" width="30" height="30"/>
+                                        <rect key="frame" x="197.5" y="1" width="30" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="HMP-VG-e3S"/>
@@ -141,13 +141,13 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="55.5" height="38"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mindful Breaths" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bzg-R5-AQD">
-                                                                <rect key="frame" x="-14.5" y="2" width="84.5" height="14"/>
+                                                                <rect key="frame" x="-17" y="2" width="89.5" height="15"/>
                                                                 <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                                                 <color key="textColor" red="0.32549019607843138" green="0.38431372549019605" blue="0.48627450980392156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="80 %(12 of 15)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aqe-Kh-yUv">
-                                                                <rect key="frame" x="-11.5" y="22" width="79" height="14"/>
+                                                                <rect key="frame" x="-11" y="21" width="77.5" height="15"/>
                                                                 <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="12"/>
                                                                 <color key="textColor" red="0.12941176470588234" green="0.65490196078431373" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -176,13 +176,13 @@
                                                         <rect key="frame" x="58.5" y="0.0" width="55.5" height="38"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Target vs Actual RR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zmb-55-jL0">
-                                                                <rect key="frame" x="-24.5" y="2" width="105" height="14"/>
+                                                                <rect key="frame" x="-28" y="2" width="111.5" height="15"/>
                                                                 <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                                                 <color key="textColor" red="0.32549019607843138" green="0.38431372549019605" blue="0.48627450980392156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 / 15.5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lhi-Lf-Qu4">
-                                                                <rect key="frame" x="4" y="22" width="47.5" height="14"/>
+                                                                <rect key="frame" x="4.5" y="21" width="47" height="15"/>
                                                                 <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="12"/>
                                                                 <color key="textColor" red="0.12941176470588234" green="0.65490196078431373" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -213,7 +213,7 @@
                                                 <rect key="frame" x="0.0" y="40" width="114" height="38"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breath Response" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="By8-2z-Hmo">
-                                                        <rect key="frame" x="15" y="12" width="69" height="14"/>
+                                                        <rect key="frame" x="15" y="11.5" width="69" height="15"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                                         <color key="textColor" red="0.32549019607843138" green="0.38431372549019605" blue="0.48627450980392156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -295,13 +295,13 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="55.5" height="38"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upright Posture" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ps2-Hr-trG">
-                                                                <rect key="frame" x="-14.5" y="2" width="84.5" height="14"/>
+                                                                <rect key="frame" x="-17" y="2" width="89.5" height="15"/>
                                                                 <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                                                 <color key="textColor" red="0.46274509803921571" green="0.52549019607843139" blue="0.2627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="66%(1000 of 1500 sec)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UwL-YH-5Mu">
-                                                                <rect key="frame" x="-34.5" y="22" width="124.5" height="14"/>
+                                                                <rect key="frame" x="-34.5" y="21" width="124" height="15"/>
                                                                 <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                                                 <color key="textColor" red="0.35686274509803922" green="0.72941176470588232" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -330,13 +330,13 @@
                                                         <rect key="frame" x="58.5" y="0.0" width="55" height="38"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slouches" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFp-37-eIU">
-                                                                <rect key="frame" x="2.5" y="2" width="50" height="14"/>
+                                                                <rect key="frame" x="2.5" y="2" width="50" height="15"/>
                                                                 <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                                                 <color key="textColor" red="0.46274509800000002" green="0.52549019610000003" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhO-KL-f17">
-                                                                <rect key="frame" x="24" y="22" width="7" height="14"/>
+                                                                <rect key="frame" x="24" y="21" width="7" height="15"/>
                                                                 <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                                                 <color key="textColor" red="0.35686274509999999" green="0.72941176470000002" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -367,7 +367,7 @@
                                                 <rect key="frame" x="0.0" y="40" width="113.5" height="38"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posture Sensitivity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ehM-tD-BGp">
-                                                        <rect key="frame" x="15" y="12" width="68.5" height="14"/>
+                                                        <rect key="frame" x="15" y="11.5" width="68.5" height="15"/>
                                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="12"/>
                                                         <color key="textColor" red="0.46274509800000002" green="0.52549019610000003" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -410,7 +410,7 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap here to hide" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fad-3n-0er">
-                                        <rect key="frame" x="143.5" y="72" width="72" height="12"/>
+                                        <rect key="frame" x="141" y="71.5" width="77" height="12.5"/>
                                         <fontDescription key="fontDescription" name="Quicksand-Medium" family="Quicksand" pointSize="10"/>
                                         <color key="textColor" red="0.98431372549019602" green="0.36862745098039218" blue="0.45882352941176469" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -453,7 +453,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="gFN-pT-Jd9">
-                                <rect key="frame" x="71" y="305.5" width="233" height="56"/>
+                                <rect key="frame" x="35.5" y="305.5" width="304" height="56"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="H9t-ii-YIh"/>
@@ -536,7 +536,6 @@
     </scenes>
     <resources>
         <image name="button-green-lg" width="304" height="55"/>
-        <image name="button-green-sm" width="107" height="30"/>
         <image name="ic-back-white" width="24.5" height="17"/>
         <image name="ic-help" width="28" height="32"/>
         <image name="ic-track" width="23" height="24"/>

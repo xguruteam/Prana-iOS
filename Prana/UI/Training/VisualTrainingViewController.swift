@@ -360,7 +360,7 @@ class VisualTrainingViewController: SuperViewController {
                 self.showHideStartButton()
             }
         }
-        self.btnUpright.setTitle("SET UPRIGHT ✅", for: .normal)
+//        self.btnUpright.setTitle("SET UPRIGHT ✅", for: .normal)
     }
     
     func showHideControls() {

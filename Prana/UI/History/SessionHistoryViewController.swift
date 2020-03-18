@@ -149,7 +149,7 @@ class SessionHistoryViewController: SuperViewController {
             if session.kind == 0 || session.kind == 1 {
                 breathTime += session.duration
                 let sum = session.sumBreaths()
-                mindfulTime += sum.3
+//                mindfulTime += sum.3
                 rrSum += sum.1 * Double(session.duration)
                 mindfulCount += sum.2
                 breathCount += sum.0
@@ -175,6 +175,7 @@ class SessionHistoryViewController: SuperViewController {
         if breathCount > 0 {
             mindfulPercent = getPercent(mindfulCount, breathCount)
         }
+        mindfulTime = breathTime * mindfulCount / breathCount
         var uprightPercent: Float = 0
         if (postureTime > 0) {
             uprightPercent = getPercent(uprightTime, postureTime)

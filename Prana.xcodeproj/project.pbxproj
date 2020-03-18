@@ -41,6 +41,7 @@
 		AA7FE2D82227213F0092E8A6 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7FE2D72227213F0092E8A6 /* SignupViewController.swift */; };
 		CA01754B228C483C0085455F /* BackgroundTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA01754A228C483C0085455F /* BackgroundTaskManager.swift */; };
 		CA0D604A22BC4B270057DCF7 /* HelpBodyMeasurementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0D604922BC4B270057DCF7 /* HelpBodyMeasurementsViewController.swift */; };
+		CA30C96E2421EC5C003960C2 /* SetUprightButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA30C96D2421EC5C003960C2 /* SetUprightButton.swift */; };
 		CA3C78B623CA8A2F0091121B /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3C78B523CA8A2F0091121B /* TestViewController.swift */; };
 		CA46D27423B29B6A004FBD7A /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA46D27323B29B6A004FBD7A /* RepeatingTimer.swift */; };
 		CA48E58822664A5B002CFA19 /* LiveFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48E58722664A5B002CFA19 /* LiveFeedViewController.swift */; };
@@ -236,6 +237,7 @@
 		AF7503FA2C2D971486D6AB1B /* Pods-Prana.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Prana.release.xcconfig"; path = "Pods/Target Support Files/Pods-Prana/Pods-Prana.release.xcconfig"; sourceTree = "<group>"; };
 		CA01754A228C483C0085455F /* BackgroundTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTaskManager.swift; sourceTree = "<group>"; };
 		CA0D604922BC4B270057DCF7 /* HelpBodyMeasurementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpBodyMeasurementsViewController.swift; sourceTree = "<group>"; };
+		CA30C96D2421EC5C003960C2 /* SetUprightButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUprightButton.swift; sourceTree = "<group>"; };
 		CA3C78B523CA8A2F0091121B /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		CA46D27323B29B6A004FBD7A /* RepeatingTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatingTimer.swift; sourceTree = "<group>"; };
 		CA48E58722664A5B002CFA19 /* LiveFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveFeedViewController.swift; sourceTree = "<group>"; };
@@ -735,6 +737,7 @@
 				CAA626BB229717D50036FC31 /* BatteryStateView.xib */,
 				64CB95EF23B9033D009CA4F5 /* OvalButton.swift */,
 				64CB95F123B908DF009CA4F5 /* RadioGroupButton.swift */,
+				CA30C96D2421EC5C003960C2 /* SetUprightButton.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -1130,6 +1133,7 @@
 				CAADAFAF22947D5100518444 /* SessionSettings.swift in Sources */,
 				D7BA34A32256FBFE00B4689E /* LiveGraphViewController.swift in Sources */,
 				CA603B7A228053860019A648 /* SessionStartStopCell.swift in Sources */,
+				CA30C96E2421EC5C003960C2 /* SetUprightButton.swift in Sources */,
 				CA97DB112229893F002C5592 /* Constants.swift in Sources */,
 				64AE573423C6524A00387D4F /* UIFont+CustomFont.swift in Sources */,
 				CA5B1F2C2371643F006D3760 /* PostureBar2.swift in Sources */,
