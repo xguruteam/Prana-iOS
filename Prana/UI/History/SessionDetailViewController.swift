@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MKProgress
 
 class SessionDetailViewController: SuperViewController {
     
@@ -410,6 +411,14 @@ class SessionDetailViewController: SuperViewController {
         postureScroll.delegate = self
         
         renderSessionData()
+        
+        guard isFirstLoadingSession else {
+            return
+        }
+        MKProgress.show()
+        dataController.sync { (success) in
+            MKProgress.hide()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -443,6 +452,8 @@ class SessionDetailViewController: SuperViewController {
     
     var eiPages: CGFloat = 0
     var rrPages: CGFloat = 0
+    
+    var isFirstLoadingSession = false
     
     func renderSessionData() {
         if type == .session {

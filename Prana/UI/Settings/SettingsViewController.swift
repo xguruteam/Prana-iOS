@@ -281,12 +281,9 @@ class SettingsViewController: SuperViewController {
     }
     
     @objc func onLogout() {
-        let alert = UIAlertController(style: .alert, title: "Warning", message: "Are you sure you are going to log out.")
-        alert.addAction(title: "Cancel", style: .cancel) { (_) in
-            
-        }
         
-        alert.addAction(title: "Ok", style: .destructive) { [unowned self] (_) in
+        
+        func logout() {
             UserDefaults.standard.removeObject(forKey: KEY_TOKEN)
             UserDefaults.standard.removeObject(forKey: KEY_EXPIREAT)
             UserDefaults.standard.removeObject(forKey: KEY_REMEMBERME)
@@ -302,6 +299,20 @@ class SettingsViewController: SuperViewController {
             }
             
             self.dismiss(animated: true, completion: nil)
+        }
+        
+        guard dataController.numberOfNotSyncedLocalDB > 0 else {
+            logout()
+            return
+        }
+        
+        let alert = UIAlertController(style: .alert, title: "Warning", message: "Are you sure you are going to log out. The session data not synchronized will be lost.")
+        alert.addAction(title: "Cancel", style: .cancel) { (_) in
+            
+        }
+        
+        alert.addAction(title: "Ok", style: .destructive) { [unowned self] (_) in
+            logout()
         }
         alert.show()
         

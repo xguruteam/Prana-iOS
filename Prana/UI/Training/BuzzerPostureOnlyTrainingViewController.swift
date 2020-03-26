@@ -366,6 +366,7 @@ class BuzzerPostureOnlyTrainingViewController: BaseBuzzerTrainingViewController 
                 let vc = getViewController(storyboard: "History", identifier: "SessionDetailViewController") as! SessionDetailViewController
                 vc.type = .session
                 vc.session = session
+                vc.isFirstLoadingSession = true
                 
                 vc.modalPresentationStyle = .fullScreen
                 self.present(vc, animated: true, completion: nil)

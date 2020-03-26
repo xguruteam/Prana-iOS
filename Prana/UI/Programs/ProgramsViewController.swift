@@ -200,6 +200,7 @@ class ProgramsViewController: UIViewController {
             let vc = storyboard.instantiateViewController(withIdentifier: "SessionDetailViewController") as! SessionDetailViewController
             vc.type = .session
             vc.session = lastSession
+            vc.isFirstLoadingSession = true
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100), execute: {
                 vc.modalPresentationStyle = .fullScreen
                 self.present(vc, animated: true, completion: nil)

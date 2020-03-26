@@ -35,6 +35,14 @@ class TapBarViewController: UITabBarController {
         insertCustomTabBar()
         
         buttonClicked(btnTraining)
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        appDelegate.dataController.sync { (success) in
+            print(success)
+        }
     }
     
     func initView() {

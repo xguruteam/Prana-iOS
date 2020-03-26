@@ -278,6 +278,7 @@ class PassiveTrackingViewController: SuperViewController {
             let vc = getViewController(storyboard: "History", identifier: "SessionDetailViewController") as! SessionDetailViewController
             vc.type = .passive
             vc.passive = session
+            vc.isFirstLoadingSession = true
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true, completion: nil)
         }

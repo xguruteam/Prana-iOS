@@ -13,6 +13,7 @@ import SwiftyJSON
 import Firebase
 import Crashlytics
 import Fabric
+import Alamofire
 
 typealias SettingsManagedObject = NSManagedObject
 typealias SessionManagedObject = NSManagedObject
@@ -799,5 +800,150 @@ class DataController {
             print(error)
         }
     }
+    
+    typealias SyncCompletion = (_ success: Bool) -> ()
+    
+    var numberOfNotSyncedLocalDB: Int {
+        let localdb = fetchLocalSessions()
+        let sessions = localdb.filter({ (object) -> Bool in
+            object.flag
+        })
+        return sessions.count
+    }
+    
+    func sync(_ completion: @escaping SyncCompletion) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let localdb = fetchLocalSessions()
+        let sessions = localdb.filter({ (object) -> Bool in
+            object.flag
+        }).map {
+            [
+                "uuid": $0.id as Any,
+                "type": $0.type as Any,
+                "time": dateFormatter.string(from: $0.time!) as Any,
+                "data": $0.data as Any
+            ]
+        }
+        
+        let param = [
+            "sessions": sessions
+        ]
+        
+        let accessToken = UserDefaults.standard.string(forKey: KEY_TOKEN)
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(accessToken!)"
+        ]
+        
+        APIClient.sessionManager.request(APIClient.BaseURL + "session/upload", method: .post, parameters: param, encoding: JSONEncoding.default, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseJSON { [unowned self] (response) in
+                self.updateLocalSessions(sessions: localdb, completion)
+        }
+    }
+    
+    func fetchRemoteSessions(_ completion: @escaping SyncCompletion) {
+        let param = [
+            "uuids": []
+        ]
+        
+        APIClient.sessionManager.request(APIClient.BaseURL + "session/fetch", method: .post, parameters: param, encoding: JSONEncoding.default, headers: nil)
+            .validate(statusCode: 200..<300)
+            .responseJSON {(response) in
+                switch response.result {
+                case .success:
+                    if let data = response.value as? [String: Any] {
+                        print(data["sessions"])
+                        completion(true)
+                    }
+                    break
+                case .failure:
+                    break
+                }
+                completion(false)
+        }
+    }
+    
+    func fetchLocalSessions() -> [LocalDB] {
+        guard let managedContext = managedObjectContext else { return [] }
+        let fetchRequest = NSFetchRequest<LocalDB>(entityName: "LocalDB")
+        
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            return result
+            
+        } catch let error as NSError {
+            NSLog("Could not fetch readings. \(error), \(error.userInfo)")
+        }
+        
+        return []
+    }
+    
+    func updateLocalSessions(sessions: [LocalDB], _ completion: @escaping SyncCompletion) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+        var success = false
+        defer {
+            completion(success)
+        }
+        let param = [
+            "uuids": []
+        ]
+        
+        let accessToken = UserDefaults.standard.string(forKey: KEY_TOKEN)
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(accessToken!)"
+        ]
+        
+        APIClient.sessionManager.request(APIClient.BaseURL + "session/fetch", method: .post, parameters: param, encoding: JSONEncoding.default, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseJSON { [unowned self] (response) in
+                switch response.result {
+                case .success:
+                    guard let data = response.value as? [[String: Any]] else {
+                        break
+                    }
+                    guard let managedContext = self.managedObjectContext else { return }
+                    do {
+                        
+                        data.forEach({ (remote) in
+                            let _localIndex = sessions.firstIndex(where: { (local) -> Bool in
+                                local.id == remote["uuid"] as? String
+                            })
+                            
+                            guard let localIndex = _localIndex else {
+                                let sessionEntity = NSEntityDescription.entity(forEntityName: "LocalDB", in: managedContext)!
+                                
+                                let result = LocalDB(entity: sessionEntity, insertInto: managedContext)
+                                result.id = remote["uuid"] as? String
+                                result.type = remote["type"] as? String
+                                result.time = dateFormatter.date(from: remote["time"] as? String ?? "")
+                                result.data = remote["data"] as? String
+                                result.flag = false
+                                return
+                            }
+                            
+                            sessions[localIndex].flag = false
+                        })
+                        
+                        try managedContext.save()
+                        success = true
+                    }
+                    catch {
+                        Crashlytics.sharedInstance().recordError(error)
+                        print(error)
+                    }
+                    
+                    return
+                case .failure:
+                    break
+                }
+        }
+    }
+    
+    
     
 }
