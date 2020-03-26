@@ -251,6 +251,7 @@ class VisualTrainingViewController: SuperViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        btnUpright.isHighlighted = false
     }
     
     override func viewDidDisappear(_ animated: Bool) {
