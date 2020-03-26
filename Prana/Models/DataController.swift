@@ -843,28 +843,6 @@ class DataController {
         }
     }
     
-    func fetchRemoteSessions(_ completion: @escaping SyncCompletion) {
-        let param = [
-            "uuids": []
-        ]
-        
-        APIClient.sessionManager.request(APIClient.BaseURL + "session/fetch", method: .post, parameters: param, encoding: JSONEncoding.default, headers: nil)
-            .validate(statusCode: 200..<300)
-            .responseJSON {(response) in
-                switch response.result {
-                case .success:
-                    if let data = response.value as? [String: Any] {
-                        print(data["sessions"])
-                        completion(true)
-                    }
-                    break
-                case .failure:
-                    break
-                }
-                completion(false)
-        }
-    }
-    
     func fetchLocalSessions() -> [LocalDB] {
         guard let managedContext = managedObjectContext else { return [] }
         let fetchRequest = NSFetchRequest<LocalDB>(entityName: "LocalDB")
