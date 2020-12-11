@@ -52,7 +52,6 @@
             layer.borderColor = borderColor?.cgColor
             layer.borderWidth = borderWidth
             layer.shadowRadius = shadowRadius
-            layer.shadowColor = shadowColor?.cgColor
             layer.shadowOpacity = shadowOpacity
         }
         

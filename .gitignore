@@ -1,3 +1,4 @@
 *.xcuserstate
 *.xcbkptlist
 /Prana.xcworkspace/xcuserdata/guru.xcuserdatad/IDEFindNavigatorScopes.plist
+*.DS_Store
